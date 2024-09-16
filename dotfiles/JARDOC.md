@@ -701,6 +701,8 @@ sudo chown root:docker /var/run/docker.sock
 
 ### Setup engine-room
 
+`unzip` is needed by `vim`.
+
 ```bash
-sudo apt-get install -y net-tools zsh
+sudo apt-get install -y net-tools unzip zsh
 ```
