@@ -23,6 +23,7 @@ return {
         opts = {
             filetypes = {
                 gitcommit = true,
+                markdown = true,
                 yaml = true,
                 "*"
             },
