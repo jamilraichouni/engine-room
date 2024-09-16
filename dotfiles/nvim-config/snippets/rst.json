@@ -1,0 +1,921 @@
+{
+    "Docstring (class)": {
+        "body": [
+            "\"\"\"${1:SHORT_SUMMARY_ONE_LINER}.",
+            "",
+            ":platform: ${2:Windows, Unix, Mac, IRIX}",
+            "",
+            "${3:DEPRECATION_WARNING}",
+            "",
+            "EXTENDED_SUMMARY",
+            "",
+            "Parameters",
+            "----------",
+            "PARAMETER_NAME : optional",
+            "    DESCRIPTION",
+            "",
+            "",
+            "Attributes",
+            "----------",
+            "ATTRIBUTE_NAME : TYPE",
+            "    DESCRIPTION",
+            "",
+            "Raises",
+            "------",
+            "EXCEPTION_NAME",
+            "    When CONDITION",
+            "",
+            "Notes",
+            "-----",
+            "ADDITIONAL INFORMATION ABOUT THE CODE",
+            "",
+            "Examples",
+            "--------",
+            "AN OPTIONAL SECTION FOR EXAMPLES, USING THE DOCTEST FORMAT.",
+            "",
+            "\"\"\"",
+            ""
+        ],
+        "description": "docstring for a class",
+        "prefix": [
+            "docstring (class)",
+            "class"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "Docstring (function or method)": {
+        "body": [
+            "\"\"\"${1:SHORT_SUMMARY_ONE_LINER}.",
+            "",
+            ":platform: ${2:Windows, Unix, Mac, IRIX}",
+            "",
+            "${3:DEPRECATION_WARNING}",
+            "",
+            "EXTENDED_SUMMARY",
+            "",
+            "Parameters",
+            "----------",
+            "PARAMETER_NAME : optional",
+            "    DESCRIPTION",
+            "",
+            "Returns",
+            "-------",
+            "TYPE",
+            "    DESCRIPTION",
+            "",
+            "Yields",
+            "------",
+            "TYPE",
+            "    DESCRIPTION",
+            "",
+            "Raises",
+            "------",
+            "EXCEPTION_NAME",
+            "    When CONDITION",
+            "",
+            "Notes",
+            "-----",
+            "ADDITIONAL INFORMATION ABOUT THE CODE",
+            "",
+            "Examples",
+            "--------",
+            "AN OPTIONAL SECTION FOR EXAMPLES, USING THE DOCTEST FORMAT.",
+            "",
+            "\"\"\"",
+            ""
+        ],
+        "description": "docstring for a function/ method",
+        "prefix": "docstring (function/ method)",
+        "scope": "python,restructuredtext"
+    },
+    "Docstring Examples section": {
+        "body": [
+            "Examples",
+            "--------",
+            ">>> ${1:CALL}",
+            "${2:STDOUT}"
+        ],
+        "description": "docstring section \"Examples\"",
+        "prefix": [
+            "doc (Examples)",
+            "examples"
+        ],
+        "scope": "python"
+    },
+    "Docstring Parameters section": {
+        "body": [
+            "Parameters",
+            "----------",
+            "${1:PARAMETER_NAME}${2: : optional}",
+            "    ${3:DESCRIPTION}"
+        ],
+        "description": "docstring section \"Parameters\"",
+        "prefix": [
+            "doc (Parameters)",
+            "parameters"
+        ],
+        "scope": "python"
+    },
+    "Docstring Raises": {
+        "body": [
+            "Raises",
+            "------",
+            "${1:EXCEPTION_NAME}",
+            "    When ${2:CONDITION}"
+        ],
+        "description": "Docstring \"Raises\" section",
+        "prefix": [
+            "doc (Raises)",
+            "raises"
+        ],
+        "scope": "python"
+    },
+    "Docstring Returns": {
+        "body": [
+            "Returns",
+            "-------",
+            "${1:TYPE}",
+            "    ${2:DESCRIPTION}"
+        ],
+        "description": "Docstring \"Returns\" section",
+        "prefix": [
+            "doc (Returns)",
+            "returns"
+        ],
+        "scope": "python"
+    },
+    "Docstring Yields": {
+        "body": [
+            "Yields",
+            "------",
+            "${1:TYPE}",
+            "    ${2:DESCRIPTION}"
+        ],
+        "description": "Docstring \"Returns\" section",
+        "prefix": [
+            "doc (Yields)",
+            "yields"
+        ],
+        "scope": "python"
+    },
+    "Docstring class reference": {
+        "body": [
+            ":class:`${1:ABS_IMPORT_PATH}`"
+        ],
+        "description": "docstring class reference",
+        "prefix": [
+            "doc (class)",
+            "class"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "Docstring constant reference": {
+        "body": [
+            ":const:`${1:ABS_IMPORT_PATH}`"
+        ],
+        "description": "docstring reference to a constant",
+        "prefix": [
+            "doc (constant)",
+            "const"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "Docstring deprecated": {
+        "body": [
+            ".. deprecated:: ${1:VERSION_WHEN_DEPRECATION_STARTS}",
+            "       `${2:obj_old}` will be removed in ${3:PROJECT_NAME} ${4:VERSION}, it is replaced by",
+            "       `${5:obj_new}` because ${6:REASON}"
+        ],
+        "description": "docstring deprecation warning",
+        "prefix": [
+            "doc (deprecated)",
+            "deprecated"
+        ],
+        "scope": "python"
+    },
+    "Docstring exception": {
+        "body": [
+            "${1:EXCEPTION_NAME}",
+            "    When ${2:CONDITION}."
+        ],
+        "description": "docstring exception",
+        "prefix": [
+            "doc (exception)",
+            "exception"
+        ],
+        "scope": "python"
+    },
+    "Docstring function reference": {
+        "body": [
+            ":func:`${1:ABS_IMPORT_PATH}`"
+        ],
+        "description": "docstring reference to a function",
+        "prefix": [
+            "doc (function)",
+            "function"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "Docstring method reference": {
+        "body": [
+            ":meth:`${1:ABS_IMPORT_PATH}`"
+        ],
+        "description": "docstring reference to a class method",
+        "prefix": [
+            "doc (method)",
+            "method"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "Docstring module reference": {
+        "body": [
+            ":mod:`${1:ABS_IMPORT_PATH}`"
+        ],
+        "description": "docstring reference to a module",
+        "prefix": [
+            "doc (module)",
+            "module"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "Docstring optional": {
+        "body": [
+            "optional, the default is $1"
+        ],
+        "description": "docstring parameter",
+        "prefix": [
+            "doc (optional)",
+            "optional (doc)"
+        ],
+        "scope": "python"
+    },
+    "Docstring parameter": {
+        "body": [
+            "${1:PARAMETER_NAME}${2: : optional}",
+            "    ${3:DESCRIPTION} ${4:(the default is XXX, which implies that ...)}"
+        ],
+        "description": "docstring parameter",
+        "prefix": [
+            "doc (parameter)",
+            "parameter"
+        ],
+        "scope": "python"
+    },
+    "Docstring platform": {
+        "body": [
+            ":platform: ${1:Windows, Unix, Mac, IRIX}"
+        ],
+        "description": "docstring platform",
+        "prefix": [
+            "doc (platform)",
+            "platform"
+        ],
+        "scope": "python"
+    },
+    "Docstring version changed": {
+        "body": [
+            ".. versionchanged:: ${1:VERSION}",
+            "    ${2:DOCUMENTATION}"
+        ],
+        "description": "Changed in version ... docstring",
+        "prefix": [
+            "doc (versionchanged)",
+            "versionchanged"
+        ],
+        "scope": "python"
+    },
+    "PrEvent": {
+        "body": [
+            "PrEvent"
+        ],
+        "description": "PrEvent",
+        "prefix": "PrEvent",
+        "scope": "python,restructuredtext"
+    },
+    "reST Image": {
+        "body": [
+            ".. image:: ${1:RELATIVE_FILE_PATH}",
+            "   :alt: ${1:RELATIVE_FILE_PATH}",
+            "   :scale: ${2:90} %"
+        ],
+        "description": "reST image",
+        "prefix": [
+            "image (reST)",
+            "reST (image)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST Python package page": {
+        "body": [
+            ":orphan:",
+            "",
+            ".. _package_${1:PACKAGE_NAME}:",
+            "",
+            "############################$2",
+            "``${1:PACKAGE_NAME}``",
+            "############################$2",
+            "",
+            ".. autosummary::",
+            "",
+            "    ${1:PACKAGE_NAME}",
+            "    ${1:PACKAGE_NAME}.${3:MODULE_NAME}",
+            "",
+            "",
+            "***********************************",
+            "``${3:MODULE_NAME}``",
+            "***********************************",
+            "",
+            ".. automodule:: ${3:MODULE_NAME}",
+            "   :members:",
+            "   :member-order: bysource",
+            "",
+            ".. codeauthor:: Jamil Andr\u00e9 RAICHOUNI <raichouni@gmail.com>",
+            ""
+        ],
+        "description": "Page for Python top level package API reference",
+        "prefix": [
+            "package page (reST)",
+            "reST (package page)"
+        ],
+        "scope": "restructuredtext"
+    },
+    "reST TrueTyped Text": {
+        "body": [
+            "``$1``$2"
+        ],
+        "description": "True typed text literal",
+        "prefix": [
+            "TrueTyped (reST)",
+            "reST (TrueTyped)",
+            "tt (reST)",
+            "reST (tt)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST author": {
+        "body": [
+            ".. sectionauthor:: Jamil Andr\u00e9 RAICHOUNI <raichouni@gmail.com>"
+        ],
+        "description": "section author",
+        "prefix": [
+            "author (reST)",
+            "section author (reST)",
+            "reST (author)"
+        ],
+        "scope": "restructuredtext"
+    },
+    "reST automodule": {
+        "body": [
+            "***********************************",
+            "``${2:MODULE_BASE_NAME}``",
+            "***********************************",
+            ".. automodule:: ${1:MODULE_IMPORT_PATH}",
+            "   :members:",
+            "   :member-order: bysource",
+            "   ${3::inherited-members:}",
+            "   ${4::special-members:}",
+            "   ${5::private-members:}"
+        ],
+        "description": "Directive \"automodule\" from sphinx.ext.autodoc",
+        "prefix": [
+            "automodule (reST)",
+            "module (reST)",
+            "reST (automodule)"
+        ],
+        "scope": "restructuredtext"
+    },
+    "reST code-block (bash)": {
+        "body": [
+            ".. code-block:: bash",
+            "",
+            "    $2"
+        ],
+        "description": "reST code-block (bash)",
+        "prefix": [
+            "code-block bash (reST)",
+            "bash (reST code-block)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST code-block (batch)": {
+        "body": [
+            ".. code-block:: batch",
+            "",
+            "    $2"
+        ],
+        "description": "reST code-block (MS-DOS Batch)",
+        "prefix": [
+            "code-block batch (reST)",
+            "batch (reST code-block)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST code-block (html)": {
+        "body": [
+            ".. code-block:: html",
+            "",
+            "    $2"
+        ],
+        "description": "reST code-block (html)",
+        "prefix": [
+            "code-block html (reST)",
+            "html (reST code-block)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST code-block (html+ng2)": {
+        "body": [
+            ".. code-block:: html+ng2",
+            "",
+            "    $2"
+        ],
+        "description": "reST code-block (html+ng2)",
+        "prefix": [
+            "code-block html+ng2 (reST)",
+            "html+ng2 (reST code-block)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST code-block (json)": {
+        "body": [
+            ".. code-block:: json",
+            "",
+            "    $2"
+        ],
+        "description": "reST code-block (json)",
+        "prefix": [
+            "code-block json (reST)",
+            "json (reST code-block)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST code-block (lang selection)": {
+        "body": [
+            ".. code-block:: ${1|bash,batch,c,css,html,html+ng2,javascript,json,python,rst,scss,text,typescript,yaml|}",
+            "",
+            "    $2"
+        ],
+        "description": "reST code-block (drop down)",
+        "prefix": [
+            "code-block (reST)",
+            "reST (code-block)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST code-block (python)": {
+        "body": [
+            ".. code-block:: python",
+            "",
+            "    $2"
+        ],
+        "description": "reST code-block (Python)",
+        "prefix": "code-block python (reST)",
+        "scope": "python,restructuredtext"
+    },
+    "reST code-block (text)": {
+        "body": [
+            ".. code-block:: text",
+            "",
+            "    $2"
+        ],
+        "description": "reST code-block (plain text)",
+        "prefix": "code-block text (reST)",
+        "scope": "python,restructuredtext"
+    },
+    "reST code-block (typescript)": {
+        "body": [
+            ".. code-block:: typescript",
+            "",
+            "    $2"
+        ],
+        "description": "reST code-block (typescript)",
+        "prefix": [
+            "code-block typescript (reST)",
+            "typescript (reST code-block)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST codeauthor": {
+        "body": [
+            ".. codeauthor:: Jamil Andr\u00e9 RAICHOUNI <raichouni@gmail.com>"
+        ],
+        "description": "code author",
+        "prefix": [
+            "codeauthor (reST)",
+            "reST (codeauthor)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST download": {
+        "body": [
+            ":download:`${2:LABEL} <${1:FILEPATH}>`"
+        ],
+        "description": "reST download link to ressource",
+        "prefix": [
+            "download (reST)",
+            "reST (download)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST h1": {
+        "body": [
+            ".. index::",
+            "    single: ${1:H1_NAME}",
+            "",
+            ".. _${1:H1_NAME}:",
+            "",
+            "###################################${2}",
+            "${1:H1_NAME}",
+            "###################################${2}",
+            "",
+            "$3",
+            "",
+            ".. sectionauthor:: Jamil Andr\u00e9 RAICHOUNI <raichouni@gmail.com>"
+        ],
+        "description": "reST h1",
+        "prefix": [
+            "h1 (reST)",
+            "reST (h1)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST h2": {
+        "body": [
+            "***********************************${2}",
+            "${1:H2_NAME}",
+            "***********************************${2}",
+            "",
+            "$3"
+        ],
+        "description": "reST h2",
+        "prefix": [
+            "h2 (reST)",
+            "reST (h2)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST h3": {
+        "body": [
+            "${1:H3_NAME}",
+            "===================================${2}",
+            "",
+            "$3"
+        ],
+        "description": "reST h3",
+        "prefix": [
+            "h3 (reST)",
+            "reST (h3)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST h4": {
+        "body": [
+            "${1:H4_NAME}",
+            "-----------------------------------${2}",
+            "",
+            "$3"
+        ],
+        "description": "reST h4",
+        "prefix": [
+            "h4 (reST)",
+            "reST (h4)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST h5": {
+        "body": [
+            "${1:H5_NAME}",
+            "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^${2}",
+            "",
+            "$3"
+        ],
+        "description": "reST h5",
+        "prefix": [
+            "h5 (reST)",
+            "reST (h5)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST h6": {
+        "body": [
+            "${1:H6_NAME}",
+            "\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"${2}",
+            "",
+            "$3"
+        ],
+        "description": "reST h6",
+        "prefix": [
+            "h6 (reST)",
+            "reST (h6)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST index pair": {
+        "body": [
+            ".. index::",
+            "    pair: ${1:ENTRY_1}; ${2:ENTRY_2}"
+        ],
+        "description": "Index (pair)",
+        "prefix": [
+            "index (pair)",
+            "reST (index pair)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST index single": {
+        "body": [
+            ".. index::",
+            "    single: ${1:ENTRY_1}"
+        ],
+        "description": "Index (single)",
+        "prefix": [
+            "index (single)",
+            "reST (index single)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST keyboard key": {
+        "body": [
+            ":kbd:`${1:ctrl+k}`"
+        ],
+        "description": "To represent keyboard shortcuts",
+        "prefix": [
+            "keyboard key (reST)",
+            "reST (keyboard key)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST label": {
+        "body": [
+            ".. _${1:LABEL}:"
+        ],
+        "description": "reST label (anchor) for references",
+        "prefix": [
+            "label (reST)",
+            "reST (label)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST link with label": {
+        "body": [
+            "`${2:LABEL} <${1:URL}>`_"
+        ],
+        "description": "Hyperlink (labelled)",
+        "prefix": [
+            "link (reST)",
+            "reST (link)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST link without label": {
+        "body": [
+            "`<${1:URL}>`_"
+        ],
+        "description": "Hyperlink (not labelled)",
+        "prefix": [
+            "link (reST)",
+            "reST (link)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST literal include": {
+        "body": [
+            ".. literalinclude:: ${1:FILE_PATH}",
+            "    ${2::linenos:}",
+            "    :language: ${3|bash,batch,c,css,html,html+ng2,javascript,json,python,rst,scss,text,typescript,yaml|}"
+        ],
+        "description": "reST literal include (list external file contents)",
+        "prefix": [
+            "literal include (reST)",
+            "reST (literal include)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST math block": {
+        "body": [
+            ".. math::",
+            "",
+            "    ${1:LaTeX code}"
+        ],
+        "description": "LaTeX math block",
+        "prefix": [
+            "math block (reST)",
+            "reST (math block)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST math line": {
+        "body": [
+            ":math:`${1:LaTeX code}`"
+        ],
+        "description": "LaTeX math (single line)",
+        "prefix": [
+            "math single line (reST)",
+            "reST (math single line)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST note (block)": {
+        "body": [
+            ".. note::",
+            "",
+            "    $1"
+        ],
+        "description": "reST note (block)",
+        "prefix": [
+            "note (reST)",
+            "reST (note)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST note (one liner)": {
+        "body": [
+            ".. note:: $1"
+        ],
+        "description": "reST note (one liner)",
+        "prefix": [
+            "note (reST)",
+            "reST (note)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST orphan": {
+        "body": [
+            ":orphan:",
+            "",
+            "$1"
+        ],
+        "description": "reST orphan for .rst files not in any toc tree",
+        "prefix": [
+            "orphan (reST)",
+            "reST (orphan)"
+        ],
+        "scope": "restructuredtext"
+    },
+    "reST raw html": {
+        "body": [
+            ".. raw:: html",
+            "",
+            "    $1"
+        ],
+        "description": "Insert raw HTML code",
+        "prefix": [
+            "raw html (reST)",
+            "reST (raw html)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST reference (labelled)": {
+        "body": [
+            ":ref:`${2:SHOWN_TITLE} <${1:REF_LABEL}>`"
+        ],
+        "description": "References (labelled)",
+        "prefix": [
+            "reference (reST)",
+            "reST (reference)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST reference (not labelled)": {
+        "body": [
+            ":ref:`${1:REF_LABEL}`"
+        ],
+        "description": "Reference (not labelled)",
+        "prefix": [
+            "reference (reST)",
+            "reST (reference)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST see also (block)": {
+        "body": [
+            ".. seealso::",
+            "",
+            "    $1"
+        ],
+        "description": "reST see also (block)",
+        "prefix": [
+            "seealso (reST)",
+            "reST (seealso)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST see also (one liner)": {
+        "body": [
+            ".. seealso:: $1"
+        ],
+        "description": "reST see also (one liner)",
+        "prefix": [
+            "seealso (reST)",
+            "reST (seealso)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST table 2 cols": {
+        "body": [
+            "+-------------------------------+----------------------------------+",
+            "| $1                              |                                  |",
+            "+===============================+==================================+",
+            "|                               |                                  |",
+            "+-------------------------------+----------------------------------+",
+            "|                               |                                  |",
+            "+-------------------------------+----------------------------------+"
+        ],
+        "description": "reST table (2 columns)",
+        "prefix": [
+            "table 2 cols (reST)",
+            "reST (table 2 cols)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST table 3 cols": {
+        "body": [
+            "+-------------------------------+----------------------------------+------------+",
+            "| $1                              |                                  |            |",
+            "+===============================+==================================+============+",
+            "|                               |                                  |            |",
+            "+-------------------------------+----------------------------------+------------+",
+            "|                               |                                  |            |",
+            "+-------------------------------+----------------------------------+------------+"
+        ],
+        "description": "reST table (3 columns)",
+        "prefix": [
+            "table 3 cols (reST)",
+            "reST (table 3 cols)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST table of contents": {
+        "body": [
+            ".. toctree::",
+            "    :maxdepth: 1",
+            "",
+            "    ${1:PATH_TO_A_RST_FILE}"
+        ],
+        "description": "reST table of contents",
+        "prefix": [
+            "toc (reST)",
+            "reST (toc)"
+        ],
+        "scope": "restructuredtext"
+    },
+    "reST todo (block)": {
+        "body": [
+            ".. todo::",
+            "",
+            "    ${1:TODO_TEXT}"
+        ],
+        "description": "reST/ docstring todo entry in a block",
+        "prefix": [
+            "todo block (reST)",
+            "reST (todo block)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST todo (list)": {
+        "body": [
+            ".. todolist::"
+        ],
+        "description": "reST todo list directive replaced by a list of all todo directives in the docs",
+        "prefix": [
+            "todo list (reST)",
+            "reST (todo list)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST todo (one liner)": {
+        "body": [
+            ".. todo:: ${1:TODO_TEXT}"
+        ],
+        "description": "reST/ docstring todo entry in one line",
+        "prefix": [
+            "todo one liner (reST)",
+            "reST (todo one liner)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST topic": {
+        "body": [
+            ".. topic:: ${1:TITLE}",
+            "",
+            "    ${2:CONTENT}"
+        ],
+        "description": "reST topic block",
+        "prefix": [
+            "topic (reST)",
+            "reST (topic)"
+        ],
+        "scope": "python,restructuredtext"
+    },
+    "reST warning": {
+        "body": [
+            ".. warning:: $1"
+        ],
+        "description": "reST warning block",
+        "prefix": [
+            "warning (reST)",
+            "reST (warning)"
+        ],
+        "scope": "python,restructuredtext"
+    }
+}

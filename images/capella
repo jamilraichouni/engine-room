@@ -1,0 +1,141 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+LABEL maintainer="Jamil André RAICHOUNI <jamil.raichouni@deutschebahn.com>"
+ARG CAPELLA_VERSION
+ARG JDK_FILE
+
+# remove proxy settings from base image {{{
+ENV DB_DEFAULT_PROXY= db_default_proxy= \
+  DB_DEFAULT_NO_PROXY= db_default_no_proxy= \
+  HTTP_PROXY= http_proxy= HTTPS_PROXY= https_proxy= \
+  NO_PROXY= no_proxy=
+# }}}
+
+USER root
+
+RUN mkdir -p /home/techuser/.cache/gitstatus && \
+  chown -R techuser:techuser /home/techuser/.cache/gitstatus
+
+# JDK {{{
+RUN mkdir -p /usr/lib/jvm
+ADD build/${JDK_FILE}/ /usr/lib/jvm
+RUN mv /usr/lib/jvm/jdk-* /usr/lib/jvm/jdk && \
+  if [ -e /usr/bin/java ]; then mv /usr/bin/java /usr/bin/java.system; fi
+# }}}
+
+USER root
+RUN mkdir -p /root/.config /home/techuser/.config /mnt/volume && \
+  chown -R techuser:techuser /mnt/volume
+
+# system pkgs {{{
+RUN apt-get update && apt-get install -y \
+  # `build-essential` is needed for treesitter
+  build-essential \
+  file \
+  # fzf \
+  # `inotify-tools` comes with `inotifywait`
+  inotify-tools \
+  # `iputils-ping` comes with `ping`
+  iputils-ping \
+  # so that `icat` is available
+  kitty \
+  less \
+  locales \
+  maven \
+  # `net-tools` comes with `netstat`
+  net-tools \
+  openssh-client \
+  # `psmisc` comes with `killall`
+  psmisc \
+  ripgrep \
+  rsync \
+  tree \
+  yarn \
+  zsh
+# }}}
+
+# fzf {{{
+RUN curl -Lo /tmp/$(basename https://github.com/junegunn/fzf/releases/download/v0.55.0/fzf-0.55.0-linux_armv7.tar.gz) https://github.com/junegunn/fzf/releases/download/v0.55.0/fzf-0.55.0-linux_armv7.tar.gz && \
+  tar xvzf /tmp/fzf-*.tar.gz && \
+  mv fzf /usr/local/bin/fzf && \
+  rm /tmp/fzf-*.tar.gz
+# }}}
+
+# use zsh for RUN commands {{{
+SHELL ["/bin/zsh", "-c"]
+ENV SHELL=/bin/zsh
+RUN usermod --shell /bin/zsh root
+# }}}
+
+# rust, cargo {{{
+USER techuser
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+#}}}
+
+# terminal setup incl. powerlevel10k and gitstatusd {{{
+USER techuser
+ENV TERM=xterm-256color
+
+RUN zsh -c "$(curl -fsSL \
+  https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN git clone --depth=1 \
+  https://github.com/romkatv/powerlevel10k.git \
+  /home/techuser/.oh-my-zsh/custom/themes/powerlevel10k && \
+  wget https://github.com/romkatv/gitstatus/releases/download/v1.5.4/gitstatusd-linux-aarch64.tar.gz && \
+  tar -xvzf gitstatusd-*.tar.gz && \
+  rm gitstatusd-*.tar.gz && \
+  # mkdir -p /home/techuser/.cache/gitstatus && \
+  mv gitstatusd-* /home/techuser/.cache/gitstatus && \
+  wget https://github.com/romkatv/gitstatus/releases/download/v1.5.4/gitstatusd-linux-x86_64.tar.gz && \
+  tar -xvzf gitstatusd-*.tar.gz && \
+  rm gitstatusd-*.tar.gz && \
+  # mkdir -p /home/techuser/.cache/gitstatus && \
+  mv gitstatusd-* /home/techuser/.cache/gitstatus && \
+  [[ -f /home/techuser/.zshrc ]] && \
+  mv /home/techuser/.zshrc /home/techuser/.zshrc.bak
+# }}}
+
+# install latest neovim {{{
+USER root
+RUN curl -Lo /tmp/nvim.tar.gz \
+  https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz && \
+  tar -xzf /tmp/nvim.tar.gz -C /tmp && \
+  mv /tmp/nvim-linux64 /opt/nvim && \
+  ln -s /opt/nvim/bin/nvim /usr/local/bin/nvim && \
+  rm /tmp/nvim.tar.gz
+# }}}
+
+# misc {{{
+RUN chown -R techuser:techuser /home/techuser && \
+  ln -s /opt/capella/capella /usr/local/bin
+# }}}
+
+USER techuser
+
+# nvm, node, npm, yarn {{{
+# https://github.com/nvm-sh/nvm/releases
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+RUN touch /home/techuser/.zshrc && \
+  zsh -c "source /home/techuser/.nvm/nvm.sh && nvm install --lts"
+
+# npm
+ENV NPM_DIR=/home/techuser/.local/share/npm
+RUN [[ -d ${NPM_DIR} ]] || mkdir -p ${NPM_DIR}
+
+# yarn
+RUN zsh -c "source /home/techuser/.nvm/nvm.sh && nvm use default && \
+  npm install -g --prefix ${NPM_DIR} yarn"
+# }}}
+
+# workspace setup {{{
+RUN mkdir -p /opt/bind/workspaces/capella_${CAPELLA_VERSION} && \
+  ln -s /opt/bind/workspaces/capella_${CAPELLA_VERSION} /home/techuser/workspace
+
+USER root
+
+# pip installs into /opt/.venv
+RUN pip install \
+  git+https://github.com/jamilraichouni/eclipse-plugin-builders.git \
+  PyYAML \
+  pynvim
+ENTRYPOINT ["python3", "/home/techuser/engine-room/entrypoint.py"]

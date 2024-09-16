@@ -1,0 +1,6 @@
+[commit]
+    gpgsign = true
+[user]
+    email = jamilraichouni@users.noreply.github.com
+    name = Jamil RAICHOUNI
+    signingkey = "58E302D60E2428127882E4505BA1D3E71970223A"

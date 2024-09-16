@@ -1,0 +1,2 @@
+FROM fedora:40
+LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"

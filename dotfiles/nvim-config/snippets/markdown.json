@@ -1,0 +1,113 @@
+{
+  "TODO": {
+    "prefix": "todo",
+    "body": [
+      "#### <font color='darkgreen'>TODO: $1</font>"
+    ],
+    "description": "TODO"
+  },
+  "anchor": {
+    "prefix": "anchor",
+    "body": [
+      "<a name='$1'></a>"
+    ],
+    "description": "Anchor"
+  },
+  "font_colored": {
+    "prefix": "font_colored",
+    "body": [
+      "<font color='$1'>$2</font>"
+    ],
+    "description": "Colored font"
+  },
+  "link": {
+    "prefix": "link",
+    "body": [
+      "<${1:URI}>"
+    ],
+    "description": "Raw link"
+  },
+  "link_named": {
+    "prefix": "link (named)",
+    "body": [
+      "[${2:LABEL}](${1:URI})"
+    ],
+    "description": "Link with custom name"
+  },
+  "link_rel_file": {
+    "prefix": "link (to relative file)",
+    "body": [
+      "[`${1:URI}`](${1:URI})"
+    ],
+    "description": "link to relative file"
+  },
+  "Note (one line)": {
+    "prefix": "note_1",
+    "body": [
+      "> **Note:** $1"
+    ],
+    "description": "Note (one line)"
+  },
+  "Note (multi line)": {
+    "prefix": "note_x",
+    "body": [
+      "> **Note:**",
+      ">",
+      "> $1"
+    ],
+    "description": "Note (multi line)"
+  },
+  "ref_plural_s": {
+    "prefix": "ref_plural_s",
+    "body": [
+      "* [${1:REF_NO}] - ${2:LASTNAME}, ${3:FIRSTNAME}: *${4:VIDEO_TITLE}*. Pluralsight LLC. Retrieved May 2019, from https://app.pluralsight.com/library/courses/${5:COURSE_NAME_URL_PART}"
+    ],
+    "description": "ref_plural_s"
+  },
+  "See (one line)": {
+    "prefix": "see_1",
+    "body": [
+      "> **See:** $1"
+    ],
+    "description": "See (one line)"
+  },
+  "See (multi line)": {
+    "prefix": "see_x",
+    "body": [
+      "> **See:**",
+      ">",
+      "> $1"
+    ],
+    "description": "Note (multi line)"
+  },
+  "TrueTyped Text": {
+    "prefix": "tt",
+    "body": [
+      "`$1`$2"
+    ],
+    "description": "True typed text literals"
+  },
+  "toc_entry": {
+    "prefix": "toc_entry",
+    "body": [
+      "[${1:SECTION_NAME}](#${2:ANCHOR_NAME})"
+    ],
+    "description": "TOC Entry"
+  },
+  "WARNING (one line)": {
+    "prefix": "warning_1",
+    "body": [
+      "> **WARNING:** $1"
+    ],
+    "description": "WARNING (one line)"
+  },
+  "WARNING (multi line)": {
+    "prefix": "warning_x",
+    "body": [
+      "> **WARNING:**",
+      ">",
+      "> $1"
+    ],
+    "description": "WARNING (multi line)"
+  }
+}

@@ -1,0 +1,321 @@
+x-common-java-home: &common-java-home
+  JAVA_HOME: /usr/lib/jvm/jdk
+x-common-environment: &common-environment
+  <<: *common-java-home
+  SSH_AUTH_SOCK: /run/host-services/ssh-auth.sock
+services:
+  os:
+    image: engine-room:os
+    build:
+      dockerfile: images/os
+      args:
+        USERMAP_UID: $USERMAP_UID
+        USERMAP_GID: $USERMAP_GID
+    hostname: "engine-room-os"
+    container_name: "engine-room-os"
+  base:
+    image: engine-room:base
+    cap_add:
+      - SYS_PTRACE
+    build:
+      dockerfile: images/base
+      args:
+        JDK_FILE: OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.4_7.tar.gz
+    hostname: "engine-room-base"
+    container_name: "engine-room-base"
+    environment:
+      <<: *common-environment
+      DISPLAY: "host.docker.internal:0.0"
+      SSH_PORT: 1978
+    ports:
+      - "1978:1978"  # ssh
+    secrets:
+      - OPENAI_API_KEY
+      - source: ssh_authorized_keys
+        target: /home/nerd/.ssh/authorized_keys
+      - source: ssh_config
+        target: /home/nerd/.ssh/config
+    volumes:
+      - $HOME/Downloads:/home/nerd/downloads
+      - $HOME/engine-room:/home/nerd/engine-room
+      - /opt/bind:/opt/bind
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+      - /tmp:/tmp
+      - /var/run/docker.sock:/var/run/docker.sock
+      - base:/mnt/volume
+  fedora-capella:
+    image: engine-room:fedora-capella
+    build:
+      dockerfile: images/fedora-capella
+  dbmac:
+    # Start: `docker compose up -d dbmac`
+    # Enter: `ssh -p 1978 nerd@localhost`
+    image: engine-room:dbmac
+    # DEBUG:
+    # entrypoint: "/bin/zsh -c 'sleep 3600'"  # for debugging
+    # entrypoint: "/usr/sbin/sshd -D -p 1978"  # for debugging
+    cap_add:
+      - SYS_PTRACE
+    build:
+      dockerfile: images/dbmac
+      args:
+        USERMAP_UID: $USERMAP_UID
+        USERMAP_GID: $USERMAP_GID
+    hostname: "engine-room-dbmac"
+    container_name: "engine-room-dbmac"
+    ports:
+      - "1978:1978"  # ssh
+      - "4200:4200"
+      - "5001:5001"
+      - "5098:5098"
+      - "6006:6006"
+      - "8000:8000"
+      - "8081:8081"
+      - "8083:8083"
+    environment:
+      <<: *common-environment
+      CI_SERVER_URL: https://git.tech.rz.db.de
+      DISPLAY: "host.docker.internal:0.0"
+      SSH_PORT: 1978
+    secrets:
+      - GITLAB_PAT
+      - keepass_db
+      - KEEPASS_DB_PASSWORD
+      - OPENAI_API_KEY
+      - source: github_copilot_apps
+        target: /home/nerd/.config/github-copilot/apps.json
+      - source: kube_config
+        target: /home/nerd/.kube/config.readonly
+      - source: pip_config
+        target: /home/nerd/.config/pip/pip.conf
+      - source: gnupg_private_key_01
+        target: /home/nerd/.gnupg/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
+      - source: gnupg_private_key_02
+        target: /home/nerd/.gnupg/private-keys-v1.d/56DA7C25AF034F0725205A8B34DB1BF9C7B2BC13.key
+      - source: gnupg_private_key_03
+        target: /home/nerd/.gnupg/private-keys-v1.d/769473AEEBC90D875236A07D9C8A4FFB4C4C8242.key
+      - source: gnupg_private_key_04
+        target: /home/nerd/.gnupg/private-keys-v1.d/82D2E797B6F0FC16AB438237D02388A2228B3764.key
+      - source: gnupg_private_key_05
+        target: /home/nerd/.gnupg/private-keys-v1.d/CEC7187FE23C9B8300A49A19C849F8A7251E7331.key
+      - source: gnupg_private_key_06
+        target: /home/nerd/.gnupg/private-keys-v1.d/D922702565EEB2910DD2675F172182FB184FDE03.key
+      - source: ssh_authorized_keys
+        target: /home/nerd/.ssh/authorized_keys
+      - source: ssh_config
+        target: /home/nerd/.ssh/config
+    volumes:
+      - $HOME/Downloads:/home/nerd/downloads
+      - $HOME/engine-room:/home/nerd/engine-room
+      - /opt/bind:/opt/bind
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+      - /tmp:/tmp
+      - /var/run/docker.sock:/var/run/docker.sock
+      - dbmac:/mnt/volume
+      - $HOME/Library/CloudStorage/GoogleDrive-raichouni@gmail.com:/mnt/googledrive
+  capella-6.0.0:
+    # Start: `docker compose up -d capella-6.0.0`
+    # Enter: `docker compose exec -it --user=techuser capella-6.0.0 zsh -l`
+    image: engine-room:capella-6.0.0
+    platform: linux/amd64
+    build:
+      dockerfile: images/capella
+      args:
+        BASE_IMAGE: dbb-set-docker-prod-local.bahnhub.tech.rz.db.de/t4c/client/remote:6.0.0-v2.2.1-v0.1.0
+        CAPELLA_VERSION: 6.0.0
+        JDK_FILE: OpenJDK17U-jdk_x64_linux_hotspot_17.0.6_10.tar.gz
+    hostname: "engine-room-capella-6.0.0"
+    container_name: "engine-room-capella-6.0.0"
+    # user: "techuser"
+    ports:
+      - "5006:5007"  # capella-rest-api
+      - "10600:10000"  # visit http://localhost:10600/ (with trailing slash) in the browser then.
+    environment:
+      <<: *common-environment
+      AUTOSTART_CAPELLA: 1
+      CI_SERVER_URL: https://git.tech.rz.db.de
+      CONNECTION_METHOD: xpra
+      DISPLAY: "host.docker.internal:0.0"
+      # DISPLAY: ":10"
+      DOT: /home/techuser/engine-room/dotfiles
+      ER: /home/techuser/engine-room
+      VOLUME: /mnt/volume
+      XPRA_CSP_ORIGIN_HOST: http://localhost:5173
+      XPRA_SUBPATH: "/"
+    secrets:
+      - OPENAI_API_KEY
+      - source: github_copilot_apps
+        target: /home/techuser/.config/github-copilot/apps.json
+      - source: pip_config
+        target: /home/techuser/.config/pip/pip.conf
+      - ssh_config
+      - source: gnupg_private_key_01
+        target: /home/techuser/.gnupg/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
+      - source: gnupg_private_key_02
+        target: /home/techuser/.gnupg/private-keys-v1.d/56DA7C25AF034F0725205A8B34DB1BF9C7B2BC13.key
+      - source: gnupg_private_key_03
+        target: /home/techuser/.gnupg/private-keys-v1.d/769473AEEBC90D875236A07D9C8A4FFB4C4C8242.key
+      - source: gnupg_private_key_04
+        target: /home/techuser/.gnupg/private-keys-v1.d/82D2E797B6F0FC16AB438237D02388A2228B3764.key
+      - source: gnupg_private_key_05
+        target: /home/techuser/.gnupg/private-keys-v1.d/CEC7187FE23C9B8300A49A19C849F8A7251E7331.key
+      - source: gnupg_private_key_06
+        target: /home/techuser/.gnupg/private-keys-v1.d/D922702565EEB2910DD2675F172182FB184FDE03.key
+    volumes:
+      - $HOME/Downloads:/home/techuser/downloads
+      - $HOME/engine-room:/home/techuser/engine-room
+      - /opt/bind:/opt/bind
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+      - /var/run/docker.sock:/var/run/docker.sock
+      - capella-6.0.0:/mnt/volume
+  capella-7.0.0:
+    # Start: `docker compose up -d capella-7.0.0`
+    # Enter: `docker compose exec -it --user=techuser capella-7.0.0 zsh -l`
+    image: engine-room:capella-7.0.0
+    platform: linux/amd64
+    build:
+      dockerfile: images/capella
+      args:
+        BASE_IMAGE: dbb-set-docker-prod-local.bahnhub.tech.rz.db.de/t4c/client/remote:7.0.0-v2.5.1-v0.2.0
+        CAPELLA_VERSION: 7.0.0
+        JDK_FILE: OpenJDK17U-jdk_x64_linux_hotspot_17.0.11_9.tar.gz
+    hostname: "engine-room-capella-7.0.0"
+    container_name: "engine-room-capella-7.0.0"
+    # user: "techuser"
+    ports:
+      - "5007:5007"  # capella-rest-api
+      - "10700:10000"  # visit http://localhost:10700/ (with trailing slash) in the browser then.
+    environment:
+      <<: *common-environment
+      AUTOSTART_CAPELLA: 1
+      CI_SERVER_URL: https://git.tech.rz.db.de
+      CONNECTION_METHOD: xpra
+      # DISPLAY: "host.docker.internal:0.0"
+      DISPLAY: ":10"
+      DOT: /home/techuser/engine-room/dotfiles
+      ER: /home/techuser/engine-room
+      VOLUME: /mnt/volume
+      XPRA_CSP_ORIGIN_HOST: http://localhost:5173
+      XPRA_SUBPATH: "/"
+    secrets:
+      - OPENAI_API_KEY
+      - source: github_copilot_apps
+        target: /home/techuser/.config/github-copilot/apps.json
+      - source: pip_config
+        target: /home/techuser/.config/pip/pip.conf
+      - ssh_config
+      - source: gnupg_private_key_01
+        target: /home/techuser/.gnupg/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
+      - source: gnupg_private_key_02
+        target: /home/techuser/.gnupg/private-keys-v1.d/56DA7C25AF034F0725205A8B34DB1BF9C7B2BC13.key
+      - source: gnupg_private_key_03
+        target: /home/techuser/.gnupg/private-keys-v1.d/769473AEEBC90D875236A07D9C8A4FFB4C4C8242.key
+      - source: gnupg_private_key_04
+        target: /home/techuser/.gnupg/private-keys-v1.d/82D2E797B6F0FC16AB438237D02388A2228B3764.key
+      - source: gnupg_private_key_05
+        target: /home/techuser/.gnupg/private-keys-v1.d/CEC7187FE23C9B8300A49A19C849F8A7251E7331.key
+      - source: gnupg_private_key_06
+        target: /home/techuser/.gnupg/private-keys-v1.d/D922702565EEB2910DD2675F172182FB184FDE03.key
+    volumes:
+      - $HOME/Downloads:/home/techuser/downloads
+      - $HOME/engine-room:/home/techuser/engine-room
+      - /opt/bind:/opt/bind
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+      - /var/run/docker.sock:/var/run/docker.sock
+      - capella-7.0.0:/mnt/volume
+  ja:
+    image: engine-room:base
+    build:
+      dockerfile: images/base
+    hostname: "engine-room-ja"
+    container_name: "engine-room-ja"
+    environment:
+      <<: *common-java-home
+      SSH_PORT: 1978
+    ports:
+      - "1978:1978"  # ssh
+    secrets:
+      - OPENAI_API_KEY
+      - source: ssh_authorized_keys
+        target: /home/nerd/.ssh/authorized_keys
+      - source: ssh_config
+        target: /home/nerd/.ssh/config
+    volumes:
+      - $HOME/Downloads:/home/nerd/downloads
+      - $HOME/engine-room:/home/nerd/engine-room
+      - /opt/bind:/opt/bind
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+      - /tmp:/tmp
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ja:/mnt/volume
+  raspi5:
+    image: engine-room:base
+    build:
+      dockerfile: images/base
+    hostname: "engine-room-raspi5"
+    container_name: "engine-room-raspi5"
+    environment:
+      <<: *common-java-home
+      SSH_PORT: 1978
+    ports:
+      - "1978:1978"  # ssh
+    secrets:
+      - OPENAI_API_KEY
+      - source: ssh_authorized_keys
+        target: /home/nerd/.ssh/authorized_keys
+      - source: ssh_config
+        target: /home/nerd/.ssh/config
+    volumes:
+      - $HOME/downloads:/home/nerd/downloads
+      - $HOME/engine-room:/home/nerd/engine-room
+      - /mnt:/mnt
+      - /tmp:/tmp
+      - /var/run/docker.sock:/var/run/docker.sock
+      - raspi5:/mnt/volume
+
+secrets:
+  # value of env vars/ content of files land in
+  # /run/secrets/secret_name of the container
+  github_copilot_apps:
+    file: ./secrets/github_copilot_apps.json
+  keepass_db:
+    file: /Users/jamilraichouni/Library/CloudStorage/GoogleDrive-raichouni@gmail.com/My Drive/jamil.kdbx
+  gnupg_private_key_01:
+      file: ./secrets/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
+  gnupg_private_key_02:
+      file: ./secrets/private-keys-v1.d/56DA7C25AF034F0725205A8B34DB1BF9C7B2BC13.key
+  gnupg_private_key_03:
+      file: ./secrets/private-keys-v1.d/769473AEEBC90D875236A07D9C8A4FFB4C4C8242.key
+  gnupg_private_key_04:
+      file: ./secrets/private-keys-v1.d/82D2E797B6F0FC16AB438237D02388A2228B3764.key
+  gnupg_private_key_05:
+      file: ./secrets/private-keys-v1.d/CEC7187FE23C9B8300A49A19C849F8A7251E7331.key
+  gnupg_private_key_06:
+      file: ./secrets/private-keys-v1.d/D922702565EEB2910DD2675F172182FB184FDE03.key
+  kube_config:
+    file: ./secrets/kube_config
+  pip_config:
+    file: ./secrets/pip.conf
+  ssh_authorized_keys:
+    file: ./dotfiles/ssh/authorized_keys
+  ssh_config:
+    file: ./dotfiles/ssh/config
+  OPENAI_API_KEY:
+    environment: OPENAI_API_KEY
+  GITLAB_PAT:
+    environment: GITLAB_PAT
+  KEEPASS_DB_PASSWORD:
+    environment: KEEPASS_DB_PASSWORD
+
+volumes:
+  base:
+  ja:
+    external: true
+  capella-6.0.0:
+    external: true
+  capella-7.0.0:
+    external: true
+  dbmac:
+    external: true
+  raspi5:
+    external: true

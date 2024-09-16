@@ -1,0 +1,35 @@
+{
+    "autocmd": {
+        "body": [
+            "vim.api.nvim_create_autocmd({\"${1:EVENT}\"})"
+        ],
+        "description": "Create an autocmd",
+        "prefix": [
+            "autocmd"
+        ]
+    },
+    "opt_local": {
+        "body": [
+            "vim.opt_local.${1:OPTION} = ${2:VALUE}  -- STRING_VAL: \"val\", TABLE_VAL: { \"val1\", \"val2\" }"
+        ],
+        "description": "Create an autocmd",
+        "prefix": [
+            "setlocal (vimscript)",
+            "vimscript: setlocal",
+            "opt_local",
+            "vim.opt_local"
+        ]
+    },
+    "table_print_keys": {
+        "body": [
+            "for k, _ in pairs(${1:table}) do",
+            "  print(k)",
+            "end"
+        ],
+        "description": "Print keys of a table",
+        "prefix": [
+            "table (print keys)",
+            "keys (print keys of a table"
+        ]
+    }
+}

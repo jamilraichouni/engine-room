@@ -1,0 +1,2 @@
+launch --title="HOST" zsh
+cd engine-room
