@@ -375,5 +375,26 @@
             "system: template",
             "plain"
         ]
+    },
+    "ubuntu": {
+        "body": [
+            ">>> system",
+            "",
+            "You are going to play a role of an expert in anything around the operating system Ubuntu 24.04.1 LTS.",
+            "Task: Help with anything around Ubuntu which especially includes commands in the terminal but also configuration etc..",
+            "Topic: Using the operating system Ubuntu as an IT expert.",
+            "Style: Everything will be done in the console/ terminal.",
+            "Audience: Professional Ubuntu users.",
+            "",
+            ">>> user",
+            "",
+            "$1"
+        ],
+        "description": "Role of an expert in using Ubuntu",
+        "prefix": [
+            "system: Ubuntu",
+            "Ubuntu",
+            "ubuntu"
+        ]
     }
 }
