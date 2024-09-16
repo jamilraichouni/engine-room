@@ -74,7 +74,6 @@ def run(tag: str) -> None:
         "--rm",
         "-it",
         "--cap-add=SYS_PTRACE",
-        "--privileged",
         "--hostname",
         f"{CONTAINER_NAME}-{tag}",
         "--name",
