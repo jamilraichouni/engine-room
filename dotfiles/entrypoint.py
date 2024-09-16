@@ -6,6 +6,7 @@ import shutil
 
 H = pathlib.Path("/home/nörd")
 D = pathlib.Path(os.getenv("DOT", H / "engine-room/dotfiles"))
+O = pathlib.Path("/opt")
 V = pathlib.Path(os.getenv("VOLUME", "/mnt/volume"))
 HOST = os.getenv("HOSTNAME", "").replace("engine-room-", "")
 
@@ -39,12 +40,18 @@ SYMBOLIC_LINK_MAP = {
     H / ".rustup": V / "rustup",
     H / ".vimrc": D / "vimrc",
     H / ".zsh_history": D / "zsh_history",
-    H / ".zshenv": D / f"env/{HOST}.zsh",
+    H / ".zshenv": D / f"zsh/env/{HOST}.zsh",
     H / ".zshrc": D / "zsh/zshrc",
     H / "pygmentsstyles.py": D / "pygmentsstyles.py",
     H / "dev": V / "dev",
-    H / "workspaces": V / "workspaces",
+    O: V / "opt",
 }
+if HOST == "dbmac":
+    SYMBOLIC_LINK_MAP.update(
+        {
+            H / "workspaces": V / "workspaces",
+        }
+    )
 
 
 def _change_ownership_recursively(path) -> None:
@@ -92,7 +99,7 @@ def process_symbolic_links() -> None:
                     _change_ownership_recursively(link.parent)
                 _create_symlink(link, target)
         elif link.exists():
-            if link.is_dir():
+            if link.is_dir() and os.listdir(link):
                 # landing here means the directory has been created during
                 # docker build process and we copy link to target using shutil
                 # shutil.copytree(link, target)
@@ -102,6 +109,10 @@ def process_symbolic_links() -> None:
             elif link.is_file():
                 shutil.copy(link, target)
                 link.unlink()
+            _create_symlink(link, target)
+        else:
+            target.mkdir(parents=True, exist_ok=True)
+            _change_ownership_recursively(target)
             _create_symlink(link, target)
 
 

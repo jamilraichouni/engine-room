@@ -701,8 +701,59 @@ sudo chown root:docker /var/run/docker.sock
 
 ### Setup engine-room
 
-`unzip` is needed by `vim`.
+```bash
+sudo apt-get install -y \
+  git \
+  net-tools \  # to check open ports with netstat
+  unzip \  # needed by vim
+  zsh
+sudo usermod --shell /bin/zsh jamil
+```
+
+Put the following into the file `/home/jamil/.zshrc`:
+
+```shell
+PROMPT="%F{magenta}%n%f"  # Magenta user name
+PROMPT+="@"
+PROMPT+="%F{blue}${${(%):-%m}#zoltan-}%f" # Blue host name, minus zoltan
+PROMPT+=" "
+PROMPT+="%F{yellow}%1~ %f" # Yellow working directory
+PROMPT+=$'\n'
+PROMPT+=$" "
+```
+
+Create a file `sudo vim /etc/systemd/system/engine-room.service`:
+
+```systemd
+[Unit]
+Description=Engine Room Service
+After=network.target
+
+[Service]
+Type=simple
+User=jamil
+Environment=PYTHONPATH=/home/jamil
+ExecStart=/usr/bin/python3 -m engine-room run ja
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+```
+
+Reload systemd to recognize the new service:
 
 ```bash
-sudo apt-get install -y net-tools unzip zsh
+sudo systemctl daemon-reload
+```
+
+Enable the service to start on boot:
+
+```bash
+sudo systemctl enable engine-room.service
+```
+
+Start the service:
+
+```bash
+sudo systemctl start engine-room.service
 ```
