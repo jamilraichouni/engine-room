@@ -19,10 +19,10 @@ fi
 if command -v pyenv > /dev/null; then
   pathprepend $PYENV_ROOT/bin
   eval "$(pyenv init -)"
+  # Load pyenv-virtualenv automatically when a .python-version file is found:
+  [[ -n $PYENV_VIRTUALENV_INIT && $PYENV_VIRTUALENV_INIT == 1 ]] || eval "$(pyenv virtualenv-init -)"
 fi
 
-# Load pyenv-virtualenv automatically when a .python-version file is found:
-[[ -n $PYENV_VIRTUALENV_INIT && $PYENV_VIRTUALENV_INIT == 1 ]] || eval "$(pyenv virtualenv-init -)"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
