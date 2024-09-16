@@ -1,0 +1,81 @@
+{
+    "Print to console": {
+        "body": [
+            "#!/bin/bash"
+        ],
+        "description": "Shebang",
+        "prefix": "shebang"
+    },
+    "SCRIPT_DIR": {
+        "body": [
+            "SCRIPT_PATH=`realpath -s \\$0`",
+            "SCRIPT_DIR=`dirname \\$SCRIPT_PATH`"
+        ],
+        "description": "Get parent dir of current script",
+        "prefix": "SCRIPT_DIR"
+    },
+    "SCRIPT_PATH": {
+        "body": [
+            "SCRIPT_PATH=`realpath -s \\$0`"
+        ],
+        "description": "Get path of current script",
+        "prefix": "SCRIPT_PATH"
+    },
+    "for_loop": {
+        "body": [
+            "for ITEM in \\",
+            "   \"item 1\" \\",
+            "   \"item 2\" \\",
+            "do",
+            "   echo -e $ITEM",
+            "done"
+        ],
+        "description": "for loop",
+        "prefix": "for loop"
+    },
+    "if": {
+        "body": [
+            "if [ $1 ]; then",
+            "   $2",
+            "fi"
+        ],
+        "description": "if condition",
+        "prefix": "if"
+    },
+    "if-else": {
+        "body": [
+            "if [ $1 ]; then",
+            "   $2",
+            "else",
+            "   $3",
+            "fi"
+        ],
+        "description": "if-else condition",
+        "prefix": "if-else"
+    },
+    "if_dir_exists": {
+        "body": [
+            "if [ -d ${1:DIR_PATH} ]; then",
+            "   $2",
+            "fi"
+        ],
+        "description": "if dir exists",
+        "prefix": "if_dir_exists"
+    },
+    "if_file_exists": {
+        "body": [
+            "if [ -f ${1:FILE_PATH} ]; then",
+            "   $2",
+            "fi"
+        ],
+        "description": "if file exists",
+        "prefix": "if_file_exists"
+    },
+    "last changed files": {
+        "body": [
+            "find . -type f -print0 | xargs -0 stat -f \"%m%t%Sm %N\" | sort -rn | head -3 | cut -f2- -d\" \""
+        ],
+        "description": "List (recursively) last changed files",
+        "prefix": "last changed files"
+    }
+}

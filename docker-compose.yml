@@ -1,0 +1,17 @@
+services:
+  os:
+    build:
+      dockerfile: Dockerfile.os
+    image: engine-room:os
+  base:
+    build:
+      dockerfile: Dockerfile.base
+    image: engine-room:base
+  dbmac:
+    build:
+      dockerfile: Dockerfile.dbmac
+    image: engine-room:dbmac
+  test:
+    build:
+      dockerfile: Dockerfile.test
+    image: engine-room:test

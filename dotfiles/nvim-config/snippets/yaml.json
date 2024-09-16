@@ -1,0 +1,16 @@
+{
+    "python_multiline_gitlab_ci": {
+        "body": [
+            "- |",
+            "  python <<EOF",
+            "  pass",
+            "  EOF"
+        ],
+        "description": "Run python code in CLI",
+        "prefix": [
+            "python (multiline ) in GitLab CI",
+            "GitLab CI (Python multiline)"
+        ]
+    }
+}
+

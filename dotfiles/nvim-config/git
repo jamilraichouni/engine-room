@@ -1,0 +1,3 @@
+cd $DOT
+git subtree split --prefix nvim-config -b tmp
+git push https://git.tech.rz.db.de/JamilRaichouni/neovim-config tmp:main --force

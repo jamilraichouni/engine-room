@@ -1,0 +1,51 @@
+[includeIf "gitdir:~/dev/gitlab/"]
+    path = ~/dev/gitlab/.gitconfig
+[includeIf "gitdir:/mnt/volume/data/dev/gitlab/"]
+    path = ~/dev/gitlab/.gitconfig
+[includeIf "gitdir:~/dev/dbgitlab/"]
+    path = ~/dev/dbgitlab/.gitconfig
+[includeIf "gitdir:/mnt/volume/data/dev/dbgitlab/"]
+    path = ~/dev/dbgitlab/.gitconfig
+[includeIf "gitdir:~/dev/github/"]
+    path = ~/dev/github/.gitconfig
+[includeIf "gitdir:/mnt/volume/data/dev/github/"]
+    path = ~/dev/github/.gitconfig
+[alias]
+    graph=log --graph --abbrev-commit --no-decorate --author-date-order --no-show-signature --format=tformat:'%C(yellow)%h%C(reset) %C(cyan)%G?%C(reset) %C(white)%s%C(reset)%C(auto)%d%C(reset) %C(dim white)— %aN (%ar)'
+    log-dense=log --abbrev-commit --pretty=format:'%C(yellow)%h %C(cyan)%cd %Creset%s (%cn <%ce>)' --date=format:'%Y-%m-%d %H:%M:%S'
+    stash-untracked = "!f() {    \
+        git stash;               \
+        git stash -u;            \
+        git stash pop stash@{1}; \
+    }; f"
+[core]
+    abbrev = 4
+    editor = nvim
+    excludesfile = ~/.gitignore
+[commit]
+    template = ~/.gitmessage
+    verbose = 2
+[init]
+    defaultBranch = main
+[pull]
+    rebase = false
+[merge]
+    conflictstyle = diff3
+[diff]
+    tool = nvimdiff
+[nvimdiff]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+[difftool]
+    prompt = false
+[user]
+    name = Jamil RAICHOUNI
+    email = jamil.raichouni@deutschebahn.com
+[safe]
+    directory = /tmp/tmp1oum15qc
+    directory = /tmp/
+    directory = *
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true

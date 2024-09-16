@@ -1,0 +1,25 @@
+# https://docs.python.org/3/library/pdb.html
+# https://github.com/pdbpp/pdbpp
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path.home() / "Library/Python/3.10/lib/python/site-packages"))
+sys.path.insert(0, "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages")
+alias :q q
+alias env import os ;; pp dict(os.environ)
+alias ipy import IPython; IPython.embed()
+
+alias mnall import inspect ;; from pprint import pprint;; _ = [pprint(m[0]) for m in inspect.getmembers(%1)]  # all member names
+alias mnpri import inspect ;; _ = [print(m[0]) for m in inspect.getmembers(%1) if m[0].startswith("_")]      # private member names
+alias mnpub import inspect ;; _ = [print(m[0]) for m in inspect.getmembers(%1) if not m[0].startswith("_")]  # public member names
+alias mvall import inspect ;; from pprint import pprint;; _ = [pprint(f"{m[0]}: {m[1]}") for m in inspect.getmembers(%1)]  # all member names & values
+alias mvpri import inspect ;; _ = [print(f"{m[0]}: {m[1]}") for m in inspect.getmembers(%1) if m[0].startswith("_")]      # private member names & values
+alias mvpub import inspect ;; _ = [print(f"{m[0]}: {m[1]()}") for m in inspect.getmembers(%1) if not m[0].startswith("_")]  # public member names & values
+
+alias nl print("")
+alias pi from pprint import pprint;; _ = [pprint(f"%1.{k} = {%1.__dict__[k]}") for k in %1.__dict__.keys()]
+# Print instance variables for self
+alias ps pi self
+alias sysp import sys ;; pp sys.path
+alias vars print("") ;; _ = [print(v, type(v)) for v in sorted(dir())] ;; print("")
+alias x exec(Path("%1").read_text())

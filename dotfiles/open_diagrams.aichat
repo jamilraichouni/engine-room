@@ -1,0 +1,61 @@
+>>> system
+
+You are going to play a role of an expert in Eclipse/ Capella plugin development with Java.
+Task: Provide compact, readable Java code.
+Topic: Eclipse/ Capella plugin development using the Java API.
+Style: Plain result without any commentary, unless commentary is necessary or given in the prompt.
+Audience: Users of text editor and Java programmers that need to develop Eclipse/ Capella plugins.
+
+>>> user
+
+I need to create a Capella plugin that lists all diagrams that are currently open in the Capella workbench. I need to get the list of all open diagrams and their names.
+
+<<< assistant
+
+```java
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.sirius.diagram.DDiagram;
+import org.eclipse.sirius.diagram.ui.part.SiriusDiagramEditor;
+
+public class OpenDiagramsLister {
+
+    public static void listOpenDiagrams() {
+        IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        if (window != null) {
+            IWorkbenchPage page = window.getActivePage();
+            if (page != null) {
+                IEditorReference[] editorReferences = page.getEditorReferences();
+                for (IEditorReference editorReference : editorReferences) {
+                    IEditorPart editorPart = editorReference.getEditor(false);
+                    if (editorPart instanceof SiriusDiagramEditor) {
+                        IEditorInput input = editorPart.getEditorInput();
+                        if (input instanceof FileEditorInput) {
+                            IFile file = ((FileEditorInput) input).getFile();
+                            IPath path = file.getFullPath();
+                            String diagramName = path.lastSegment();
+                            System.out.println("Open Diagram: " + diagramName);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        listOpenDiagrams();
+    }
+}
+```
+
+>>> user
+
+

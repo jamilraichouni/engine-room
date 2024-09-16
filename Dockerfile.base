@@ -1,0 +1,85 @@
+FROM engine-room:os
+LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
+USER root
+
+# use zsh for RUN commands {{{
+SHELL ["/bin/zsh", "-c"]
+ENV SHELL=/bin/zsh
+# }}}
+
+# system pkg manager installs {{{
+RUN dnf --color yes --refresh -y install \
+  cargo \
+  ctags \
+  gcc \
+  gcc-c++ \
+  gdb \
+  gnupg \
+  golang \
+  icoutils \
+  ImageMagick \
+  # Command-line JSON processor
+  jq \
+  kitty-terminfo \
+  luarocks \
+  make \
+  neovim \
+  pip \
+  openssl \
+  # `pinentry` is needed for `gnupg` to work with `pass`
+  pinentry \
+  postgresql \
+  subversion
+# }}}
+
+# kubectl {{{
+RUN curl -LO \
+  "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl" && \
+  chmod +x kubectl && mv kubectl /opt && ln -s /opt/kubectl /usr/local/bin
+# }}}
+
+# Mozilla SOPS "Secrets OPerationS" {{{
+RUN dnf --color yes -y install \
+  https://github.com/getsops/sops/releases/download/v3.9.0/sops-3.9.0-1.aarch64.rpm
+# }}}
+
+# nvm, node, npm, yarn {{{
+USER nörd
+# https://github.com/nvm-sh/nvm/releases
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+RUN touch /home/nörd/.zshrc && \
+  zsh -c "source /home/nörd/.nvm/nvm.sh && nvm install --lts"
+
+# npm
+ENV NPM_DIR=/home/nörd/.local/share/npm
+RUN [[ -d ${NPM_DIR} ]] || mkdir -p ${NPM_DIR}
+
+# yarn
+RUN zsh -c "source /home/nörd/.nvm/nvm.sh && nvm use default && \
+  npm install -g --prefix ${NPM_DIR} yarn"
+# }}}
+
+# pyenv {{{
+USER nörd
+RUN sudo dnf --color yes --refresh -y install \
+  bzip2 \
+  bzip2-devel \
+  gdbm-devel \
+  libffi-devel \
+  libnsl2-devel \
+  libuuid-devel \
+  openssl-devel \
+  readline-devel \
+  sqlite \
+  sqlite-devel \
+  tk-devel \
+  xz-devel \
+  zlib-devel && \
+  curl https://pyenv.run | bash && \
+  /home/nörd/.pyenv/bin/pyenv init - && \
+  /home/nörd/.pyenv/bin/pyenv virtualenv-init - && \
+  chown -R 1000:1000 /home/nörd/.pyenv
+# }}}
+
+USER root
+ENTRYPOINT ["python3", "/home/nörd/engine-room/dotfiles/entrypoint.py"]

@@ -1,0 +1,1329 @@
+{
+  "EASE_BOT": {
+    "body": [
+      "BOT: t.Any = org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot()  # type: ignore # noqa"
+    ],
+    "description": "Create an EASE SWTWorkbenchBot",
+    "prefix": ["EASE (BOT)"]
+  },
+  "HTTP Status Codes": {
+    "body": [
+      "from http.client import responses",
+      "responses[${1:STATUS_CODE}]"
+    ],
+    "description": "Translate HTTP status code to statement",
+    "prefix": ["HTTP status code", "status code (HTTP)"]
+  },
+  "MODULE_DIR": {
+    "body": [
+      "import pathlib",
+      "MODULE_DIR: pathlib.Path = pathlib.Path(__file__).parents[0]"
+    ],
+    "description": "Path to directory of current module",
+    "prefix": "MODULE_DIR"
+  },
+  "PROJECT_DIR": {
+    "body": [
+      "import pathlib",
+      "PROJECT_DIR: pathlib.Path = (",
+      "    pathlib.Path(__file__).resolve().parents[${1:NO_OF_LEVELS_TO_CLIMB}]",
+      ")"
+    ],
+    "description": "Path to project directory",
+    "prefix": "PROJECT_DIR"
+  },
+  "Path": {
+    "body": ["import pathlib"],
+    "description": "import pathlib",
+    "prefix": ["Path", "pathlib"]
+  },
+  "SCRIPT_NAME": {
+    "body": ["SCRIPT_NAME = os.path.split(os.path.abspath(__file__))[1]"],
+    "description": "SCRIPT_NAME",
+    "prefix": "SCRIPT_NAME"
+  },
+  "Skeleton (Python script)": {
+    "body": [
+      "\"\"\"${1:DOCSTRING}\"\"\"",
+      "",
+      "import typing as t",
+      "",
+      "",
+      "def main() -> None:",
+      "    \"\"\"Main entrypoint of the Python module.\"\"\"",
+      "",
+      "",
+      "if __name__ == \"__main__\":",
+      "    main()",
+      ""
+    ],
+    "description": "Skeleton for a Python script",
+    "prefix": "skeleton"
+  },
+  "access_perms_check_execution": {
+    "body": [
+      "import os",
+      "import pathlib",
+      "os.access(pathlib.Path(\"${1:PATH_STRING}\"), os.X_OK)",
+      "# os.access(pathlib.Path(\"${1:PATH_STRING}\"), os.W_OK | os.X_OK)  # is also possible"
+    ],
+    "description": "Execution access check",
+    "prefix": [
+      "execution access check",
+      "access (execution check)",
+      "permissions (execution check)"
+    ]
+  },
+  "access_perms_check_read": {
+    "body": [
+      "import os",
+      "import pathlib",
+      "os.access(pathlib.Path(\"${1:PATH_STRING}\"), os.R_OK)",
+      "# os.access(pathlib.Path(\"${1:PATH_STRING}\"), os.R_OK | os.W_OK)  # is also possible"
+    ],
+    "description": "Read access check",
+    "prefix": [
+      "read access check",
+      "access (read check)",
+      "permissions (read check)"
+    ]
+  },
+  "access_perms_check_write": {
+    "body": [
+      "import os",
+      "import pathlib",
+      "os.access(pathlib.Path(\"${1:PATH_STRING}\"), os.W_OK)",
+      "# os.access(pathlib.Path(\"${1:PATH_STRING}\"), os.W_OK | os.X_OK)  # is also possible"
+    ],
+    "description": "Write access check",
+    "prefix": [
+      "write access check",
+      "access (write check)",
+      "permissions (write check)"
+    ]
+  },
+  "all": {
+    "body": ["__all__ = ('$1',)"],
+    "description": "__all__",
+    "prefix": "all"
+  },
+  "assert": {
+    "body": ["assert ${1:ACTUAL} == ${2:EXPECTED}"],
+    "description": "assert (actual vs. expected) comparison",
+    "prefix": "assert"
+  },
+  "author": {
+    "body": [
+      "__author__ = 'Jamil Andr\u00e9 RAICHOUNI <jamil.raichouni@rolls-royce.com>'"
+    ],
+    "description": "__author__",
+    "prefix": "author"
+  },
+  "batch_rename_files": {
+    "body": [
+      "import pathlib",
+      "p: pathlib.Path = pathlib.Path(\"${1:DIR_PATH}\")",
+      "for f in p.iterdir():",
+      "    f.rename(f\"{f.parent}/{f.name.replace('${2:OLD}', '${3:NEW}')}\")"
+    ],
+    "description": "Batch rename files in a directory",
+    "prefix": ["Rename files in a dir", "Batch rename files"]
+  },
+  "beautify_html": {
+    "body": [
+      "from bs4 import BeautifulSoup  # install via pip install beautifulsoup4",
+      "html = BeautifulSoup(html).prettify()"
+    ],
+    "description": "Beautify/ prettify HTML",
+    "prefix": ["Beautify HTML", "Prettify HTML", "HTML (Beautify/ prettify)"]
+  },
+  "breakpoint": {
+    "body": ["breakpoint()"],
+    "description": "Equivalent to import pdb; pdb.set_trace()",
+    "prefix": ["bp", "breakpoint"]
+  },
+  "built-ins": {
+    "body": ["# built-ins:$1"],
+    "description": "# built-ins:",
+    "prefix": ["built-ins", "import built-ins"]
+  },
+  "cell": {
+    "body": ["#%%", "$1"],
+    "description": "Start a Jupyter notebook cell",
+    "prefix": ["cell", "jupyter cell", "notebook cell"]
+  },
+  "coverage (eclude)": {
+    "body": ["# pragma: no cover"],
+    "description": "Skip this line or branch (when put behind one of the conditionals) for coverage check",
+    "prefix": [
+      "coverage (skip)",
+      "skip (coverage)",
+      "ignore (coverage)",
+      "exclude (coverage)",
+      "disable (coverage)",
+      "line (coverage exclude)",
+      "branch (coverage exclude)"
+    ]
+  },
+  "datetime_to_string_and_back": {
+    "body": [
+      "import datetime",
+      "date_time_str = datetime.datetime.now().strftime(\"%Y-%m-%d %H:%M:%S\")",
+      "date_time_obj = datetime.datetime.strptime(date_time_str, \"%Y-%m-%d %H:%M:%S\")"
+    ],
+    "description": "Convert datetime to string and back",
+    "prefix": [
+      "datetime -> string",
+      "time -> string",
+      "string -> datetime",
+      "string -> time"
+    ]
+  },
+  "debug": {
+    "body": ["logger.debug(\"$1\")"],
+    "description": "logger.debug(\"...\")",
+    "prefix": "debug"
+  },
+  "df (apply on subset)": {
+    "body": ["df.loc[f, [\"${1:COLUMN}\"]] = ${2:None}"],
+    "description": "Set val for col of filtered subset",
+    "prefix": ["df (apply on subset)", "df (compute col for subset)"]
+  },
+  "df (apply)": {
+    "body": [
+      "df[\"${1:col}\"] = df[\"${2:any_col}\"].apply(",
+      "    lambda x: x  # x represents df[\"${2:any_col}\"]",
+      ")"
+    ],
+    "description": "Compute a col using other col(s)",
+    "prefix": ["df (apply)", "df (compute col)"]
+  },
+  "df (compare/ diff)": {
+    "body": [
+      "from pandas.testing import assert_frame_equal",
+      "assert_frame_equal(left=${1:df}, right=${2:df}, check_dtype=${3:True})"
+    ],
+    "description": "Compare two dfs",
+    "prefix": ["df (compare/ diff)", "compare (df)", "diff (df)"]
+  },
+  "df (difference)": {
+    "body": [
+      "df = ${1:df1}[~${1:df1}.apply(tuple, 1).isin(${2:df2}.apply(tuple, 1))]"
+    ],
+    "description": "Get df = df1 - df2 (difference)",
+    "prefix": "df (difference)"
+  },
+  "df (drop cols)": {
+    "body": ["df.drop([\"${1:COL_NAME}\"], axis=\"columns\", inplace=True)"],
+    "description": "drop col from df",
+    "prefix": "df (drop cols)"
+  },
+  "df (drop duplicates)": {
+    "body": [
+      "df.drop_duplicates(subset=[\"${1:COL_NAME}\"], keep=${2|\"first\",\"last\",False|}, inplace=True)"
+    ],
+    "description": "drop duplicates from df",
+    "prefix": "df (drop duplicates)"
+  },
+  "df (explode)": {
+    "body": [
+      "df = pd.DataFrame(",
+      "        {",
+      "            \"mother\": [\"ayah\",],",
+      "            \"father\": [\"jamil\",],",
+      "            \"child\": [[\"malak\", \"amin\", \"safiah\"],],",
+      "        },",
+      ")",
+      "# print(df)",
+      "# >>>   mother father                  child",
+      "# >>> 0   ayah  jamil  [malak, amin, safiah]",
+      "",
+      "df = df.explode(\"child\")  # type: ignore",
+      "# print(df)",
+      "# >>>   mother father   child",
+      "# >>> 0   ayah  jamil   malak",
+      "# >>> 0   ayah  jamil    amin",
+      "# >>> 0   ayah  jamil  safiah"
+    ],
+    "description": "fill NaN and None values",
+    "prefix": [
+      "df (explode)",
+      "explode col (df)",
+      "stack col (df)",
+      "df (stack col)"
+    ]
+  },
+  "df (fillna)": {
+    "body": ["df.fillna(value=\"${1:VALUE}\", inplace=True)"],
+    "description": "fill NaN and None values",
+    "prefix": "df (fillna)"
+  },
+  "df (hide index)": {
+    "body": ["df.style.hide_index()"],
+    "description": "Hide index of df",
+    "prefix": ["df (hide index)", "df (no index display)"]
+  },
+  "df (itertuples)": {
+    "body": [
+      "df = pd.DataFrame({",
+      "    'first_name': ['Ayah', 'Malak', 'Amin', 'Jamil'],",
+      "    'last_name': ['El-Khadra', 'El-Khadra', 'El-Khadra', 'Raichouni'],",
+      "})",
+      "for row in df.itertuples():",
+      "    print(row.first_name, row.last_name)"
+    ],
+    "description": "Iterate over rows as tuples",
+    "prefix": "df (itertuples)"
+  },
+  "df (read sqlite table)": {
+    "body": [
+      "import pandas as pd",
+      "df: pd.DataFrame = pd.read_sql_table(table_name=\"${TABLE_NAME}\", con=engine.connect())"
+    ],
+    "description": "Read SQLite table into df",
+    "prefix": ["df (read sqlite table)", "sqlite table -> df"]
+  },
+  "df (rename columns)": {
+    "body": [
+      "df.rename(",
+      "    columns={",
+      "        \"${1:OLD_NAME}\": \"${2:NEW_NAME}\",",
+      "    },",
+      "    inplace=True",
+      ")"
+    ],
+    "description": "Rename one or more columns of a DataFrame",
+    "prefix": "df (rename columns)"
+  },
+  "df (reorder columns)": {
+    "body": [
+      "df = df[[",
+      "    \"COL1\",",
+      "    \"COL2\",",
+      "]]",
+      "",
+      "# alternatively:",
+      "cols = list(df.columns)",
+      "# do something with cols (e. g. cols.remove(\"COL_NAME\"))",
+      "df = df[cols]"
+    ],
+    "description": "Reorder columns of a DataFrame",
+    "prefix": ["df (reorder columns)", "reorder df columns"]
+  },
+  "df (sort values)": {
+    "body": [
+      "df.sort_values(by=${1:str or list of str}, ascending=${2:True}, inplace=True, ignore_index=True)"
+    ],
+    "description": "df.sort_values(...)",
+    "prefix": [
+      "df (sort values)",
+      "df (order values)",
+      "sort values (df)",
+      "order values (df)"
+    ]
+  },
+  "df (split between cols)": {
+    "body": ["dfs = np.split(df, [${1:COL_BEFORE_WHICH_TO_SPLIT}], axis=1)"],
+    "description": "df (split between cols)",
+    "prefix": ["df (split between cols)", "split between cols (df)"]
+  },
+  "df (split between rows)": {
+    "body": ["dfs = np.split(df, [${1:ROW_BEFORE_WHICH_TO_SPLIT}], axis=0)"],
+    "description": "df (split between rows)",
+    "prefix": ["df (split between rows)", "split between rows (df)"]
+  },
+  "dict_merge": {
+    "body": ["${1:z}: t.Dict = {**${2:x}, **${3:y}}"],
+    "description": "Merge two dicts",
+    "prefix": ["dict (merge)", "merge (dicts)"]
+  },
+  "dict_rename_key": {
+    "body": [
+      "${1:DICT_NAME}[\"${3:NEW_NAME}\"] = ${1:DICT_NAME}.pop(\"${2:OLD_NAME}\")"
+    ],
+    "description": "Rename a key (on top level) in a dictionary",
+    "prefix": [
+      "dict (rename key on top level)",
+      "rename key on top level in dict (dicts)"
+    ]
+  },
+  "dir_all": {
+    "body": ["for member_name in dir(${MY_OBJECT}):", "    print(member_name)"],
+    "description": "dir() for all members",
+    "prefix": ["dir (all)"]
+  },
+  "dir_public": {
+    "body": [
+      "for member_name in dir(${MY_OBJECT}):",
+      "   if not member_name.startswith(\"_\"):",
+      "       print(member_name)"
+    ],
+    "description": "dir() for public members",
+    "prefix": ["dir (public)"]
+  },
+  "download_file": {
+    "body": [
+      "import urllib.request",
+      "",
+      "urllib.request.urlretrieve(",
+      "    url=${1:URL},",
+      "    filename=${2:FILE_PATH}",
+      ")"
+    ],
+    "description": "Download file",
+    "prefix": ["download file", "urllib"]
+  },
+  "error": {
+    "body": ["logger.error(\"$1\")"],
+    "description": "logger.error(\"...\")",
+    "prefix": "error"
+  },
+  "extend sys.path": {
+    "body": ["# extend sys.path:$1"],
+    "description": "# extend sys.path:",
+    "prefix": ["extend sys.path"]
+  },
+  "file_input": {
+    "body": [
+      "import fileinput",
+      "import pathlib",
+      "file_path: pathlib.Path = pathlib.Path(\"\")",
+      "for line in fileinput.input(file_path, inplace=True):",
+      "    line = line.replace(",
+      "        \"<b>Hello</b>\",",
+      "        \"Hello\"",
+      "    )",
+      "    sys.stdout.write(line)",
+      "fileinput.close()",
+      "file_path.write_text(file_path.read_text().replace(\"\\r\", \"\"))"
+    ],
+    "description": "Edit file in place",
+    "prefix": "fileinput"
+  },
+  "file_name_without_extension": {
+    "body": ["import pathlib", "pathlib.Path(${1:FILE_PATH}).stem"],
+    "description": "Get file base name without extension",
+    "prefix": "file_name_without_extension"
+  },
+  "fixme": {
+    "body": ["# fixme: $1"],
+    "description": "fixme",
+    "prefix": "fixme"
+  },
+  "flake8 (exclude)": {
+    "body": ["# noqa"],
+    "description": "Disable flake8 warnings for this line",
+    "prefix": [
+      "flake8 (ignore)",
+      "flake8 (exclude)",
+      "flake8 (disable)",
+      "ignore (flake8)",
+      "exclude (flake8)",
+      "disable (flake8)",
+      "line (flake8 exclude)",
+      "branch (flake8 exclude)"
+    ]
+  },
+  "flake8, mypy and Pylance (exclude)": {
+    "body": ["# type: ignore # noqa"],
+    "description": "Disable flake8 & Pxlance warnings for this line",
+    "prefix": [
+      "flake8/ Pylance / mypy (ignore)",
+      "flake8/ Pylance / mypy (exclude)",
+      "flake8/ Pylance / mypy (disable)",
+      "flake8/ Pylance / mypy (skip)",
+      "ignore (flake8/ Pylance / mypy)",
+      "exclude (flake8/ Pylance / mypy)",
+      "disable (flake8/ Pylance / mypy)",
+      "skip (flake8/ Pylance / mypy)",
+      "line (flake8/ Pylance / mypy exclude)",
+      "branch (flake8/ Pylance / mypy exclude)"
+    ]
+  },
+  "func_name": {
+    "body": ["func_name = sys._getframe().f_code.co_name"],
+    "description": "Get function name",
+    "prefix": "func_name"
+  },
+  "getter": {
+    "body": [
+      "@property",
+      "def ${1:ATTRIBUTE_NAME}(self) -> ${2:TYPE}:",
+      "    return self._${1:ATTRIBUTE_NAME}"
+    ],
+    "description": "Create a getter method",
+    "prefix": "getter"
+  },
+  "getter_setter": {
+    "body": [
+      "@property",
+      "def ${1:ATTRIBUTE_NAME}(self) -> ${2:TYPE}:",
+      "    return self._${1:ATTRIBUTE_NAME}",
+      "",
+      "@${1:ATTRIBUTE_NAME}.setter",
+      "def ${1:ATTRIBUTE_NAME}(self, ${1:ATTRIBUTE_NAME}: ${2:TYPE}):",
+      "    self._${1:ATTRIBUTE_NAME} = ${1:ATTRIBUTE_NAME}"
+    ],
+    "description": "Getter, setter",
+    "prefix": "getter & setter"
+  },
+  "getter_setter_deleter": {
+    "body": [
+      "# ${1:ATTRIBUTE_NAME}:",
+      "@property",
+      "def ${1:ATTRIBUTE_NAME}(self) -> ${2:TYPE}:",
+      "    \"\"\"Return class property ``${1:ATTRIBUTE_NAME}``.\"\"\"",
+      "    return self._${1:ATTRIBUTE_NAME}",
+      "",
+      "@${1:ATTRIBUTE_NAME}.setter",
+      "def ${1:ATTRIBUTE_NAME}(self, ${1:ATTRIBUTE_NAME}: ${2:TYPE}):",
+      "    \"\"\"Set class property ``${1:ATTRIBUTE_NAME}``.\"\"\"",
+      "    self._${1:ATTRIBUTE_NAME} = ${1:ATTRIBUTE_NAME}",
+      "",
+      "@${1:ATTRIBUTE_NAME}.deleter",
+      "def ${1:ATTRIBUTE_NAME}(self):",
+      "    del self._${1:ATTRIBUTE_NAME}"
+    ],
+    "description": "Getter, setter, deleter",
+    "prefix": "getter, setter & deleter"
+  },
+  "home": {
+    "body": ["home = str(pathlib.Path.home())"],
+    "description": "Get user home dir",
+    "prefix": "home directory"
+  },
+  "hostname": {
+    "body": ["import socket", "socket.gethostname()"],
+    "description": "Get host name",
+    "prefix": "hostname"
+  },
+  "info": {
+    "body": ["logger.info(\"$1\")"],
+    "description": "logger.info(\"...\")",
+    "prefix": "info"
+  },
+  "inspect_members": {
+    "body": [
+      "import inspect",
+      "for member in inspect.getmembers(${1:MY_OBJECT}):",
+      "   member_name, member_value = member[0], member[1]",
+      "   print(f\"{member_name}: {member_value}\")"
+    ],
+    "description": "inspect an object",
+    "prefix": ["inspect (all members)", "all members"]
+  },
+  "inspect_private_members": {
+    "body": [
+      "import inspect",
+      "for member in inspect.getmembers(${1:MY_OBJECT}):",
+      "   member_name, member_value = member[0], member[1]",
+      "   if member_name.startswith(\"_\"):",
+      "       print(f\"{member_name}: {member_value}\")"
+    ],
+    "description": "inspect an object (private members)",
+    "prefix": ["inspect (private members)", "private members"]
+  },
+  "inspect_public_members": {
+    "body": [
+      "import inspect",
+      "for member in inspect.getmembers(${1:MY_OBJECT}):",
+      "   member_name, member_value = member[0], member[1]",
+      "   if not member_name.startswith(\"_\"):",
+      "       print(f\"{member_name}: {member_value}\")"
+    ],
+    "description": "inspect an object (public members)",
+    "prefix": ["inspect (public members)", "public members"]
+  },
+  "inspect_member_names": {
+    "body": [
+      "import inspect",
+      "for member in inspect.getmembers(${1:MY_OBJECT}):",
+      "   member_name = member[0]",
+      "   print(member_name)"
+    ],
+    "description": "inspect an object",
+    "prefix": ["inspect (member names)", "member names"]
+  },
+  "inspect_private_member_names": {
+    "body": [
+      "import inspect",
+      "for member in inspect.getmembers(${1:MY_OBJECT}):",
+      "   member_name = member[0]",
+      "   if member_name.startswith(\"_\"):",
+      "       print(member_name)"
+    ],
+    "description": "inspect an object (private member names)",
+    "prefix": ["inspect (private member names)", "private member names"]
+  },
+  "inspect_public_member_names": {
+    "body": [
+      "import inspect",
+      "for member in inspect.getmembers(${1:MY_OBJECT}):",
+      "   member_name = member[0]",
+      "   if not member_name.startswith(\"_\"):",
+      "       print(member_name)"
+    ],
+    "description": "inspect an object (public member names)",
+    "prefix": ["inspect (public member names)", "public member names"]
+  },
+  "ip_address": {
+    "body": [
+      "import socket",
+      "ip_address = socket.gethostbyname_ex(socket.gethostname())[-1][0]"
+    ],
+    "description": "Get local IP address",
+    "prefix": "ip address"
+  },
+  "isalpha": {
+    "body": ["isalpha(\"$1\")"],
+    "description": "Check if a variable is alphanumeric",
+    "prefix": "isalpha"
+  },
+  "isdigit": {
+    "body": ["isdigit(\"$1\")"],
+    "description": "Check if a variable is numeric",
+    "prefix": "isdigit"
+  },
+  "jinja (anchor definition)": {
+    "body": ["{{ template.place_anchor(${1:ID_STRING}) }}"],
+    "description": "Jinja anchor definition {{ ... }}",
+    "prefix": ["jinja (anchor definition)", "anchor definition (jinja)"]
+  },
+  "jinja (anchor reference link)": {
+    "body": ["{{ template.anchor_href(${1:ID_STRING}, ${2:LABEL}) }}"],
+    "description": "Jinja anchor reference link {{ ... }}",
+    "prefix": ["jinja (anchor reference link)", "anchor reference link (jinja)"]
+  },
+  "jinja (expression)": {
+    "body": ["{{ $1 }}"],
+    "description": "Jinja expression {{ ... }}",
+    "prefix": ["jinja (expression)", "expression (jinja)"]
+  },
+  "jinja (if)": {
+    "body": ["{% if $1 %}", "$2", "{% endif %}", "$3"],
+    "description": "Jinja if",
+    "prefix": ["jinja (if)", "if (jinja)"]
+  },
+  "jinja (if-elif)": {
+    "body": ["{% if $1 %}", "$2", "{% elif %}", "$3", "{% endif %}", "$4"],
+    "description": "Jinja if-elif",
+    "prefix": ["jinja (if-elif)", "if-elif (jinja)"]
+  },
+  "jinja (if-else)": {
+    "body": ["{% if $1 %}", "$2", "{% else %}", "$3", "{% endif %}", "$4"],
+    "description": "Jinja if-else",
+    "prefix": ["jinja (if-else)", "if-else (jinja)"]
+  },
+  "jinja (macro)": {
+    "body": ["{% macro ${1:MACRONAME}() %}", "$2", "{% endmacro %}"],
+    "description": "Jinja macro",
+    "prefix": ["jinja (macro)", "macro (jinja)"]
+  },
+  "jinja (render template code)": {
+    "body": [
+      "import typing as t",
+      "from IPython.display import HTML",
+      "from jinja2 import Environment",
+      "persons: dict[str, t.Any] = {\"Hans\": \"Wurst\", \"Max\": \"Mustermann\"}",
+      "",
+      "env: Environment = Environment()",
+      "",
+      "TEMPLATE = \"\"\"",
+      "{% set persons = context %}",
+      "{% for firstname, lastname in persons.items() %}",
+      "{{ lastname }}, {{ firstname }}<br/>",
+      "{% endfor %}",
+      "\"\"\"",
+      "HTML(env.from_string(TEMPLATE).render(context=persons))"
+    ],
+    "description": "jinja (render template code)",
+    "prefix": ["jinja (render)", "render (jinja)"]
+  },
+  "jinja (statement)": {
+    "body": ["{% $1 %}"],
+    "description": "Jinja statement {% ... %}",
+    "prefix": ["jinja (statement)", "statement (jinja)"]
+  },
+  "jupyter_notebook_html": {
+    "body": ["from IPython.core.display import HTML"],
+    "description": "Display HTML in Jupyter notebook",
+    "prefix": ["Jupyter (HTML)", "Notebook (HTML)", "HTML (Jupyter notebook)"]
+  },
+  "list_unique": {
+    "body": ["list(set(${1:MY_LIST}))"],
+    "description": "Make list entries unique (remove duplicates)",
+    "prefix": "list unique"
+  },
+  "log_to_file": {
+    "body": [
+      "import logging",
+      "formatter: logging.Formatter = logging.Formatter(",
+      "    fmt=\"[%(asctime)s] %(levelname)-8s : %(message)s\",",
+      "    datefmt=\"%Y-%m-%d %H:%M:%S\"",
+      ")",
+      "logger: logging.Logger = logging.getLogger()",
+      "for handler in logger.handlers:",
+      "   logger.removeHandler(handler)",
+      "logger.setLevel(\"INFO\")",
+      "console_hdl: logging.Handler = logging.StreamHandler()",
+      "console_hdl.setLevel(logging.INFO)",
+      "console_hdl.setFormatter(formatter)",
+      "logger.addHandler(console_hdl)",
+      "log_file_path: Path = Path(\"${1:LOG_FILE_PATH}\")",
+      "log_file_path.unlink(missing_ok=True)",
+      "file_hdl: logging.Handler = logging.FileHandler(filename=log_file_path, mode=\"w\")",
+      "file_hdl.setLevel(logging.DEBUG)",
+      "file_hdl.setFormatter(formatter)",
+      "logger.addHandler(file_hdl)"
+    ],
+    "description": "Quickly introduce logger logging to file",
+    "prefix": ["Quick log to file", "Log to file (quick)"]
+  },
+  "logger (introduce)": {
+    "body": ["from loguru import logger"],
+    "description": "Introduce logger",
+    "prefix": [
+      "logger (introduce)",
+      "loguru",
+      "introduce (logger)",
+      "get (logger)"
+    ]
+  },
+  "logger (setup)": {
+    "body": [
+      "import logging",
+      "import ${1:PROJECT_NAME}.log as log",
+      "logger: logging.Logger = log.setup_logger()"
+    ],
+    "description": "Setup logger \"JAR\"",
+    "prefix": ["setup (logger)", "logger (setup)"]
+  },
+  "main": {
+    "body": ["if __name__ == \"__main__\":", "    ${1:pass}"],
+    "description": "if __name__ == \"__main__\":",
+    "prefix": ["__main__", "main", "if main"]
+  },
+  "markdown_cell": {
+    "body": ["# %% [markdown]", "$1"],
+    "description": "Start a Jupyter notebook Markdown cell",
+    "prefix": "markdown cell"
+  },
+  "matplotlibrc_path": {
+    "body": ["import matplotlib", "print(matplotlib.matplotlib_fname())"],
+    "description": "print matplotlibrc file in use",
+    "prefix": "matplotlibrc path"
+  },
+  "monkeypatch_funcs_retval": {
+    "body": [
+      "monkeypatch.setattr(\"${1:DOTTED_IMPORT_PATH_OF_FUNCTION}\", lambda: ${2:PATCHED_RETVAL})"
+    ],
+    "description": "Monkeypatch return value of a function",
+    "prefix": ["monkeypatch retval of func"]
+  },
+  "mypy/ pylance (ignore line)": {
+    "body": ["# type: ignore"],
+    "description": "Disable mypy/ pylance checking for this line",
+    "prefix": [
+      "mypy (skip)",
+      "skip (mypy)",
+      "disable (mypy)",
+      "ignore (mypy)",
+      "line (mypy ignore)",
+      "pylance (skip)",
+      "skip (mypy)",
+      "skip (pylance)",
+      "disable (pylance)",
+      "ignore (pylance)",
+      "line (pylance ignore)"
+    ]
+  },
+  "namedtuple": {
+    "body": [
+      "from collections import namedtuple",
+      "${1:Item} = namedtuple(\"${1:Item}\", [\"${2:attribute_1}\"])",
+      "${1:Item}.__new__.__defaults__ = (${3:DEFAULT_VALUE})"
+    ],
+    "description": "namedtuple skeleton",
+    "prefix": "namedtuple"
+  },
+  "now": {
+    "body": [
+      "import datetime",
+      "now = datetime.datetime.now()",
+      "now_str = now.strftime(\"%Y-%m-%d_%H:%M:%S\")",
+      "now_str"
+    ],
+    "description": "Get current date/ time",
+    "prefix": ["now", "date", "time", "datetime", "strftime"]
+  },
+  "pd (max_columns context)": {
+    "body": [
+      "with pd.option_context(\"display.max_columns\", ${1:None}):",
+      "    $1"
+    ],
+    "description": "Set max no of cols (context)",
+    "prefix": [
+      "pd (option_context max_cols)",
+      "option_context max_cols (pd)",
+      "option_context max_cols (pd)"
+    ]
+  },
+  "pd (max_columns globally)": {
+    "body": ["pd.set_option(\"display.max_columns\", ${1:None})"],
+    "description": "Set max no of cols (globally)",
+    "prefix": [
+      "pd (set_option max_columns)",
+      "set_option max_columns (pd)",
+      "option max_columns (pd)"
+    ]
+  },
+  "pd (max_colwidth context)": {
+    "body": [
+      "with pd.option_context(\"display.max_colwidth\", ${1:500}):",
+      "    $1"
+    ],
+    "description": "Set max width of cols (context)",
+    "prefix": [
+      "pd (option_context max_colwidth)",
+      "option_context max_colwidth (pd)",
+      "option_context max_colwidth (pd)"
+    ]
+  },
+  "pd (max_colwidth globally)": {
+    "body": ["pd.set_option(\"display.max_colwidth\", ${1:500})"],
+    "description": "Set max width of cols (globally)",
+    "prefix": [
+      "pd (set_option max_colwidth)",
+      "set_option max_colwidth (pd)",
+      "option max_colwidth (pd)"
+    ]
+  },
+  "pd (max_rows context)": {
+    "body": [
+      "with pd.option_context(\"display.max_rows\", ${1:1000}):",
+      "    $1"
+    ],
+    "description": "Set max no of rows (context)",
+    "prefix": [
+      "pd (option_context max_rows)",
+      "option_context max_rows (pd)",
+      "option_context max_rows (pd)"
+    ]
+  },
+  "pd (max_rows globally)": {
+    "body": ["pd.set_option(\"display.max_rows\", ${1:1000})"],
+    "description": "Set max no of rows (globally)",
+    "prefix": [
+      "pd (set_option max_rows)",
+      "set_option max_rows (pd)",
+      "option max_rows (pd)"
+    ]
+  },
+  "platform": {
+    "body": ["import platform", "platform.platform()"],
+    "description": "get platform",
+    "prefix": ["platform", "operating system"]
+  },
+  "profile": {
+    "body": [
+      "%load_ext line_profiler",
+      "%lprun -u 0.001 -f ${1:CALLABLE_NAME} ${2:COMMAND}"
+    ],
+    "description": "profile code in notebook",
+    "prefix": ["lineprofiler", "profile code"]
+  },
+  "pylint-disable-next": {
+    "body": [
+      "# pylint: disable-next=${1:<PYLINT_MESSAGE_CODE>}"
+    ],
+    "description": "Disable a pylint message for next line",
+    "prefix": [
+      "pylint (skip next line)",
+      "skip next line (pylint)",
+      "ignore next line (pylint)",
+      "exclude next line (pylint)",
+      "disable-next (pylint)"
+    ]
+  },
+  "pylint": {
+    "body": [
+      "# pylint: disable=${1:<PYLINT_MESSAGE_CODE>}",
+      "# pylint: enable=${1:<PYLINT_MESSAGE_CODE>}$2"
+    ],
+    "description": "Disable and then enable a pylint message inline",
+    "prefix": [
+      "pylint (skip)",
+      "skip (pylint)",
+      "ignore (pylint)",
+      "exclude (pylint)",
+      "disable (pylint)",
+      "block (pylint exclude)"
+    ]
+  },
+  "pylint (broad-except)": {
+    "body": [
+      "# pylint: disable=broad-except",
+      "# pylint: enable=broad-except$1"
+    ],
+    "description": "Disable and then enable broad-except pylint message inline",
+    "prefix": ["pylint (broad-except)", "broad-except (pylint)"]
+  },
+  "pylint (import-error)": {
+    "body": [
+      "# pylint: disable=import-error",
+      "# pylint: enable=import-error$1"
+    ],
+    "description": "Disable and then enable unused-import pylint message inline",
+    "prefix": ["pylint (import-error)", "import-error (pylint)"]
+  },
+  "pylint (line-too-long)": {
+    "body": [
+      "# pylint: disable=line-too-long",
+      "# pylint: enable=line-too-long$1"
+    ],
+    "description": "Disable and then enable line-too-long pylint message inline",
+    "prefix": ["pylint (line-too-long)", "line-too-long (pylint)"]
+  },
+  "pylint (missing-class-docstring)": {
+    "body": [
+      "# pylint: disable=missing-class-docstring",
+      "# pylint: enable=missing-class-docstring$1"
+    ],
+    "description": "Disable and then enable missing-class-docstring pylint message inline",
+    "prefix": [
+      "pylint (missing-class-docstring)",
+      "missing-class-docstring (pylint)"
+    ]
+  },
+  "pylint (no-self-use)": {
+    "body": ["# pylint: disable=no-self-use", "# pylint: enable=no-self-use$1"],
+    "description": "Disable and then enable no-self-use pylint message inline",
+    "prefix": ["pylint (no-self-use)", "no-self-use (pylint)"]
+  },
+  "pylint (pytest ignores)": {
+    "body": [
+      "# pylint: disable=no-self-use,too-few-public-methods",
+      "# pylint: enable=no-self-use,too-few-public-methods$1"
+    ],
+    "description": "Disable and then enable pylint messages that typically appear in test code",
+    "prefix": ["pylint (pytest ignores)", "pytest ignores (pylint)"]
+  },
+  "pylint (redefined-outer-name)": {
+    "body": [
+      "# pylint: disable=redefined-outer-name",
+      "# pylint: enable=redefined-outer-name$1"
+    ],
+    "description": "Disable and then enable redefined-outer-name pylint message inline",
+    "prefix": ["pylint (redefined-outer-name)", "redefined-outer-name (pylint)"]
+  },
+  "pylint (too-many-lines)": {
+    "body": [
+      "# pylint: disable=too-many-lines",
+      "# pylint: enable=too-many-lines$1"
+    ],
+    "description": "Disable and then enable too-many-lines pylint message inline",
+    "prefix": ["pylint (too-many-lines)", "too-many-lines (pylint)"]
+  },
+  "pylint (unused-argument)": {
+    "body": [
+      "# pylint: disable=unused-argument",
+      "# pylint: enable=unused-argument$1"
+    ],
+    "description": "Disable and then enable unused-argument pylint message inline",
+    "prefix": ["pylint (unused-argument)", "unused-argument (pylint)"]
+  },
+  "pylint (unused-import)": {
+    "body": [
+      "# pylint: disable=unused-import",
+      "# pylint: enable=unused-import$1"
+    ],
+    "description": "Disable and then enable unused-import pylint message inline",
+    "prefix": ["pylint (unused-import)", "unused-import (pylint)"]
+  },
+  "pylint (wrong-import-position)": {
+    "body": [
+      "# pylint: disable=wrong-import-position",
+      "# pylint: enable=wrong-import-position$1"
+    ],
+    "description": "Disable and then enable-wrong-import-position pylint message inline",
+    "prefix": [
+      "pylint (wrong-import-position)",
+      "wrong-import-position (pylint)"
+    ]
+  },
+  "pytest exception (class)": {
+    "body": ["with pytest.raises(${1:EXCEPTION_CLASS}):", "    $2"],
+    "description": "pytest context for expected exception class",
+    "prefix": ["pytest exception (class)", "exception class (pytest)"]
+  },
+  "pytest exception (message)": {
+    "body": [
+      "with pytest.raises(${1:EXCEPTION_CLASS}) as excinfo:",
+      "    ${2:SOMETHING_RAISING_EXCEPTION}",
+      "exception_msg = excinfo.value.args[0]",
+      "assert exception_msg == \"${3:EXPECTED_EXCEPTION_MSG}\""
+    ],
+    "description": "pytest context for expected exception message",
+    "prefix": ["pytest exception (message)", "exception message (pytest)"]
+  },
+  "pytest fixture (setup/ teardown)": {
+    "body": [
+      "@pytest.fixture(scope=\"${1|function,class,module,session|}\")",
+      "# append (${2:FIXTURE_NAME}) to list of args of test function!",
+      "# pass --setup-show to pytest to see setup/ teardown actions",
+      "def ${2:FIXTURE_NAME}() ->  -> Generator[${3:str}]:",
+      "    # Put setup code here",
+      "    yield",
+      "    # Put teardown code here"
+    ],
+    "description": "pytest fixture (setup/ teardown) decorator for test function",
+    "prefix": [
+      "pytest (setup/ teardown fixture)",
+      "fixture setup/ teardown (pytest)"
+    ]
+  },
+  "pytest fixture (test data)": {
+    "body": [
+      "@pytest.fixture(name=\"${1:FIXTURE_NAME}\", scope=\"${2|function,class,module,session|}\")",
+      "# append (${1:FIXTURE_NAME}) to list of args of test function!",
+      "# pass --setup-show to pytest to see setup/ teardown actions",
+      "def fixture_${1:FIXTURE_NAME}() -> ${3:RETURN_TYPE}:",
+      "    return ${4:RETURN_VALUE}"
+    ],
+    "description": "pytest fixture (test data) decorator for test function",
+    "prefix": ["pytest (test data fixture)", "fixture test data (pytest)"]
+  },
+  "pytest mark": {
+    "body": ["@pytest.mark.${1:MARKER}"],
+    "description": "pytest decorator to mark a test function",
+    "prefix": ["pytest (mark)", "mark (pytest)"]
+  },
+  "pytest parametrize (1 arg)": {
+    "body": [
+      "test_data_set = (",
+      "    pytest.param(${4:INPUT}, ${5:EXPECTED_RESULT}, id=\"${6:ID}\"),",
+      ")",
+      "@pytest.mark.parametrize(\"${1:ARG_1}, expected\", test_data_set)",
+      "def test_${2:FUNCTION_TO_TEST}(${3:self, }${1:ARG_1}, expected) -> None:",
+      "    actual = ${2:FUNCTION_TO_TEST}(${1:ARG_1})",
+      "    assert actual == expected"
+    ],
+    "description": "pytest decorator to parametrize a test function with 1 arg",
+    "prefix": ["pytest (parametrize 1 arg)", "parametrize 1 arg (pytest)"]
+  },
+  "pytest parametrize (2 args)": {
+    "body": [
+      "test_data_set = (pytest.param(${1:INPUT_1}, ${2:INPUT_2}, ${3:EXPECTED_RESULT}, id=\"${4:ID}\"),)",
+      "",
+      "@pytest.mark.parametrize(\"${5:ARG_1}, ${6:ARG_2}, expected\", test_data_set)",
+      "def test_${7:FUNCTION_TO_TEST}(${5:ARG_1}, ${6:ARG_2}, expected) -> None:",
+      "    actual = ${7:FUNCTION_TO_TEST}(${5:ARG_1}, ${6:ARG_2})",
+      "    assert actual == expected"
+    ],
+    "description": "pytest decorator to parametrize a test function with 2 args",
+    "prefix": ["pytest (parametrize 2 args)", "parametrize 2 args (pytest)"]
+  },
+  "pytest skip": {
+    "body": ["@pytest.mark.skip(reason=\"${1:REASON}\")"],
+    "description": "pytest decorator to skip a test function",
+    "prefix": ["pytest (skip)", "skip (pytest)"]
+  },
+  "pytest skipif": {
+    "body": ["@pytest.mark.skipif(${1:CONDITION}, reason=\"${2:REASON}\")"],
+    "description": "pytest decorator to skip a test function if a condition is fulfilled",
+    "prefix": ["pytest (skipif)", "skipif (pytest)"]
+  },
+  "pytest temp dir and file fixture template": {
+    "body": [
+      "from pathlib import Path",
+      "import py.path",
+      "",
+      "@pytest.fixture(scope=\"function\")",
+      "def path_to_test_file(tmpdir: py.path.local) -> Path:",
+      "    path: Path = Path(tmpdir.mkdir(\"test_dir\"))",
+      "    env_file_path: Path = path / \"file_name\"",
+      "    env_file_path.write_text(\"some text\\n\")",
+      "    return env_file_path",
+      "",
+      "",
+      "def test_something(path_to_test_file: Path):",
+      "    print(path_to_test_file)"
+    ],
+    "description": "pytest fixture func arg",
+    "prefix": ["pytest (temp dir and file)", "temp dir and file (pytest)"]
+  },
+  "pytest tmpdir": {
+    "body": ["import py.path", "tmpdir: py.path.local"],
+    "description": "pytest fixture func arg",
+    "prefix": ["pytest (tmpdir)", "tmpdir (pytest)"]
+  },
+  "question": {
+    "body": ["# question: $1"],
+    "description": "question",
+    "prefix": "question"
+  },
+  "re findall": {
+    "body": [
+      "import re",
+      "string = \"variable = 'Value1'\\nvariable = 'Value2'\"",
+      "pattern = \"(?<=variable = ')(.*)(?=')\"",
+      "matches = re.findall(pattern, string)",
+      "print(type(matches))  # --> <class 'list'>",
+      "print(matches)  # --> ['Value1', 'Value2']"
+    ],
+    "description": "Match a RegEx pattern",
+    "prefix": "re.findall"
+  },
+  "re match": {
+    "body": [
+      "import re",
+      "string = \"Isaac Newton, physicist\"",
+      "match = re.match(r\"(\\w+) (\\w+)\", string)",
+      "print(match.group(0))  # The entire match --> \"Isaac Newton\"",
+      "print(match.group(1))  # The first parenthesized subgroup. --> \"Isaac\"",
+      "print(match.group(2))  # The second parenthesized subgroup. --> \"Newton\"",
+      "print(match.group(1, 2))  # Multiple arguments give us a tuple. --> ('Isaac', 'Newton')"
+    ],
+    "description": "Match a RegEx pattern",
+    "prefix": ["re.match", "RegEx", "match", "Regular Expressions"]
+  },
+  "ser (compare/ diff)": {
+    "body": [
+      "from pandas.testing import assert_series_equal",
+      "assert_series_equal(left=${1:ser}, right=${2:ser}, check_dtype=${3:True})"
+    ],
+    "description": "Compare two series",
+    "prefix": ["ser (compare/ diff)", "compare (ser)", "diff (ser)"]
+  },
+  "setter": {
+    "body": [
+      "# ${1:ATTRIBUTE_NAME}:",
+      "@${1:ATTRIBUTE_NAME}.setter",
+      "def ${1:ATTRIBUTE_NAME}(self, ${1:ATTRIBUTE_NAME}: ${2:TYPE}) -> None:",
+      "    self._${1:ATTRIBUTE_NAME} = ${1:ATTRIBUTE_NAME}"
+    ],
+    "description": "Create a setter method",
+    "prefix": "setter"
+  },
+  "shebang": {
+    "body": ["#!/usr/bin/env python3"],
+    "description": "Shebang (#!/usr/bin/env python3)",
+    "prefix": "shebang"
+  },
+  "sort list of dictionaries": {
+    "body": [
+      "from operator import itemgetter",
+      "${1:MY_LIST_NAME} = sorted(${1:MY_LIST_NAME}, key=itemgetter(\"name\"), reverse=False)"
+    ],
+    "description": "Sort list of dicts",
+    "prefix": ["list_of_dicts_sort", "sort_list_of_dicts"]
+  },
+  "special_import_setup": {
+    "body": ["# special import setup:$1"],
+    "description": "special import setup",
+    "prefix": "special_import_setup"
+  },
+  "sqlite_engine_file": {
+    "body": [
+      "import sqlalchemy as db",
+      "engine: db.engine.Engine = db.create_engine(",
+      "    \"sqlite+pysqlite:///${1:ABSOLUTE_OR_RELATIVE_FILE_PATH}\", echo=False, future=True",
+      ")"
+    ],
+    "description": "SQL engine to sqlite file",
+    "prefix": ["sqlite engine (file)", "engine (sqlite file)"]
+  },
+  "sqlite_engine_memory": {
+    "body": [
+      "import sqlalchemy as db",
+      "engine: db.engine.Engine = db.create_engine(",
+      "    \"sqlite+pysqlite:///:memory:\", echo=False, future=True",
+      ")"
+    ],
+    "description": "SQL engine to sqlite in memory",
+    "prefix": ["sqlite engine (in memory)", "engine (sqlite in memory)"]
+  },
+  "staticmethod": {
+    "body": ["@staticmethod", "def ${1:METHOD_NAME}:", "    ${2:pass}"],
+    "description": "@staticmethod",
+    "prefix": "staticmethod"
+  },
+  "subprocess": {
+    "body": [
+      "from subprocess import PIPE, Popen",
+      "",
+      "cmd = []",
+      "stdout, stderr = '', ''",
+      "p = Popen(",
+      "    cmd, stdout=PIPE, stderr=PIPE, bufsize=1, universal_newlines=True",
+      ")",
+      "if p.stdout:",
+      "    for line_no, line in enumerate(p.stdout):",
+      "        stdout += line",
+      "if p.stderr:",
+      "    for line_no, line in enumerate(p.stderr):",
+      "        stderr += line",
+      "while p.poll() is None:",
+      "   pass",
+      "# p.returncode  # return code of process"
+    ],
+    "description": "subprocess",
+    "prefix": ["subprocess", "Popen"]
+  },
+  "sys.path": {
+    "body": [
+      "${1:# built-ins:}",
+      "from os.path import abspath",
+      "from pathlib import Path",
+      "import sys",
+      "# extend sys.path:",
+      "MODULE_DIR = abspath(str(Path(__file__).parents[0]))",
+      "if MODULE_DIR not in sys.path:",
+      "    sys.path.insert(0, MODULE_DIR)",
+      "",
+      "",
+      "# libs:",
+      "# pylint: disable=wrong-import-position",
+      "import $2",
+      "",
+      "# pylint: enable=wrong-import-position",
+      "$3"
+    ],
+    "description": "extend sys.path",
+    "prefix": ["extend sys.path", "sys.path"]
+  },
+  "tempdir": {
+    "body": [
+      "from tempfile import gettempdir",
+      "",
+      "tmp_dir: Path = Path(gettempdir())"
+    ],
+    "description": "Get path to temporary directory",
+    "prefix": "tempdir"
+  },
+  "thread_name": {
+    "body": ["threading.currentThread().name"],
+    "description": "Get name of current thread",
+    "prefix": "thread name"
+  },
+  "todo": {
+    "body": ["# todo: $1"],
+    "description": "todo",
+    "prefix": "todo"
+  },
+  "type (function)": {
+    "body": ["func: t.Callable[[${1:ARG_TYPES}], ${2:RETURN_TYPE}]"],
+    "description": "Define or type a function",
+    "prefix": ["function", "type (function)"]
+  },
+  "type (lambda)": {
+    "body": [
+      "callable: t.Callable[[${1:ARG_TYPES}], ${2:RETURN_TYPE}] = lambda ${3:ARGS}: ${4:LAMBDA_BODY}"
+    ],
+    "description": "Define or type a lambda",
+    "prefix": ["lambda", "type (lambda)"]
+  },
+  "type (queue)": {
+    "body": ["q: \"queue.Queue[t.Any]\""],
+    "description": "Define or type a queue",
+    "prefix": ["queue", "type (queue)"]
+  },
+  "typing": {
+    "body": ["import typing as t"],
+    "description": "import typing as t",
+    "prefix": ["import"]
+  },
+  "import typing as t": {
+    "body": ["import typing as t"],
+    "description": "import typing as t",
+    "prefix": ["import typing as t"]
+  },
+  "username": {
+    "body": ["from getpass import getuser", "getuser()"],
+    "description": "Get user name",
+    "prefix": ["username", "getuser"]
+  },
+  "walk": {
+    "body": [
+      "for dir_path, dir_names, file_names in os.walk(top=dir_path):",
+      "    for file_name in file_names:",
+      "        file_path = join(dir_path, file_name)"
+    ],
+    "description": "Walk recursively through a directory",
+    "prefix": ["walk", "os.walk"]
+  },
+  "wait_with_timeout": {
+    "body": [
+      "import time",
+      "elapsed = 0",
+      "timeout = 3",
+      "while elapsed < timeout:",
+      "    time.sleep(1)",
+      "    elapsed += 1",
+      "    print(f\"Waited {elapsed} secs\")",
+      "print(\"Done\")"
+    ],
+    "description": "While loop waiting with timeout",
+    "prefix": [
+      "wait with timeout",
+      "while loop waiting with timeout",
+      "timeout waiting loop"
+    ]
+  },
+  "youngest_age_in_seconds_of_last_file_modification_in_dir": {
+    "body": [
+      "from pathlib import Path",
+      "",
+      "",
+      "def youngest_age_in_seconds_of_last_file_modification_in_dir(path: Path) -> int:",
+      "    \"\"\"Determine the youngest age for the modification of a file in a directory.",
+      "",
+      "    Parameters",
+      "    ----------",
+      "    path",
+      "        A path to a directory",
+      "",
+      "    Returns",
+      "    -------",
+      "    int",
+      "        Youngest age for the modification of a file in the directory *path* in seconds",
+      "",
+      "    \"\"\"",
+      "    import datetime",
+      "    time_ns_max: int = 0",
+      "    last_modified_file: str = \"\"",
+      "    for item in path.rglob(\"*\"):",
+      "        if item.is_dir() or \".git\" in item.parts:",
+      "            continue",
+      "        time_ns: int = item.stat().st_mtime_ns",
+      "        if time_ns > time_ns_max:",
+      "            time_ns_max = time_ns",
+      "            last_modified_file = str(item)",
+      "    last_modified_file_time_ns: int = Path(last_modified_file).stat().st_mtime_ns",
+      "    last_modified_timestamp = datetime.datetime.fromtimestamp(",
+      "        last_modified_file_time_ns / 1000000000",
+      "    )",
+      "    age: datetime.timedelta = datetime.datetime.now() - last_modified_timestamp",
+      "    print(",
+      "        f\"Identified youngest file modification with age of {age.seconds} s \"",
+      "        f\"for the file '{last_modified_file}' \"",
+      "    )",
+      "    return age.seconds",
+      "",
+      "",
+      "youngest_age_in_seconds_of_last_file_modification_in_dir(Path(\"${1:MY_PATH}\"))"
+    ],
+    "description": "Determine youngest age for modification of a file in a dir",
+    "prefix": ["last file modification (directory)"]
+  },
+  "warning": {
+    "body": ["logger.warning(\"$1\")"],
+    "description": "logger.warning(\"...\")",
+    "prefix": "warning"
+  },
+  "which": {
+    "body": ["import shutil", "shutil.which(\"$MYEXE\")"],
+    "description": "my desc",
+    "prefix": ["which"]
+  }
+}

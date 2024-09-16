@@ -1,0 +1,173 @@
+{
+    "debug configuration (in launch.json)": {
+        "body": [
+            "{",
+            "    \"name\": \"${1:NAME}\",",
+            "    \"type\": \"python\",",
+            "    \"request\": \"launch\",",
+            "    \"program\": \"\\${workspaceFolder}/${2:PATH_TO_MODULE_FOLDER_OR_SCRIPT}\",",
+            "    \"args\": [\"\"],",
+            "    \"console\": \"integratedTerminal\",",
+            "    \"sudo\": false",
+            "}"
+        ],
+        "description": "Create new debug configuration in a launch.json file",
+        "prefix": [
+            "launch.json (debug configuration)",
+            "debug configuration (launch.json)"
+        ]
+    },
+    "echo (tasks.json)": {
+        "body": [
+            "{",
+            "    \"label\": \"echo\",",
+            "    \"detail\": \"echo something to stdout\",",
+            "    \"type\": \"shell\",",
+            "    \"command\": \"echo \\$JARROOT\",",
+            "    \"dependsOrder\": \"sequence\",",
+            "    \"dependsOn\": \"\",",
+            "    \"problemMatcher\": [],",
+            "    \"group\": \"build\"",
+            "}"
+        ],
+        "description": "Create an echo task",
+        "prefix": [
+            "tasks.json (echo)",
+            "echo (tasks.json)"
+        ]
+    },
+    "host setting": {
+        "body": [
+            "{",
+            "    \"key\": \"$1\",",
+            "    \"val\": \"$2\",",
+            "    \"hosts\": null",
+            "}"
+        ],
+        "description": "Define a host setting",
+        "prefix": "host setting"
+    },
+    "input (in launch.json)": {
+        "body": [
+            "\"inputs\": [",
+            "    {",
+            "        \"id\": \"${1:INPUT_NAME}\",",
+            "        \"type\": \"pickString\",",
+            "        \"description\": \"Select an item (Use input in debug config via \\${input:${1:INPUT_NAME}})\",",
+            "        \"options\": [\"Item_1\", \"Item_2\"],",
+            "        \"default\": \"Item_1\"",
+            "    }",
+            "]"
+        ],
+        "description": "Create an input definition in a launch.json file",
+        "prefix": [
+            "launch.json (input)",
+            "input (launch.json)"
+        ]
+    },
+    "skeleton (launch.json)": {
+        "body": [
+            "{",
+            "    // Use IntelliSense to learn about possible attributes.",
+            "    // Hover to view descriptions of existing attributes.",
+            "    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387",
+            "    \"version\": \"0.2.0\",",
+            "    \"configurations\": [",
+            "",
+            "    ]",
+            "}"
+        ],
+        "description": "Create new launch.json file",
+        "prefix": [
+            "debug configuration file skeleton (launch.json)",
+            "launch.json (skeleton)",
+            "skeleton (launch.json)"
+        ]
+    },
+    "skeleton (tasks.json)": {
+        "body": [
+            "{",
+            "    // See https://go.microsoft.com/fwlink/?LinkId=733558",
+            "    // for the documentation about the tasks.json format",
+            "    \"version\": \"2.0.0\",",
+            "    \"tasks\": [",
+            "        {",
+            "            \"label\": \"echo\",",
+            "            \"detail\": \"echo something to stdout\",",
+            "            \"type\": \"shell\",",
+            "            \"command\": \"echo \\$JARROOT\",",
+            "            \"dependsOrder\": \"sequence\",",
+            "            \"dependsOn\": \"\",",
+            "            \"problemMatcher\": [],",
+            "            \"group\": {",
+            "                \"kind\": \"build\",",
+            "                \"isDefault\": true",
+            "            }",
+            "        }",
+            "    ]",
+            "}"
+        ],
+        "description": "Create new tasks.json file with task to echo $JARROOT",
+        "prefix": [
+            "tasks.json (skeleton)",
+            "skeleton (tasks.json)"
+        ]
+    },
+    "task (Run Python script)": {
+        "body": [
+            "{",
+            "    \"label\": \"Run script\",",
+            "    \"type\": \"process\",",
+            "    \"command\": \"\\${config:python.pythonPath}\",",
+            "    \"args\": [",
+            "        \"\"",
+            "    ],",
+            "    \"options\": {",
+            "        \"cwd\": \"\\${workspaceFolder}\"",
+            "    },",
+            "    \"group\": {",
+            "        \"kind\": \"build\",",
+            "        \"isDefault\": true",
+            "    },",
+            "    \"presentation\": {",
+            "        \"clear\": true,",
+            "        \"revealProblems\": \"onProblem\",",
+            "        \"panel\": \"dedicated\",",
+            "        \"showReuseMessage\": true",
+            "    },",
+            "    \"problemMatcher\": []",
+            "}"
+        ],
+        "description": "Create new task running a Python script",
+        "prefix": [
+            "python task",
+            "run python script (task)",
+            "task (run python script)"
+        ]
+    },
+    "task (Run pytest)": {
+        "body": [
+            "{",
+            "    \"label\": \"pytest\",",
+            "    \"type\": \"shell\",",
+            "    \"command\": \"pytest\",",
+            "    \"args\": [",
+            "        \"--verbose\"",
+            "    ],",
+            "    \"dependsOrder\": \"sequence\",",
+            "    \"dependsOn\": \"\",",
+            "    \"problemMatcher\": [],",
+            "    \"group\": {",
+            "        \"kind\": \"build\",",
+            "        \"isDefault\": true",
+            "    }",
+            "}"
+        ],
+        "description": "Create new task running a pytest",
+        "prefix": [
+            "pytest task",
+            "run pytest (task)",
+            "task (run pytest)"
+        ]
+    }
+}

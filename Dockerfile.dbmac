@@ -1,0 +1,23 @@
+FROM engine-room:base
+LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
+
+# JDKs that fit Capella versions we use {{{
+COPY resources/install_capella_jdks.zsh /tmp
+RUN chmod +x /tmp/install_capella_jdks.zsh && \
+  zsh /tmp/install_capella_jdks.zsh && \
+  rm /tmp/install_capella_jdks.zsh
+# }}}
+
+# system pkg manager installs {{{
+RUN dnf --color yes --refresh -y install \
+  java-11-openjdk-devel \
+  java-17-openjdk-devel \
+  maven
+# }}}
+
+# oc - OpenShift Command Line Interface (CLI) {{{
+COPY resources/oc.tar /home/nörd
+RUN tar -xvf oc.tar && \
+  mv oc /opt && ln -s /opt/oc /usr/local/bin && \
+  rm oc.tar
+# }}}

@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+
+export EG=/home/nörd/engine-room
+export VOLUME=/mnt/volume
+export DOT=$EG/dotfiles
+
+. $DOT/zsh/env.zsh
+. $DOT/zsh/funcs.zsh
+
+. $DOT/zsh/oh-my-zsh.zsh
+. $DOT/zsh/zsh.zsh
+. $DOT/zsh/bat.zsh
+. $DOT/zsh/fzf.zsh
+. $DOT/zsh/node.zsh
+. $DOT/zsh/aliases.zsh
+. $DOT/zsh/p10k.zsh
+. $DOT/zsh/pyenv.zsh
+. $DOT/zsh/vifm.zsh
+. $DOT/zsh/DB.zsh
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+sudo mkdir -p /root/.config/gdb
+sudo cp $DOT/gdbinit /root/.config/gdb
+sudo chmod 777 /var/run/docker.sock
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)

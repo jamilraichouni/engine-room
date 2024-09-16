@@ -1,0 +1,40 @@
+
+
+# ----------------------------------------------------------------------
+# If applied, this commit will <Subject>
+# <type>[optional scope]: <Subject> (max 50 chars, do not end with period)
+
+# [optional body] (max 72 chars per line)
+
+# [optional footer(s)]
+
+# [optional closes: #]
+# [see also: #]
+
+# ----------------------------------------------------------------------
+
+# commit types:
+#
+# - build    (MUST be used when a commit adds/ modifies anything related to the package build)
+# - chore
+# - ci       (MUST be used when a commit adds/ modifies anything related to the CI setup)
+# - docs     (MUST be used when a commit adds/ modifies anything related to the documentation)
+# - feat     (MUST be used when a commit adds a new feature to the application or library.)
+# - fix      (MUST be used when a commit represents a bug fix for the application.)
+# - merge    (MUST be used when a commit represents a merge of two or more commits.)
+# - perf     (MUST be used when a commit improves the performance of the application.)
+# - refactor (MUST be used for a commit after a systematic improving of the code structure without changing the external behavior of the application.)
+# - revert   (MUST be used when a commit reverts one or multiple commits)
+# - test     (MUST be used when a commit only adds/ modifies anything related to tests)
+
+# ----------------------------------------------------------------------
+
+# https://chris.beams.io/posts/git-commit/#seven-rules
+
+# 1. Separate subject from body with a blank line
+# 2. Limit the subject line to 50 characters
+# 3. Capitalize the subject line
+# 4. Do not end the subject line with a period
+# 5. Use the imperative mood in the subject line
+# 6. Wrap the body at 72 characters
+# 7. Use the body to explain WHAT and WHY vs. how

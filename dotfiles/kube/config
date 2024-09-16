@@ -1,0 +1,47 @@
+apiVersion: v1
+clusters:
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://api.dbcs-madrid.comp.db.de:6443
+  name: api-dbcs-madrid-comp-db-de:6443
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJlRENDQVIyZ0F3SUJBZ0lCQURBS0JnZ3Foa2pPUFFRREFqQWpNU0V3SHdZRFZRUUREQmhyTTNNdGMyVnkKZG1WeUxXTmhRREUzTVRjMU1ESTJNamt3SGhjTk1qUXdOakEwTVRJd016UTVXaGNOTXpRd05qQXlNVEl3TXpRNQpXakFqTVNFd0h3WURWUVFEREJock0zTXRjMlZ5ZG1WeUxXTmhRREUzTVRjMU1ESTJNamt3V1RBVEJnY3Foa2pPClBRSUJCZ2dxaGtqT1BRTUJCd05DQUFUbURvYVhzTytnYWNHb1pubklRa0ZxeVdwWFV6WnZNaXNCVUpIaCs0SjgKSGFBTUFyZHBCZTVZNlEya2RaUU9pOE05RVdvS1VJUXFja3dnZUxmVjhJaE9vMEl3UURBT0JnTlZIUThCQWY4RQpCQU1DQXFRd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBZEJnTlZIUTRFRmdRVWZueHJmZDdyd3FXWEJuT1dxNVE0ClVJU3RwYjB3Q2dZSUtvWkl6ajBFQXdJRFNRQXdSZ0loQUxFamttSG5yL2NQeXRzWHhEYlJGMFBXTDhoc1k3dW4KRjQzUGFXQWQwbVZUQWlFQXVVakUrVEc0QU4zdzhrK1hMdXVaOVl3TTVYclJKR2FMd056WmtMT080NlU9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    server: https://host.docker.internal:33881
+  name: k3d-collab-cluster
+contexts:
+- context:
+    cluster: api-dbcs-madrid-comp-db-de:6443
+    namespace: capella-collab-dev
+    user: jamilraichouni/api-dbcs-madrid-comp-db-de:6443
+  name: capella-collab-dev/api-dbcs-madrid-comp-db-de:6443/jamilraichouni
+- context:
+    cluster: api-dbcs-madrid-comp-db-de:6443
+    namespace: capella-collab-prod
+    user: jamilraichouni/api-dbcs-madrid-comp-db-de:6443
+  name: capella-collab-prod/api-dbcs-madrid-comp-db-de:6443/jamilraichouni
+- context:
+    cluster: api-dbcs-madrid-comp-db-de:6443
+    namespace: capella-collab-sessions
+    user: jamilraichouni/api-dbcs-madrid-comp-db-de:6443
+  name: capella-collab-sessions/api-dbcs-madrid-comp-db-de:6443/jamilraichouni
+- context:
+    cluster: k3d-collab-cluster
+    namespace: collab-manager
+    user: admin@k3d-collab-cluster
+  name: k3d-collab-cluster
+- context:
+    cluster: api-dbcs-madrid-comp-db-de:6443
+    namespace: t4c-server
+    user: jamilraichouni/api-dbcs-madrid-comp-db-de:6443
+  name: t4c-server/api-dbcs-madrid-comp-db-de:6443/jamilraichouni
+current-context: capella-collab-sessions/api-dbcs-madrid-comp-db-de:6443/jamilraichouni
+kind: Config
+preferences: {}
+users:
+- name: admin@k3d-collab-cluster
+  user:
+    client-certificate-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJrRENDQVRlZ0F3SUJBZ0lJUkRRTUl1M0MxQ0F3Q2dZSUtvWkl6ajBFQXdJd0l6RWhNQjhHQTFVRUF3d1kKYXpOekxXTnNhV1Z1ZEMxallVQXhOekUzTlRBeU5qSTVNQjRYRFRJME1EWXdOREV5TURNME9Wb1hEVEkxTURZdwpOREV5TURNME9Wb3dNREVYTUJVR0ExVUVDaE1PYzNsemRHVnRPbTFoYzNSbGNuTXhGVEFUQmdOVkJBTVRESE41CmMzUmxiVHBoWkcxcGJqQlpNQk1HQnlxR1NNNDlBZ0VHQ0NxR1NNNDlBd0VIQTBJQUJCT2JSa2R1SysrK0pPRHIKRVkxZG1hSWlmM3lXWmwxSWpTcW5Fd3pRN2NIdVJuaUlEYlcyK2xsTTRyRitaY2x3cThOZXF2cDFJTUl2WnFwVQpLWDNkNGoralNEQkdNQTRHQTFVZER3RUIvd1FFQXdJRm9EQVRCZ05WSFNVRUREQUtCZ2dyQmdFRkJRY0RBakFmCkJnTlZIU01FR0RBV2dCVDlhVlUxU2hXRU9XcXlHS0ZxQmFadUEvV1U1akFLQmdncWhrak9QUVFEQWdOSEFEQkUKQWlCU2ZoRjFLSDZPQ0x1ZjBCcEwzbjhnaDFJRHR1aFh3OU5OT0d0blZ0YWtVZ0lnWWNEL2tYQlE3eXF4dDVXdgpXR3F1ZjYzb1hwUXpmbUtJUnMvVytVancybTQ9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJkekNDQVIyZ0F3SUJBZ0lCQURBS0JnZ3Foa2pPUFFRREFqQWpNU0V3SHdZRFZRUUREQmhyTTNNdFkyeHAKWlc1MExXTmhRREUzTVRjMU1ESTJNamt3SGhjTk1qUXdOakEwTVRJd016UTVXaGNOTXpRd05qQXlNVEl3TXpRNQpXakFqTVNFd0h3WURWUVFEREJock0zTXRZMnhwWlc1MExXTmhRREUzTVRjMU1ESTJNamt3V1RBVEJnY3Foa2pPClBRSUJCZ2dxaGtqT1BRTUJCd05DQUFRMTZ3ZUVud3FvMXBVcThmSTBaQlUvUG04d3VyLy9nOWl6VFRnTEc5NGUKeWVNUGRWMkM2KzFUbUdvSkhYaEgxbDVIODVsVlBUVXpJUjY3SXlSOHlZaDNvMEl3UURBT0JnTlZIUThCQWY4RQpCQU1DQXFRd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBZEJnTlZIUTRFRmdRVS9XbFZOVW9WaERscXNoaWhhZ1dtCmJnUDFsT1l3Q2dZSUtvWkl6ajBFQXdJRFNBQXdSUUlnVHg3Z1ZCRmV5NWtBY0gxc3ZQVVFwUHM4c0tOc1J3R0IKdDlJZkVLUFV4N1VDSVFETUxLWlBKVjlyeWxXVmgxMWZTRkkwVnZGdk8wY0dQOFgxT014OTBOY2JIdz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    client-key-data: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSUltWHhBbEFvaWhnQUZOOTRyczlzK2hQeEo1QUd2dTVaaCtQejlRd3MyLzZvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFRTV0R1IyNHI3NzRrNE9zUmpWMlpvaUovZkpabVhVaU5LcWNURE5EdHdlNUdlSWdOdGJiNgpXVXppc1g1bHlYQ3J3MTZxK25VZ3dpOW1xbFFwZmQzaVB3PT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
+- name: jamilraichouni/api-dbcs-madrid-comp-db-de:6443
+  user:
+    token: sha256~9e6t4-b8rGOo2kGbiLtooBnYSBpY52OtUO-DgfYbQXA

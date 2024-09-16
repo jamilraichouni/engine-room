@@ -1,0 +1,21 @@
+.ipython/*/db/dhist
+.ipython/*/dhist
+.oh-my-zsh/
+Session.vim
+__pycache__/
+bat/cache/
+history.sqlite
+kitty-config/mastersecret
+kube/cache/
+nvim-config/lazy-lock.json
+nvim-config/plugin/packer_compiled.lua
+vifm-config/vifminfo*
+vim/.netrwhist
+vim/plugged/
+zsh_history
+
+# secrets
+gnupg/*
+!gnupg/gpg.conf
+!gnupg/gpg-agent.conf
+ssh/
