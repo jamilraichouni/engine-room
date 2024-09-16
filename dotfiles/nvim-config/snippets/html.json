@@ -1,0 +1,230 @@
+{
+    "hx-boost-false": {
+        "prefix": "hx-boost-false",
+        "body": ["hx-boost=\"false\""],
+        "description": "hx-boost"
+    },
+    "hx-boost-true": {
+        "prefix": "hx-boost-true",
+        "body": ["hx-boost=\"true\""],
+        "description": "hx-boost"
+    },
+    "htmx-installation": {
+        "prefix": "htmx-installation",
+        "body": [
+            "<!-- https://unpkg.com/htmx.org (v${1:VERSION})-->",
+            "<script src=\"/static/js/htmx.min.js\"></script>"
+        ],
+        "description": "htmx-installation"
+    },
+    "hx-confirm": {
+        "prefix": "hx-confirm",
+        "body": ["hx-confirm=\"Are you sure you wish to ${1:...}?\""],
+        "description": "hx-confirm"
+    },
+    "hx-delete": {
+        "prefix": "hx-delete",
+        "body": ["hx-delete=\"${1:URL}\""],
+        "description": "hx-delete"
+    },
+    "hx-get": {
+        "prefix": "hx-get",
+        "body": ["hx-get=\"${1:URL}\""],
+        "description": "hx-get"
+    },
+    "hx-include": {
+        "prefix": "hx-include",
+        "body": ["hx-include=\"${1:CSS_SELECTOR}\""],
+        "description": "hx-include ()"
+    },
+    "hx-indicator": {
+        "prefix": "hx-indicator",
+        "body": ["hx-indicator=\"${1:CSS_SELECTOR}\""],
+        "description": "hx-indicator"
+    },
+    "hx-patch": {
+        "prefix": "hx-patch",
+        "body": ["hx-patch=\"${1:URL}\""],
+        "description": "hx-patch"
+    },
+    "hx-post": {
+        "prefix": "hx-post",
+        "body": ["hx-post=\"${1:URL}\""],
+        "description": "hx-post"
+    },
+    "hx-push-url": {
+        "prefix": "hx-push-url",
+        "body": ["hx-push-url=\"true\""],
+        "description": "hx-push-url"
+    },
+    "hx-put": {
+        "prefix": "hx-put",
+        "body": ["hx-put=\"${1:URL}\""],
+        "description": "hx-put"
+    },
+    "hx-swap-innerHTML": {
+        "prefix": "hx-swap-innerHTML",
+        "body": ["hx-swap=\"innerHTML\""],
+        "description": "hx-swap (the default)"
+    },
+    "hx-swap-outerHTML": {
+        "prefix": "hx-swap-outerHTML",
+        "body": ["hx-swap=\"outerHTML\""],
+        "description": "hx-swap-outerHTML"
+    },
+    "hx-swap-afterbegin": {
+        "prefix": "hx-swap-afterbegin",
+        "body": ["hx-swap=\"afterbegin\""],
+        "description": "hx-swap-afterbegin"
+    },
+    "hx-swap-beforebegin": {
+        "prefix": "hx-swap-beforebegin",
+        "body": ["hx-swap=\"beforebegin\""],
+        "description": "hx-swap-beforebegin"
+    },
+    "hx-swap-beforeend": {
+        "prefix": "hx-swap-beforeend",
+        "body": ["hx-swap=\"beforeend\""],
+        "description": "hx-swap-beforeend"
+    },
+    "hx-swap-afterend": {
+        "prefix": "hx-swap-afterend",
+        "body": ["hx-swap=\"afterend\""],
+        "description": "hx-swap-afterend"
+    },
+    "hx-swap-delete": {
+        "prefix": "hx-swap-delete",
+        "body": ["hx-swap=\"delete\""],
+        "description": "hx-swap-delete"
+    },
+    "hx-swap-none": {
+        "prefix": "hx-swap-none",
+        "body": ["hx-swap=\"none\""],
+        "description": "hx-swap-none"
+    },
+    "hx-target": {
+        "prefix": "hx-target",
+        "body": ["hx-target=\"${1:CSS_SELECTOR}\""],
+        "description": "hx-target"
+    },
+    "hx-trigger": {
+        "prefix": "hx-trigger",
+        "body": ["hx-trigger=\"$1\""],
+        "description": "hx-trigger"
+    },
+    "hx-vals": {
+        "prefix": "hx-vals",
+        "body": ["hx-vals='{\"${1:KEY\": \"VALUE}\"\\}'"],
+        "description": "hx-vals"
+    },
+    "hx-vals-js": {
+        "prefix": "hx-vals",
+        "body": ["hx-vals='js:{\"${1:KEY\": \"VALUE}\"\\}'"],
+        "description": "hx-vals"
+    },
+    "jinja (anchor definition)": {
+        "body": ["{{ template.place_anchor(${1:ID_STRING}) }}"],
+        "description": "Jinja anchor definition {{ ... }}",
+        "prefix": ["jinja (anchor definition)", "anchor definition (jinja)"]
+    },
+    "jinja (anchor reference link)": {
+        "body": ["{{ template.anchor_href(${1:ID_STRING}, ${2:LABEL}) }}"],
+        "description": "Jinja anchor reference link {{ ... }}",
+        "prefix": [
+            "jinja (anchor reference link)",
+            "anchor reference link (jinja)"
+        ]
+    },
+    "jinja (breakpoint)": {
+        "body": ["{% set _ = request.app.state.pdb.set_trace() %}"],
+        "description": "Jinja breakpoint",
+        "prefix": ["jinja (breakpoint)", "breakpoint (jinja), bp (jinja)"]
+    },
+    "jinja (comment)": {
+        "body": ["{# $1 #}"],
+        "description": "Jinja comment {# ... #}",
+        "prefix": ["jinja (comment)", "comment (jinja)"]
+    },
+    "jinja (endif)": {
+        "body": ["{% endif %}"],
+        "description": "Jinja endif",
+        "prefix": ["jinja (endif)", "endif (jinja)"]
+    },
+    "jinja (else)": {
+        "body": ["{% else %}"],
+        "description": "Jinja else",
+        "prefix": ["jinja (else)", "else (jinja)"]
+    },
+    "jinja (expression)": {
+        "body": ["{{ $1 }}"],
+        "description": "Jinja expression {{ ... }}",
+        "prefix": ["jinja (expression)", "expression (jinja)"]
+    },
+    "jinja (for-loop)": {
+        "body": [
+            "{% for ${1:ITEM} in ${2:ITEMS} %}",
+            "    $3",
+            "{% endfor %}"
+        ],
+        "description": "Jinja for-loop {% ... %}",
+        "prefix": ["jinja (for-loop)", "for-loop (jinja)"]
+    },
+    "jinja (if)": {
+        "body": ["{% if $1 %}", "    $2", "{% endif %}", "$3"],
+        "description": "Jinja if",
+        "prefix": ["jinja (if)", "if (jinja)"]
+    },
+    "jinja (if-elif)": {
+        "body": [
+            "{% if $1 %}",
+            "    $2",
+            "{% elif %}",
+            "    $3",
+            "{% endif %}",
+            "$4"
+        ],
+        "description": "Jinja if-elif",
+        "prefix": ["jinja (if-elif)", "if-elif (jinja)"]
+    },
+    "jinja (if-else)": {
+        "body": [
+            "{% if $1 %}",
+            "    $2",
+            "{% else %}",
+            "    $3",
+            "{% endif %}",
+            "$4"
+        ],
+        "description": "Jinja if-else",
+        "prefix": ["jinja (if-else)", "if-else (jinja)"]
+    },
+    "jinja (macro)": {
+        "body": ["{% macro ${1:MACRONAME}() %}", "    $2", "{% endmacro %}"],
+        "description": "Jinja macro",
+        "prefix": ["jinja (macro)", "macro (jinja)"]
+    },
+    "jinja (set variable)": {
+        "body": ["{% set $1 %}"],
+        "description": "Jinja set variable {% set ... %}",
+        "prefix": ["jinja (set variable)", "set variable (jinja)"]
+    },
+    "jinja (statement)": {
+        "body": ["{% $1 %}"],
+        "description": "Jinja statement {% ... %}",
+        "prefix": ["jinja (statement)", "statement (jinja)"]
+    },
+    "No-break space": {
+        "prefix": "&nbsp",
+        "body": ["&nbsp;"],
+        "description": "No-break space"
+    },
+    "PrettierIngore": {
+        "prefix": [
+            "<!-- prettier ignore -->",
+            "ignore (prettier)",
+            "prettier (ignore)"
+        ],
+        "body": ["<!-- prettier ignore -->"],
+        "description": "Ignore next node (e. g. some Jinja expression)"
+    }
+}

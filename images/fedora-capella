@@ -1,0 +1,61 @@
+FROM engine-room:os
+LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
+
+USER root
+
+# system pkgs needed for eclipse, capella {{{
+RUN dnf --color yes --refresh -y install \
+  dbus-tools \
+  dbus-x11 \
+  eclipse-swt \
+  # java-11-openjdk-devel \
+  # java-17-openjdk-devel \
+  webkit2gtk4.0.aarch64 \
+  xdg-utils
+# }}}
+
+# install capella and consider .log files {{{
+ADD build/capella_6.0.0.tar.bz2 /opt
+# ADD build/capella_6.1.0.tar.bz2 /opt
+ADD build/capella-7.0.0.202407091438-linux-gtk-aarch64.tar.gz /opt
+RUN mv /opt/capella /opt/capella_7.0.0
+
+RUN touch /var/log/capella.log && \
+  chmod 666 /var/log/capella.log
+
+# commands to launch different capella versions
+# Capella 6.0.0:
+RUN echo -e "#!/usr/bin/env zsh\nsetopt +o monitor > /dev/null 2>&1;\nnohup /opt/capella_6.0.0/capella \$@ > /var/log/capella.log 2>&1 & disown;\nsetopt -o monitor > /dev/null 2>&1;\nexit 0;" > /usr/local/bin/capella_6.0.0 && \
+  chmod 755 /usr/local/bin/capella_6.0.0 && \
+  # # Capella 6.1.0:
+  # echo -e "#!/usr/bin/env zsh\nsetopt +o monitor > /dev/null 2>&1;\nnohup /opt/capella_6.1.0/capella \$@ > /var/log/capella.log 2>&1 & disown;\nsetopt -o monitor > /dev/null 2>&1;\nexit 0;" > /usr/local/bin/capella_6.1.0 && \
+  # chmod 755 /usr/local/bin/capella_6.1.0 && \
+  #
+  # Capella 7.0.0:
+  echo -e "#!/usr/bin/env zsh\nsetopt +o monitor > /dev/null 2>&1;\nnohup /opt/capella_7.0.0/capella \$@ > /var/log/capella.log 2>&1 & disown;\nsetopt -o monitor > /dev/null 2>&1;\nexit 0;" > /usr/local/bin/capella_7.0.0 && \
+  chmod 755 /usr/local/bin/capella_7.0.0 && \
+  #
+  rm -rf /opt/samples && \
+  #
+  # set default capella version:
+  ln -s /usr/local/bin/capella_6.0.0 /usr/local/bin/capella
+# }}}
+
+# install capella studio and consider .log files {{{
+# ADD build/capella_studio_6.1.0.tar.bz2 /opt
+ADD build/capella_studio_7.0.0.tar.bz2 /opt
+RUN touch /var/log/capella-studio.log && \
+  chmod 666 /var/log/capella-studio.log
+
+# commands to launch different capella studio versions
+# Capella Studio 6.1.0:
+RUN echo -e "#!/usr/bin/env zsh\nsetopt +o monitor > /dev/null 2>&1;\nnohup /opt/capella_studio_6.1.0/capella-studio \$@ > /var/log/capella-studio.log 2>&1 & disown;\nsetopt -o monitor > /dev/null 2>&1;\nexit 0;" > /usr/local/bin/capella_studio_6.1.0 && \
+  chmod 755 /usr/local/bin/capella_studio_6.1.0 && \
+  # Capella Studio 7.0.0:
+  echo -e "#!/usr/bin/env zsh\nsetopt +o monitor > /dev/null 2>&1;\nnohup /opt/capella_studio_7.0.0/eclipse \$@ > /var/log/capella-studio.log 2>&1 & disown;\nsetopt -o monitor > /dev/null 2>&1;\nexit 0;" > /usr/local/bin/capella_studio_7.0.0 && \
+  chmod 755 /usr/local/bin/capella_studio_7.0.0 && \
+  # set default capella studio version:
+  ln -s /usr/local/bin/capella_studio_7.0.0 /usr/local/bin/capella-studio
+# }}}
+
+USER nerd

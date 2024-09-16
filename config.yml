@@ -1,0 +1,89 @@
+# When this file is being evaluated, the following variables will be evaluated:
+# - $D: $DOT
+# - $E: /etc
+# - $H: $HOME
+# - $O: /opt
+# - $R: /root
+# - $S: /run/secrets
+# - $V: /mnt/volume
+engine-rooms:
+  dbmac:
+    user: nerd
+    symlinks:
+      # target: source
+      $D/rclone: $H/.config/rclone
+      "/mnt/googledrive/My Drive": $H/googledrive
+  capella-common: &capella-common
+    user: techuser
+    original-entrypoint:
+      - /bin/su
+      - techuser
+      - -c
+      - /bin/bash /home/techuser/.startup.sh
+    copies:
+      # here we copy secrets which cannot be handled as secrets in
+      # `docker-compose.yml` because they do not support changing the owner
+      # and/ or permissions of the files.
+      - source: $S/ssh_config
+        target: $H/.ssh/config
+        uid: 1003230000
+        gid: 1000
+        mode: "0600"
+    symlinks:
+      # target: source (read comment of global symlinks for explanation)
+      $D/zsh/env/ALL_HOSTS.zsh: $E/zsh/zshenv  # Debian path
+      $D/zsh/profile/ALL_HOSTS.zsh: $E/zsh/zprofile  # Debian path
+      $D/zsh/interactive/ALL_HOSTS.zsh: $E/zsh/zshrc  # Debian path
+  capella-6.0.0:
+    <<: *capella-common
+  capella-7.0.0:
+    <<: *capella-common
+  ja:
+    user: nerd
+  raspi5:
+    user: nerd
+
+symlinks:
+  # target: source (in that order), to have global and host-specific files
+  # with target in list of unique keys when we merge symlinks lists.
+  # otherwise we get `$E/zsh/zshenv` and `$E/zshenv` in Debian containers etc..
+  # with this mapping, we can also symlink one source multiple times, as YAML
+  # keys must be unique.
+  $D/actrc: $H/.actrc
+  $D/gdbextension.py: $H/.gdbextension.py
+  $D/gdbinit: $H/.gdbinit
+  $D/git_askpass.py: $E/git_askpass.py
+  $D/gitconfig: $H/.gitconfig
+  $D/gitconfig_dbgitlab: $V/dev/dbgitlab/.gitconfig
+  $D/gitconfig_github: $V/dev/github/.gitconfig
+  $D/gitconfig_gitlab: $V/dev/gitlab/.gitconfig
+  $D/gitignore: $H/.gitignore
+  $D/gitmessage: $H/.gitmessage
+  $D/gnupg/pubring.kbx: $H/.gnupg/pubring.kbx
+  $D/ipython: $H/.ipython
+  $D/jupyter: $H/.jupyter
+  $D/act-config: $H/.config/act
+  $D/kitty-config: $H/.config/kitty
+  $D/nvim-config: $H/.config/nvim
+  $D/pdbrc.py: $H/.pdbrc.py
+  $D/pdbrc: $H/.pdbrc
+  $D/pygmentsstyles.py: $H/pygmentsstyles.py
+  $D/ssh/known_hosts: $H/.ssh/known_hosts
+  $D/vimrc: $H/.vimrc
+  $D/zsh/env/ALL_HOSTS.zsh: $E/zshenv  # Fedora (base image) path
+  $D/zsh/p10k.zsh: $H/.p10k.zsh
+  $D/zsh/profile/ALL_HOSTS.zsh: $E/zprofile  # Fedora (base image) path
+  $D/zsh/interactive/ALL_HOSTS.zsh: $E/zshrc
+  $O/bind/workspaces: $H/workspaces
+  $S/keepass_db: $H/keepass.kdbx
+  $V/cache: $H/.cache
+  $V/cargo: $H/.cargo
+  $V/dev: $H/dev
+  $V/m2: $H/.m2  # Maven cache
+  $V/npm: $H/.local/share/npm
+  $V/nvim/share: $H/.local/share/nvim
+  $V/nvim/state: $H/.local/state/nvim
+  $V/nvm: $H/.nvm  # Node Version Manager
+  $V/pyenv: $H/.pyenv
+  $V/rustup: $H/.rustup
+  $V/zsh_history: $H/.zsh_history

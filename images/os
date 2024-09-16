@@ -1,0 +1,150 @@
+FROM fedora:40
+LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
+ARG USERMAP_UID
+ARG USERMAP_GID
+WORKDIR /tmp
+RUN mkdir /build
+
+# Enable installation of man-pages and re-install all installed pkgs {{{
+RUN sed -i /^tsflags=/d /etc/dnf/dnf.conf && \
+  dnf --color yes --refresh -y reinstall \
+  $(dnf repoquery --installed --qf '%{name}')
+
+# }}}
+
+# system pkg manager installs {{{
+RUN dnf --color yes --refresh -y install \
+  fontconfig \
+  # dependency of `rclone` (see below)
+  fuse \
+  fzf \
+  git \
+  git-lfs \
+  git-subtree \
+  # `inotify-tools` comes with `inotifywait`
+  inotify-tools \
+  # `iputils` comes with `ping`
+  iputils \
+  # so that `icat` is available
+  kitty \
+  lsof \
+  # man pages datbase
+  man-db \
+  man-pages \
+  # `net-tools` comes with `netstat`
+  net-tools \
+  openssh \
+  openssh-server \
+  passwd \
+  pkg-config \
+  # `psmisc` comes with `killall`
+  psmisc \
+  # to mount cloud drives (e. g. GoogleDrive)
+  rclone \
+  rsync \
+  sudo \
+  tree \
+  unrar \
+  unzip \
+  vim \
+  wget \
+  which \
+  zip \
+  zsh
+# }}}
+
+# use zsh for RUN commands {{{
+SHELL ["/bin/zsh", "-c"]
+ENV SHELL=/bin/zsh
+RUN usermod --shell /bin/zsh root
+# }}}
+
+# locale and time zone  {{{
+RUN dnf install --color yes -y \
+  glibc-locale-source \
+  glibc-langpack-en && \
+  localedef --force -i en_US -f UTF-8 en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en:C
+ENV TZ=":/usr/share/zoneinfo/Europe/Berlin"
+RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf && \
+  echo "LANGUAGE=en_US:en:C" >> /etc/locale.conf
+# }}}
+
+# Install nerd font {{{
+ARG FONT_URL=https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/SourceCodePro.tar.xz
+RUN FONT_FILE=$(basename ${FONT_URL} | rev | cut -d/ -f1 | rev) && \
+  mkdir -p /usr/local/share/fonts && \
+  curl -Lo /usr/local/share/fonts/${FONT_FILE} ${FONT_URL} && \
+  tar -C /usr/local/share/fonts -xvf /usr/local/share/fonts/${FONT_FILE} && \
+  rm /usr/local/share/fonts/${FONT_FILE} && \
+  fc-cache -f -v
+# }}}
+
+# Docker {{{
+RUN dnf --color yes --refresh -y install dnf-plugins-core && \
+  dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo && \
+  dnf --color yes --refresh -y install \
+  containerd.io \
+  dnf-plugins-core \
+  docker-buildx-plugin \
+  docker-ce \
+  docker-ce-cli \
+  docker-compose-plugin && \
+  dnf remove -y dnf-plugins-core
+# }}}
+
+# set root passwd and get root via `su - root` {{{
+RUN echo "root:" | chpasswd
+# }}}
+
+# Add user 'nerd' {{{
+RUN sed -i 's/UID_MIN.*/UID_MIN 500/' /etc/login.defs && \
+  sed -i 's/SYS_UID_MIN.*/SYS_UID_MIN 300/' /etc/login.defs && \
+  sed -i 's/SYS_UID_MAX.*/SYS_UID_MAX 499/' /etc/login.defs && \
+  groupmod -n user games && \
+  useradd --badname -u $USERMAP_UID -g $USERMAP_GID -l -m -o -s /bin/zsh nerd && \
+  # set password to "nerd"
+  echo "nerd:nerd" | chpasswd && \
+  usermod -aG user nerd && \
+  usermod -aG docker nerd && \
+  usermod --shell /bin/zsh root && \
+  mkdir -p /home/nerd/.config && \
+  chown $USERMAP_UID:$USERMAP_GID /home/nerd/.config
+
+# disable hint that sudo is dangerous and allow sudo w/o passwd
+RUN echo "Defaults lecture = never" >> /etc/sudoers.d/privacy && \
+  echo "nerd ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+  mkdir -p /mnt/volume && \
+  chown $USERMAP_UID:$USERMAP_GID /mnt/volume
+
+WORKDIR /home/nerd
+# }}}
+
+# setup ssh server {{{
+RUN ssh-keygen -A && \
+  sed -i 's/#PrintLastLog yes/PrintLastLog no/g' /etc/ssh/sshd_config && \
+  sed -i 's/#Port 22/Port 1978/g' /etc/ssh/sshd_config && \
+  sed -i 's/#ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/g' /etc/ssh/sshd_config
+# }}}
+
+# ohmyzsh and powerline10k {{{
+USER nerd
+RUN zsh -c "$(curl -fsSL \
+  https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
+  git clone --depth=1 \
+  https://github.com/romkatv/powerlevel10k.git \
+  /home/nerd/.oh-my-zsh/custom/themes/powerlevel10k && \
+  wget https://github.com/romkatv/gitstatus/releases/download/v1.5.4/gitstatusd-linux-aarch64.tar.gz && \
+  tar -xvzf gitstatusd-*.tar.gz && \
+  rm gitstatusd-*.tar.gz && \
+  mkdir -p /home/nerd/.cache/gitstatus && \
+  mv gitstatusd-* /home/nerd/.cache/gitstatus && \
+  wget https://github.com/romkatv/gitstatus/releases/download/v1.5.4/gitstatusd-linux-x86_64.tar.gz && \
+  tar -xvzf gitstatusd-*.tar.gz && \
+  rm gitstatusd-*.tar.gz && \
+  mkdir -p /home/nerd/.cache/gitstatus && \
+  mv gitstatusd-* /home/nerd/.cache/gitstatus && \
+  rm /home/nerd/.zshrc && \
+  touch /home/nerd/.zshrc
+# }}}

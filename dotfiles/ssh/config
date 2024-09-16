@@ -1,0 +1,145 @@
+LogLevel INFO
+Host rat.db
+    # ssh -Nfn rat.db
+    LocalForward 3389 10.104.182.115:3389
+    User jamil.raichouni
+    HostName dbmc-jump-server.jump.dbmc.comp.db.de
+    IdentityFile ~/.ssh/dbmc-jumpserver-jamil.raichouni.pem
+
+# ssh -Nfn simulink
+# User on remote virtual Windows machine: aws_admin
+Host simulink
+    LocalForward 3389 10.107.190.243:3389
+    User jamil.raichouni
+    HostName dbmc-jump-server.jump.dbmc.comp.db.de
+    IdentityFile ~/.ssh/dbmc-jumpserver-jamil.raichouni.pem
+
+# ssh -Nfn reuse
+Host reuse
+    LocalForward 3389 10.107.138.236:3389
+    User jamil.raichouni
+    HostName dbmc-jump-server.jump.dbmc.comp.db.de
+    IdentityFile ~/.ssh/dbmc-jumpserver-jamil.raichouni.pem
+
+Host t4c.db
+    # ssh -Nfn t4c.db
+    LocalForward 3389 10.107.242.175:3389
+    User jamil.raichouni
+    HostName dbmc-jump-server.jump.dbmc.comp.db.de
+    IdentityFile ~/.ssh/dbmc-jumpserver-jamil.raichouni.pem
+
+Host dbmc-jump-server.jump.dbmc.comp.db.de
+    User jamil.raichouni
+
+# Host dbmc-jump-server.jump.dbmc.comp.db.de
+#     User ec2
+#     IdentityFile ~/.ssh/
+
+Host s4r-jump
+    HostName 10.107.189.168
+    ProxyJump dbmc-jump-server.jump.dbmc.comp.db.de
+    User remote
+    ServerAliveInterval 300
+
+Host s4r-s1c2-pld
+    HostName 10.170.63.22
+    Port 55667
+    ProxyJump s4r-jump
+    User pld
+    ServerAliveInterval 300
+
+Host engine-room-ja
+    HostName ja.fritz.box
+    Port 1978
+    User nerd
+
+Host cn1
+    HostName 10.107.190.235
+    ProxyJump dbmc-jump-server.jump.dbmc.comp.db.de
+    User jamilraichouni
+    ServerAliveInterval 300
+
+Host dbmac
+    HostName localhost
+    Port 1978
+    User nerd
+
+Host ja
+    HostName ja.fritz.box
+    Port 22
+    User jamil
+    # IdentityFile ~/.ssh/id_ed25519
+
+Host engine-room-ja
+    HostName ja.fritz.box
+    Port 1978
+    User jamil
+    # IdentityFile ~/.ssh/id_ed25519
+
+Host polarion-lic
+    HostName 10.107.240.27
+    ProxyJump dbmc-jump-server.jump.dbmc.comp.db.de
+    User ec2-user
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 300
+
+Host polarion-test
+    HostName 10.107.240.201
+    ProxyJump dbmc-jump-server.jump.dbmc.comp.db.de
+    User ec2-user
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 300
+
+Host polarion-prod
+    HostName 10.107.190.97
+    ProxyJump dbmc-jump-server.jump.dbmc.comp.db.de
+    User ec2-user
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 300
+
+Host t4c-client
+    HostName 10.107.190.160
+    ProxyJump dbmc-jump-server.jump.dbmc.comp.db.de
+    User jamilraichouni
+    IdentityFile ~/.ssh/id_rsa
+    ServerAliveInterval 300
+
+Host strato
+    HostName h2828677.stratoserver.net
+    Port 5878
+    User root
+    IdentityFile ~/.ssh/id_rsa
+
+Host raspi5
+    HostName 192.168.1.4
+    Port 22
+    User jamil
+
+Host engine-room-raspi5
+    HostName 192.168.1.4
+    Port 1978
+    User nerd
+    IdentityFile ~/.ssh/id_ed25519
+
+Host GitLab
+    Hostname gitlab.com
+    User git
+    IdentityFile ~/.ssh/id_rsa
+
+Host GitLab (DB)
+    Hostname git.tech.rz.db.de
+    User git
+
+Host 18.157.105.241
+    User pld
+    IdentityFile ~/.ssh/id_rsa
+
+Host pld
+    Hostname 10.0.0.20
+    ProxyJump 18.157.105.241
+    User jamilraichouni
+    User pld
+    IdentityFile ~/.ssh/id_rsa
+
+Host *
+    AddKeysToAgent yes

@@ -1,0 +1,63 @@
+{
+    "filter": {
+        "prefix": "filter",
+        "description": "filter (array)",
+        "body": [
+            "filter((value, index, array) => {$0});"
+        ]
+    },
+    "getter and setter": {
+        "prefix": "getter and setter",
+        "body": [
+            "private _${1:NAME}: ${2:TYPE} = ${3:DEFAULT VALUE};",
+            "get ${1:NAME}(): ${2:TYPE} {",
+            "    return this._${1:NAME};",
+            "}",
+            "",
+            "set ${1:NAME}(${1:NAME}: ${2:TYPE}) {",
+            "    this._${1:NAME} = ${1:NAME};",
+            "}",
+        ],
+        "description": "Getter and setter for a property"
+    },
+    "import": {
+        "prefix": "import",
+        "body": [
+            "import ${1:PKG_NAME} = require(\"${1:PKG_NAME}\");",
+        ],
+        "description": "Import a package"
+    },
+    "iterate_key_values": {
+        "prefix": ["iterate over keys/vals", "dict"],
+        "body": [
+            "for (let [k, v] of Object.entries(myObj)) {",
+            "}"
+        ],
+        "description": "Iterate over keys/ vals of object"
+    },
+    "json_read_file": {
+        "prefix": "Read JSON file",
+        "body": [
+            "import fs = require(\"fs\");",
+            "const filePath: string = \"${1:/path/to/file.json}\"",
+            "const jsonString: string = fs.readFileSync(filePath).toString();",
+            "const jsonObject: Object = JSON.parse(jsonString);",
+            "console.log(jsonObject);"
+        ],
+        "description": "Read a JSON file"
+    },
+    "Visual Studio Code error message": {
+        "prefix": "error",
+        "description": "VSCode error message",
+        "body": [
+            "vscode.window.showErrorMessage(\"${1:MESSAGE}\");"
+        ]
+    },
+    "Visual Studio Code info message": {
+        "prefix": "info",
+        "description": "VSCode info message",
+        "body": [
+            "vscode.window.showInformationMessage(\"${1:MESSAGE}\");"
+        ]
+    }
+}

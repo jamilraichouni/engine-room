@@ -1,0 +1,8 @@
+add-auto-load-safe-path /mnt/volume/data/pyenv/versions/3.11.1/bin/python3.11-gdb.py
+add-auto-load-safe-path /mnt/volume/data/dotfiles/gdbinit
+source $HOME/.pyenv/versions/3.11.1/bin/python3.11-gdb.py
+source $HOME/.gdbextension.py
+set history save on
+set history filename ~/.gdb_history
+set pagination off
+
