@@ -11,6 +11,10 @@ services:
     build:
       dockerfile: Dockerfile.dbmac
     image: engine-room:dbmac
+  ja:
+    build:
+      dockerfile: Dockerfile.ja
+    image: engine-room:ja
   test:
     build:
       dockerfile: Dockerfile.test

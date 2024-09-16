@@ -113,7 +113,9 @@ WORKDIR /home/nörd
 
 # setup ssh server {{{
 RUN ssh-keygen -A && \
-  sed -i 's/#PrintLastLog yes/PrintLastLog no/g' /etc/ssh/sshd_config
+  sed -i 's/#PrintLastLog yes/PrintLastLog no/g' /etc/ssh/sshd_config && \
+  sed -i 's/#Port 22/Port 1978/g' /etc/ssh/sshd_config && \
+  sed -i 's/#ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/g' /etc/ssh/sshd_config
 # }}}
 
 # ohmyzsh and powerline10k {{{
