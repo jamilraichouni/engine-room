@@ -15,7 +15,7 @@ except ModuleNotFoundError:
 CONTAINER_NAME = "engine-room"
 CONTAINER_TAG = "base"
 SSH_PORT = 1978
-ENV = {
+ENV_OF_ROOT_USER = {
     "SSH_PORT": str(SSH_PORT),
 }
 MODULE_DIR: pathlib.Path = pathlib.Path(__file__).parents[0]
@@ -78,7 +78,7 @@ def run(tag: str) -> None:
         "--name",
         CONTAINER_NAME,
     ]
-    for key, val in ENV.items():
+    for key, val in ENV_OF_ROOT_USER.items():
         cmd.extend(["-e", f"{key}={val}"])
 
     for port in PORTS:
