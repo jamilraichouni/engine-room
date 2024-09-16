@@ -16,7 +16,6 @@ CONTAINER_NAME = "engine-room"
 CONTAINER_TAG = "base"
 SSH_PORT = 1978
 ENV = {
-    "OPENAI_API_KEY": os.getenv("OPENAI_API_KEY"),
     "SSH_PORT": str(SSH_PORT),
 }
 MODULE_DIR: pathlib.Path = pathlib.Path(__file__).parents[0]
