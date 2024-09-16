@@ -18,11 +18,13 @@ RUN dnf --color yes --refresh -y install \
   golang \
   icoutils \
   ImageMagick \
+  java-21-openjdk-devel \
   # Command-line JSON processor
   jq \
   kitty-terminfo \
   luarocks \
   make \
+  maven \
   neovim \
   pip \
   openssl \
