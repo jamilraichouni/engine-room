@@ -221,6 +221,7 @@ return {
                     "lua_ls",
                     "pylsp",
                     "ruff",
+                    "shfmt",
                     "sqlls",
                     "tailwindcss",
                     "taplo",
@@ -373,13 +374,13 @@ return {
                                 formatStdin = true
                             },
                         },
-                        sh = {
-                            {
-                                formatCommand =
-                                'prettier --parser sh --tab-width 2 --print-width 79 --plugin "$NPM_DIR/lib/node_modules/prettier-plugin-sh/lib/index.js"',
-                                formatStdin = true
-                            }
-                        },
+                        -- sh = {
+                        --     {
+                        --         formatCommand =
+                        --         'prettier --parser sh --tab-width 2 --print-width 79 --plugin "$NPM_DIR/lib/node_modules/prettier-plugin-sh/lib/index.js"',
+                        --         formatStdin = true
+                        --     }
+                        -- },
                         xml = {
                             {
                                 formatCommand =
@@ -387,13 +388,13 @@ return {
                                 formatStdin = true
                             }
                         },
-                        zsh = {
-                            {
-                                formatCommand =
-                                'prettier --parser sh --tab-width 2 --print-width 79 --plugin "$NPM_DIR/lib/node_modules/prettier-plugin-sh/lib/index.js"',
-                                formatStdin = true
-                            }
-                        },
+                        -- zsh = {
+                        --     {
+                        --         formatCommand =
+                        --         'prettier --parser sh --tab-width 2 --print-width 79 --plugin "$NPM_DIR/lib/node_modules/prettier-plugin-sh/lib/index.js"',
+                        --         formatStdin = true
+                        --     }
+                        -- },
                     }
                 }
             }
