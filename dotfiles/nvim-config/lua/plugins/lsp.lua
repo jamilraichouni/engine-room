@@ -221,7 +221,6 @@ return {
                     "lua_ls",
                     "pylsp",
                     "ruff",
-                    "shfmt",
                     "sqlls",
                     "tailwindcss",
                     "taplo",
