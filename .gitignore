@@ -1,4 +1,5 @@
 __pycache__/
 data/
 dotfiles.main/
+dotfiles/nvim-config/node_modules/
 resources/capella*tar*

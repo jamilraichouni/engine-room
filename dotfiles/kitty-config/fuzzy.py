@@ -28,9 +28,12 @@ except Exception as exp:
 
 from kitty.boss import Boss, which
 
-DB_PATH = Path.home() / (
-    "Library/CloudStorage/GoogleDrive-raichouni@gmail.com/My Drive/jamil.kdbx"
+GOOGLE_DRIVE_PATH = (
+    Path.home()
+    / "Library/CloudStorage/GoogleDrive-raichouni@gmail.com/My Drive"
 )
+ASSETS_PATH = GOOGLE_DRIVE_PATH / "assets"
+DB_PATH = GOOGLE_DRIVE_PATH / "jamil.kdbx"
 FZF_EXE = "/usr/local/bin/fzf"
 if not Path(FZF_EXE).is_file():
     FZF_EXE = "/usr/sbin/fzf"
@@ -398,7 +401,7 @@ def handle_result(
                 "open",
                 "-a",
                 "Preview.app",
-                f"{str(Path.home() / 'Google Drive/My Drive/assets')}/{answer}",
+                f"{ASSETS_PATH}/{answer}",
             ]
         )
     else:
