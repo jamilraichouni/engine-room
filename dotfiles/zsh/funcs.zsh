@@ -100,6 +100,14 @@ pathprepend() {
     fi
 }
 
+ ssh() {
+       if [ "${SHLVL:-0}" -eq 1 ]; then
+           kitty +kitten ssh "$@"
+       else
+           command ssh "$@"
+       fi
+   }
+
 urlencode() {
     if [ -n "$1" ]; then
         python -c "from urllib.parse import quote; print(quote('$1'))"

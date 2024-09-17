@@ -38,7 +38,7 @@ FZF_EXE = "/usr/local/bin/fzf"
 if not Path(FZF_EXE).is_file():
     FZF_EXE = "/usr/sbin/fzf"
 KEYPASSXC_EXE = (
-    "/Users/jamilraichouni/Applications/"
+    Path.home() / "Applications/"
     "KeePassXC.app/Contents/MacOS/keepassxc-cli"
 )
 if not Path(KEYPASSXC_EXE).is_file():
