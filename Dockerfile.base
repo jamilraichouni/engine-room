@@ -18,6 +18,8 @@ RUN dnf --color yes --refresh -y install \
   golang \
   icoutils \
   ImageMagick \
+  # to run `python -m engine-room build` command during development
+  keepassxc \
   java-21-openjdk-devel \
   # Command-line JSON processor
   jq \
@@ -43,6 +45,13 @@ RUN curl -LO \
 # Mozilla SOPS "Secrets OPerationS" {{{
 RUN dnf --color yes -y install \
   https://github.com/getsops/sops/releases/download/v3.9.0/sops-3.9.0-1.aarch64.rpm
+# }}}
+
+# oc - OpenShift Command Line Interface (CLI) {{{
+COPY build/oc.tar /home/nörd
+RUN tar -xvf oc.tar && \
+  mv oc /opt && ln -s /opt/oc /usr/local/bin && \
+  rm oc.tar
 # }}}
 
 # nvm, node, npm, yarn {{{
@@ -80,8 +89,8 @@ RUN sudo dnf --color yes --refresh -y install \
   curl https://pyenv.run | bash && \
   /home/nörd/.pyenv/bin/pyenv init - && \
   /home/nörd/.pyenv/bin/pyenv virtualenv-init - && \
-  chown -R 1000:1000 /home/nörd/.pyenv
+  chown -R $(id -u nörd):$(id -g nörd) /home/nörd/.pyenv
 # }}}
-
 USER root
-ENTRYPOINT ["python3", "/home/nörd/engine-room/dotfiles/entrypoint.py"]
+RUN python3 -m pip install click PyYAML
+ENTRYPOINT ["python3", "/home/nörd/engine-room/__main__.py", "startup"]

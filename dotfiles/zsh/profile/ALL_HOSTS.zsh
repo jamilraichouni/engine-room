@@ -42,3 +42,7 @@ sudo chmod 777 /var/run/docker.sock
 
 unalias -a
 . $DOT/zsh/aliases.zsh
+
+
+# to enable work with SOPS
+gpg-agent --daemon 2> /dev/null

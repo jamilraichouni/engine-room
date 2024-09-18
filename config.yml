@@ -1,0 +1,10 @@
+host-to-engine-room-name:
+  bwpm-RH7L6T19Y1: dbmac
+engine-rooms:
+  name: dbmac
+  env:
+    # Environment variables we pass from host to engine-room:dbmac when run
+    - GITLAB_PAT: $GITLAB_PAT
+    - KEEPASS_DB_FILE: $KEEPASS_DB_FILE
+    - KEEPASS_DB_PASSWORD: $KEEPASS_DB_PASSWORD
+    - SSH_PORT: 1978

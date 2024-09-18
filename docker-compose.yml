@@ -2,7 +2,14 @@ services:
   os:
     build:
       dockerfile: Dockerfile.os
+      args:
+        - USERMAP_UID=501
+        - USERMAP_GID=20
     image: engine-room:os
+  capella:
+    build:
+      dockerfile: Dockerfile.capella
+    image: engine-room:capella
   base:
     build:
       dockerfile: Dockerfile.base
@@ -11,11 +18,11 @@ services:
     build:
       dockerfile: Dockerfile.dbmac
     image: engine-room:dbmac
-  ja:
-    build:
-      dockerfile: Dockerfile.ja
-    image: engine-room:ja
-  test:
-    build:
-      dockerfile: Dockerfile.test
-    image: engine-room:test
+  # ja:
+  #   build:
+  #     dockerfile: Dockerfile.ja
+  #   image: engine-room:ja
+  # test:
+  #   build:
+  #     dockerfile: Dockerfile.test
+  #   image: engine-room:test

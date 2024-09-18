@@ -1,6 +1,15 @@
 FROM fedora:40
 LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
+ARG USERMAP_UID
+ARG USERMAP_GID
+ARG KEEPASS_DB_PASSWORD
+ENV KEEPASS_DB_PASSWORD=${KEEPASS_DB_PASSWORD}
 WORKDIR /tmp
+RUN mkdir /build
+COPY build/er-keypass-db-er.kdbx /build
+
+# when the argument KEEPASS_DB_PASSWORD is set, write its value to the file /etc/zshenv
+RUN if [ -n "${KEEPASS_DB_PASSWORD}" ]; then echo "export KEEPASS_DB_PASSWORD=${KEEPASS_DB_PASSWORD}" > /etc/zshenv; fi
 
 # Enable installation of man-pages and re-install all installed pkgs {{{
 RUN sed -i /^tsflags=/d /etc/dnf/dnf.conf && \
@@ -18,6 +27,8 @@ RUN dnf --color yes --refresh -y install \
   git \
   git-lfs \
   git-subtree \
+  # `inotify-tools` comes with `inotifywait`
+  inotify-tools \
   # `iputils` comes with `ping`
   iputils \
   # so that `icat` is available
@@ -94,19 +105,24 @@ RUN echo "root:" | chpasswd
 # }}}
 
 # Add user 'nörd' {{{
-RUN useradd --badname -l -m -s /bin/zsh nörd && \
+RUN sed -i 's/UID_MIN.*/UID_MIN 500/' /etc/login.defs && \
+  sed -i 's/SYS_UID_MIN.*/SYS_UID_MIN 300/' /etc/login.defs && \
+  sed -i 's/SYS_UID_MAX.*/SYS_UID_MAX 499/' /etc/login.defs && \
+  groupmod -n user games && \
+  useradd --badname -u $USERMAP_UID -g $USERMAP_GID -l -m -o -s /bin/zsh nörd && \
   # set password to "nörd"
   echo "nörd:nörd" | chpasswd && \
+  usermod -aG user nörd && \
   usermod -aG docker nörd && \
   usermod --shell /bin/zsh root && \
   mkdir -p /home/nörd/.config && \
-  chown 1000:1000 /home/nörd/.config
+  chown $USERMAP_UID:$USERMAP_GID /home/nörd/.config
 
 # disable hint that sudo is dangerous and allow sudo w/o passwd
 RUN echo "Defaults lecture = never" >> /etc/sudoers.d/privacy && \
   echo "nörd ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
   mkdir -p /mnt/volume && \
-  chown 1000:1000 /mnt/volume
+  chown $USERMAP_UID:$USERMAP_GID /mnt/volume
 
 WORKDIR /home/nörd
 # }}}

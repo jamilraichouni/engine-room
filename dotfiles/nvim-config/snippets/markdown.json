@@ -20,19 +20,26 @@
     ],
     "description": "Colored font"
   },
-  "labelled link (JAR)": {
+  "link": {
     "prefix": "link",
+    "body": [
+      "<${1:URI}>"
+    ],
+    "description": "Raw link"
+  },
+  "link_named": {
+    "prefix": "link (named)",
     "body": [
       "[${2:LABEL}](${1:URI})"
     ],
-    "description": "JAR: link (labelled)"
+    "description": "Link with custom name"
   },
-  "link_rel_file (JAR)": {
-    "prefix": "link_rel_file",
+  "link_rel_file": {
+    "prefix": "link (to relative file)",
     "body": [
       "[`${1:URI}`](${1:URI})"
     ],
-    "description": "JAR: link to relative file"
+    "description": "link to relative file"
   },
   "Note (one line)": {
     "prefix": "note_1",

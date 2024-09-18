@@ -1,14 +1,9 @@
-[includeIf "gitdir:~/dev/gitlab/"]
-    path = ~/dev/gitlab/.gitconfig
-[includeIf "gitdir:/mnt/volume/data/dev/gitlab/"]
-    path = ~/dev/gitlab/.gitconfig
+# to test with `git config user.email`, one must be in a Git repo directory!
 [includeIf "gitdir:~/dev/dbgitlab/"]
     path = ~/dev/dbgitlab/.gitconfig
-[includeIf "gitdir:/mnt/volume/data/dev/dbgitlab/"]
-    path = ~/dev/dbgitlab/.gitconfig
+[includeIf "gitdir:~/dev/gitlab/"]
+    path = ~/dev/gitlab/.gitconfig
 [includeIf "gitdir:~/dev/github/"]
-    path = ~/dev/github/.gitconfig
-[includeIf "gitdir:/mnt/volume/data/dev/github/"]
     path = ~/dev/github/.gitconfig
 [alias]
     graph=log --graph --abbrev-commit --no-decorate --author-date-order --no-show-signature --format=tformat:'%C(yellow)%h%C(reset) %C(cyan)%G?%C(reset) %C(white)%s%C(reset)%C(auto)%d%C(reset) %C(dim white)— %aN (%ar)'
@@ -39,7 +34,6 @@
     prompt = false
 [user]
     name = Jamil RAICHOUNI
-    email = jamil.raichouni@deutschebahn.com
 [safe]
     directory = /tmp/tmp1oum15qc
     directory = /tmp/

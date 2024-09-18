@@ -13,6 +13,19 @@ local function get_last_modified_date(filepath)
     end
 end
 
+vim.g.JavaBuildClassPath = function()
+    local obj = nil
+    local current_buffer_path = vim.api.nvim_buf_get_name(0)
+    obj = vim.system({ "python", "-m", "eclipse_plugin_builders", "build-classpath", current_buffer_path, vim.g.capella_home },
+            { cwd = os.getenv("HOME") .. "/dev/github/eclipse-plugin-builders", env = { PYENV_VERSION = "eclipse-plugin-builders" } })
+        :wait()
+    if obj.code == 0 then
+        print(obj.stdout)
+    else
+        print("Error: " .. obj.stderr)
+    end
+end
+
 vim.g.PackageAndDeployEclipsePlugin = function()
     local obj = nil
     obj = vim.system({ "python3", "-m", "eclipse_plugin_builders", "package" }):wait()
@@ -43,4 +56,16 @@ vim.g.CompilePackageAndDeployEclipsePlugin = function()
     vim.cmd("cclose")
     print("Compile done")
     vim.g.PackageAndDeployEclipsePlugin()
+end
+
+vim.g.WorkingTimesCompute = function()
+    local obj = nil
+    vim.api.nvim_command("write")
+    obj = vim.system({ "python", "-m", "working_times" },
+        { cwd = os.getenv("HOME") .. "/dev/github/working-times", env = { PYENV_VERSION = "working-times" } }):wait()
+    if obj.code == 0 then
+        vim.api.nvim_command("edit")
+    else
+        print("Error: " .. obj.stderr)
+    end
 end

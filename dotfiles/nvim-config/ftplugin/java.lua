@@ -1,5 +1,6 @@
 -- https://github.com/mfussenegger/nvim-dap/wiki/Java
 local dap = require('dap')
+local home = os.getenv("HOME")
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 local workspaces_dir = '/mnt/volume/data/workspaces/'
@@ -66,8 +67,8 @@ local config = {
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
         '-jar',
-        '/opt/eclipse.jdt.ls/plugins/org.eclipse.equinox.launcher_1.6.800.v20240304-1850.jar',
-        '-configuration', '/opt/eclipse.jdt.ls/config_linux_arm',
+        home .. "/.local/share/nvim/mason/share/jdtls/plugins/org.eclipse.equinox.launcher.jar",
+        "-configuration", home .. "/.local/share/nvim/mason/packages/jdtls/config_linux_arm",
         '-data', workspace_dir,
     },
     root_dir = vim.fs.dirname(vim.fs.find({ 'plugin.xml', 'pom.xml', '.project' }, { upward = true })[1]),
@@ -78,10 +79,6 @@ local config = {
                 -- And search for `interface RuntimeOption`
                 -- The `name` is NOT arbitrary, but must match one of the elements from `enum ExecutionEnvironment` in the link above
                 runtimes = {
-                    {
-                        name = "JavaSE-11",
-                        path = "/usr/lib/jvm/java-11-openjdk/",
-                    },
                     {
                         name = "JavaSE-17",
                         path = "/usr/lib/jvm/jdk-17.0.11+9/",

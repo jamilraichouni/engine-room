@@ -1,5 +1,7 @@
 __pycache__/
+build/er-keypass-db-er.kdbx
 data/
 dotfiles.main/
+dotfiles/github-copilot/apps.json
 dotfiles/nvim-config/node_modules/
-resources/capella*tar*
+build/capella*tar*

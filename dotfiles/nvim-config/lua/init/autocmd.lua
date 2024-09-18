@@ -43,7 +43,15 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "*/init/*.lua", "*/plugins/*.lua" },
-    command = "setlocal foldmethod=marker"
+    callback = function(args)
+        if vim.fn.match(vim.fn.expand("<afile>"), "lua/init/function.lua") then
+            vim.wo.foldmethod = "expr"
+            vim.wo.foldlevel = 0
+        else
+            vim.wo.foldmethod = "marker"
+            vim.wo.foldlevel = 1
+        end
+    end
 })
 -- }}}
 -- Term... {{{

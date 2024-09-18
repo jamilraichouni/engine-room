@@ -91,7 +91,11 @@ vim.keymap.set("n", "<leader>Pl", "<cmd>belowright vnew <bar> terminal python<cr
 vim.keymap.set("n", "<leader>Tb", "<cmd>terminal<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>Tt", "<cmd>tabedit term://zsh<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>Th", "<cmd>vnew +terminal<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>TH", "<cmd>vnew +terminal<cr><cmd>wincmd H<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>Tj", "<cmd>belowright new +terminal<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>TJ", "<cmd>belowright new +terminal<cr><cmd>wincmd J<cr><cmd>resize 25<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>Tk", "<cmd>new +terminal<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>TK", "<cmd>new +terminal<cr><cmd>wincmd K<cr><cmd>resize 10<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>Tl", "<cmd>belowright vnew +terminal<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>TL", "<cmd>belowright vnew +terminal<cr><cmd>wincmd L<cr><cmd>startinsert<cr>")
 -- }}}

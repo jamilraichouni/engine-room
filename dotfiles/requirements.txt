@@ -6,6 +6,7 @@ ipython
 jupyter
 line_profiler
 mccabe
+PyYAML
 pre-commit
 pydocstyle
 pyfzf

@@ -37,12 +37,12 @@ DB_PATH = GOOGLE_DRIVE_PATH / "jamil.kdbx"
 FZF_EXE = "/usr/local/bin/fzf"
 if not Path(FZF_EXE).is_file():
     FZF_EXE = "/usr/sbin/fzf"
-KEYPASSXC_EXE = (
+KEEPASSXC_EXE = (
     Path.home() / "Applications/"
     "KeePassXC.app/Contents/MacOS/keepassxc-cli"
 )
-if not Path(KEYPASSXC_EXE).is_file():
-    KEYPASSXC_EXE = "keepassxc-cli"
+if not Path(KEEPASSXC_EXE).is_file():
+    KEEPASSXC_EXE = "keepassxc-cli"
 MASTER_SECRET = (
     Path(Path.home() / ".config/kitty/mastersecret")
     .read_text(encoding="utf8")
@@ -71,7 +71,7 @@ def _attr_value_of_secret(
         attr_name = option
     val = None
     cmd = [
-        KEYPASSXC_EXE,
+        KEEPASSXC_EXE,
         "show",
         "--quiet",
     ]
@@ -308,7 +308,7 @@ def _select_keepass_secret(option: str) -> t.Optional[str]:
     secret: t.Optional[str] = None
     stdout, stderr = subprocess.Popen(
         [
-            KEYPASSXC_EXE,
+            KEEPASSXC_EXE,
             "ls",
             "--quiet",
             "--recursive",

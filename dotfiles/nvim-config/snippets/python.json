@@ -424,22 +424,6 @@
       "branch (flake8 exclude)"
     ]
   },
-  "flake8, mypy and Pylance (exclude)": {
-    "body": ["# type: ignore # noqa"],
-    "description": "Disable flake8 & Pxlance warnings for this line",
-    "prefix": [
-      "flake8/ Pylance / mypy (ignore)",
-      "flake8/ Pylance / mypy (exclude)",
-      "flake8/ Pylance / mypy (disable)",
-      "flake8/ Pylance / mypy (skip)",
-      "ignore (flake8/ Pylance / mypy)",
-      "exclude (flake8/ Pylance / mypy)",
-      "disable (flake8/ Pylance / mypy)",
-      "skip (flake8/ Pylance / mypy)",
-      "line (flake8/ Pylance / mypy exclude)",
-      "branch (flake8/ Pylance / mypy exclude)"
-    ]
-  },
   "func_name": {
     "body": ["func_name = sys._getframe().f_code.co_name"],
     "description": "Get function name",
@@ -722,19 +706,12 @@
   },
   "mypy/ pylance (ignore line)": {
     "body": ["# type: ignore"],
-    "description": "Disable mypy/ pylance checking for this line",
+    "description": "Disable mypy checking for this line",
     "prefix": [
-      "mypy (skip)",
-      "skip (mypy)",
-      "disable (mypy)",
+      "mypy (ignore)",
       "ignore (mypy)",
       "line (mypy ignore)",
-      "pylance (skip)",
-      "skip (mypy)",
-      "skip (pylance)",
-      "disable (pylance)",
-      "ignore (pylance)",
-      "line (pylance ignore)"
+      "pyce ignore)"
     ]
   },
   "namedtuple": {

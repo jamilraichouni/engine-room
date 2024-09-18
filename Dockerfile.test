@@ -1,2 +1,14 @@
-FROM engine-room:base
+FROM fedora:40
 LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
+COPY --from=engine-room:dbmac /usr/lib/jvm /usr/lib/jvm
+COPY --from=engine-room:dbmac /opt /opt
+# system pkgs needed for eclipse, capella {{{
+RUN dnf --color yes --refresh -y install \
+  dbus-tools \
+  dbus-x11 \
+  eclipse-swt \
+  # java-11-openjdk-devel \
+  java-17-openjdk-devel \
+  webkit2gtk4.0.aarch64 \
+  xdg-utils
+# }}}

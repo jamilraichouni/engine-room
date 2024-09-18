@@ -60,12 +60,12 @@ return {
             },
             {
                 -- https://github.com/hrsh7th/cmp-nvim-lsp
-                "hrsh7th/cmp-nvim-lsp",            -- source
+                "hrsh7th/cmp-nvim-lsp",                    -- source
                 dependencies = { "neovim/nvim-lspconfig" } -- provider
             },
             {
                 -- https://github.com/hrsh7th/cmp-nvim-lsp-signature-help
-                "hrsh7th/cmp-nvim-lsp-signature-help", -- source
+                "hrsh7th/cmp-nvim-lsp-signature-help",     -- source
                 dependencies = { "neovim/nvim-lspconfig" } -- provider
             },
             {
@@ -146,12 +146,12 @@ return {
                 dependencies = "mfussenegger/nvim-dap",
                 ft = "java",
                 keys = {
-                    { "<leader>jb", "<cmd>lua require('jdtls').build_projects({select_mode='all', full_build=false})<cr>", silent = true },
-                    { "<leader>jc", "<cmd>lua require('jdtls').compile('full')<cr>",                                       silent = true },
-                    { "<leader>jC", "<cmd>lua vim.g.CompilePackageAndDeployEclipsePlugin()<cr>",                           silent = true },
-                    { "<leader>jh", "<cmd>JdtUpdateHotcode<cr>",                                                           silent = true },
-                    { "<leader>jo", "<cmd>lua require('jdtls').organize_imports()<cr>",                                    silent = true },
-                    { "<leader>jp", "<cmd>!python3 -m eclipse_plugin_builders build-classpath " .. vim.g.capella_home,     silent = true },
+                    { "<leader>jb", "<cmd>lua require('jdtls').build_projects({select_mode='all', full_build=false})<cr>",       silent = true },
+                    { "<leader>jc", "<cmd>lua require('jdtls').compile('full')<cr>",                                             silent = true },
+                    { "<leader>jC", "<cmd>lua vim.g.CompilePackageAndDeployEclipsePlugin()<cr>",                                 silent = true },
+                    { "<leader>jh", "<cmd>JdtUpdateHotcode<cr>",                                                                 silent = true },
+                    { "<leader>jo", "<cmd>lua require('jdtls').organize_imports()<cr>",                                          silent = true },
+                    { "<leader>jp", "<cmd>lua vim.g.JavaBuildClassPath()<cr>", silent = true },
                 },
             },
         },
@@ -192,7 +192,7 @@ return {
                     opts)
                 vim.keymap.set("n", "<leader>lr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
                 vim.keymap.set("n", "<leader>dd",
-                    "<cmd>lua vim.diagnostic.setqflist({buffer = true})<cr><cr><cmd>foldopen!<cr>", opts)
+                    "<cmd>lua vim.diagnostic.setqflist({open = true})<cr><cr><cmd>foldopen!<cr>", opts)
                 vim.keymap.set("n", "<leader>gg",
                     "<cmd>lua vim.diagnostic.setqflist({buffer = false})<cr><cr><cmd>foldopen!<cr>", opts)
             end
@@ -446,7 +446,7 @@ return {
                         diagnostics = {
                             globals = {
                                 "use", -- packer
-                                "vim" -- nvim lua development
+                                "vim"  -- nvim lua development
                             },
                         },
                         -- Do not send telemetry data containing a randomized but unique identifier
@@ -458,7 +458,7 @@ return {
                             enable = true,
                             defaultConfig = {
                                 indent_style = "space", -- or "tab"
-                                indent_size = "4", -- or any other number of spaces
+                                indent_size = "4",      -- or any other number of spaces
                             },
                         },
                     },
@@ -492,11 +492,11 @@ return {
                                 enabled = false,
                                 executable = "pylint",
                                 args = { "--load-plugins=pylint.extensions.mccabe", "--max-complexity=14" },
-                            },                                             -- https://github.com/PyCQA/pylint
+                            },                                                           -- https://github.com/PyCQA/pylint
                             -- pyls_black = { enabled = true, executable = "black" },
                             black = { enabled = false, line_length = 79, timeout = 10 }, -- https://github.com/python-lsp/python-lsp-black
                             isort = { enabled = true },
-                            mypy = { enabled = true },                     -- https://github.com/python/mypy, https://github.com/python-lsp/pylsp-mypy
+                            mypy = { enabled = true },                                   -- https://github.com/python/mypy, https://github.com/python-lsp/pylsp-mypy
                             yapf = { enabled = false },
                         },
                     },
