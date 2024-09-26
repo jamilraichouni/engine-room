@@ -1,2 +1,1 @@
 python3 $HOME/engine-room/dotfiles/zsh/init/ALL_HOSTS.py
-source /etc/zprofile

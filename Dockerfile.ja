@@ -1,2 +1,0 @@
-FROM engine-room:base
-LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"

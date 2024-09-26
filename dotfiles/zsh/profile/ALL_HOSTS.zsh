@@ -6,8 +6,12 @@
 
 . $DOT/zsh/vifm.zsh
 
+# rust, cargo
+[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
+
 # fzf
-[ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
+source <(fzf --zsh)
+# [ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
 # [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
 # p10k
@@ -23,7 +27,6 @@ if command -v pyenv > /dev/null; then
   [[ -n $PYENV_VIRTUALENV_INIT && $PYENV_VIRTUALENV_INIT == 1 ]] || eval "$(pyenv virtualenv-init -)"
 fi
 
-
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
@@ -37,12 +40,11 @@ if [ -d /mnt/volume/data/npm ]; then
 fi
 pathprepend $NPM_DIR/bin
 
-# docker
-sudo chmod 777 /var/run/docker.sock
+# # docker
+# [[ -e /var/run/docker.sock ]] && sudo chmod 777 /var/run/docker.sock
 
 unalias -a
 . $DOT/zsh/aliases.zsh
 
-
 # to enable work with SOPS
-gpg-agent --daemon 2> /dev/null
+gpg-agent --homedir $HOME/.gnupg --daemon 2> /dev/null

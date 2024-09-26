@@ -3,7 +3,7 @@ local dap = require('dap')
 local home = os.getenv("HOME")
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-local workspaces_dir = '/mnt/volume/data/workspaces/'
+local workspaces_dir = '/opt/bind/workspaces/'
 local workspace_dir = workspaces_dir .. project_name
 
 dap.configurations.java = {

@@ -45,7 +45,7 @@ alias mdd='cd ~/dev/dbgitlab/mddocgen'
 alias ra='cd ~/dev/github/capella-addons/rest-api'
 alias rbp='cd ~/dev/dbgitlab/rm-bridge-polarion'
 alias setjar='cd ~/dev/dbgitlab/setjar'
-alias tmp='cd ~/tmp'
+alias tmp='cd /tmp'
 alias x='cd ~/x'
 
 # edit specific files

@@ -2,14 +2,8 @@ FROM fedora:40
 LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
 ARG USERMAP_UID
 ARG USERMAP_GID
-ARG KEEPASS_DB_PASSWORD
-ENV KEEPASS_DB_PASSWORD=${KEEPASS_DB_PASSWORD}
 WORKDIR /tmp
 RUN mkdir /build
-COPY build/er-keypass-db-er.kdbx /build
-
-# when the argument KEEPASS_DB_PASSWORD is set, write its value to the file /etc/zshenv
-RUN if [ -n "${KEEPASS_DB_PASSWORD}" ]; then echo "export KEEPASS_DB_PASSWORD=${KEEPASS_DB_PASSWORD}" > /etc/zshenv; fi
 
 # Enable installation of man-pages and re-install all installed pkgs {{{
 RUN sed -i /^tsflags=/d /etc/dnf/dnf.conf && \

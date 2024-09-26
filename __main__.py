@@ -23,6 +23,8 @@ E = pathlib.Path("/etc")
 H = pathlib.Path("/home/nörd")
 D = pathlib.Path(os.getenv("DOT", H / "engine-room/dotfiles"))
 O = pathlib.Path("/opt")  # noqa: E741
+R = pathlib.Path("/root")
+S = pathlib.Path("/run/secrets")
 V = pathlib.Path(os.getenv("VOLUME", "/mnt/volume"))
 
 CONTAINER_TAG = "base"
@@ -59,51 +61,6 @@ except KeyError:
     # we land here, when the command `run` is run on the host
     USERMAP_UID = UID
     USERMAP_GID = GID
-
-SYMBOLIC_LINK_MAP = {
-    E / "git_askpass.py": D / "git_askpass.py",
-    E / "zshenv": D / "zsh/env/ALL_HOSTS.zsh",
-    E / "zprofile": D / "zsh/profile/ALL_HOSTS.zsh",
-    H / ".cache": V / "cache",
-    H / ".cargo": V / "cargo",
-    H / ".config/github-copilot": D / "github-copilot",
-    H / ".config/kitty": D / "kitty-config",
-    H / ".config/nvim": D / "nvim-config",
-    H / ".config/pip": D / "pip",
-    H / ".config/rclone": D / "rclone",
-    H / ".gdbextension.py": D / "gdbextension.py",
-    H / ".gdbinit": D / "gdbinit",
-    H / ".gitconfig": D / "gitconfig",
-    H / ".github-copilot": D / "github-copilot",
-    H / ".gitignore": D / "gitignore",
-    H / ".gitmessage": D / "gitmessage",
-    H / ".gnupg": D / "gnupg",
-    H / ".ipython": D / "ipython",
-    H / ".jupyter": D / "jupyter",
-    H / ".kube": D / "kube",
-    H / ".local/share/npm": V / "npm",
-    H / ".local/share/nvim": V / "nvim/share",
-    H / ".local/state/nvim": V / "nvim/state",
-    H / ".m2": V / "m2",  # Maven cache
-    H / ".nvm": V / "nvm",  # Node Version Manager
-    H / ".p10k.zsh": D / "zsh/p10k.zsh",
-    H / ".pdbrc": D / "pdbrc",
-    H / ".pdbrc.py": D / "pdbrc.py",
-    H / ".pyenv": V / "pyenv",
-    H / ".rustup": V / "rustup",
-    H / ".vimrc": D / "vimrc",
-    H / ".zsh_history": D / "zsh_history",
-    H / ".zshenv": D / f"zsh/env/{HOST}.zsh",
-    H / ".zshrc": D / "zsh/zshrc",
-    H / "pygmentsstyles.py": D / "pygmentsstyles.py",
-    H / "dev": V / "dev",
-}
-if HOST == "dbmac":
-    SYMBOLIC_LINK_MAP.update(
-        {
-            H / "workspaces": V / "workspaces",
-        }
-    )
 
 
 def _change_ownership_recursively(path) -> None:
@@ -242,9 +199,30 @@ def _distribute_secrets() -> None:
 
 def _process_symbolic_links() -> None:
     """Create symbolic links to directories in Docker volume."""
-    for link, target in SYMBOLIC_LINK_MAP.items():
-        if target.exists():
-            if target.is_dir():
+    with open(MODULE_DIR / "config.yml") as f:
+        config = yaml.safe_load(f)
+    user = config["engine-rooms"][HOST]["user"]
+    try:
+        symlinks_host = config["engine-rooms"][HOST]["symlinks"]
+        symlinks = {**config["symlinks"], **symlinks_host}
+    except KeyError:
+        symlinks = config["symlinks"]
+    vars = {
+        "D": os.path.expandvars(f"/home/{user}/engine-room/dotfiles"),
+        "E": "/etc",
+        "H": os.path.expandvars(f"/home/{user}"),
+        "O": "/opt",
+        "R": "/root",
+        "S": "/run/secrets",
+        "V": "/mnt/volume",
+    }
+    for k, v in vars.items():
+        os.environ[k] = v
+    for link, dest in symlinks.items():
+        link = pathlib.Path(os.path.expandvars(link))
+        dest = pathlib.Path(os.path.expandvars(dest))
+        if dest.exists():
+            if dest.is_dir():
                 if link.is_symlink():
                     link.unlink()
                 elif link.is_dir():
@@ -252,17 +230,19 @@ def _process_symbolic_links() -> None:
                 else:
                     link.parent.mkdir(parents=True, exist_ok=True)
                     _change_ownership_recursively(link.parent)
-                _create_symlink(link, target)
-            elif target.is_file():
+                _create_symlink(link, dest)
+            elif dest.is_file():
                 if link.is_symlink() or link.is_file():
                     link.unlink()
                 else:
                     link.parent.mkdir(parents=True, exist_ok=True)
                     _change_ownership_recursively(link.parent)
+
                 content_to_merge = ""
                 # if link.is_file() and link.name == "zshenv":
                 #     content_to_merge = link.read_text()
-                _create_symlink(link, target)
+                _create_symlink(link, dest)
+                _change_ownership_recursively(dest)
                 # if content_to_merge:
                 #     link.write_text(f"{link.read_text()}\n{content_to_merge}")
         elif link.exists():
@@ -270,17 +250,20 @@ def _process_symbolic_links() -> None:
                 # landing here means the directory has been created during
                 # docker build process and we copy link to target using shutil
                 # shutil.copytree(link, target)
-                os.system(f"cp -r {link} {target}")
-                _change_ownership_recursively(target)
+                os.system(f"cp -r {link} {dest}")
+                _change_ownership_recursively(dest)
                 shutil.rmtree(link)
             elif link.is_file():
-                shutil.copy(link, target)
+                shutil.copy(link, dest)
                 link.unlink()
-            _create_symlink(link, target)
+            _create_symlink(link, dest)
         else:
-            target.mkdir(parents=True, exist_ok=True)
-            _change_ownership_recursively(target)
-            _create_symlink(link, target)
+            # we cannot create anything here because we do not know
+            # of link or target are a file or a directory
+            pass
+            # target.mkdir(parents=True, exist_ok=True)
+            # _change_ownership_recursively(target)
+            # _create_symlink(link, target)
 
 
 def _set_bind_mount_permissions() -> None:
@@ -310,115 +293,6 @@ def _install_pyenv_and_set_up_global_python() -> None:
 @click.group()
 def cli() -> None:
     """CLI to work with an `engine-room` container."""
-
-
-@cli.command()
-@click.option(
-    "--no-cache", is_flag=True, help="Pass --no-cache to docker build."
-)
-@click.option(
-    "--keepass-db-file",
-    envvar="KEEPASS_DB_FILE",
-    type=click.Path(exists=True, dir_okay=False),
-    required=False,
-    help=(
-        " Path to a KeePass database file (KDBX 4 format has been"
-        " tested)."
-        " Considered, when the container `os` is built (see name"
-        " argument)."
-        " `keepassxc-cli` must be available on the Docker host."
-        " The password for the database must be given (prompt) during"
-        " the Docker build process."
-        " The KeePass database is expected to come with an"
-        " `engine-room` group as child of the `root` group. The group"
-        " `engine-room` can have a subgroup named `env` for secret"
-        " environment variables which will be written to `/etc/zshenv`"
-        " in the container."
-        " Another subgroup named `files` can be given. Entries in that"
-        " group can define secret files. The name of an entry on top"
-        " level of the `files` group defines the path of the file in"
-        " the container. If there is a group inside the `files` group,"
-        " the name of the group defines the path for the parent"
-        " directory of files in the container and entry names"
-        " define the file names."
-        " The content of files is defined in the field `notes` of an"
-        " entry."
-    ),
-)
-@click.argument("name", nargs=-1)
-def build(
-    no_cache: bool = True,
-    keepass_db_file: pathlib.Path | None = None,
-    name: tuple[str] | None = None,
-) -> None:
-    """Build specified or all `engine-room` container(s).
-
-    \b
-    Arguments
-    ---------
-    name
-        Name of one or multiple engine-room containers. When not
-        specified, all containers will be built in the
-        order defined by the services in the docker-compose.yml file.
-        When specified, the name must appear as service in the
-        `docker-compose.yml` file.
-    """
-    cmd = ["docker", "compose", "build"]
-    if name:
-        # read service names from docker-compose.yml
-        with open(MODULE_DIR / "docker-compose.yml") as file:
-            names = yaml.safe_load(file)["services"].keys()
-            unknown_names = set(name) - set(names)
-            if unknown_names:
-                raise click.UsageError(
-                    f"Unknown container name(s): {', '.join(unknown_names)}"
-                )
-    cmd.extend(
-        [
-            "--build-arg",
-            f"USERMAP_UID={UID}",
-            "--build-arg",
-            f"USERMAP_GID={GID}",
-        ]
-    )
-    with_keepass_db_file = keepass_db_file is not None and (
-        not name  # meaning undefined to build all containers including `os`
-        or "os" in name  # meaning to build only the `os` container
-    )
-    tmp_keepass_db_file = MODULE_DIR / "build/er-keypass-db-er.kdbx"
-    os.system(f"touch {tmp_keepass_db_file}")
-    if with_keepass_db_file:
-        shutil.copy(str(keepass_db_file), tmp_keepass_db_file)
-        # container named `os` is built
-        exe = "keepassxc-cli"
-        try:
-            subprocess.run(
-                [exe, "--version"],
-                check=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-            )
-        except (subprocess.CalledProcessError, FileNotFoundError):
-            raise click.UsageError(f"The command `{exe}` is not available.")
-        password = click.prompt(
-            f"Password for {keepass_db_file}", hide_input=True
-        )
-        cmd.extend(
-            [
-                "--build-arg",
-                f"KEEPASS_DB_PASSWORD={password}",
-            ]
-        )
-    build_cmd = cmd.copy()
-    if name:
-        for service in [n for n in names if n in name]:
-            subprocess.run(build_cmd + [service], check=True, cwd=MODULE_DIR)
-    else:
-        subprocess.run(build_cmd, check=True, cwd=MODULE_DIR)
-    if with_keepass_db_file:
-        # make absolute path
-        tmp_keepass_db_file = MODULE_DIR / tmp_keepass_db_file
-        tmp_keepass_db_file.unlink()
 
 
 @cli.command()
@@ -499,10 +373,10 @@ def run(tag: str, verbose: bool = False) -> None:
             "/opt/bind:/opt/bind",
         ]
     )
-    ssh_auth_sock = os.getenv("SSH_AUTH_SOCK", "")
-    if ssh_auth_sock and pathlib.Path(ssh_auth_sock).is_socket():
-        ssh_auth_sock = ssh_auth_sock.replace("/private/tmp", "/tmp")
-        cmd.extend(["-e", f"SSH_AUTH_SOCK={ssh_auth_sock}"])
+    ssh_auth_sock = "/run/host-services/ssh-auth.sock"
+    cmd.extend(["-e", f"SSH_AUTH_SOCK={ssh_auth_sock}"])
+    cmd.extend(["-v", f"{ssh_auth_sock}:{ssh_auth_sock}"])
+
     if platform.system().lower() in (
         "darwin",
         "linux",
@@ -525,7 +399,7 @@ def run(tag: str, verbose: bool = False) -> None:
             )
     cmd.append(f"engine-room:{tag}")
     if verbose:
-        click.echo(' '.join(cmd))
+        click.echo(" ".join(cmd))
     subprocess.run(cmd, check=False, capture_output=True)
     if is_new_volume:
         time.sleep(5)
@@ -575,7 +449,9 @@ def enter(ctx: click.core.Context, verbose: bool = False) -> None:
         )
         ctx.invoke(run, tag=socket.gethostname())
         raise SystemExit()
-    id_file = pathlib.Path.home() / ".ssh/id_ed25519"
+    ssh_auth_sock = os.getenv("SSH_AUTH_SOCK", "")
+    if ssh_auth_sock:
+        os.system(f"chmod 666 {ssh_auth_sock}")
     cmd = [
         "zsh",
         "-c",
@@ -592,18 +468,18 @@ def enter(ctx: click.core.Context, verbose: bool = False) -> None:
 @cli.command()
 def startup() -> None:
     """Start the `engine-room` container (entry point)."""
+    (H / ".ssh").mkdir(exist_ok=True)
     _process_symbolic_links()
-    _distribute_secrets()
+    # _distribute_secrets()
     _set_bind_mount_permissions()
     _install_pyenv_and_set_up_global_python()
-    gpg_agent_command = [
-        "gpg-agent",
-        "--homedir",
-        "/home/nörd/.gnupg",
-        "--use-standard-socket",
-        "--daemon",
-    ]
-    subprocess.Popen(gpg_agent_command)
+    # gpg_agent_command = [
+    #     "gpg-agent",
+    #     "--homedir",
+    #     "/home/nörd/.gnupg",
+    #     "--daemon",
+    # ]
+    # subprocess.Popen(gpg_agent_command)
     sshd_path = "/usr/sbin/sshd"
     args = [sshd_path, "-D", f"-p {os.getenv('SSH_PORT', '22')}"]
     click.echo(

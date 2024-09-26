@@ -1,59 +1,132 @@
-FROM engine-room:os
-LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+LABEL maintainer="Jamil André RAICHOUNI <jamil.raichouni@deutschebahn.com>"
+ARG CAPELLA_VERSION
+ARG JDK_FILE
+
+# remove proxy settings from base image {{{
+ENV DB_DEFAULT_PROXY= db_default_proxy= \
+  DB_DEFAULT_NO_PROXY= db_default_no_proxy= \
+  HTTP_PROXY= http_proxy= HTTPS_PROXY= https_proxy= \
+  NO_PROXY= no_proxy=
+# }}}
 
 USER root
 
-# JDKs that fit Capella versions we use {{{
-COPY build/install_capella_jdks.zsh /tmp
-RUN chmod +x /tmp/install_capella_jdks.zsh && \
-  zsh /tmp/install_capella_jdks.zsh && \
-  rm /tmp/install_capella_jdks.zsh && \
+RUN mkdir -p /home/techuser/.cache/gitstatus && \
+  chown -R techuser:techuser /home/techuser/.cache/gitstatus
+
+# JDK {{{
+RUN mkdir -p /usr/lib/jvm
+ADD build/${JDK_FILE}/ /usr/lib/jvm
+RUN mv /usr/lib/jvm/jdk-* /usr/lib/jvm/jdk && \
   if [ -e /usr/bin/java ]; then mv /usr/bin/java /usr/bin/java.system; fi
 # }}}
 
-# system pkgs needed for eclipse, capella {{{
-RUN dnf --color yes --refresh -y install \
-  dbus-tools \
-  dbus-x11 \
-  eclipse-swt \
-  # java-11-openjdk-devel \
-  # java-17-openjdk-devel \
-  webkit2gtk4.0.aarch64 \
-  xdg-utils
+USER root
+RUN mkdir -p /root/.config /home/techuser/.config /mnt/volume && \
+  chown -R techuser:techuser /mnt/volume
+
+# system pkgs {{{
+RUN apt-get update && apt-get install -y \
+  # `build-essential` is needed for treesitter
+  build-essential \
+  # fzf \
+  # `inotify-tools` comes with `inotifywait`
+  inotify-tools \
+  # `iputils-ping` comes with `ping`
+  iputils-ping \
+  # so that `icat` is available
+  kitty \
+  locales \
+  maven \
+  # `net-tools` comes with `netstat`
+  net-tools \
+  openssh-client \
+  # `psmisc` comes with `killall`
+  psmisc \
+  ripgrep \
+  rsync \
+  tree \
+  yarn \
+  zsh
 # }}}
 
-# install capella and consider .log files {{{
-ADD build/capella_6.0.0.tar.bz2 /opt
-ADD build/capella_6.1.0.tar.bz2 /opt
-RUN touch /var/log/capella.log && \
-  chmod 666 /var/log/capella.log
-
-# commands to launch different capella versions
-# Capella 6.0.0:
-RUN echo -e "#!/usr/bin/env zsh\nsetopt +o monitor > /dev/null 2>&1;\nnohup /opt/capella_6.0.0/capella \$@ > /var/log/capella.log 2>&1 & disown;\nsetopt -o monitor > /dev/null 2>&1;\nexit 0;" > /usr/local/bin/capella_6.0.0 && \
-  chmod 755 /usr/local/bin/capella_6.0.0 && \
-  # Capella 6.1.0:
-  echo -e "#!/usr/bin/env zsh\nsetopt +o monitor > /dev/null 2>&1;\nnohup /opt/capella_6.1.0/capella \$@ > /var/log/capella.log 2>&1 & disown;\nsetopt -o monitor > /dev/null 2>&1;\nexit 0;" > /usr/local/bin/capella_6.1.0 && \
-  chmod 755 /usr/local/bin/capella_6.1.0 && \
-  # set default capella version:
-  ln -s /usr/local/bin/capella_6.0.0 /usr/local/bin/capella
+# fzf {{{
+RUN curl -Lo /tmp/$(basename https://github.com/junegunn/fzf/releases/download/v0.55.0/fzf-0.55.0-linux_armv7.tar.gz) https://github.com/junegunn/fzf/releases/download/v0.55.0/fzf-0.55.0-linux_armv7.tar.gz && \
+  tar xvzf /tmp/fzf-*.tar.gz && \
+  mv fzf /usr/local/bin/fzf && \
+  rm /tmp/fzf-*.tar.gz
 # }}}
 
-# install capella studio and consider .log files {{{
-ADD build/capella_studio_6.1.0.tar.bz2 /opt
-ADD build/capella_studio_7.0.0.tar.bz2 /opt
-RUN touch /var/log/capella-studio.log && \
-  chmod 666 /var/log/capella-studio.log
-
-# commands to launch different capella studio versions
-# Capella Studio 6.1.0:
-RUN echo -e "#!/usr/bin/env zsh\nsetopt +o monitor > /dev/null 2>&1;\nnohup /opt/capella_studio_6.1.0/capella-studio \$@ > /var/log/capella-studio.log 2>&1 & disown;\nsetopt -o monitor > /dev/null 2>&1;\nexit 0;" > /usr/local/bin/capella_studio_6.1.0 && \
-  chmod 755 /usr/local/bin/capella_studio_6.1.0 && \
-  # Capella Studio 7.0.0:
-  echo -e "#!/usr/bin/env zsh\nsetopt +o monitor > /dev/null 2>&1;\nnohup /opt/capella_studio_7.0.0/eclipse \$@ > /var/log/capella-studio.log 2>&1 & disown;\nsetopt -o monitor > /dev/null 2>&1;\nexit 0;" > /usr/local/bin/capella_studio_7.0.0 && \
-  chmod 755 /usr/local/bin/capella_studio_7.0.0 && \
-  # set default capella studio version:
-  ln -s /usr/local/bin/capella_studio_7.0.0 /usr/local/bin/capella-studio
+# use zsh for RUN commands {{{
+SHELL ["/bin/zsh", "-c"]
+ENV SHELL=/bin/zsh
+RUN usermod --shell /bin/zsh root
 # }}}
 
-USER nörd
+# rust, cargo {{{
+USER techuser
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+#}}}
+
+# terminal setup incl. powerlevel10k and gitstatusd {{{
+USER techuser
+ENV TERM=xterm-256color
+
+RUN zsh -c "$(curl -fsSL \
+  https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN git clone --depth=1 \
+  https://github.com/romkatv/powerlevel10k.git \
+  /home/techuser/.oh-my-zsh/custom/themes/powerlevel10k && \
+  wget https://github.com/romkatv/gitstatus/releases/download/v1.5.4/gitstatusd-linux-aarch64.tar.gz && \
+  tar -xvzf gitstatusd-*.tar.gz && \
+  rm gitstatusd-*.tar.gz && \
+  # mkdir -p /home/techuser/.cache/gitstatus && \
+  mv gitstatusd-* /home/techuser/.cache/gitstatus && \
+  wget https://github.com/romkatv/gitstatus/releases/download/v1.5.4/gitstatusd-linux-x86_64.tar.gz && \
+  tar -xvzf gitstatusd-*.tar.gz && \
+  rm gitstatusd-*.tar.gz && \
+  # mkdir -p /home/techuser/.cache/gitstatus && \
+  mv gitstatusd-* /home/techuser/.cache/gitstatus
+# }}}
+
+# install latest neovim {{{
+USER root
+RUN curl -Lo /tmp/nvim.tar.gz \
+  https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz && \
+  tar -xzf /tmp/nvim.tar.gz -C /tmp && \
+  mv /tmp/nvim-linux64 /opt/nvim && \
+  ln -s /opt/nvim/bin/nvim /usr/local/bin/nvim && \
+  rm /tmp/nvim.tar.gz
+# }}}
+
+# misc {{{
+RUN chown -R techuser:techuser /home/techuser && \
+  ln -s /opt/capella/capella /usr/local/bin
+# }}}
+
+USER techuser
+
+# nvm, node, npm, yarn {{{
+# https://github.com/nvm-sh/nvm/releases
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+RUN touch /home/techuser/.zshrc && \
+  zsh -c "source /home/techuser/.nvm/nvm.sh && nvm install --lts"
+
+# npm
+ENV NPM_DIR=/home/techuser/.local/share/npm
+RUN [[ -d ${NPM_DIR} ]] || mkdir -p ${NPM_DIR}
+
+# yarn
+RUN zsh -c "source /home/techuser/.nvm/nvm.sh && nvm use default && \
+  npm install -g --prefix ${NPM_DIR} yarn"
+# }}}
+
+# workspace setup {{{
+RUN mkdir -p /opt/bind/workspaces/capella_${CAPELLA_VERSION} && \
+  ln -s /opt/bind/workspaces/capella_${CAPELLA_VERSION} /home/techuser/workspace
+
+USER root
+RUN python3 -m pip install PyYAML pynvim
+ENTRYPOINT ["python3", "/home/techuser/engine-room/entrypoint.py"]

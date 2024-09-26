@@ -83,8 +83,14 @@ capella -consoleLog -noSplash \
 
 - Store token in password manager
 
+To be able to pull images from anywhere, we need to be logged into the VPN and
+four different registries:
+
 ```bash
-docker login -u jamilraichouni dbb-set-docker-stage-dev-local.bahnhub.tech.rz.db.de  # user: BKU user, password: BKU password
+docker login dbb-set-docker-prod-local.bahnhub.tech.rz.db.de  # user: BKU user, password: BKU password
+docker login dbb-set-docker-stage-dev-local.bahnhub.tech.rz.db.de  # user: BKU user, password: BKU password
+docker login -u jamilraichouni  # login at docker.io (DB)
+docker login -u raichouni  # login at docker.io (private)
 ```
 
 ### Recipe(git): Undo last local (unpushed) commit

@@ -1,5 +1,7 @@
 FROM engine-room:os
 LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
+ARG JDK_FILE
+
 USER root
 
 # use zsh for RUN commands {{{
@@ -20,7 +22,6 @@ RUN dnf --color yes --refresh -y install \
   ImageMagick \
   # to run `python -m engine-room build` command during development
   keepassxc \
-  java-21-openjdk-devel \
   # Command-line JSON processor
   jq \
   kitty-terminfo \
@@ -36,6 +37,13 @@ RUN dnf --color yes --refresh -y install \
   subversion
 # }}}
 
+# JDK {{{
+RUN mkdir -p /usr/lib/jvm
+ADD build/${JDK_FILE}/ /usr/lib/jvm
+RUN mv /usr/lib/jvm/jdk-* /usr/lib/jvm/jdk && \
+  if [ -e /usr/bin/java ]; then mv /usr/bin/java /usr/bin/java.system; fi
+# }}}
+
 # kubectl {{{
 RUN curl -LO \
   "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl" && \
@@ -44,7 +52,7 @@ RUN curl -LO \
 
 # Mozilla SOPS "Secrets OPerationS" {{{
 RUN dnf --color yes -y install \
-  https://github.com/getsops/sops/releases/download/v3.9.0/sops-3.9.0-1.aarch64.rpm
+  https://github.com/getsops/sops/releases/download/v3.9.0/sops-3.9.0-1.$(uname -m).rpm
 # }}}
 
 # oc - OpenShift Command Line Interface (CLI) {{{
@@ -91,6 +99,7 @@ RUN sudo dnf --color yes --refresh -y install \
   /home/nörd/.pyenv/bin/pyenv virtualenv-init - && \
   chown -R $(id -u nörd):$(id -g nörd) /home/nörd/.pyenv
 # }}}
+
 USER root
-RUN python3 -m pip install click PyYAML
-ENTRYPOINT ["python3", "/home/nörd/engine-room/__main__.py", "startup"]
+RUN python3 -m pip install PyYAML
+ENTRYPOINT ["python3", "/home/nörd/engine-room/entrypoint.py"]

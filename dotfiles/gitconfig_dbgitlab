@@ -1,0 +1,5 @@
+[commit]
+  gpgsign = true
+[user]
+  email = jamil.raichouni@deutschebahn.com
+  signingkey = "65DC22BBD3B2ED7D30C3DA39D97A802CCC290279"
