@@ -1,5 +1,6 @@
 __pycache__/
 build/er-keypass-db-er.kdbx
+build/OpenJDK*
 data/
 dotfiles.main/
 dotfiles/github-copilot/apps.json

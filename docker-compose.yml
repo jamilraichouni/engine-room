@@ -1,28 +1,160 @@
 services:
   os:
+    image: engine-room:os
     build:
       dockerfile: Dockerfile.os
       args:
-        - USERMAP_UID=501
-        - USERMAP_GID=20
-    image: engine-room:os
-  capella:
-    build:
-      dockerfile: Dockerfile.capella
-    image: engine-room:capella
+        USERMAP_UID: $USERMAP_UID
+        USERMAP_GID: $USERMAP_GID
+    hostname: "engine-room-os"
+    container_name: "engine-room-os"
   base:
+    image: engine-room:base
+    cap_add:
+      - SYS_PTRACE
     build:
       dockerfile: Dockerfile.base
-    image: engine-room:base
+      args:
+        JDK_FILE: OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.4_7.tar.gz
+    hostname: "engine-room-base"
+    container_name: "engine-room-base"
+    environment:
+      DISPLAY: $DISPLAY
+      JAVA_HOME: /usr/lib/jvm/jdk
+      SSH_AUTH_SOCK: $SSH_AUTH_SOCK
+      SSH_PORT: 1978
+    ports:
+      - "1978:1978"  # ssh
+    secrets:
+      - GITLAB_PAT
+      - KEEPASS_DB_PASSWORD
+      - OPENAI_API_KEY
+      - ssh_authorized_keys
+    volumes:
+      - $HOME/Downloads:/home/nörd/downloads
+      - $HOME/engine-room:/home/nörd/engine-room
+      - /opt/bind:/opt/bind
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+      - /tmp:/tmp
+      - /var/run/docker.sock:/var/run/docker.sock
+      - base:/mnt/volume
+  fedora-capella:
+    image: engine-room:fedora-capella
+    build:
+      dockerfile: Dockerfile.fedora-capella
   dbmac:
+    image: engine-room:dbmac
+    cap_add:
+      - SYS_PTRACE
     build:
       dockerfile: Dockerfile.dbmac
-    image: engine-room:dbmac
-  # ja:
-  #   build:
-  #     dockerfile: Dockerfile.ja
-  #   image: engine-room:ja
-  # test:
-  #   build:
-  #     dockerfile: Dockerfile.test
-  #   image: engine-room:test
+      args:
+        USERMAP_UID: $USERMAP_UID
+        USERMAP_GID: $USERMAP_GID
+    hostname: "engine-room-dbmac"
+    container_name: "engine-room-dbmac"
+    ports:
+      - "1978:1978"  # ssh
+      - "4200:4200"
+      - "5001:5001"
+      - "5098:5098"
+      - "6006:6006"
+      - "8000:8000"
+      - "8081:8081"
+    environment:
+      CI_SERVER_URL: $CI_SERVER_URL
+      DISPLAY: $DISPLAY
+      JAVA_HOME: /usr/lib/jvm/jdk
+      SSH_AUTH_SOCK: $SSH_AUTH_SOCK
+      SSH_PORT: 1978
+    secrets:
+      - GITLAB_PAT
+      - KEEPASS_DB_PASSWORD
+      - OPENAI_API_KEY
+      - keepass_db
+      - ssh_authorized_keys
+    volumes:
+      - $HOME/Downloads:/home/nörd/downloads
+      - $HOME/engine-room:/home/nörd/engine-room
+      - /opt/bind:/opt/bind
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+      - /tmp:/tmp
+      - /var/run/docker.sock:/var/run/docker.sock
+      - dbmac:/mnt/volume
+  capella-7.0.0:
+    image: engine-room:capella-7.0.0
+    platform: linux/amd64
+    build:
+      dockerfile: Dockerfile.capella
+      args:
+        BASE_IMAGE: dbb-set-docker-prod-local.bahnhub.tech.rz.db.de/capella/remote:7.0.0-v2.5.3-v0.2.0
+        CAPELLA_VERSION: 7.0.0
+        JDK_FILE: OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.11_9.tar.gz
+    hostname: "engine-room-capella-7.0.0"
+    container_name: "engine-room-capella-7.0.0"
+    ports:
+      - "5007:5007"  # capella-rest-api
+      - "10700:10000"  # visit http://localhost:10700/ (with trailing backslash) in the browser then.
+    environment:
+      AUTOSTART_CAPELLA: 0
+      CI_SERVER_URL: $CI_SERVER_URL
+      CONNECTION_METHOD: xpra
+      DISPLAY: host.docker.internal:0.0
+      DOT: /home/techuser/engine-room/dotfiles
+      ER: /home/techuser/engine-room
+      JAVA_HOME: /usr/lib/jvm/jdk
+      SSH_AUTH_SOCK: $SSH_AUTH_SOCK
+      VOLUME: /mnt/volume
+      XPRA_CSP_ORIGIN_HOST: http://localhost:5173
+      XPRA_SUBPATH: "/"
+    secrets:
+      - OPENAI_API_KEY
+      - ssh_config
+    volumes:
+      - $HOME/Downloads:/home/nörd/downloads
+      - $HOME/engine-room:/home/techuser/engine-room
+      - /opt/bind:/opt/bind
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+      - /var/run/docker.sock:/var/run/docker.sock
+      - capella-7.0.0:/mnt/volume
+  ja:
+    image: engine-room:ja
+    build:
+      dockerfile: Dockerfile.ja
+    hostname: "engine-room-ja"
+    container_name: "engine-room-ja"
+    environment:
+      SSH_AUTH_SOCK: $SSH_AUTH_SOCK
+    volumes:
+      - $HOME/Downloads:/home/nörd/downloads
+      - $HOME/engine-room:/home/techuser/engine-room
+      - /opt/bind:/opt/bind
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+      - /tmp:/tmp
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ja:/mnt/volume
+
+secrets:
+  # value of env vars/ content of files land in
+  # /run/secrets/secret_name of the container
+  keepass_db:
+    file: /Users/jamilraichouni/Library/CloudStorage/GoogleDrive-raichouni@gmail.com/My Drive/jamil.kdbx
+  ssh_authorized_keys:
+    file: ./dotfiles/ssh/authorized_keys
+  ssh_config:
+    file: ./dotfiles/ssh/config
+  OPENAI_API_KEY:
+    environment: OPENAI_API_KEY
+  GITLAB_PAT:
+    environment: GITLAB_PAT
+  KEEPASS_DB_PASSWORD:
+    environment: KEEPASS_DB_PASSWORD
+
+volumes:
+  base:
+  ja:
+    external: true
+  capella-7.0.0:
+    external: true
+  dbmac:
+    external: true

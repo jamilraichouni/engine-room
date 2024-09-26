@@ -11,7 +11,11 @@ return {
     {
         "williamboman/mason.nvim",
         lazy = false,
-        config = true,
+        config = function()
+            require("mason").setup({
+                log_level = vim.log.levels.DEBUG
+            })
+        end
     },
     -- }}}
     -- https://github.com/zbirenbaum/copilot.lua {{{
@@ -22,10 +26,11 @@ return {
         event = "InsertEnter",
         opts = {
             filetypes = {
-                gitcommit = true,
-                markdown = true,
-                yaml = true,
-                "*"
+                -- gitcommit = true,
+                -- markdown = true,
+                -- python = true,
+                -- yaml = true,
+                ["*"] = true
             },
             suggestion = {
                 enabled = true,

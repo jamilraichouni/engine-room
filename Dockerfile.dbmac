@@ -1,13 +1,20 @@
 FROM engine-room:base
 LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
+ARG USERMAP_UID
+ARG USERMAP_GID
 
-# JDKs that fit Capella versions we use {{{
-COPY --from=engine-room:capella /usr/lib/jvm/jdk-17.0.6+10 /usr/lib/jvm/jdk-17.0.6+10
-COPY --from=engine-room:capella /usr/lib/jvm/jdk-17.0.11+9 /usr/lib/jvm/jdk-17.0.11+9
-COPY --from=engine-room:capella /usr/local/bin/capella* /usr/local/bin/
-COPY --from=engine-room:capella /opt/capella_6.0.0 /opt/capella_6.0.0
-COPY --from=engine-room:capella /opt/capella_6.1.0 /opt/capella_6.1.0
-COPY --from=engine-room:capella /opt/capella_studio_6.1.0 /opt/capella_studio_6.1.0
-COPY --from=engine-room:capella /opt/capella_studio_7.0.0 /opt/capella_studio_7.0.0
-COPY --from=engine-room:capella /var/log/capella* /var/log/
+# Capella and Capelle Studio versions we use {{{
+COPY --from=engine-room:fedora-capella /usr/local/bin/capella* /usr/local/bin/
+COPY --from=engine-room:fedora-capella /opt/capella_6.0.0 /opt/capella_6.0.0
+COPY --from=engine-room:fedora-capella /opt/capella_6.1.0 /opt/capella_6.1.0
+COPY --from=engine-room:fedora-capella /opt/capella_studio_6.1.0 /opt/capella_studio_6.1.0
+COPY --from=engine-room:fedora-capella /opt/capella_studio_7.0.0 /opt/capella_studio_7.0.0
+COPY --from=engine-room:fedora-capella /var/log/capella* /var/log/
+
+# }}}
+
+# ownership and permissions {{{
+RUN chown -R ${USERMAP_UID}:${USERMAP_GID} /opt/capella* && \
+  chown ${USERMAP_UID}:${USERMAP_GID} /var/log/capella*.log && \
+  chmod 666 /var/log/capella*.log
 # }}}
