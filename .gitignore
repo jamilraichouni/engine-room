@@ -1,8 +1,25 @@
 __pycache__/
+build/capella*tar*
 build/er-keypass-db-er.kdbx
 build/OpenJDK*
 data/
 dotfiles.main/
+dotfiles/**/history.sqlite
+dotfiles/.mypy_cache/
+dotfiles/.oh-my-zsh/
+dotfiles/Session.vim
+dotfiles/__pycache__/
+dotfiles/bat/cache/
 dotfiles/github-copilot/apps.json
+dotfiles/ipython/*/db/dhist
+dotfiles/ipython/*/dhist
+dotfiles/kitty-config/mastersecret
+dotfiles/kube/cache/
 dotfiles/nvim-config/node_modules/
-build/capella*tar*
+dotfiles/vifm-config/vifminfo*
+dotfiles/zsh_history
+
+# secrets
+dotfiles/gnupg/*
+!dotfiles/gnupg/gpg.conf
+!dotfiles/gnupg/gpg-agent.conf
