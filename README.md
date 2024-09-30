@@ -1,11 +1,12 @@
 # engine-room
 
-This repository provides a collection of `engine-room:<NAME>` Docker containers
-for professional development work.
+This repository provides a collection of `engine-room-<NAME>` Docker containers
+for professional development work. The idea is that the center of all we do on
+any host happens in one common and feature-rich container.
 
-The idea is that the center of all we do on any host shall take in one common
-and feature-rich engine-room container which is defined in the directory
-`engine-rooms` and individualized in the file `docker-compose.yml`.
+A `engine-room` can be individualized (named service) in the file
+`docker-compose.yml`. Images (`engine-room:<NAME>`) are defined in the
+directory `images`.
 
 It is often already sufficient to use the `engine-room:base` container for
 any named engine-room service and just configure the service specific environment

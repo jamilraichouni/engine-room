@@ -2,7 +2,7 @@ services:
   os:
     image: engine-room:os
     build:
-      dockerfile: engine-rooms/os
+      dockerfile: images/os
       args:
         USERMAP_UID: $USERMAP_UID
         USERMAP_GID: $USERMAP_GID
@@ -13,7 +13,7 @@ services:
     cap_add:
       - SYS_PTRACE
     build:
-      dockerfile: engine-rooms/base
+      dockerfile: images/base
       args:
         JDK_FILE: OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.4_7.tar.gz
     hostname: "engine-room-base"
@@ -42,7 +42,7 @@ services:
   fedora-capella:
     image: engine-room:fedora-capella
     build:
-      dockerfile: engine-rooms/fedora-capella
+      dockerfile: images/fedora-capella
   dbmac:
     # entrypoint: "/bin/zsh -c 'sleep 3600'"  # for debugging
     # entrypoint: "/usr/sbin/sshd -D -p 1978"  # for debugging
@@ -50,7 +50,7 @@ services:
     cap_add:
       - SYS_PTRACE
     build:
-      dockerfile: engine-rooms/dbmac
+      dockerfile: images/dbmac
       args:
         USERMAP_UID: $USERMAP_UID
         USERMAP_GID: $USERMAP_GID
@@ -97,7 +97,7 @@ services:
     image: engine-room:capella-7.0.0
     platform: linux/amd64
     build:
-      dockerfile: engine-rooms/capella
+      dockerfile: images/capella
       args:
         BASE_IMAGE: dbb-set-docker-prod-local.bahnhub.tech.rz.db.de/capella/remote:7.0.0-v2.5.3-v0.2.0
         CAPELLA_VERSION: 7.0.0
@@ -135,7 +135,7 @@ services:
   ja:
     image: engine-room:base
     build:
-      dockerfile: engine-rooms/base
+      dockerfile: images/base
     hostname: "engine-room-ja"
     container_name: "engine-room-ja"
     environment:
@@ -160,7 +160,7 @@ services:
   raspi5:
     image: engine-room:base
     build:
-      dockerfile: engine-rooms/base
+      dockerfile: images/base
     hostname: "engine-room-raspi5"
     container_name: "engine-room-raspi5"
     environment:
