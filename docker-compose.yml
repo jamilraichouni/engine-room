@@ -2,7 +2,7 @@ services:
   os:
     image: engine-room:os
     build:
-      dockerfile: Dockerfile.os
+      dockerfile: engine-rooms/os
       args:
         USERMAP_UID: $USERMAP_UID
         USERMAP_GID: $USERMAP_GID
@@ -13,7 +13,7 @@ services:
     cap_add:
       - SYS_PTRACE
     build:
-      dockerfile: Dockerfile.base
+      dockerfile: engine-rooms/base
       args:
         JDK_FILE: OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.4_7.tar.gz
     hostname: "engine-room-base"
@@ -29,10 +29,8 @@ services:
       - OPENAI_API_KEY
       - source: ssh_authorized_keys
         target: /home/nörd/.ssh/authorized_keys
-        mode: 0600
       - source: ssh_config
         target: /home/nörd/.ssh/config
-        mode: 0600
     volumes:
       - $HOME/Downloads:/home/nörd/downloads
       - $HOME/engine-room:/home/nörd/engine-room
@@ -44,15 +42,15 @@ services:
   fedora-capella:
     image: engine-room:fedora-capella
     build:
-      dockerfile: Dockerfile.fedora-capella
+      dockerfile: engine-rooms/fedora-capella
   dbmac:
-    # entrypoint: "/bin/zsh -c 'sleep 3600'"
-    # entrypoint: "/usr/sbin/sshd -D -p 1978"
+    # entrypoint: "/bin/zsh -c 'sleep 3600'"  # for debugging
+    # entrypoint: "/usr/sbin/sshd -D -p 1978"  # for debugging
     image: engine-room:dbmac
     cap_add:
       - SYS_PTRACE
     build:
-      dockerfile: Dockerfile.dbmac
+      dockerfile: engine-rooms/dbmac
       args:
         USERMAP_UID: $USERMAP_UID
         USERMAP_GID: $USERMAP_GID
@@ -77,12 +75,16 @@ services:
       - keepass_db
       - KEEPASS_DB_PASSWORD
       - OPENAI_API_KEY
+      - source: kube_config
+        target: /home/nörd/.kube/config
+      - source: pip_config
+        target: /home/nörd/.config/pip/pip.conf
+      - source: private-keys-v1.d
+        target: /home/nörd/.gnupg/private-keys-v1.d
       - source: ssh_authorized_keys
         target: /home/nörd/.ssh/authorized_keys
-        mode: 0600
       - source: ssh_config
         target: /home/nörd/.ssh/config
-        mode: 0600
     volumes:
       - $HOME/Downloads:/home/nörd/downloads
       - $HOME/engine-room:/home/nörd/engine-room
@@ -95,7 +97,7 @@ services:
     image: engine-room:capella-7.0.0
     platform: linux/amd64
     build:
-      dockerfile: Dockerfile.capella
+      dockerfile: engine-rooms/capella
       args:
         BASE_IMAGE: dbb-set-docker-prod-local.bahnhub.tech.rz.db.de/capella/remote:7.0.0-v2.5.3-v0.2.0
         CAPELLA_VERSION: 7.0.0
@@ -121,10 +123,8 @@ services:
       - OPENAI_API_KEY
       - source: ssh_authorized_keys
         target: /home/techuser/.ssh/authorized_keys
-        mode: 0600
       - source: ssh_config
         target: /home/techuser/.ssh/config
-        mode: 0600
     volumes:
       - $HOME/Downloads:/home/nörd/downloads
       - $HOME/engine-room:/home/techuser/engine-room
@@ -135,7 +135,7 @@ services:
   ja:
     image: engine-room:base
     build:
-      dockerfile: Dockerfile.base
+      dockerfile: engine-rooms/base
     hostname: "engine-room-ja"
     container_name: "engine-room-ja"
     environment:
@@ -147,10 +147,8 @@ services:
       - OPENAI_API_KEY
       - source: ssh_authorized_keys
         target: /home/nörd/.ssh/authorized_keys
-        mode: 0600
       - source: ssh_config
         target: /home/nörd/.ssh/config
-        mode: 0600
     volumes:
       - $HOME/Downloads:/home/nörd/downloads
       - $HOME/engine-room:/home/nörd/engine-room
@@ -162,7 +160,7 @@ services:
   raspi5:
     image: engine-room:base
     build:
-      dockerfile: Dockerfile.base
+      dockerfile: engine-rooms/base
     hostname: "engine-room-raspi5"
     container_name: "engine-room-raspi5"
     environment:
@@ -174,10 +172,8 @@ services:
       - OPENAI_API_KEY
       - source: ssh_authorized_keys
         target: /home/nörd/.ssh/authorized_keys
-        mode: 0600
       - source: ssh_config
         target: /home/nörd/.ssh/config
-        mode: 0600
     volumes:
       - $HOME/downloads:/home/nörd/downloads
       - $HOME/engine-room:/home/nörd/engine-room
@@ -191,6 +187,12 @@ secrets:
   # /run/secrets/secret_name of the container
   keepass_db:
     file: /Users/jamilraichouni/Library/CloudStorage/GoogleDrive-raichouni@gmail.com/My Drive/jamil.kdbx
+  private_gpg_keys:
+      file: ./secrets/private-keys-v1.d
+  kube_config:
+    file: ./secrets/kube_config
+  pip_config:
+    file: ./secrets/pip.conf
   ssh_authorized_keys:
     file: ./dotfiles/ssh/authorized_keys
   ssh_config:

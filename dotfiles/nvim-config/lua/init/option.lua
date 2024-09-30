@@ -11,6 +11,7 @@ vim.o.shell = "/bin/zsh -l"
 vim.o.fillchars = "diff:-"
 vim.o.colorcolumn = "79"
 vim.o.completeopt = "menuone,noinsert,noselect,preview"
+vim.o.diffopt = "internal,filler,closeoff,vertical"
 vim.o.foldmethod = "expr"
 
 -- search:

@@ -187,6 +187,10 @@ def _process_symbolic_links() -> None:
         symlinks = {**CONFIG["symlinks"], **symlinks_host}
     except KeyError:
         symlinks = CONFIG["symlinks"]
+
+    # Add single letter variables for common paths to environment
+    # These are used in the `config.yml` file to define shortcuts for paths
+    # and will be evaluated in the following using `os.path.expandvars`
     vars = {
         "D": os.path.expandvars(f"/home/{USER}/engine-room/dotfiles"),
         "E": "/etc",
@@ -198,6 +202,7 @@ def _process_symbolic_links() -> None:
     }
     for k, v in vars.items():
         os.environ[k] = v
+
     for dest, link in symlinks.items():
         dest = pathlib.Path(os.path.expandvars(dest))
         link = pathlib.Path(os.path.expandvars(link))
@@ -233,11 +238,8 @@ def _process_symbolic_links() -> None:
             _create_symlink(link, dest)
         else:
             # we cannot create anything here because we do not know
-            # of link or target are a file or a directory
+            # if link or target are a file or a directory
             pass
-            # target.mkdir(parents=True, exist_ok=True)
-            # _change_ownership_recursively(target)
-            # _create_symlink(link, target)
 
 
 def _set_mount_permissions() -> None:
@@ -290,7 +292,6 @@ if __name__ == "__main__":
     _setup_ssh()
     _create_volume_dirs()
     _process_symbolic_links()
-    # _distribute_secrets()
     _set_mount_permissions()
     try:
         entrypoint = CONFIG["engine-rooms"][HOST]["original-entrypoint"]

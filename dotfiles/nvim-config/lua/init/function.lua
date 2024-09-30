@@ -66,6 +66,6 @@ vim.g.WorkingTimesCompute = function()
     if obj.code == 0 then
         vim.api.nvim_command("edit")
     else
-        print("Error: " .. obj.stderr)
+        print("Error: " .. obj.stdout)
     end
 end

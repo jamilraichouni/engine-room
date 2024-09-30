@@ -10,7 +10,6 @@ engine-rooms:
   dbmac:
     user: nörd
     symlinks:
-      $D/kube: $H/.kube
       $D/rclone: $H/.config/rclone
   capella-7.0.0:
     user: techuser
@@ -45,7 +44,6 @@ symlinks:
   $D/nvim-config: $H/.config/nvim
   $D/pdbrc.py: $H/.pdbrc.py
   $D/pdbrc: $H/.pdbrc
-  $D/pip: $H/.config/pip
   $D/pygmentsstyles.py: $H/pygmentsstyles.py
   $D/vimrc: $H/.vimrc
   $D/zsh/env/ALL_HOSTS.zsh: $E/zshenv
@@ -53,7 +51,6 @@ symlinks:
   $D/zsh/profile/ALL_HOSTS.zsh: $E/zprofile
   $D/zsh/zshrc: $H/.zshrc
   $S/keepass_db: $H/keepass.kdbx
-  # $S/ssh_authorized_keys: $H/.ssh/authorized_keys
   $V/cache: $H/.cache
   $V/cargo: $H/.cargo
   $V/dev: $H/dev

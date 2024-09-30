@@ -16,10 +16,12 @@ dotfiles/ipython/*/dhist
 dotfiles/kitty-config/mastersecret
 dotfiles/kube/cache/
 dotfiles/nvim-config/node_modules/
+dotfiles/pip/pip.conf
 dotfiles/vifm-config/vifminfo*
 dotfiles/zsh_history
 
 # secrets
+secrets/
 dotfiles/gnupg/*
 !dotfiles/gnupg/gpg.conf
 !dotfiles/gnupg/gpg-agent.conf
