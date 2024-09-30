@@ -24,6 +24,13 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 })
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
+    pattern = { "**/engine-room/images/*" },
+    callback = function(args)
+        vim.bo.filetype = "dockerfile"
+    end
+})
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+    group = vim.g.augroup_jar,
     pattern = { "**/snippets/*.json" },
     callback = function(args)
         vim.wo.foldmethod = "expr"

@@ -19,9 +19,9 @@ services:
     hostname: "engine-room-base"
     container_name: "engine-room-base"
     environment:
-      DISPLAY: $DISPLAY
+      DISPLAY: "host.docker.internal:0.0"
       JAVA_HOME: /usr/lib/jvm/jdk
-      SSH_AUTH_SOCK: $SSH_AUTH_SOCK
+      SSH_AUTH_SOCK: /run/host-services/ssh-auth.sock
       SSH_PORT: 1978
     ports:
       - "1978:1978"  # ssh
@@ -65,21 +65,23 @@ services:
       - "8000:8000"
       - "8081:8081"
     environment:
-      CI_SERVER_URL: $CI_SERVER_URL
-      DISPLAY: $DISPLAY
+      CI_SERVER_URL: https://git.tech.rz.db.de
+      DISPLAY: "host.docker.internal:0.0"
       JAVA_HOME: /usr/lib/jvm/jdk
-      SSH_AUTH_SOCK: $SSH_AUTH_SOCK
+      SSH_AUTH_SOCK: /run/host-services/ssh-auth.sock
       SSH_PORT: 1978
     secrets:
       - GITLAB_PAT
       - keepass_db
       - KEEPASS_DB_PASSWORD
       - OPENAI_API_KEY
+      - source: github_copilot_apps
+        target: /home/nörd/.config/github-copilot/apps.json
       - source: kube_config
         target: /home/nörd/.kube/config
       - source: pip_config
         target: /home/nörd/.config/pip/pip.conf
-      - source: private-keys-v1.d
+      - source: private_gpg_keys
         target: /home/nörd/.gnupg/private-keys-v1.d
       - source: ssh_authorized_keys
         target: /home/nörd/.ssh/authorized_keys
@@ -109,18 +111,22 @@ services:
       - "10700:10000"  # visit http://localhost:10700/ (with trailing backslash) in the browser then.
     environment:
       AUTOSTART_CAPELLA: 0
-      CI_SERVER_URL: $CI_SERVER_URL
+      CI_SERVER_URL: https://git.tech.rz.db.de
       CONNECTION_METHOD: xpra
-      DISPLAY: host.docker.internal:0.0
+      DISPLAY: "host.docker.internal:0.0"
       DOT: /home/techuser/engine-room/dotfiles
       ER: /home/techuser/engine-room
       JAVA_HOME: /usr/lib/jvm/jdk
-      SSH_AUTH_SOCK: $SSH_AUTH_SOCK
+      SSH_AUTH_SOCK: /run/host-services/ssh-auth.sock
       VOLUME: /mnt/volume
       XPRA_CSP_ORIGIN_HOST: http://localhost:5173
       XPRA_SUBPATH: "/"
     secrets:
       - OPENAI_API_KEY
+      - source: github_copilot_apps
+        target: /home/nörd/.config/github-copilot/apps.json
+      - source: pip_config
+        target: /home/nörd/.config/pip/pip.conf
       - source: ssh_authorized_keys
         target: /home/techuser/.ssh/authorized_keys
       - source: ssh_config
@@ -185,6 +191,8 @@ services:
 secrets:
   # value of env vars/ content of files land in
   # /run/secrets/secret_name of the container
+  github_copilot_apps:
+    file: ./secrets/github_copilot_apps.json
   keepass_db:
     file: /Users/jamilraichouni/Library/CloudStorage/GoogleDrive-raichouni@gmail.com/My Drive/jamil.kdbx
   private_gpg_keys:

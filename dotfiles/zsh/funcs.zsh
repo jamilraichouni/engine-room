@@ -94,28 +94,6 @@ source_file() {
   fi
 }
 
-pathprepend() {
-  if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-    PATH="$1:${PATH:+"$PATH"}"
-  fi
-}
-
-ssh() {
-  if [ "${SHLVL:-0}" -eq 1 ]; then
-    kitty +kitten ssh "$@"
-  else
-    /usr/bin/ssh "$@"
-  fi
-}
-
- ssh() {
-       if [ "${SHLVL:-0}" -eq 1 ]; then
-           kitty +kitten ssh "$@"
-       else
-           command ssh "$@"
-       fi
-   }
-
 urlencode() {
   if [ -n "$1" ]; then
     python -c "from urllib.parse import quote; print(quote('$1'))"

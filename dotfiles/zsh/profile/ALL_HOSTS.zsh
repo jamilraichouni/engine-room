@@ -21,7 +21,7 @@ fi
 
 # pyenv
 if command -v pyenv > /dev/null; then
-  pathprepend $PYENV_ROOT/bin
+  $DOT/zsh/bin/pathprepend.zsh $PYENV_ROOT/bin
   eval "$(pyenv init -)"
   # Load pyenv-virtualenv automatically when a .python-version file is found:
   [[ -n $PYENV_VIRTUALENV_INIT && $PYENV_VIRTUALENV_INIT == 1 ]] || eval "$(pyenv virtualenv-init -)"
@@ -38,7 +38,7 @@ export NPM_DIR=$HOME/.local/share/npm # for nvim-lspconfig
 if [ -d /mnt/volume/data/npm ]; then
     [[ -L $NPM_DIR ]] || (rm -rf $NPM_DIR && ln -s /mnt/volume/data/npm $NPM_DIR)
 fi
-pathprepend $NPM_DIR/bin
+$DOT/zsh/bin/pathprepend.zsh $NPM_DIR/bin
 
 # # docker
 # [[ -e /var/run/docker.sock ]] && sudo chmod 777 /var/run/docker.sock

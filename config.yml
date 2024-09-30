@@ -19,8 +19,8 @@ engine-rooms:
       - -c
       - /bin/bash /home/techuser/.startup.sh
     symlinks:
-      $D/zsh/env/ALL_HOSTS.zsh: $E/zsh/zshenv
-      $D/zsh/profile/ALL_HOSTS.zsh: $E/zsh/zprofile
+      $D/zsh/env/ALL_HOSTS.zsh: $E/zsh/zshenv  # Debian path
+      $D/zsh/profile/ALL_HOSTS.zsh: $E/zsh/zprofile  # Debian path
   ja:
     user: nörd
   raspi5:
@@ -34,10 +34,8 @@ symlinks:
   $D/gitconfig_dbgitlab: $V/dev/dbgitlab/.gitconfig
   $D/gitconfig_github: $V/dev/github/.gitconfig
   $D/gitconfig_gitlab: $V/dev/gitlab/.gitconfig
-  $D/github-copilot: $H/.config/github-copilot
   $D/gitignore: $H/.gitignore
   $D/gitmessage: $H/.gitmessage
-  $D/gnupg: $H/.gnupg
   $D/ipython: $H/.ipython
   $D/jupyter: $H/.jupyter
   $D/kitty-config: $H/.config/kitty
@@ -45,10 +43,13 @@ symlinks:
   $D/pdbrc.py: $H/.pdbrc.py
   $D/pdbrc: $H/.pdbrc
   $D/pygmentsstyles.py: $H/pygmentsstyles.py
+  $D/ssh/known_hosts: $H/.ssh/known_hosts
   $D/vimrc: $H/.vimrc
-  $D/zsh/env/ALL_HOSTS.zsh: $E/zshenv
+  $D/zsh/bin/pathprepend.zsh: $H/bin/pathprepend
+  $D/zsh/bin/ssh.zsh: $H/bin/ssh
+  $D/zsh/env/ALL_HOSTS.zsh: $E/zshenv  # Fedora (base image) path
   $D/zsh/p10k.zsh: $H/.p10k.zsh
-  $D/zsh/profile/ALL_HOSTS.zsh: $E/zprofile
+  $D/zsh/profile/ALL_HOSTS.zsh: $E/zprofile  # Fedora (base image) path
   $D/zsh/zshrc: $H/.zshrc
   $S/keepass_db: $H/keepass.kdbx
   $V/cache: $H/.cache

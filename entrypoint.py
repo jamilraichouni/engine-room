@@ -12,12 +12,6 @@ import subprocess
 import yaml
 
 HOST = socket.gethostname().replace("engine-room-", "")
-try:
-    KEEPASS_DB_PASSWORD = pathlib.Path(
-        "/run/secrets/KEEPASS_DB_PASSWORD"
-    ).read_text()
-except FileNotFoundError:
-    KEEPASS_DB_PASSWORD = ""
 MODULE_DIR: pathlib.Path = pathlib.Path(__file__).parents[0]
 with open(MODULE_DIR / "config.yml") as f:
     CONFIG = yaml.safe_load(f)
@@ -68,116 +62,6 @@ def _create_symlink(link: pathlib.Path, target: pathlib.Path) -> None:
     link.symlink_to(target)
     if link.is_relative_to(H):
         os.lchown(link, USERMAP_UID, USERMAP_GID)
-
-
-def _distribute_secrets() -> None:
-    """Distribute secrets from KeePass database."""
-    if not KEEPASS_DB_FILE.exists():
-        return
-
-    def on_error(stderr: bytes) -> None:
-        if not stderr:
-            return
-        raise SystemExit(f"Error executing `' '.join(cmd)`: {stderr.decode()}")
-
-    # Check if there is a group named `engine-room` in the KeePass database:
-    cmd: list[str] = ["keepassxc-cli", "ls", "--quiet", str(KEEPASS_DB_FILE)]
-    stdout, stderr = subprocess.Popen(
-        cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE
-    ).communicate(KEEPASS_DB_PASSWORD.encode())
-    on_error(stderr)
-    entries = stdout.decode().splitlines()
-    if not stdout or "engine-room/" not in entries:
-        print(
-            "No group named `engine-room` found in KeePass database"
-            f" at `{KEEPASS_DB_FILE}`."
-        )
-        return
-    # consider subgroup `env` of group `engine-room`:
-    cmd = [
-        "keepassxc-cli",
-        "ls",
-        "--quiet",
-        "--recursive",
-        "--flatten",
-        str(KEEPASS_DB_FILE),
-        "engine-room/env",
-    ]
-    stdout, stderr = subprocess.Popen(
-        cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE
-    ).communicate(KEEPASS_DB_PASSWORD.encode())
-    on_error(stderr)
-    if stdout:
-        entries = stdout.decode().splitlines()
-        for entry in entries:
-            cmd = [
-                "keepassxc-cli",
-                "show",
-                "--quiet",
-                "--show-protected",
-                str(KEEPASS_DB_FILE),
-                f"engine-room/env/{entry}",
-            ]
-            stdout, stderr = subprocess.Popen(
-                cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE
-            ).communicate(KEEPASS_DB_PASSWORD.encode())
-            on_error(stderr)
-            if stdout:
-                attr_name = "Password"
-                key = f"{attr_name}:"
-                attrs = [
-                    attr.split(key)[1]
-                    for attr in stdout.decode().splitlines()
-                    if attr.startswith(key)
-                ]
-                if attrs and attrs[0].strip():
-                    value = attrs[0].strip()
-                    export_statement = f"export {entry}={value}"
-                    if export_statement not in open(E / "zshenv").read():
-                        with open(E / "zshenv", "a") as file:
-                            file.write(f"\n{export_statement}")
-    # consider subgroup `files` of group `engine-room`:
-    cmd = [
-        "keepassxc-cli",
-        "ls",
-        "--quiet",
-        "--flatten",
-        str(KEEPASS_DB_FILE),
-        "engine-room/files",
-    ]
-    stdout, stderr = subprocess.Popen(
-        cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE
-    ).communicate(KEEPASS_DB_PASSWORD.encode())
-    on_error(stderr)
-    if stdout:
-        entries = stdout.decode().splitlines()
-        for file_path in [path for path in entries if not path.endswith("/")]:
-            cmd = [
-                "keepassxc-cli",
-                "show",
-                "--quiet",
-                "--show-protected",
-                str(KEEPASS_DB_FILE),
-                f"engine-room/files/{file_path}",
-            ]
-            stdout, stderr = subprocess.Popen(
-                cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE
-            ).communicate(KEEPASS_DB_PASSWORD.encode())
-            on_error(stderr)
-            if stdout:
-                file_content = ""
-                attr_name = "Notes"
-                key = f"{attr_name}:"
-                attrs = [
-                    attr.split(key)[1]
-                    for attr in stdout.decode().splitlines()
-                    if attr.startswith(key)
-                ]
-                if attrs and attrs[0].strip():
-                    file_content = attrs[0].strip()
-                if file_content:
-                    file_path = file_path.replace("~", str(H))
-                    pathlib.Path(file_path).write_text(file_content)
 
 
 def _process_symbolic_links() -> None:
