@@ -31,6 +31,7 @@ RUN mkdir -p /root/.config /home/techuser/.config /mnt/volume && \
 RUN apt-get update && apt-get install -y \
   # `build-essential` is needed for treesitter
   build-essential \
+  file \
   # fzf \
   # `inotify-tools` comes with `inotifywait`
   inotify-tools \
@@ -38,6 +39,7 @@ RUN apt-get update && apt-get install -y \
   iputils-ping \
   # so that `icat` is available
   kitty \
+  less \
   locales \
   maven \
   # `net-tools` comes with `netstat`
@@ -88,7 +90,9 @@ RUN git clone --depth=1 \
   tar -xvzf gitstatusd-*.tar.gz && \
   rm gitstatusd-*.tar.gz && \
   # mkdir -p /home/techuser/.cache/gitstatus && \
-  mv gitstatusd-* /home/techuser/.cache/gitstatus
+  mv gitstatusd-* /home/techuser/.cache/gitstatus && \
+  [[ -f /home/techuser/.zshrc ]] && \
+  mv /home/techuser/.zshrc /home/techuser/.zshrc.bak
 # }}}
 
 # install latest neovim {{{
@@ -128,5 +132,8 @@ RUN mkdir -p /opt/bind/workspaces/capella_${CAPELLA_VERSION} && \
   ln -s /opt/bind/workspaces/capella_${CAPELLA_VERSION} /home/techuser/workspace
 
 USER root
-RUN python3 -m pip install PyYAML pynvim
+RUN python3 -m pip install \
+  git+https://github.com/jamilraichouni/eclipse-plugin-builders.git \
+  PyYAML \
+  pynvim
 ENTRYPOINT ["python3", "/home/techuser/engine-room/entrypoint.py"]

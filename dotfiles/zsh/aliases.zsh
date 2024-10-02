@@ -2,7 +2,11 @@ unalias -a
 
 alias :q='exit'
 alias :qa='exit'
-alias ls='ls --color --time-style=+"%Y-%m-%d|%H:%M:%S"'
+if [[ "$(uname -o)" == *"Darwin"* ]]; then
+  alias ls='ls --color';
+else
+  alias ls='ls --color --time-style=+"%Y-%m-%d|%H:%M:%S"';
+fi
 alias l='ls -lh'   # h makes sizes human-readable
 alias ll='ls -lha' # a shows dot files
 alias src='. ~/.zshrc'

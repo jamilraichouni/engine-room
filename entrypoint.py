@@ -7,7 +7,6 @@ import pathlib
 import pwd
 import shutil
 import socket
-import subprocess
 
 import yaml
 
@@ -20,14 +19,27 @@ UID = os.getuid()
 GID = os.getgid()
 USER = CONFIG["engine-rooms"][HOST]["user"]
 
-E = pathlib.Path("/etc")
-H = pathlib.Path(f"/home/{USER}")
-D = pathlib.Path(os.getenv("DOT", H / "engine-room/dotfiles"))
-O = pathlib.Path("/opt")  # noqa: E741
-R = pathlib.Path("/root")
-S = pathlib.Path("/run/secrets")
-V = pathlib.Path(os.getenv("VOLUME", "/mnt/volume"))
-
+# Add single letter variables for common paths to environment
+# These are used in the `config.yml` file to define shortcuts for paths
+# and will be evaluated in the following using `os.path.expandvars`
+LOCATIONS = {
+    "D": pathlib.Path(
+        os.path.expandvars(f"/home/{USER}/engine-room/dotfiles")
+    ),
+    "E": pathlib.Path("/etc"),
+    "H": pathlib.Path(os.path.expandvars(f"/home/{USER}")),
+    "O": pathlib.Path("/opt"),
+    "R": pathlib.Path("/root"),
+    "S": pathlib.Path("/run/secrets"),
+    "V": pathlib.Path("/mnt/volume"),
+}
+D = LOCATIONS["D"]
+E = LOCATIONS["E"]
+H = LOCATIONS["H"]
+O = LOCATIONS["O"]  # noqa: E741
+R = LOCATIONS["R"]
+S = LOCATIONS["S"]
+V = LOCATIONS["V"]
 KEEPASS_DB_FILE = H / "keepass.kdbx"
 
 try:
@@ -40,7 +52,9 @@ except KeyError:
     USERMAP_GID = GID
 
 
-def _change_ownership_recursively(path) -> None:
+def _change_ownership_recursively(
+    path, uid=USERMAP_UID, gid=USERMAP_GID
+) -> None:
     """Change ownership of a directory recursively."""
     if any(
         (
@@ -52,7 +66,7 @@ def _change_ownership_recursively(path) -> None:
     ):
         return
     print(f"Change ownership of {path}...")
-    os.system(f"chown -R {USERMAP_UID}:{USERMAP_GID} {path}")
+    os.system(f"chown -R {uid}:{gid} {path}")
 
 
 def _create_symlink(link: pathlib.Path, target: pathlib.Path) -> None:
@@ -64,28 +78,38 @@ def _create_symlink(link: pathlib.Path, target: pathlib.Path) -> None:
         os.lchown(link, USERMAP_UID, USERMAP_GID)
 
 
+def _process_copies() -> None:
+    "Copy files/ directories and set ownership and permissions."
+    copies: list[dict] | None = (
+        CONFIG["engine-rooms"][HOST]["copies"]
+        if "copies" in CONFIG["engine-rooms"][HOST]
+        else None
+    )
+    if copies is None:
+        return
+    for copy in copies:
+        source = pathlib.Path(os.path.expandvars(copy["source"]))
+        target = pathlib.Path(os.path.expandvars(copy["target"]))
+        if source.is_dir():
+            shutil.copytree(source, target, dirs_exist_ok=True)
+            os.system(f"chmod -R {copy['mode']} {target}")
+        else:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy(source, target)
+            os.system(f"chmod {copy['mode']} {target}")
+        _change_ownership_recursively(target, copy["uid"], copy["gid"])
+
+
 def _process_symbolic_links() -> None:
     """Create symbolic links to directories in Docker volume."""
+    symlinks: dict | None = None
     try:
         symlinks_host = CONFIG["engine-rooms"][HOST]["symlinks"]
         symlinks = {**CONFIG["symlinks"], **symlinks_host}
     except KeyError:
-        symlinks = CONFIG["symlinks"]
-
-    # Add single letter variables for common paths to environment
-    # These are used in the `config.yml` file to define shortcuts for paths
-    # and will be evaluated in the following using `os.path.expandvars`
-    vars = {
-        "D": os.path.expandvars(f"/home/{USER}/engine-room/dotfiles"),
-        "E": "/etc",
-        "H": os.path.expandvars(f"/home/{USER}"),
-        "O": "/opt",
-        "R": "/root",
-        "S": "/run/secrets",
-        "V": "/mnt/volume",
-    }
-    for k, v in vars.items():
-        os.environ[k] = v
+        symlinks = CONFIG["symlinks"] if "symlinks" in CONFIG else None
+    if symlinks is None:
+        return
 
     for dest, link in symlinks.items():
         dest = pathlib.Path(os.path.expandvars(dest))
@@ -164,17 +188,29 @@ def _create_volume_dirs() -> None:
         directory.mkdir(parents=True, exist_ok=True)
 
 
-def _setup_ssh() -> None:
-    """Setup SSH."""
-    ssh_dir = H / ".ssh"
-    ssh_dir.mkdir(exist_ok=True)
-    os.chown(ssh_dir, USERMAP_UID, USERMAP_GID)
+def _setup_secret_dirs() -> None:
+    """Setup (create, ownership, permissions) dirs with secrets."""
+    dirs = (
+        ".ssh",
+        # ".gnupg",
+        # ".gnupg/private-keys-v1.d",
+        # ".kube",
+    )
+    for directory in dirs:
+        path = H / directory
+        path.mkdir(parents=True, exist_ok=True)
+        os.system(f"chown -R {USERMAP_UID}:{USERMAP_GID} {path}")
+        os.system(f"chmod -R 700 {path}")
+        # os.chown(path, USERMAP_UID, USERMAP_GID)
 
 
 if __name__ == "__main__":
     """Start the `engine-room` container (entry point)."""
-    _setup_ssh()
+    # _setup_secret_dirs()
     _create_volume_dirs()
+    for k, v in LOCATIONS.items():
+        os.environ[k] = str(v)
+    _process_copies()
     _process_symbolic_links()
     _set_mount_permissions()
     try:
@@ -183,6 +219,6 @@ if __name__ == "__main__":
         entrypoint = [
             "/usr/sbin/sshd",
             "-D",
-            f"-p {os.getenv('SSH_PORT', '22')}",
+            f"-p {os.getenv('SSH_PORT', '1978')}",
         ]
     os.execv(entrypoint[0], entrypoint)

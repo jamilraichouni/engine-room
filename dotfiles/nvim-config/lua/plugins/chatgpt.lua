@@ -33,7 +33,7 @@ follow the latest OpenAPI standard. ]]
             local chat_engine_cfg = {
                 engine = "chat",
                 options = {
-                    model = "gpt-4o-2024-08-06",
+                    model = "gpt-4o",
                     max_tokens = 0,
                     temperature = 0,
                     request_timeout = 20,

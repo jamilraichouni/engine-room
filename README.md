@@ -22,8 +22,11 @@ Shared configuration is provided in the tracked `dotfiles` or the untracked
 
 ### Command line tools
 
-`docker`, `docker-compose`, and the files of this repository located at
-`~/engine-room`.
+`docker`, `docker-compose`, and the files of this repository located
+(recommended is a `git clone`) at `~/engine-room`.
+
+A running `ssh-agent` with the private key(s) of the user. An unlocked
+KeePassXC database can launch the `ssh-agent` and add the private key(s) to it.
 
 ### Docker in Docker volume mounts
 
@@ -37,19 +40,56 @@ On macOS and Linux we have an `/opt` directory.
 It is recommended to create a directory `/opt/bind` on the host and to mount it
 into any engine-room container.
 
+### XQuartz
+
+
 ### Containers `dbmac` and `capella-x.y.z`
 
 - Directory `/opt/bind/workspaces` owned by the host user.
 
-## Installation
+## Installation on the Docker host
 
 ```bash
 git clone git@github.com:jamilraichouni/engine-room.git ~/engine-room
 echo -e "USERMAP_UID=$(id -u)\nUSERMAP_GID=$(id -g)" > ~/engine-room/.env
 find ~/engine-room/dotfiles/ssh -type f -exec chmod 600 {} +
 find ~/engine-room/secrets -type f -exec chmod 600 {} +
+```
+
+Ensure that secret environment variables are defined. An option is to create a
+file `/etc/zshenv.secrets` that will be sourced by `/etc/zshenv`:
+
+Look into the file `~/engine-room/docker-compose.yml` for references to
+secret environment variables.
+
+## Optional terminal configuration on the Docker host
+
+Only, if you want to work in the terminal of the host with the same
+configuration as in the containers.
+
+Install `fzf` to `/usr/local/bin/fzf`. `fzf` comes ready as release on GitHub:
+<https://github.com/junegunn/fzf/releases>.
+
+```bash
+mkdir -p ~/bin
+ln -s ~/engine-room/bin/pathprepend.zsh ~/bin/pathprepend
+ln -s ~/engine-room/bin/ssh.zsh ~/bin/ssh
 ln ~/engine-room/dotfiles/ssh/authorized_keys ~/.ssh/authorized_keys
 ln ~/engine-room/dotfiles/ssh/config ~/.ssh/config
+cat << 'EOF' > /tmp/setup_docker_host.zsh
+# backup and replace system-wide zsh configuration
+for F in /etc/zshenv /etc/zprofile /etc/zshrc; do [[ -f $F ]]  && mv $F{,.bak}; done
+
+# environment variables
+ln -s ~/engine-room/dotfiles/zsh/env/ALL_HOSTS.zsh /etc/zshenv
+# login zsh configuration
+ln -s ~/engine-room/dotfiles/zsh/profile/ALL_HOSTS.zsh /etc/zprofile
+# interactive zsh configuration
+ln -s ~/engine-room/dotfiles/zsh/interactive/ALL_HOSTS.zsh /etc/zshrc
+rm -f /usr/local/bin/nvim
+ln -s /opt/nvim/bin/nvim /usr/local/bin/nvim
+EOF
+sudo zsh /tmp/setup_docker_host.zsh
 ```
 
 Secrets that are referenced by any service (engine-room) in the file

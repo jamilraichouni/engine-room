@@ -29,7 +29,7 @@ vim.keymap.set("t", "<c-w>N", "<c-\\><c-n>")
 vim.keymap.set("n", "<leader>zo", "zo z<cr>", { silent = true })
 vim.keymap.set("n", "<leader>zO", "zO z<cr>", { silent = true })
 
--- diff (do -> obtain, dp -> put)
+-- diff keymaps (do -> obtain, dp -> put)
 vim.keymap.set("n", "<leader>dt", "<cmd>windo diffthis<cr>", { silent = true })
 vim.keymap.set("n", "<leader>do", "<cmd>windo diffoff<cr>", { silent = true })
 

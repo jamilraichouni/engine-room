@@ -20,6 +20,5 @@ ipython/*/history.sqlite
 node_modules/
 nvim/plugin/packer_compiled.lua
 pol2cap.py
-secrets/
 snapshot.yaml
 synchronise.zsh

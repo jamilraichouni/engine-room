@@ -10,23 +10,44 @@ engine-rooms:
   dbmac:
     user: nörd
     symlinks:
+      # target: source
       $D/rclone: $H/.config/rclone
-  capella-7.0.0:
+  capella-common: &capella-common
     user: techuser
     original-entrypoint:
       - /bin/su
       - techuser
       - -c
       - /bin/bash /home/techuser/.startup.sh
+    copies:
+      # here we copy secrets which cannot be handled as secrets in
+      # `docker-compose.yml` because they do not support changing the owner
+      # and/ or permissions of the files.
+      - source: $S/ssh_config
+        target: $H/.ssh/config
+        uid: 1003230000
+        gid: 1000
+        mode: "0600"
     symlinks:
+      # target: source (read comment of global symlinks for explanation)
       $D/zsh/env/ALL_HOSTS.zsh: $E/zsh/zshenv  # Debian path
       $D/zsh/profile/ALL_HOSTS.zsh: $E/zsh/zprofile  # Debian path
+      $D/zsh/interactive/ALL_HOSTS.zsh: $E/zsh/zshrc  # Debian path
+  capella-6.0.0:
+    <<: *capella-common
+  capella-7.0.0:
+    <<: *capella-common
   ja:
     user: nörd
   raspi5:
     user: nörd
 
 symlinks:
+  # target: source (in that order), to have global and host-specific files
+  # with target in list of unique keys when we merge symlinks lists.
+  # otherwise we get `$E/zsh/zshenv` and `$E/zshenv` in Debian containers etc..
+  # with this mapping, we can also symlink one source multiple times, as YAML
+  # keys must be unique.
   $D/gdbextension.py: $H/.gdbextension.py
   $D/gdbinit: $H/.gdbinit
   $D/git_askpass.py: $E/git_askpass.py
@@ -36,6 +57,7 @@ symlinks:
   $D/gitconfig_gitlab: $V/dev/gitlab/.gitconfig
   $D/gitignore: $H/.gitignore
   $D/gitmessage: $H/.gitmessage
+  $D/gnupg/pubring.kbx: $H/.gnupg/pubring.kbx
   $D/ipython: $H/.ipython
   $D/jupyter: $H/.jupyter
   $D/kitty-config: $H/.config/kitty
@@ -50,7 +72,7 @@ symlinks:
   $D/zsh/env/ALL_HOSTS.zsh: $E/zshenv  # Fedora (base image) path
   $D/zsh/p10k.zsh: $H/.p10k.zsh
   $D/zsh/profile/ALL_HOSTS.zsh: $E/zprofile  # Fedora (base image) path
-  $D/zsh/zshrc: $H/.zshrc
+  $D/zsh/interactive/ALL_HOSTS.zsh: $E/zshrc
   $S/keepass_db: $H/keepass.kdbx
   $V/cache: $H/.cache
   $V/cargo: $H/.cargo

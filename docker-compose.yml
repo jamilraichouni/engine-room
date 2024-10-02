@@ -44,9 +44,12 @@ services:
     build:
       dockerfile: images/fedora-capella
   dbmac:
+    # Start: `docker compose up -d dbmac`
+    # Enter: `ssh -p 1978 nörd@localhost`
+    image: engine-room:dbmac
+    # DEBUG:
     # entrypoint: "/bin/zsh -c 'sleep 3600'"  # for debugging
     # entrypoint: "/usr/sbin/sshd -D -p 1978"  # for debugging
-    image: engine-room:dbmac
     cap_add:
       - SYS_PTRACE
     build:
@@ -78,11 +81,21 @@ services:
       - source: github_copilot_apps
         target: /home/nörd/.config/github-copilot/apps.json
       - source: kube_config
-        target: /home/nörd/.kube/config
+        target: /home/nörd/.kube/config.readonly
       - source: pip_config
         target: /home/nörd/.config/pip/pip.conf
-      - source: private_gpg_keys
-        target: /home/nörd/.gnupg/private-keys-v1.d
+      - source: gnupg_private_key_01
+        target: /home/nörd/.gnupg/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
+      - source: gnupg_private_key_02
+        target: /home/nörd/.gnupg/private-keys-v1.d/56DA7C25AF034F0725205A8B34DB1BF9C7B2BC13.key
+      - source: gnupg_private_key_03
+        target: /home/nörd/.gnupg/private-keys-v1.d/769473AEEBC90D875236A07D9C8A4FFB4C4C8242.key
+      - source: gnupg_private_key_04
+        target: /home/nörd/.gnupg/private-keys-v1.d/82D2E797B6F0FC16AB438237D02388A2228B3764.key
+      - source: gnupg_private_key_05
+        target: /home/nörd/.gnupg/private-keys-v1.d/CEC7187FE23C9B8300A49A19C849F8A7251E7331.key
+      - source: gnupg_private_key_06
+        target: /home/nörd/.gnupg/private-keys-v1.d/D922702565EEB2910DD2675F172182FB184FDE03.key
       - source: ssh_authorized_keys
         target: /home/nörd/.ssh/authorized_keys
       - source: ssh_config
@@ -95,25 +108,29 @@ services:
       - /tmp:/tmp
       - /var/run/docker.sock:/var/run/docker.sock
       - dbmac:/mnt/volume
-  capella-7.0.0:
-    image: engine-room:capella-7.0.0
+  capella-6.0.0:
+    # Start: `docker compose up -d capella-6.0.0`
+    # Enter: `docker compose exec -it --user=techuser capella-6.0.0 zsh -l`
+    image: engine-room:capella-6.0.0
     platform: linux/amd64
     build:
       dockerfile: images/capella
       args:
-        BASE_IMAGE: dbb-set-docker-prod-local.bahnhub.tech.rz.db.de/capella/remote:7.0.0-v2.5.3-v0.2.0
-        CAPELLA_VERSION: 7.0.0
-        JDK_FILE: OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.11_9.tar.gz
-    hostname: "engine-room-capella-7.0.0"
-    container_name: "engine-room-capella-7.0.0"
+        BASE_IMAGE: dbb-set-docker-prod-local.bahnhub.tech.rz.db.de/t4c/client/remote:6.0.0-v2.2.1-v0.1.0
+        CAPELLA_VERSION: 6.0.0
+        JDK_FILE: OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.6_10.tar.gz
+    hostname: "engine-room-capella-6.0.0"
+    container_name: "engine-room-capella-6.0.0"
+    # user: "techuser"
     ports:
       - "5007:5007"  # capella-rest-api
-      - "10700:10000"  # visit http://localhost:10700/ (with trailing backslash) in the browser then.
+      - "10600:10000"  # visit http://localhost:10600/ (with trailing slash) in the browser then.
     environment:
-      AUTOSTART_CAPELLA: 0
+      AUTOSTART_CAPELLA: 1
       CI_SERVER_URL: https://git.tech.rz.db.de
       CONNECTION_METHOD: xpra
       DISPLAY: "host.docker.internal:0.0"
+      # DISPLAY: ":10"
       DOT: /home/techuser/engine-room/dotfiles
       ER: /home/techuser/engine-room
       JAVA_HOME: /usr/lib/jvm/jdk
@@ -124,15 +141,80 @@ services:
     secrets:
       - OPENAI_API_KEY
       - source: github_copilot_apps
-        target: /home/nörd/.config/github-copilot/apps.json
+        target: /home/techuser/.config/github-copilot/apps.json
       - source: pip_config
-        target: /home/nörd/.config/pip/pip.conf
-      - source: ssh_authorized_keys
-        target: /home/techuser/.ssh/authorized_keys
-      - source: ssh_config
-        target: /home/techuser/.ssh/config
+        target: /home/techuser/.config/pip/pip.conf
+      - ssh_config
+      - source: gnupg_private_key_01
+        target: /home/techuser/.gnupg/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
+      - source: gnupg_private_key_02
+        target: /home/techuser/.gnupg/private-keys-v1.d/56DA7C25AF034F0725205A8B34DB1BF9C7B2BC13.key
+      - source: gnupg_private_key_03
+        target: /home/techuser/.gnupg/private-keys-v1.d/769473AEEBC90D875236A07D9C8A4FFB4C4C8242.key
+      - source: gnupg_private_key_04
+        target: /home/techuser/.gnupg/private-keys-v1.d/82D2E797B6F0FC16AB438237D02388A2228B3764.key
+      - source: gnupg_private_key_05
+        target: /home/techuser/.gnupg/private-keys-v1.d/CEC7187FE23C9B8300A49A19C849F8A7251E7331.key
+      - source: gnupg_private_key_06
+        target: /home/techuser/.gnupg/private-keys-v1.d/D922702565EEB2910DD2675F172182FB184FDE03.key
     volumes:
-      - $HOME/Downloads:/home/nörd/downloads
+      - $HOME/Downloads:/home/techuser/downloads
+      - $HOME/engine-room:/home/techuser/engine-room
+      - /opt/bind:/opt/bind
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+      - /var/run/docker.sock:/var/run/docker.sock
+      - capella-6.0.0:/mnt/volume
+  capella-7.0.0:
+    # Start: `docker compose up -d capella-7.0.0`
+    # Enter: `docker compose exec -it --user=techuser capella-7.0.0 zsh -l`
+    image: engine-room:capella-7.0.0
+    platform: linux/amd64
+    build:
+      dockerfile: images/capella
+      args:
+        BASE_IMAGE: dbb-set-docker-prod-local.bahnhub.tech.rz.db.de/t4c/client/remote:7.0.0-v2.5.1-v0.2.0
+        CAPELLA_VERSION: 7.0.0
+        JDK_FILE: OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.11_9.tar.gz
+    hostname: "engine-room-capella-7.0.0"
+    container_name: "engine-room-capella-7.0.0"
+    # user: "techuser"
+    ports:
+      - "5007:5007"  # capella-rest-api
+      - "10700:10000"  # visit http://localhost:10700/ (with trailing slash) in the browser then.
+    environment:
+      AUTOSTART_CAPELLA: 1
+      CI_SERVER_URL: https://git.tech.rz.db.de
+      CONNECTION_METHOD: xpra
+      # DISPLAY: "host.docker.internal:0.0"
+      DISPLAY: ":10"
+      DOT: /home/techuser/engine-room/dotfiles
+      ER: /home/techuser/engine-room
+      JAVA_HOME: /usr/lib/jvm/jdk
+      SSH_AUTH_SOCK: /run/host-services/ssh-auth.sock
+      VOLUME: /mnt/volume
+      XPRA_CSP_ORIGIN_HOST: http://localhost:5173
+      XPRA_SUBPATH: "/"
+    secrets:
+      - OPENAI_API_KEY
+      - source: github_copilot_apps
+        target: /home/techuser/.config/github-copilot/apps.json
+      - source: pip_config
+        target: /home/techuser/.config/pip/pip.conf
+      - ssh_config
+      - source: gnupg_private_key_01
+        target: /home/techuser/.gnupg/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
+      - source: gnupg_private_key_02
+        target: /home/techuser/.gnupg/private-keys-v1.d/56DA7C25AF034F0725205A8B34DB1BF9C7B2BC13.key
+      - source: gnupg_private_key_03
+        target: /home/techuser/.gnupg/private-keys-v1.d/769473AEEBC90D875236A07D9C8A4FFB4C4C8242.key
+      - source: gnupg_private_key_04
+        target: /home/techuser/.gnupg/private-keys-v1.d/82D2E797B6F0FC16AB438237D02388A2228B3764.key
+      - source: gnupg_private_key_05
+        target: /home/techuser/.gnupg/private-keys-v1.d/CEC7187FE23C9B8300A49A19C849F8A7251E7331.key
+      - source: gnupg_private_key_06
+        target: /home/techuser/.gnupg/private-keys-v1.d/D922702565EEB2910DD2675F172182FB184FDE03.key
+    volumes:
+      - $HOME/Downloads:/home/techuser/downloads
       - $HOME/engine-room:/home/techuser/engine-room
       - /opt/bind:/opt/bind
       - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
@@ -195,8 +277,18 @@ secrets:
     file: ./secrets/github_copilot_apps.json
   keepass_db:
     file: /Users/jamilraichouni/Library/CloudStorage/GoogleDrive-raichouni@gmail.com/My Drive/jamil.kdbx
-  private_gpg_keys:
-      file: ./secrets/private-keys-v1.d
+  gnupg_private_key_01:
+      file: ./secrets/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
+  gnupg_private_key_02:
+      file: ./secrets/private-keys-v1.d/56DA7C25AF034F0725205A8B34DB1BF9C7B2BC13.key
+  gnupg_private_key_03:
+      file: ./secrets/private-keys-v1.d/769473AEEBC90D875236A07D9C8A4FFB4C4C8242.key
+  gnupg_private_key_04:
+      file: ./secrets/private-keys-v1.d/82D2E797B6F0FC16AB438237D02388A2228B3764.key
+  gnupg_private_key_05:
+      file: ./secrets/private-keys-v1.d/CEC7187FE23C9B8300A49A19C849F8A7251E7331.key
+  gnupg_private_key_06:
+      file: ./secrets/private-keys-v1.d/D922702565EEB2910DD2675F172182FB184FDE03.key
   kube_config:
     file: ./secrets/kube_config
   pip_config:
@@ -215,6 +307,8 @@ secrets:
 volumes:
   base:
   ja:
+    external: true
+  capella-6.0.0:
     external: true
   capella-7.0.0:
     external: true
