@@ -31,6 +31,13 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 })
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
+    pattern = { "**/engine-room/config.yml" },
+    callback = function(args)
+      vim.cmd.setlocal("nofoldenable")
+    end
+})
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+    group = vim.g.augroup_jar,
     pattern = { "**/snippets/*.json" },
     callback = function(args)
         vim.wo.foldmethod = "expr"

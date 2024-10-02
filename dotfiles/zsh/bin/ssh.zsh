@@ -5,5 +5,5 @@
 if [[ -n $KITTY_PID && $TERM == xterm-kitty ]]; then
   kitty +kitten ssh "$@"
 else
-  ssh "$@"
+  /usr/bin/ssh "$@"
 fi

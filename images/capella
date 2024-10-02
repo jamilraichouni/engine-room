@@ -88,7 +88,9 @@ RUN git clone --depth=1 \
   tar -xvzf gitstatusd-*.tar.gz && \
   rm gitstatusd-*.tar.gz && \
   # mkdir -p /home/techuser/.cache/gitstatus && \
-  mv gitstatusd-* /home/techuser/.cache/gitstatus
+  mv gitstatusd-* /home/techuser/.cache/gitstatus && \
+  [[ -f /home/techuser/.zshrc ]] && \
+  mv /home/techuser/.zshrc /home/techuser/.zshrc.bak
 # }}}
 
 # install latest neovim {{{

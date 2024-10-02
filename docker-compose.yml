@@ -81,8 +81,18 @@ services:
         target: /home/nörd/.kube/config
       - source: pip_config
         target: /home/nörd/.config/pip/pip.conf
-      - source: private_gpg_keys
-        target: /home/nörd/.gnupg/private-keys-v1.d
+      - source: gnupg_private_key_01
+        target: /home/nörd/.gnupg/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
+      - source: gnupg_private_key_02
+        target: /home/nörd/.gnupg/private-keys-v1.d/56DA7C25AF034F0725205A8B34DB1BF9C7B2BC13.key
+      - source: gnupg_private_key_03
+        target: /home/nörd/.gnupg/private-keys-v1.d/769473AEEBC90D875236A07D9C8A4FFB4C4C8242.key
+      - source: gnupg_private_key_04
+        target: /home/nörd/.gnupg/private-keys-v1.d/82D2E797B6F0FC16AB438237D02388A2228B3764.key
+      - source: gnupg_private_key_05
+        target: /home/nörd/.gnupg/private-keys-v1.d/CEC7187FE23C9B8300A49A19C849F8A7251E7331.key
+      - source: gnupg_private_key_06
+        target: /home/nörd/.gnupg/private-keys-v1.d/D922702565EEB2910DD2675F172182FB184FDE03.key
       - source: ssh_authorized_keys
         target: /home/nörd/.ssh/authorized_keys
       - source: ssh_config
@@ -124,15 +134,24 @@ services:
     secrets:
       - OPENAI_API_KEY
       - source: github_copilot_apps
-        target: /home/nörd/.config/github-copilot/apps.json
+        target: /home/techuser/.config/github-copilot/apps.json
       - source: pip_config
-        target: /home/nörd/.config/pip/pip.conf
-      - source: ssh_authorized_keys
-        target: /home/techuser/.ssh/authorized_keys
-      - source: ssh_config
-        target: /home/techuser/.ssh/config
+        target: /home/techuser/.config/pip/pip.conf
+      - ssh_config
+      - source: gnupg_private_key_01
+        target: /home/techuser/.gnupg/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
+      - source: gnupg_private_key_02
+        target: /home/techuser/.gnupg/private-keys-v1.d/56DA7C25AF034F0725205A8B34DB1BF9C7B2BC13.key
+      - source: gnupg_private_key_03
+        target: /home/techuser/.gnupg/private-keys-v1.d/769473AEEBC90D875236A07D9C8A4FFB4C4C8242.key
+      - source: gnupg_private_key_04
+        target: /home/techuser/.gnupg/private-keys-v1.d/82D2E797B6F0FC16AB438237D02388A2228B3764.key
+      - source: gnupg_private_key_05
+        target: /home/techuser/.gnupg/private-keys-v1.d/CEC7187FE23C9B8300A49A19C849F8A7251E7331.key
+      - source: gnupg_private_key_06
+        target: /home/techuser/.gnupg/private-keys-v1.d/D922702565EEB2910DD2675F172182FB184FDE03.key
     volumes:
-      - $HOME/Downloads:/home/nörd/downloads
+      - $HOME/Downloads:/home/techuser/downloads
       - $HOME/engine-room:/home/techuser/engine-room
       - /opt/bind:/opt/bind
       - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
@@ -195,8 +214,18 @@ secrets:
     file: ./secrets/github_copilot_apps.json
   keepass_db:
     file: /Users/jamilraichouni/Library/CloudStorage/GoogleDrive-raichouni@gmail.com/My Drive/jamil.kdbx
-  private_gpg_keys:
-      file: ./secrets/private-keys-v1.d
+  gnupg_private_key_01:
+      file: ./secrets/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
+  gnupg_private_key_02:
+      file: ./secrets/private-keys-v1.d/56DA7C25AF034F0725205A8B34DB1BF9C7B2BC13.key
+  gnupg_private_key_03:
+      file: ./secrets/private-keys-v1.d/769473AEEBC90D875236A07D9C8A4FFB4C4C8242.key
+  gnupg_private_key_04:
+      file: ./secrets/private-keys-v1.d/82D2E797B6F0FC16AB438237D02388A2228B3764.key
+  gnupg_private_key_05:
+      file: ./secrets/private-keys-v1.d/CEC7187FE23C9B8300A49A19C849F8A7251E7331.key
+  gnupg_private_key_06:
+      file: ./secrets/private-keys-v1.d/D922702565EEB2910DD2675F172182FB184FDE03.key
   kube_config:
     file: ./secrets/kube_config
   pip_config:

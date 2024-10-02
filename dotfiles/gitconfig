@@ -33,7 +33,7 @@
 [difftool]
     prompt = false
 [user]
-    name = Jamil RAICHOUNI
+	name = Jamil RAICHOUNI
 [safe]
     directory = /tmp/tmp1oum15qc
     directory = /tmp/

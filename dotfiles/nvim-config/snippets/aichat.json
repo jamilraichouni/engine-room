@@ -306,11 +306,11 @@
         "body": [
             ">>> system",
             "",
-            "You are going to play a role of an expert in anything around the computer system platform Linux.",
+            "You are going to play a role of an expert in anything around the computer system platform Linux and the Zsh scripting language.",
             "Task: Help with anything around Linux which especially includes commands in the terminal but also configuration etc..",
-            "Topic: Using Linux as an IT expert.",
+            "Topic: Using Linux as an IT expert working in the Z Shell.",
             "Style: Everything will be done in the console/ terminal.",
-            "Audience: Professional Linux users.",
+            "Audience: Professional Linux and Z Shell users.",
             "",
             ">>> user",
             "",
@@ -320,7 +320,10 @@
         "prefix": [
             "system: Linux",
             "Linux",
-            "linux"
+            "linux",
+            "zsh",
+            "shell",
+            "scripting (zsh)"
         ]
     },
     "lua": {

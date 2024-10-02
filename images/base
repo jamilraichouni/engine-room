@@ -45,13 +45,19 @@ RUN mv /usr/lib/jvm/jdk-* /usr/lib/jvm/jdk && \
 # }}}
 
 # kubectl {{{
-RUN curl -LO \
+RUN mkdir -p /home/nörd/.kube && \
+  chown $(id -u nörd):$(id -g nörd) /home/nörd/.kube && \
+  chmod 700 /home/nörd/.kube && \
+  curl -LO \
   "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl" && \
   chmod +x kubectl && mv kubectl /opt && ln -s /opt/kubectl /usr/local/bin
 # }}}
 
-# Mozilla SOPS "Secrets OPerationS" {{{
-RUN dnf --color yes -y install \
+# GNU Privacy Guard (GnuPG) and Mozilla Secrets OPerationS (SOPS)" {{{
+RUN mkdir -p /home/nörd/.gnupg/private-keys-v1.d && \
+  chown -R $(id -u nörd):$(id -g nörd) /home/nörd/.gnupg && \
+  chmod -R 700 /home/nörd/.gnupg && \
+  dnf --color yes -y install \
   https://github.com/getsops/sops/releases/download/v3.9.0/sops-3.9.0-1.$(uname -m).rpm
 # }}}
 

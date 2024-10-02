@@ -20,14 +20,21 @@ export OPENAI_API_KEY=$([[ -e /run/secrets/OPENAI_API_KEY ]] && cat /run/secrets
 export PYENV_ROOT="$HOME/.pyenv"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export SHELL=/bin/zsh
-export SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
-export TERM=xterm-kitty
-export TERMINFO=/usr/share/terminfo
+if [[ "$HOST" == "engine-room-"* ]]; then
+  export SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
+fi
+if [[ "$(uname -o)" != *"Darwin"* ]]; then
+  export TERM=xterm-kitty
+  export TERMINFO=/usr/share/terminfo
+fi
 export TZ=":/usr/share/zoneinfo/Europe/Berlin"
 export VISUAL=nvim
 export VOL=/mnt/volume
 
-export PATH="$HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH"
 export PATH=$HOME/.cargo/bin:$HOME/go/bin:$PATH
+export PATH=$HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH
+export PATH=$HOME/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=/opt/apache-maven/bin:$PATH
+
+[[ -f /etc/zshenv.secrets ]] && . /etc/zshenv.secrets
