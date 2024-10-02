@@ -75,7 +75,7 @@ def _change_ownership_recursively(path) -> None:
     if any(
         (
             not pathlib.Path(path).exists(),
-            # do not change non nörd stuff (outside of H and V)
+            # do not change non nerd stuff (outside of H and V)
             (not path.is_relative_to(H) and not path.is_relative_to(V)),
             path == H,  # takes far too long
         )
@@ -86,7 +86,7 @@ def _change_ownership_recursively(path) -> None:
 
 
 def _create_symlink(link: pathlib.Path, target: pathlib.Path) -> None:
-    """Create symbolic link and make `nörd` the owner when needed."""
+    """Create symbolic link and make `nerd` the owner when needed."""
     link.parent.mkdir(parents=True, exist_ok=True)
     os.chown(link.parent, USERMAP_UID, USERMAP_GID)
     try:

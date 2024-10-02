@@ -459,6 +459,32 @@ see <https://stackoverflow.com/questions/2946051/changing-case-in-vim/2966034#29
 `guaw` to lowercase for a word
 `guap` to lowercase for a paragraph
 
+### Recipe(vim): LSP
+
+#### Increase LSP log level
+
+```
+:lua vim.lsp.set_log_level("debug")
+```
+
+### Recipe(vim): Recent files
+
+```vim
+:browse oldfiles
+```
+
+```vim
+:browse filter /pattern/ oldfiles
+```
+
+### Recipe(vim): Search and replace
+
+#### Replace null bytes with blanks
+
+```vim
+:%s/\%x00/ /g
+```
+
 ### Recipe(vim): Show who last set a key mapping in vim
 
 `:verbose imap <tab>` for instance

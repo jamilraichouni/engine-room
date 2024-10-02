@@ -7,7 +7,7 @@ vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
 vim.o.tabstop = 4
 
-vim.o.shell = "/bin/zsh -l"
+vim.o.shell = "/bin/zsh"
 vim.o.fillchars = "diff:-"
 vim.o.colorcolumn = "79"
 vim.o.completeopt = "menuone,noinsert,noselect,preview"

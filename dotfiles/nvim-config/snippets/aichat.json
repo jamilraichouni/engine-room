@@ -28,8 +28,6 @@
         ],
         "description": "Role of an expert in using Debian",
         "prefix": [
-            "system: Debian",
-            "Debian",
             "debian"
         ]
     },
@@ -53,10 +51,7 @@
         ],
         "description": "Role of an IT expert",
         "prefix": [
-            "DEFAULT",
-            "default",
-            "system: DEFAULT",
-            "system: default"
+            "default"
         ]
     },
     "docker": {
@@ -75,9 +70,6 @@
         ],
         "description": "Role of an expert in using Docker",
         "prefix": [
-            "system: Docker",
-            "Docker",
-            "system: docker",
             "docker"
         ]
     },
@@ -97,9 +89,7 @@
         ],
         "description": "Role of an expert in Eclipse/ Capella plugin development",
         "prefix": [
-            "system: eclipse_plugin_development",
             "eclipse_plugin_development",
-            "system: capella_plugin_development",
             "capella_plugin_development"
         ]
     },
@@ -111,7 +101,6 @@
         ],
         "description": "No system prompt",
         "prefix": [
-            "system: Empty prompt",
             "empty"
         ]
     },
@@ -135,10 +124,7 @@
         ],
         "description": "Role of an expert in FastHTML",
         "prefix": [
-            "system: fasthtml",
-            "fasthtml",
-            "system: FastHTML",
-            "FastHTML"
+            "fasthtml"
         ]
     },
     "fedora": {
@@ -157,8 +143,6 @@
         ],
         "description": "Role of an expert in using Fedora",
         "prefix": [
-            "system: Fedora",
-            "Fedora",
             "fedora"
         ]
     },
@@ -175,9 +159,7 @@
         "description": "Generic LLM chat engine",
         "prefix": [
             "generic",
-            "system: generic",
-            "neutral",
-            "system: neutral"
+            "neutral"
         ]
     },
     "git": {
@@ -197,8 +179,6 @@
         ],
         "description": "Role of an expert in Git",
         "prefix": [
-            "system: Git",
-            "Git",
             "git"
         ]
     },
@@ -221,9 +201,7 @@
         ],
         "description": "Role of an interpreter who translated from the German to the English languages",
         "prefix": [
-            "system: interpreter_de_en",
             "interpreter_de_en",
-            "system: translater_de_en",
             "translater_de_en",
             "de_en"
         ]
@@ -247,11 +225,28 @@
         ],
         "description": "Role of an interpreter for the English and German languages",
         "prefix": [
-            "system: interpreter_en_de",
             "interpreter_en_de",
-            "system: translater_en_de",
             "translater_en_de",
             "en_de"
+        ]
+    },
+    "java": {
+        "body": [
+            ">>> system",
+            "",
+            "You are going to play a role of an expert in development with Java.",
+            "Task: Provide compact, readable Java code.",
+            "Topic: Software development with Java.",
+            "Style: Plain result without any commentary, unless commentary is necessary or given in the prompt.",
+            "Audience: Users of text editor and Java programmers.",
+            "",
+            ">>> user",
+            "",
+            "$1"
+        ],
+        "description": "Role of an expert in Software development with Java",
+        "prefix": [
+            "java"
         ]
     },
     "keepassxc-cli": {
@@ -274,9 +269,6 @@
         ],
         "description": "Role of an expert in using KeePassXC",
         "prefix": [
-            "system: KeePassXC CLI",
-            "KeePassXC CLI",
-            "system: keepassxc-cli",
             "keepassxc-cli"
         ]
     },
@@ -296,9 +288,6 @@
         ],
         "description": "Role of an expert in using Fedora",
         "prefix": [
-            "system: Kubernetes",
-            "Kubernetes",
-            "system: kubernetes",
             "kubernetes"
         ]
     },
@@ -306,11 +295,11 @@
         "body": [
             ">>> system",
             "",
-            "You are going to play a role of an expert in anything around the computer system platform Linux.",
+            "You are going to play a role of an expert in anything around the computer system platform Linux and the Zsh scripting language.",
             "Task: Help with anything around Linux which especially includes commands in the terminal but also configuration etc..",
-            "Topic: Using Linux as an IT expert.",
+            "Topic: Using Linux as an IT expert working in the Z Shell.",
             "Style: Everything will be done in the console/ terminal.",
-            "Audience: Professional Linux users.",
+            "Audience: Professional Linux and Z Shell users.",
             "",
             ">>> user",
             "",
@@ -318,9 +307,10 @@
         ],
         "description": "Role of an expert in using Linux",
         "prefix": [
-            "system: Linux",
-            "Linux",
-            "linux"
+            "linux",
+            "zsh",
+            "shell",
+            "scripting (zsh)"
         ]
     },
     "lua": {
@@ -339,8 +329,6 @@
         ],
         "description": "Role of an expert in Lua",
         "prefix": [
-            "system: Lua",
-            "Lua",
             "lua"
         ]
     },
@@ -360,9 +348,30 @@
         ],
         "description": "Role of an expert in using macOS",
         "prefix": [
-            "system: macOS",
-            "macOS",
             "macos"
+        ]
+    },
+    "mypy": {
+        "body": [
+            ">>> system",
+            "",
+            "You are going to play a role of an expert in anything around developing with the programming language Python and the type checking tool mypy.",
+            "Task: Help with anything around mypy for Python.",
+            "Topic: Programming language Python's type checking tool mypy.",
+            "Style: Plain precise result without any commentary, unless commentary is necessary or given in the prompt.",
+            "Audience: Experienced Python programmer using mypy as type checking tool.",
+            "",
+            ">>> include",
+            "",
+            "~/engine-room/dotfiles/nvim-config/llms.txts/mypy_help.txt",
+            "",
+            ">>> user",
+            "",
+            "$1"
+        ],
+        "description": "Role of an expert in Python using mypy",
+        "prefix": [
+            "mypy"
         ]
     },
     "openapi": {
@@ -381,9 +390,6 @@
         ],
         "description": "Role of an expert in using OpenAPI",
         "prefix": [
-            "system: OpenAPI",
-            "OpenAPI",
-            "system: openapi",
             "openapi"
         ]
     },
@@ -403,8 +409,6 @@
         ],
         "description": "Role of an expert in Python",
         "prefix": [
-            "system: Python",
-            "Python",
             "python"
         ]
     },
@@ -424,7 +428,6 @@
         ],
         "description": "Role of an expert in using Neovim as a developmer",
         "prefix": [
-            "system: neovim_user",
             "neovim_user"
         ]
     },
@@ -444,8 +447,30 @@
         ],
         "description": "Role of an expert in Neovim plugin development with Lua",
         "prefix": [
-            "system: neovim_plugin_development",
             "neovim_plugin_development"
+        ]
+    },
+    "ruff": {
+        "body": [
+            ">>> system",
+            "",
+            "You are going to play a role of an expert in anything around developing with the programming language Python and the code quality tool ruff.",
+            "Task: Help with anything around ruff for Python.",
+            "Topic: Programming language Python's code quality tool ruff.",
+            "Style: Plain precise result without any commentary, unless commentary is necessary or given in the prompt.",
+            "Audience: Experienced Python programmer using ruff as code quality tool.",
+            "",
+            ">>> include",
+            "",
+            "~/engine-room/dotfiles/nvim-config/llms.txts/ruff_help.txt",
+            "",
+            ">>> user",
+            "",
+            "$1"
+        ],
+        "description": "Role of an expert in Python using ruff",
+        "prefix": [
+            "ruff"
         ]
     },
     "template": {
@@ -463,7 +488,7 @@
         ],
         "description": "Prompt template",
         "prefix": [
-            "system: template",
+            "template",
             "plain"
         ]
     },
@@ -483,8 +508,6 @@
         ],
         "description": "Role of an expert in using Ubuntu",
         "prefix": [
-            "system: Ubuntu",
-            "Ubuntu",
             "ubuntu"
         ]
     }

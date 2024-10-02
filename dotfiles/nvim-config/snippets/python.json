@@ -638,14 +638,15 @@
     "description": "Make list entries unique (remove duplicates)",
     "prefix": "list unique"
   },
-  "log_to_file": {
+  "logger (incl. log file)": {
     "body": [
       "import logging",
+      "import pathlib",
       "formatter: logging.Formatter = logging.Formatter(",
-      "    fmt=\"[%(asctime)s] %(levelname)-8s : %(message)s\",",
+      "    fmt=\"[%(asctime)s.%(msecs)03d] %(levelname)-8s : %(message)s\",",
       "    datefmt=\"%Y-%m-%d %H:%M:%S\"",
       ")",
-      "logger: logging.Logger = logging.getLogger()",
+      "logger = logging.getLogger()",
       "for handler in logger.handlers:",
       "   logger.removeHandler(handler)",
       "logger.setLevel(\"INFO\")",
@@ -653,34 +654,34 @@
       "console_hdl.setLevel(logging.INFO)",
       "console_hdl.setFormatter(formatter)",
       "logger.addHandler(console_hdl)",
-      "log_file_path: Path = Path(\"${1:LOG_FILE_PATH}\")",
-      "log_file_path.unlink(missing_ok=True)",
-      "file_hdl: logging.Handler = logging.FileHandler(filename=log_file_path, mode=\"w\")",
-      "file_hdl.setLevel(logging.DEBUG)",
-      "file_hdl.setFormatter(formatter)",
-      "logger.addHandler(file_hdl)"
+      "logfile_path = pathlib.Path(\"${1:LOGFILE_PATH}\")",
+      "logfile_path.unlink(missing_ok=True)",
+      "filehdl: logging.Handler = logging.FileHandler(filename=logfile_path, mode=\"w\")",
+      "filehdl.setLevel(logging.DEBUG)",
+      "filehdl.setFormatter(formatter)",
+      "logger.addHandler(filehdl)"
     ],
     "description": "Quickly introduce logger logging to file",
-    "prefix": ["Quick log to file", "Log to file (quick)"]
+    "prefix": ["logger (log to file)"]
   },
-  "logger (introduce)": {
-    "body": ["from loguru import logger"],
-    "description": "Introduce logger",
-    "prefix": [
-      "logger (introduce)",
-      "loguru",
-      "introduce (logger)",
-      "get (logger)"
-    ]
-  },
-  "logger (setup)": {
+  "logger": {
     "body": [
       "import logging",
-      "import ${1:PROJECT_NAME}.log as log",
-      "logger: logging.Logger = log.setup_logger()"
+      "formatter: logging.Formatter = logging.Formatter(",
+      "    fmt=\"[%(asctime)s.%(msecs)03d] %(levelname)-8s : %(message)s\",",
+      "    datefmt=\"%Y-%m-%d %H:%M:%S\"",
+      ")",
+      "logger = logging.getLogger()",
+      "for handler in logger.handlers:",
+      "   logger.removeHandler(handler)",
+      "logger.setLevel(\"INFO\")",
+      "console_hdl: logging.Handler = logging.StreamHandler()",
+      "console_hdl.setLevel(logging.INFO)",
+      "console_hdl.setFormatter(formatter)",
+      "logger.addHandler(console_hdl)"
     ],
     "description": "Setup logger \"JAR\"",
-    "prefix": ["setup (logger)", "logger (setup)"]
+    "prefix": ["logger"]
   },
   "main": {
     "body": ["if __name__ == \"__main__\":", "    ${1:pass}"],

@@ -6,7 +6,7 @@ return {
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require("oil").setup({
-                preview = {
+                preview_win = {
                     win_options = {
                         foldenable = false,
                     },
@@ -14,10 +14,10 @@ return {
                 -- Oil will automatically delete hidden buffers after this delay
                 -- You can set the delay to false to disable cleanup entirely
                 -- Note that the cleanup process only starts when none of the oil buffers are currently displayed
-                cleanup_delay_ms = 2000, -- default is 2000, 300000 is 5 minutes
+                cleanup_delay_ms = false, -- default is 2000, 300000 is 5 minutes
                 constrain_cursor = "name",
                 buf_options = {
-                    buflisted = false,
+                    buflisted = true,
                     bufhidden = "hide",
                 },
                 win_options = {

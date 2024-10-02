@@ -13,27 +13,38 @@ local function get_last_modified_date(filepath)
     end
 end
 
-vim.g.JavaBuildClassPath = function()
-    local obj = nil
-    local current_buffer_path = vim.api.nvim_buf_get_name(0)
-    obj = vim.system({ "python", "-m", "eclipse_plugin_builders", "build-classpath", current_buffer_path, vim.g.capella_home },
-            { cwd = os.getenv("HOME") .. "/dev/github/eclipse-plugin-builders", env = { PYENV_VERSION = "eclipse-plugin-builders" } })
-        :wait()
-    if obj.code == 0 then
-        print(obj.stdout)
-    else
-        print("Error: " .. obj.stderr)
-    end
-end
 
-vim.g.PackageAndDeployEclipsePlugin = function()
-    local obj = nil
-    obj = vim.system({ "python3", "-m", "eclipse_plugin_builders", "package" }):wait()
-    print(obj.stdout)
-    if obj.code == 0 then
-        obj = vim.system({ "python3", "-m", "eclipse_plugin_builders", "deploy", vim.g.capella_home }):wait()
-        print(obj.stdout)
-        local deployed_file_path = obj.stdout:match("`(.-)`")
+vim.g.CompilePackageAndDeployCapellaAddon = function()
+    -- compile
+    local result_code = vim.g.CompileJavaProject()
+    if result_code ~= 0 then
+        return result_code
+    end
+    -- package
+    local cmd = {
+        "python",
+        "-m",
+        "capella_addons",
+        "package",
+        vim.g.JAVA_HOME,
+        vim.g.capella_home
+    }
+    print("Executing `" .. table.concat(cmd, " ") .. "`")
+    local proc = vim.system(cmd):wait()
+    print(proc.stdout)
+    -- deploy
+    if proc.code == 0 then
+        cmd = {
+            "python",
+            "-m",
+            "capella_addons",
+            "deploy",
+            vim.g.capella_home
+        }
+        print("Executing `" .. table.concat(cmd, " ") .. "`")
+        proc = vim.system(cmd):wait()
+        print(proc.stdout)
+        local deployed_file_path = proc.stdout:match("`(.-)`")
         local last_modified, err = get_last_modified_date(deployed_file_path)
         if last_modified then
             print("Last modified date: " .. last_modified)
@@ -43,29 +54,117 @@ vim.g.PackageAndDeployEclipsePlugin = function()
     end
 end
 
-vim.g.CompilePackageAndDeployEclipsePlugin = function()
-    -- require("jdtls").compile("full")
+vim.g.CompileJavaProject = function()
+    require("jdtls").compile("full")
     local bufnr = vim.api.nvim_get_current_buf()
-    local client = vim.lsp.get_clients({ name = "jdtls", bufnr = bufnr })[1]
+    local jdtls_lspclients = vim.lsp.get_clients({ name = "jdtls", bufnr = bufnr })
+    if #jdtls_lspclients == 0 then
+        vim.notify("No JDT LSP client found!", vim.log.levels.ERROR)
+        return 1
+    end
+    local client = jdtls_lspclients[1]
     local resp = client.request_sync("java/buildWorkspace", true, 5000, bufnr)
     if resp.result > 1 then
+        -- we rerun the failed compilation to get the diagnostics
         require("jdtls").compile("full")
-        return
+        return 1
     end
     vim.fn.setqflist({}, "r", { title = "", items = {} })
     vim.cmd("cclose")
     print("Compile done")
-    vim.g.PackageAndDeployEclipsePlugin()
+    return 0
+end
+
+vim.g.JavaBuildClassPath = function()
+    local current_buffer_path = vim.api.nvim_buf_get_name(0)
+    local cmd = {
+        "python",
+        "-m",
+        "capella_addons",
+        "build-classpath",
+        "--java-execution-environment=" ..
+        vim.g.JavaGetDefaultRuntime().name,
+        current_buffer_path,
+        vim.g.capella_home
+    }
+    print("Executing `" .. table.concat(cmd, " ") .. "`")
+    local proc = vim.system(cmd):wait()
+    if proc.code == 0 then
+        print(proc.stdout)
+    else
+        print("Error: " .. proc.stderr)
+    end
+end
+
+vim.g.JavaGetDefaultRuntime = function()
+    -- read the default runtime from the LSP client settings as it has been set
+    -- in ~/.config/nvim/ftplugin/java.lua
+    local bufnr = vim.api.nvim_get_current_buf()
+    local client = vim.lsp.get_clients({ name = "jdtls", bufnr = bufnr })[1]
+    if not client then
+        vim.notify(
+            "No LSP client `jdtls` found.",
+            vim.log.levels.WARN
+        )
+    end
+    local runtimes = (client.config.settings.java.configuration or {}).runtimes or {}
+    if #runtimes == 0 then
+        vim.notify(
+            "No runtimes found in `config.settings.java.configuration.runtimes`."
+            .. " You need to add runtime paths to change the runtime",
+            vim.log.levels.WARN
+        )
+        return
+    end
+    local runtime
+    for _, r in pairs(runtimes) do
+        if r.default or #runtimes == 1 then
+            runtime = r
+        end
+    end
+    if not runtime then
+        vim.notify(
+            "No default runtime found in `config.settings.java.configuration.runtimes`",
+            vim.log.levels.WARN
+        )
+        return
+    end
+    return runtime
+end
+
+vim.g.SetCapellaVersion = function(version)
+    if type(version) ~= "string" or not version:match("%d+%.%d+%.%d+") then
+        vim.notify("Invalid version: " .. version, vim.log.levels.ERROR)
+        return
+    end
+    vim.g.capella_version = version
+    vim.g.capella_home = "/opt/capella_" .. vim.g.capella_version
+    -- check if the directory `vim.g.capella_home` exists
+    if vim.loop.fs_stat(vim.g.capella_home) == nil then
+        vim.notify("Capella home directory not found: " .. vim.g.capella_home, vim.log.levels.ERROR)
+        return
+    end
+    vim.g.JAVA_HOME = nil
+    if vim.g.capella_version == "6.0.0" or vim.g.capella_version == "6.1.0" then
+        vim.g.JAVA_HOME = "/usr/lib/jvm/jdk-17.0.6+10"
+    elseif vim.g.capella_version == "7.0.0" then
+        vim.g.JAVA_HOME = "/usr/lib/jvm/jdk-17.0.11+9"
+    end
+    vim.notify("Capella version set to " .. version)
 end
 
 vim.g.WorkingTimesCompute = function()
-    local obj = nil
     vim.api.nvim_command("write")
-    obj = vim.system({ "python", "-m", "working_times" },
-        { cwd = os.getenv("HOME") .. "/dev/github/working-times", env = { PYENV_VERSION = "working-times" } }):wait()
-    if obj.code == 0 then
+    local proc = vim.system(
+        { "python", "-m", "working_times" },
+        {
+            cwd = os.getenv("HOME") .. "/dev/github/working-times",
+            env = { PYENV_VERSION = "working-times" }
+        }
+    ):wait()
+    if proc.code == 0 then
         vim.api.nvim_command("edit")
     else
-        print("Error: " .. obj.stdout)
+        print("Error: " .. proc.stdout)
     end
 end

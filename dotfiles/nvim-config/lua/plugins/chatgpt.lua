@@ -33,7 +33,7 @@ follow the latest OpenAPI standard. ]]
             local chat_engine_cfg = {
                 engine = "chat",
                 options = {
-                    model = "gpt-4o-2024-08-06",
+                    model = "gpt-4o",
                     max_tokens = 0,
                     temperature = 0,
                     request_timeout = 20,
@@ -77,7 +77,7 @@ Audience: Users of text editor and programmers that need to transform/generate t
             vim.api.nvim_create_autocmd({ "FileType" }, {
                 group = vim.g.augroup_jar,
                 pattern = { "aichat" },
-                command = "call matchadd('aichat_step', '^### Step .*')",
+                command = "call matchadd('aichat_step', '^##.*')",
             })
             vim.cmd.highlight("aichat_step", "guifg=#569cd6 guibg=#1e1e1e")
 

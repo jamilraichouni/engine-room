@@ -1,8 +1,9 @@
+*.log
 .env
 __pycache__/
+build/OpenJDK*
 build/capella*tar*
 build/er-keypass-db-er.kdbx
-build/OpenJDK*
 data/
 dotfiles.main/
 dotfiles/**/history.sqlite
@@ -27,3 +28,4 @@ secrets/*
 dotfiles/gnupg/*
 !dotfiles/gnupg/gpg.conf
 !dotfiles/gnupg/gpg-agent.conf
+!dotfiles/gnupg/pubring.kbx

@@ -29,7 +29,7 @@ vim.keymap.set("t", "<c-w>N", "<c-\\><c-n>")
 vim.keymap.set("n", "<leader>zo", "zo z<cr>", { silent = true })
 vim.keymap.set("n", "<leader>zO", "zO z<cr>", { silent = true })
 
--- diff (do -> obtain, dp -> put)
+-- diff keymaps (do -> obtain, dp -> put)
 vim.keymap.set("n", "<leader>dt", "<cmd>windo diffthis<cr>", { silent = true })
 vim.keymap.set("n", "<leader>do", "<cmd>windo diffoff<cr>", { silent = true })
 
@@ -89,7 +89,7 @@ vim.keymap.set("n", "<leader>Pl", "<cmd>belowright vnew <bar> terminal python<cr
 
 -- terminal
 vim.keymap.set("n", "<leader>Tb", "<cmd>terminal<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Tt", "<cmd>tabedit term://zsh<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Tt", "<cmd>tabedit +terminal<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>Th", "<cmd>vnew +terminal<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>TH", "<cmd>vnew +terminal<cr><cmd>wincmd H<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>Tj", "<cmd>belowright new +terminal<cr><cmd>startinsert<cr>")

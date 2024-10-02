@@ -16,5 +16,5 @@ if (
         subprocess.run(["pyenv", "global", PYTHON_VERSION], check=False)
         os.system("python -m pip install --upgrade pip")
         os.system(
-            "python -m pip install -r /home/nörd/engine-room/dotfiles/requirements.txt"
+            "python -m pip install -r /home/nerd/engine-room/dotfiles/requirements.txt"
         )

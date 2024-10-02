@@ -76,20 +76,20 @@ RUN echo "root:" | chpasswd && \
   echo -e "alias :q='exit'\nalias :qa='exit'\nalias ls='ls --color'\nalias l='ls -lh'\nalias ll='ls -lha'" >> /root/.zshrc
 # }}}
 
-# Add user 'nörd' {{{
-RUN useradd --badname -l -m -s /bin/zsh --home-dir=/Users/jamilraichouni nörd && \
-  # set password to "nörd"
-  echo "nörd:nörd" | chpasswd && \
+# Add user 'nerd' {{{
+RUN useradd --badname -l -m -s /bin/zsh --home-dir=/Users/jamilraichouni nerd && \
+  # set password to "nerd"
+  echo "nerd:nerd" | chpasswd && \
   echo -e "alias :q='exit'\nalias :qa='exit'\nalias ls='ls --color'\nalias l='ls -lh'\nalias ll='ls -lha'\nalias vi='nvim'" >> /Users/jamilraichouni/.zshrc
 
 # disable hint that sudo is dangerous and allow sudo w/o passwd
 RUN echo "Defaults lecture = never" >> /etc/sudoers.d/privacy && \
-  echo "nörd ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+  echo "nerd ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # }}}
 
-USER nörd
+USER nerd
 
-# setup for user nörd {{{
+# setup for user nerd {{{
 RUN mkdir -p $HOME/.config && \
   echo "LANG=en_US.UTF-8" > ~/.config/locale.conf && \
   echo "LANGUAGE=en_US:en:C" >> $HOME/.config/locale.conf
@@ -125,8 +125,8 @@ COPY lua/plugins/* /Users/jamilraichouni/.config/nvim/lua/plugins
 RUN nvim --headless -c'source ~/.config/nvim/init.lua' -c'Lazy! install' -c'qa' && \
   nvim --headless -c'TSInstallSync java' -c'q'
 USER root
-RUN chown -R nörd:nörd /Users/jamilraichouni/.config
-USER nörd
+RUN chown -R nerd:nerd /Users/jamilraichouni/.config
+USER nerd
 # }}}
 
 WORKDIR /Users/jamilraichouni/.config/nvim

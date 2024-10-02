@@ -51,7 +51,7 @@ Host s4r-s1c2-pld
 Host engine-room-ja
     HostName ja.fritz.box
     Port 1978
-    User nörd
+    User nerd
 
 Host cn1
     HostName 10.107.190.235
@@ -62,7 +62,7 @@ Host cn1
 Host dbmac
     HostName localhost
     Port 1978
-    User nörd
+    User nerd
 
 Host ja
     HostName ja.fritz.box
@@ -118,7 +118,7 @@ Host raspi5
 Host engine-room-raspi5
     HostName 192.168.1.4
     Port 1978
-    User nörd
+    User nerd
     IdentityFile ~/.ssh/id_ed25519
 
 Host GitLab

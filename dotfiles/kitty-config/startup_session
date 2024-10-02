@@ -1,4 +1,2 @@
-launch --title=" " --type=tab --cwd=$HOME zsh -c "cd $HOME/engine-room; docker compose up -d dbmac; zsh"
-# new_tab
-# launch --title=" "  --type=tab zsh -c "sleep 4 && ssh dbmac"
-# focus
+launch --title="HOST" zsh
+cd engine-room

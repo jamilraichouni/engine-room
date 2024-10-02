@@ -1,12 +1,22 @@
 unalias -a
 
+# core:
 alias :q='exit'
 alias :qa='exit'
-alias ls='ls --color --time-style=+"%Y-%m-%d|%H:%M:%S"'
+alias cd='source ~/engine-room/dotfiles/zsh/bin/cd.zsh'
+if [[ "$(uname -o)" == *"Darwin"* ]]; then
+  alias ls='ls --color';
+else
+  alias ls='ls --color --time-style=+"%Y-%m-%d|%H:%M:%S"';
+fi
 alias l='ls -lh'   # h makes sizes human-readable
 alias ll='ls -lha' # a shows dot files
 alias src='. ~/.zshrc'
 alias watch='watch --color'
+
+# functions:
+alias pathprepend='/bin/zsh ~/engine-room/dotfiles/zsh/bin/pathprepend.zsh'
+alias ssh='/bin/zsh ~/engine-room/dotfiles/zsh/bin/ssh.zsh'
 
 # dirs:
 alias ..='cd ..'
@@ -14,28 +24,20 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
-alias cd='cd_func'
 
 alias 3rd='cd ~/dev/3rdparty'
 alias ardks='cd ~/dev/dbgitlab/ar-dks'
 alias bind='cd /mnt/bind'
-alias cdenv='cd ~/dev/github/env'
 alias c2p='cd ~/dev/dbgitlab/capella2polarion'
 alias ca='cd ~/dev/github/capella-addons'
 alias ccm='cd ~/dev/github/capella-collab-manager'
 alias cdi='cd ~/dev/github/capella-dockerimages'
-alias cds='cd ~/dev/dbgitlab/capella-diagram-service'
 alias ck='cd ~/.config/kitty'
-alias cme='cd ~/dev/dbgitlab/capella-model-editor'
 alias cn='cd ~/.config/nvim'
 alias cra='cd ~/dev/github/capella-rest-api'
-alias crb='cd ~/dev/github/capella-rm-bridge'
 alias d='cd ~/dev'
-alias di='cd ~/dev/github/devimage'
 alias dbgl='cd ~/dev/dbgitlab'
-alias dev='cd ~/dev'
 alias dot='cd ~/engine-room/dotfiles'
-alias ease='cd ~/dev/dbgitlab/ease-scripts'
 alias er='cd ~/engine-room'
 alias gh='cd ~/dev/github'
 alias gl='cd ~/dev/gitlab'
@@ -43,10 +45,9 @@ alias loc='cd ~/dev/local'
 alias mbse='cd ~/dev/github/capellambse'
 alias mdd='cd ~/dev/dbgitlab/mddocgen'
 alias ra='cd ~/dev/github/capella-addons/rest-api'
-alias rbp='cd ~/dev/dbgitlab/rm-bridge-polarion'
-alias setjar='cd ~/dev/dbgitlab/setjar'
 alias tmp='cd /tmp'
-alias x='cd ~/x'
+alias ws='cd /opt/bind/workspaces'
+alias x='cd /opt/bind/x'
 
 # edit specific files
 alias Ali='$EDITOR $DOT/zsh/aliases.zsh'

@@ -1,18 +1,14 @@
+if [ -x /usr/libexec/path_helper ]; then
+	eval `/usr/libexec/path_helper -s`
+fi
 . $DOT/zsh/funcs.zsh
-
-. $DOT/zsh/oh-my-zsh.zsh
 . $DOT/zsh/zsh.zsh
-. $DOT/zsh/p10k.zsh
-
-. $DOT/zsh/vifm.zsh
 
 # rust, cargo
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
 # fzf
 source <(fzf --zsh)
-# [ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
-# [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
 # p10k
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -43,8 +39,7 @@ $DOT/zsh/bin/pathprepend.zsh $NPM_DIR/bin
 # # docker
 # [[ -e /var/run/docker.sock ]] && sudo chmod 777 /var/run/docker.sock
 
-unalias -a
-. $DOT/zsh/aliases.zsh
-
 # to enable work with SOPS
 gpg-agent --homedir $HOME/.gnupg --daemon 2> /dev/null
+
+python3 $HOME/engine-room/dotfiles/zsh/init/ALL_HOSTS.py

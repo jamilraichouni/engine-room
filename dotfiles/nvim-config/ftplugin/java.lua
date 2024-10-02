@@ -1,30 +1,48 @@
 -- https://github.com/mfussenegger/nvim-dap/wiki/Java
 local dap = require('dap')
-local home = os.getenv("HOME")
+local HOME = os.getenv("HOME")
+if not vim.g.JAVA_HOME then
+    vim.notify("vim.g.JAVA_HOME is not set", vim.log.levels.INFO)
+    return
+end
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 local workspaces_dir = '/opt/bind/workspaces/'
-local workspace_dir = workspaces_dir .. project_name
+local workspace_dir = workspaces_dir .. "eclipse-jdt_" .. project_name
+local equinox_launcher = {
+    ["6.0.0"] = "org.eclipse.equinox.launcher_1.6.200.v20210416-2027.jar",
+    ["6.1.0"] = "org.eclipse.equinox.launcher_1.6.200.v20210416-2027.jar",
+}
 
 dap.configurations.java = {
     {
         name = "Eclipse Plugin",
         request = "launch",
         type = "java",
-        javaExec = "java",
+        javaExec = vim.g.JAVA_HOME .. "/bin/java",
         args =
-            "-product org.polarsys.capella.rcp.product " ..
-            "-launcher /opt/capella_6.0.0/capella " ..
-            "-name Eclipse " ..
-            "-data /mnt/volume/data/workspaces/RUNTIME " ..
-            "--add-modules=ALL-SYSTEM -os linux -ws gtk " ..
-            "-arch " .. vim.fn.system("uname -m") .. " " ..
-            "-nl en_US -clean -consoleLog -debug",
-        -- "-product org.polarsys.capella.rcp.product -launcher /opt/capella_6.0.0/capella -name Eclipse -data /mnt/volume/data/workspaces/RUNTIME --add-modules=ALL-SYSTEM -os linux -ws gtk -arch aarch64 -nl en_US -clean -consoleLog -debug -console",
+            "-product org.polarsys.capella.rcp.product" ..
+            " -showsplash" ..
+            " -launcher " .. vim.g.capella_home .. "/capella" ..
+            " -name Capella" ..
+            " -data " .. workspaces_dir .. "RUNTIME" ..
+            " --add-modules=ALL-SYSTEM" ..
+            " -os linux" ..
+            " -ws gtk" ..
+            " -arch " .. vim.fn.system("uname -m") ..
+            " -nl en_US" ..
+            " -clean" ..
+            " -consoleLog" ..
+            " -debug" ..
+            " -vm " .. vim.g.JAVA_HOME .. "/bin/java",
+        -- "-product org.polarsys.capella.rcp.product -launcher /opt/capella/capella -name Eclipse -data /mnt/volume/data/workspaces/RUNTIME --add-modules=ALL-SYSTEM -os linux -ws gtk -arch aarch64 -nl en_US -clean -consoleLog -debug -console",
         vmArgs =
-        "-XX:+ShowCodeDetailsInExceptionMessages -Dorg.eclipse.swt.graphics.Resource.reportNonDisposed=true -Declipse.pde.launch=true -Dfile.encoding=UTF-8",
+            "-XX:+ShowCodeDetailsInExceptionMessages" ..
+            " -Dorg.eclipse.swt.graphics.Resource.reportNonDisposed=true" ..
+            " -Declipse.pde.launch=true" ..
+            " -Dfile.encoding=UTF-8",
         classPaths = {
-            "/opt/capella_6.0.0/plugins/org.eclipse.equinox.launcher_1.6.200.v20210416-2027.jar",
+            vim.g.capella_home .. "/plugins/" .. equinox_launcher[vim.g.capella_version]
         },
         mainClass = "org.eclipse.equinox.launcher.Main",
         env = {
@@ -52,6 +70,7 @@ dap.configurations.java = {
 
 
 local jdtls = require('jdtls')
+jdtls.setup_dap({hotcodereplace = true,})
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 local config = {
@@ -67,8 +86,9 @@ local config = {
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
         '-jar',
-        home .. "/.local/share/nvim/mason/share/jdtls/plugins/org.eclipse.equinox.launcher.jar",
-        "-configuration", home .. "/.local/share/nvim/mason/packages/jdtls/config_linux_arm",
+        HOME .. "/.local/share/nvim/mason/share/jdtls/plugins/org.eclipse.equinox.launcher.jar",
+        "-configuration",
+        HOME .. "/.local/share/nvim/mason/packages/jdtls/config_linux_arm",
         '-data', workspace_dir,
     },
     root_dir = vim.fs.dirname(vim.fs.find({ 'plugin.xml', 'pom.xml', '.project' }, { upward = true })[1]),
@@ -81,7 +101,7 @@ local config = {
                 runtimes = {
                     {
                         name = "JavaSE-17",
-                        path = "/usr/lib/jvm/jdk-17.0.11+9/",
+                        path = vim.g.JAVA_HOME .. "/",
                     }
                 }
             },
@@ -149,7 +169,9 @@ local config = {
     },
     init_options = {
         bundles = {
-            vim.fn.glob("~/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", 1)
+            vim.fn.glob(
+                "~/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar",
+                1)
         },
     }
 }
