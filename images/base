@@ -101,28 +101,25 @@ RUN zsh -c "source /home/nerd/.nvm/nvm.sh && \
   npm install -g --prefix ${NPM_DIR} yarn"
 # }}}
 
-# pyenv {{{
+# python setup {{{
 USER nerd
-RUN sudo dnf --color yes --refresh -y install \
-  bzip2 \
-  bzip2-devel \
-  gdbm-devel \
-  libffi-devel \
-  libnsl2-devel \
-  libuuid-devel \
-  openssl-devel \
-  readline-devel \
-  sqlite \
-  sqlite-devel \
-  tk-devel \
-  xz-devel \
-  zlib-devel && \
-  curl https://pyenv.run | bash && \
-  /home/nerd/.pyenv/bin/pyenv init - && \
-  /home/nerd/.pyenv/bin/pyenv virtualenv-init - && \
-  chown -R $(id -u nerd):$(id -g nerd) /home/nerd/.pyenv
+RUN curl -Lo /tmp/install.sh https://astral.sh/uv/install.sh && \
+  chmod +x /tmp/install.sh && \
+  UV_NO_MODIFY_PATH=1 sh /tmp/install.sh && \
+  rm /tmp/install.sh && \
+  export PATH=$HOME/.local/bin:$PATH && \
+  uv python install 3.12.8 && \
+  sudo ln -s $(uv python find 3.12.8) /usr/local/bin/python3 && \
+  sudo ln -s /usr/local/bin/python3 /usr/local/bin/python && \
+  # hash to ensure, that python3 will use the correct version we symlinked above
+  hash -r && \
+  # PyYAML is needed to parse `config.yml` from the `engine-room` service
+  uv pip install --system --break-system-packages PyYAML && \
+  sudo echo -e '#!/bin/zsh\n$HOME/.local/bin/uv run ipython' > /usr/local/bin/ipython
 # }}}
 
 USER root
-RUN python3 -m pip install PyYAML
+
+# special gcc symlink expected by pip install of `line_profiler`
+RUN ln -s /usr/bin/gcc /usr/bin/aarch64-linux-gnu-gcc
 ENTRYPOINT ["python3", "/home/nerd/engine-room/entrypoint.py"]
