@@ -18,8 +18,6 @@ export MANPAGER="nvim +Man! "
 export NPM_DIR=$HOME/.local/share/npm
 export NVM_DIR="$HOME/.nvm"
 export OPENAI_API_KEY=$([[ -e /run/secrets/OPENAI_API_KEY ]] && cat /run/secrets/OPENAI_API_KEY)
-export PYENV_ROOT="$HOME/.pyenv"
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export SHELL=/bin/zsh
 if [[ "$HOST" == "engine-room-"* ]]; then
   export SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
@@ -32,8 +30,10 @@ export TZ=":/usr/share/zoneinfo/Europe/Berlin"
 export VISUAL=nvim
 export VOL=/mnt/volume
 
-export PATH=$HOME/.cargo/bin:$HOME/go/bin:$PATH
-export PATH=$HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH
+export PATH=/home/nerd/.local/share/uv/python/cpython-3.12.8-linux-aarch64-gnu/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=/opt/apache-maven/bin:$PATH

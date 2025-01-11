@@ -4,6 +4,7 @@ unalias -a
 alias :q='exit'
 alias :qa='exit'
 alias cd='source ~/engine-room/dotfiles/zsh/bin/cd.zsh'
+alias venv-deactivate='source ~/engine-room/dotfiles/zsh/bin/deactivate-venv.zsh'
 if [[ "$(uname -o)" == *"Darwin"* ]]; then
   alias ls='ls --color';
 else
@@ -50,13 +51,13 @@ alias ws='cd /opt/bind/workspaces'
 alias x='cd /opt/bind/x'
 
 # edit specific files
-alias Ali='$EDITOR $DOT/zsh/aliases.zsh'
-alias Doc='$EDITOR $DOT/JARDOC.md'
-alias Ewt='$EDITOR ~/dev/github/working-times/data/working_times.csv'
-alias Init='$EDITOR ~/.config/nvim/init.lua'
-alias Lsp='$EDITOR ~/.config/nvim/lua/plugins/lsp.lua'
-alias Plug='$EDITOR ~/.config/nvim/lua/plugins'
-alias Zsh='$EDITOR -c"tcd $DOT/zsh" $DOT/zsh'
+alias Ali='uv run $EDITOR $DOT/zsh/aliases.zsh'
+alias Doc='uv run $EDITOR $DOT/JARDOC.md'
+alias Ewt='uv run $EDITOR ~/dev/github/working-times/data/working_times.csv'
+alias Init='uv run $EDITOR ~/.config/nvim/init.lua'
+alias Lsp='uv run $EDITOR ~/.config/nvim/lua/plugins/lsp.lua'
+alias Plug='uv run $EDITOR ~/.config/nvim/lua/plugins'
+alias Zsh='uv run $EDITOR -c"tcd $DOT/zsh" $DOT/zsh'
 
 # tools:
 alias c='capella'
@@ -74,14 +75,14 @@ alias pygrep='grep --include="*.py"'
 alias rpdb='nc localhost 4444'
 alias termcolors='for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+"\n"}; done'
 alias tree='tree -C'
-alias vi='nvim'
+alias vi='uv run $EDITOR'
 alias vib="vi -c'setlocal filetype=aichat' -c'startinsert'"
-alias vid='nvim -c"TabooRename dev" -c"bel new +terminal" -c"wincmd k" -c"tabe +G" -c"TabooRename Git" -c"1tabn"'
-alias vig='nvim -c"G"'
-alias vil='nvim -c"Gclog"'
-alias vio='nvim -c"Oil"'
-alias vis='([[ -f Session.vim ]] && nvim -S) || nvim'
-alias vit='nvim -c"term" -c"startinsert"'
+alias vid='uv run $EDITOR -c"TabooRename dev" -c"bel new +terminal" -c"wincmd k" -c"tabe +G" -c"TabooRename Git" -c"1tabn"'
+alias vig='uv run $EDITOR -c"G"'
+alias vil='uv run $EDITOR -c"Gclog"'
+alias vio='uv run $EDITOR -c"Oil"'
+alias vis='([[ -f Session.vim ]] && uv run $EDITOR -S) || uv run $EDITOR'
+alias vit='uv run $EDITOR -c"term" -c"startinsert"'
 alias wt='update_working_times'
 alias xmlgrep='grep --include="*.xml"'
 
