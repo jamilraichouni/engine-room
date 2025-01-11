@@ -33,6 +33,7 @@ cleanpy_func() {
   find $PWD -depth -type d -name '__pycache__' -exec rm -Rf {} \;
   find $PWD -depth -type f -name '*.pyc' -exec rm -f {} \;
 }
+
 h2() {
   echo "$1;" | java -cp ./h2/bin/h2-1.3.169.jar org.h2.tools.Shell -user wsa -url jdbc:h2:tcp://172.17.0.3:5234/automated-train
 }
@@ -64,16 +65,14 @@ venv() {
   # git+https://github.com/bretello/pdbpp.git@fix-on-3.11 \
 
   [[ -f .python-version ]] && rm .python-version
-  VERSION=${1:-3.12.6}
-  VENV_NAME=$(basename $(pwd))
-  echo "pyenv virtualenv $VERSION $VENV_NAME"
-  pyenv virtualenv $VERSION $VENV_NAME
-  echo $VENV_NAME >.python-version
-  python -m pip install --upgrade pip
-  pip install -r $DOT/requirements.txt
+  VERSION=${1:-3.12.8}
+  uv venv --python=$VERSION .venv
+  source .venv/bin/activate
+  uv pip install --upgrade pip
+  uv pip install -r $DOT/requirements.txt
   # python -m pip install --force-reinstall $HOME/dev/3rdparty/mypy_mypyc-wheels/wheelhouse/mypy-0.991-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl;
-  echo "/home/nerd/engine-room/dotfiles/" >$(realpath $HOME/.pyenv/versions/$VENV_NAME/lib/python*)/site-packages/extendpath.pth
-  echo "import logger" >$(realpath $HOME/.pyenv/versions/$VENV_NAME/lib/python*)/site-packages/logger.pth
+  echo "/home/nerd/engine-room/dotfiles/" >$(realpath .venv/lib/python*)/site-packages/extendpath.pth
+  echo "import logger" >$(realpath .venv/lib/python*)/site-packages/logger.pth
 }
 
 update_working_times() {

@@ -15,14 +15,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# pyenv
-if command -v pyenv > /dev/null; then
-  $DOT/zsh/bin/pathprepend.zsh $PYENV_ROOT/bin
-  eval "$(pyenv init -)"
-  # Load pyenv-virtualenv automatically when a .python-version file is found:
-  [[ -n $PYENV_VIRTUALENV_INIT && $PYENV_VIRTUALENV_INIT == 1 ]] || eval "$(pyenv virtualenv-init -)"
-fi
-
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
@@ -41,5 +33,3 @@ $DOT/zsh/bin/pathprepend.zsh $NPM_DIR/bin
 
 # to enable work with SOPS
 gpg-agent --homedir $HOME/.gnupg --daemon 2> /dev/null
-
-python3 $HOME/engine-room/dotfiles/zsh/init/ALL_HOSTS.py

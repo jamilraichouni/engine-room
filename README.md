@@ -28,6 +28,21 @@ Shared configuration is provided in the tracked `dotfiles` or the untracked
 A running `ssh-agent` with the private key(s) of the user. An unlocked
 KeePassXC database can launch the `ssh-agent` and add the private key(s) to it.
 
+### Python setup with `uv`
+
+Install `uv` as documented here:
+
+https://docs.astral.sh/uv/getting-started/installation
+
+Then command
+
+```bash
+sudo rm /usr/local/bin/python*
+sudo ln -s $(uv python find 3.12.8) /usr/local/bin/python3
+sudo ln -s /usr/local/bin/python3 /usr/local/bin/python
+uv pip install --system --break-system-packages -r ~/engine-room/dotfiles/requirements.txt
+```
+
 ### Docker in Docker volume mounts
 
 Docker resources file sharing settings are for the computer and not for any
