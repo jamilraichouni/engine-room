@@ -1,7 +1,7 @@
 black
 click
 cookiecutter
-git+https://github.com/bretello/pdbpp.git@0.11.3
+git+https://github.com/bretello/pdbpp.git@0.11.4
 ipykernel
 ipython
 jupyter
