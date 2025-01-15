@@ -10,7 +10,6 @@ setopt CDABLE_VARS  # expand the expression (allows 'cd -2/tmp')
 # shell history:
 export SAVEHIST=1000000  # No of cmds stored in hist file
 export HISTSIZE=1000000  # No of cmds loaded into RAM from hist file
-export HISTFILE=$HOME/.zsh_history
 setopt INC_APPEND_HISTORY       # cmds are added to the history immediately
 
 # home/ end keys:
