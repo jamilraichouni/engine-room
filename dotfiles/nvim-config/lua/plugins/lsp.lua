@@ -151,12 +151,12 @@ return {
                 dependencies = "mfussenegger/nvim-dap",
                 ft = "java",
                 keys = {
-                    { "<leader>jb", "<cmd>lua require('jdtls').build_projects({select_mode='all', full_build=false})<cr>",       silent = true },
-                    { "<leader>jc", "<cmd>lua vim.g.CompileJavaProject()<cr>",                                 silent = true },
-                    { "<leader>jC", "<cmd>lua vim.g.CompilePackageAndDeployCapellaAddon()<cr>",                                 silent = true },
-                    { "<leader>jh", "<cmd>JdtUpdateHotcode<cr>",                                                                 silent = true },
-                    { "<leader>jo", "<cmd>lua require('jdtls').organize_imports()<cr>",                                          silent = true },
-                    { "<leader>jp", "<cmd>lua vim.g.JavaBuildClassPath()<cr>", silent = true },
+                    { "<leader>jb", "<cmd>lua require('jdtls').build_projects({select_mode='all', full_build=false})<cr>", silent = true },
+                    { "<leader>jc", "<cmd>lua vim.g.CompileJavaProject()<cr>",                                             silent = true },
+                    { "<leader>jC", "<cmd>lua vim.g.CompilePackageAndDeployCapellaAddon()<cr>",                            silent = true },
+                    { "<leader>jh", "<cmd>JdtUpdateHotcode<cr>",                                                           silent = true },
+                    { "<leader>jo", "<cmd>lua require('jdtls').organize_imports()<cr>",                                    silent = true },
+                    { "<leader>jp", "<cmd>lua vim.g.JavaBuildClassPath()<cr>",                                             silent = true },
                 },
             },
         },
@@ -549,7 +549,7 @@ return {
                     -- trace = { server = "verbose" },
                 }
             })
-            vim.lsp.set_log_level("warn")  -- error, warn, info, or debug
+            vim.lsp.set_log_level("warn") -- error, warn, info, or debug
         end
     }
     -- }}}
