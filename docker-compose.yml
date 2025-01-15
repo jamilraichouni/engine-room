@@ -65,13 +65,18 @@ services:
     container_name: "engine-room-dbmac"
     ports:
       - "1978:1978"  # ssh
+      - "3000:3000"
       - "4200:4200"
       - "5001:5001"
       - "5098:5098"
+      - "5173:5173"
       - "6006:6006"
       - "8000:8000"
+      - "8001:8001"
       - "8081:8081"
       - "8083:8083"
+      - "7777:7777"
+      - "8888:8888"
     environment:
       <<: *common-environment
       CI_SERVER_URL: https://git.tech.rz.db.de
