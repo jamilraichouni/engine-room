@@ -139,9 +139,6 @@ return {
                         },
                     },
                     lualine_b = {
-                        { "branch", icon = "", color = { fg = "#6f6f6f", gui = "bold" } },
-                    },
-                    lualine_c = {
                         {
                             "filename",
                             file_status = true,     -- Displays file status (readonly status, modified status)
@@ -161,6 +158,9 @@ return {
                                 newfile = "[New]", -- Text to show for newly created file before first write
                             }
                         }
+                    },
+                    lualine_c = {
+                        { "branch", icon = "", color = { fg = "#6f6f6f", gui = "bold" } },
                     },
                     lualine_x = { "encoding", "fileformat", "filetype" },
                     lualine_y = { "progress", {
