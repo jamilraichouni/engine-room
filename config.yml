@@ -7,6 +7,11 @@
 # - $S: /run/secrets
 # - $V: /mnt/volume
 engine-rooms:
+  base:
+    user: nerd
+    symlinks:
+      # target: source
+      "/mnt/googledrive/My Drive": $H/googledrive
   dbmac:
     user: nerd
     symlinks:
