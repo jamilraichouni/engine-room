@@ -209,7 +209,7 @@ return {
             })
 
             require("mason-lspconfig").setup({
-                automatic_installation = true,
+                automatic_installation = false,
                 ensure_installed = {
                     "angularls",
                     "bashls",
@@ -224,7 +224,6 @@ return {
                     "jinja_lsp",
                     "jsonls",
                     "lua_ls",
-                    "pylsp",
                     "ruff",
                     "sqlls",
                     "tailwindcss",
@@ -441,6 +440,8 @@ return {
                     },
                 },
             })
+
+            lspconfig.jinja_lsp.setup({})
 
             -- https://github.com/LuaLS/lua-language-server
             -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
