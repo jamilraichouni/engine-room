@@ -1,6 +1,5 @@
 vim.g.startChat = function()
     vim.cmd.setlocal("filetype=aichat")
-    vim.cmd.setlocal("buftype=nofile")
     vim.cmd.startinsert()
 end
 return {
