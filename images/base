@@ -110,16 +110,14 @@ RUN curl -Lo /tmp/install.sh https://astral.sh/uv/install.sh && \
   chmod +x /tmp/install.sh && \
   UV_NO_MODIFY_PATH=1 sh /tmp/install.sh && \
   rm /tmp/install.sh && \
-  export PATH=$HOME/.local/bin:$PATH && \
+  sudo ln -s /home/nerd/.local/bin/uv /usr/local/bin/uv && \
   uv python install ${PYTHON_VERSION} && \
   sudo ln -s $(uv python find ${PYTHON_VERSION}) /usr/local/bin/python3 && \
   sudo ln -s /usr/local/bin/python3 /usr/local/bin/python && \
   # hash to ensure, that python3 will use the correct version we symlinked above
   hash -r && \
-  # PyYAML is needed to parse `config.yml` from the `engine-room` service
   uv pip install --system --break-system-packages -r /tmp/requirements.txt && \
-  sudo rm /tmp/requirements.txt && \
-  sudo echo -e '#!/bin/zsh\n$HOME/.local/bin/uv run ipython' > /usr/local/bin/ipython
+  sudo rm /tmp/requirements.txt
 # }}}
 
 USER root
