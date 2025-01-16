@@ -13,6 +13,10 @@ services:
         USERMAP_GID: $USERMAP_GID
     hostname: "engine-room-os"
     container_name: "engine-room-os"
+  fedora-capella:
+    image: engine-room:fedora-capella
+    build:
+      dockerfile: images/fedora-capella
   base:
     image: engine-room:base
     cap_add:
@@ -43,10 +47,6 @@ services:
       - /tmp:/tmp
       - /var/run/docker.sock:/var/run/docker.sock
       - base:/mnt/volume
-  fedora-capella:
-    image: engine-room:fedora-capella
-    build:
-      dockerfile: images/fedora-capella
   dbmac:
     # Start: `docker compose up -d dbmac`
     # Enter: `ssh -p 1978 nerd@localhost`
