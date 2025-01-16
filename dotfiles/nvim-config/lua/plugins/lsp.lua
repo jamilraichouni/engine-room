@@ -501,7 +501,7 @@ return {
                             },                                                           -- https://github.com/PyCQA/pylint
                             -- pyls_black = { enabled = true, executable = "black" },
                             black = { enabled = false, line_length = 79, timeout = 10 }, -- https://github.com/python-lsp/python-lsp-black
-                            isort = { enabled = true },
+                            isort = { enabled = false },
                             mypy = { enabled = true },                                   -- https://github.com/python/mypy, https://github.com/python-lsp/pylsp-mypy
                             yapf = { enabled = false },
                         },

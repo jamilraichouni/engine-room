@@ -12,7 +12,6 @@ pre-commit
 pydocstyle
 pyfzf
 pylint
-pyls-isort
 pylsp-mypy
 pynvim
 pytest
