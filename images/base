@@ -9,7 +9,7 @@ ENV SHELL=/bin/zsh
 # }}}
 
 # system pkg manager installs {{{
-RUN dnf --color yes --refresh -y install \
+RUN dnf --refresh -y install \
   cargo \
   ctags \
   gcc \
@@ -57,7 +57,7 @@ RUN mkdir -p /home/nerd/.kube && \
 RUN mkdir -p /home/nerd/.gnupg/private-keys-v1.d && \
   chown -R $(id -u nerd):$(id -g nerd) /home/nerd/.gnupg && \
   chmod -R 700 /home/nerd/.gnupg && \
-  dnf --color yes -y install \
+  dnf -y install \
   https://github.com/getsops/sops/releases/download/v3.9.0/sops-3.9.0-1.$(uname -m).rpm
 # }}}
 
@@ -100,6 +100,13 @@ RUN [[ -d ${NPM_DIR} ]] || mkdir -p ${NPM_DIR}
 RUN zsh -c "source /home/nerd/.nvm/nvm.sh && \
   nvm use default && \
   npm install -g --prefix ${NPM_DIR} yarn"
+# }}}
+
+# hadolint (Dockerfile linter) {{{
+RUN sudo curl -Lo \
+  /opt/hadolint https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-arm64 && \
+  sudo chmod +x /opt/hadolint && \
+  sudo ln -s /opt/hadolint /usr/local/bin/hadolint
 # }}}
 
 # python setup {{{

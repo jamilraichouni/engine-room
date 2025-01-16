@@ -1,4 +1,4 @@
-FROM fedora:40
+FROM fedora:41
 LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
 ARG USERMAP_UID
 ARG USERMAP_GID
@@ -6,14 +6,15 @@ WORKDIR /tmp
 RUN mkdir /build
 
 # Enable installation of man-pages and re-install all installed pkgs {{{
-RUN sed -i /^tsflags=/d /etc/dnf/dnf.conf && \
-  dnf --color yes --refresh -y reinstall \
-  $(dnf repoquery --installed --qf '%{name}')
+RUN sed -i /^tsflags=/d /etc/dnf/dnf.conf
+RUN rpm -qa > installed
+RUN dnf -y reinstall --skip-unavailable $(cat installed)
+RUN rm installed
 
 # }}}
 
 # system pkg manager installs {{{
-RUN dnf --color yes --refresh -y install \
+RUN dnf --refresh -y install \
   fontconfig \
   # dependency of `rclone` (see below)
   fuse \
@@ -60,7 +61,7 @@ RUN usermod --shell /bin/zsh root
 # }}}
 
 # locale and time zone  {{{
-RUN dnf install --color yes -y \
+RUN dnf install  -y \
   glibc-locale-source \
   glibc-langpack-en && \
   localedef --force -i en_US -f UTF-8 en_US.UTF-8
@@ -82,9 +83,9 @@ RUN FONT_FILE=$(basename ${FONT_URL} | rev | cut -d/ -f1 | rev) && \
 # }}}
 
 # Docker {{{
-RUN dnf --color yes --refresh -y install dnf-plugins-core && \
-  dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo && \
-  dnf --color yes --refresh -y install \
+RUN dnf --refresh -y install dnf-plugins-core && \
+  dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo && \
+  dnf --refresh -y install \
   containerd.io \
   dnf-plugins-core \
   docker-buildx-plugin \
