@@ -118,3 +118,41 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         end, 500)
     end
 })
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    group = vim.g.augroup_jar,
+    desc = "LSP format on save",
+    nested = true,
+    callback = function()
+        local did_something = false
+
+        if next(vim.lsp.get_clients { bufnr = 0, method = "textDocument/codeAction" }) ~= nil then
+            local kind = "source.organizeImports"
+            if vim.bo.filetype == "python" then
+                kind = "source.organizeImports.ruff"
+            end
+
+            local has_ca = false
+            vim.lsp.buf.code_action {
+                context = { only = { kind } },
+                filter = function(x)
+                    if not has_ca then
+                        has_ca = true
+                        return true
+                    end
+                    return false
+                end,
+                apply = true,
+            }
+            did_something = true
+        end
+
+        if next(vim.lsp.get_clients { bufnr = 0, method = "textDocument/formatting" }) ~= nil then
+            vim.lsp.buf.format { async = false }
+            did_something = true
+        end
+
+        if not did_something then
+            vim.api.nvim_echo({ { "Format-on-save failed, no matching language servers.", "Error" } }, true, {})
+        end
+    end,
+})
