@@ -75,6 +75,31 @@ vim.g.CompileJavaProject = function()
     return 0
 end
 
+vim.g.FormatCode = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    -- vim.lsp.buf.format({timeout_ms = 5000})
+    vim.lsp.buf.format({ async = false })
+    if next(vim.lsp.get_clients { bufnr = bufnr, method = "textDocument/codeAction" }) ~= nil then
+        local kind = "source.organizeImports"
+        if vim.bo.filetype == "python" then
+            kind = "source.organizeImports.ruff"
+        end
+
+        local has_ca = false
+        vim.lsp.buf.code_action {
+            context = { only = { kind } },
+            filter = function(x)
+                if not has_ca then
+                    has_ca = true
+                    return true
+                end
+                return false
+            end,
+            apply = true,
+        }
+    end
+end
+
 vim.g.JavaBuildClassPath = function()
     local current_buffer_path = vim.api.nvim_buf_get_name(0)
     local cmd = {
