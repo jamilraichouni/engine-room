@@ -38,6 +38,8 @@ RUN dnf --refresh -y install \
   openssh-server \
   passwd \
   pkg-config \
+  # `procps-ng` comes with `ps`
+  procps-ng \
   # `psmisc` comes with `killall`
   psmisc \
   # to mount cloud drives (e. g. GoogleDrive)
