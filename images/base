@@ -96,10 +96,10 @@ RUN touch /home/nerd/.zshrc && \
 ENV NPM_DIR=/home/nerd/.local/share/npm
 RUN [[ -d ${NPM_DIR} ]] || mkdir -p ${NPM_DIR}
 
-# yarn
+# yarn, gh-actions-language-server
 RUN zsh -c "source /home/nerd/.nvm/nvm.sh && \
   nvm use default && \
-  npm install -g --prefix ${NPM_DIR} yarn"
+  npm install -g --prefix ${NPM_DIR} gh-actions-language-server yarn"
 # }}}
 
 # hadolint (Dockerfile linter) {{{
