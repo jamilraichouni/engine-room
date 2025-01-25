@@ -1,0 +1,42 @@
+{
+    "get_element_by_id": {
+        "body": [
+            "document.getElementById('')"
+        ],
+        "description": "Get an element by its id",
+        "prefix": [
+            "getElementById",
+            "document.getElementById"
+        ]
+    },
+    "classList-add": {
+        "body": [
+            "classList.add('${1:className}')"
+        ],
+        "description": "Add a class to an element's class list",
+        "prefix": [
+            "class (add to class list)",
+            "add class to class list"
+        ]
+    },
+    "classList-remove": {
+        "body": [
+            "classList.remove('${1:className}')"
+        ],
+        "description": "Remove a class from an element's class list",
+        "prefix": [
+            "class (remove from class list)",
+            "remove class from class list"
+        ]
+    },
+    "classList-toggle": {
+        "body": [
+            "classList.toggle('${1:className}')"
+        ],
+        "description": "Toggle a class in an element's class list",
+        "prefix": [
+            "class (toggle in class list)",
+            "toggle class in class list"
+        ]
+    }
+}
