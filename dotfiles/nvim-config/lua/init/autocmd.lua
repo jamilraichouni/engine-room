@@ -1,8 +1,5 @@
 vim.g.augroup_jar = vim.api.nvim_create_augroup("augroup_jar", { clear = true })
 
--- https://github.com/nvim-treesitter/nvim-treesitter/issues/1337#issuecomment-1397639999
-vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx", })
-
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "*" },
