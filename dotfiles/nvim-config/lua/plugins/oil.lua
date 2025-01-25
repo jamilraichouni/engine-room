@@ -17,7 +17,7 @@ return {
                 cleanup_delay_ms = false, -- default is 2000, 300000 is 5 minutes
                 constrain_cursor = "name",
                 buf_options = {
-                    buflisted = true,
+                    buflisted = false,
                     bufhidden = "hide",
                 },
                 win_options = {
