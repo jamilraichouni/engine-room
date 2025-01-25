@@ -402,6 +402,8 @@ return {
                 }
             }
 
+            lspconfig.gh_actions_ls.setup({})
+
             -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/html.lua
             lspconfig.html.setup({
                 cmd = { "vscode-html-language-server", "--stdio" },
