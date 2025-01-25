@@ -185,16 +185,13 @@ return {
                     "dockerls",
                     "efm",
                     "html",
-                    "htmx",
                     "jdtls",
                     "jinja_lsp",
                     "jsonls",
                     "lua_ls",
                     "ruff",
                     "sqlls",
-                    "tailwindcss",
                     "taplo",
-                    "ts_ls",
                     "yamlls",
                 },
                 handlers = {
@@ -319,7 +316,7 @@ return {
                         },
                         javascript = {
                             {
-                                formatCommand = "prettier --parser babel --tab-width 4 --print-width 79",
+                                formatCommand = "prettier --parser babel --tab-width 2",
                                 formatStdin = true
                             }
                         },
@@ -350,6 +347,14 @@ return {
                         --         formatStdin = true
                         --     }
                         -- },
+                        -- markdown parser depends on npm pkg `remark-parse`
+                        -- https://github.com/remarkjs/remark/tree/main/packages/remark-parse
+                        markdown = {
+                            {
+                                formatCommand = "prettier --parser markdown --tab-width 2",
+                                formatStdin = true
+                            }
+                        },
                         xml = {
                             {
                                 formatCommand =
@@ -369,45 +374,6 @@ return {
             }
 
             lspconfig.gh_actions_ls.setup({})
-
-            -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/html.lua
-            lspconfig.html.setup({
-                cmd = { "vscode-html-language-server", "--stdio" },
-                filetypes = {
-                    -- "html",
-                    "xhtml"
-                },
-                init_options = {
-                    configurationSection = {
-                        "css",
-                        "html",
-                        "javascript"
-                    },
-                    embeddedLanguages = { css = true, javascript = true },
-                    settings = {
-                        css = {
-                            validate = true,
-                        },
-                        html = {
-                            format = {
-                                tabSize = 4,
-                                insertSpaces = true,
-                                enable = false,
-                                preserveNewLines = true,
-                                indentInnerHtml = true,
-                                indentScripts = "keep",
-                                wrapAttributes = "preserve-aligned",
-                                wrapLineLength = 80,
-                            },
-                            autoClosingTags = true,
-                            tagClosing = true,
-                        },
-                        javascript = {
-                            validate = true,
-                        },
-                    },
-                },
-            })
 
             lspconfig.jinja_lsp.setup({})
 
@@ -476,7 +442,7 @@ return {
                     },
                 },
             }
-            require('lspconfig').ruff.setup({
+            lspconfig.ruff.setup({
                 init_options = {
                     settings = {
                         lineLength = 79,
