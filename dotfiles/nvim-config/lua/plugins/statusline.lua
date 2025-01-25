@@ -162,7 +162,7 @@ return {
                     lualine_c = {
                         { "branch", icon = "", color = { fg = "#6f6f6f", gui = "bold" } },
                     },
-                    lualine_x = { "encoding", "fileformat", "filetype" },
+                    lualine_x = { "copilot", "encoding", "fileformat", "filetype" },
                     lualine_y = { "progress", {
                         function()
                             local venv = get_venv("CONDA_DEFAULT_ENV") or get_venv("VIRTUAL_ENV") or "-"
