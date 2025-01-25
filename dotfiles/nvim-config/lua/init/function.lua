@@ -13,7 +13,6 @@ local function get_last_modified_date(filepath)
     end
 end
 
-
 vim.g.CompilePackageAndDeployCapellaAddon = function()
     -- compile
     local result_code = vim.g.CompileJavaProject()
@@ -179,12 +178,13 @@ vim.g.SetCapellaVersion = function(version)
 end
 
 vim.g.WorkingTimesCompute = function()
+    -- save the modified working time buffer
     vim.api.nvim_command("write")
     local proc = vim.system(
-        { "python", "-m", "working_times" },
+        { "uv", "run", "python", "-m", "working_times" },
         {
             cwd = os.getenv("HOME") .. "/dev/github/working-times",
-            env = { PYENV_VERSION = "working-times" }
+            -- env = { PYENV_VERSION = "working-times" }
         }
     ):wait()
     if proc.code == 0 then
