@@ -17,6 +17,7 @@ dotfiles/ipython/*/db/dhist
 dotfiles/ipython/*/dhist
 dotfiles/kitty-config/mastersecret
 dotfiles/kube/cache/
+dotfiles/nvim-config/lazy-lock.json
 dotfiles/nvim-config/node_modules/
 dotfiles/pip/pip.conf
 dotfiles/vifm-config/vifminfo*
