@@ -5,8 +5,8 @@ return {
         build = ":TSUpdate",
         lazy = false,
         config = function()
-            vim.o.fdm = "expr"
-            vim.o.fde = "nvim_treesitter#foldexpr()"
+            vim.o.foldmethod = "expr"
+            vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
             require "nvim-treesitter.configs".setup {
                 auto_install = true,
