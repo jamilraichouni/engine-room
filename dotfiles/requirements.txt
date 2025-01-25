@@ -2,6 +2,7 @@ black
 click
 cookiecutter
 git+https://github.com/bretello/pdbpp.git@0.11.4
+gnureadline
 ipykernel
 ipython
 jupyter

@@ -3,13 +3,15 @@
 Install via ``git clone <URL>; pip install ./pdbpp``.
 
 """
+
 import atexit
 import os
 import pathlib
 import pdb
-import readline
 import sys
 import typing as t
+
+import gnureadline as readline  # type: ignore
 
 if pathlib.Path.home() not in sys.path:
     sys.path.insert(0, str(pathlib.Path.home()))
@@ -26,6 +28,7 @@ HIST_FILE = os.getenv("PDB_HIST_FILE", f"{XDG_CACHE_HOME}/python/pdb_history")
 HIST_SIZE = os.getenv("PDB_HIST_SIZE", "10000")
 HISTORY_FILE = pathlib.Path(HIST_FILE).expanduser().resolve()
 HISTORY_LENGTH = int(HIST_SIZE)
+
 
 # pylint:disable-next=no-member,too-few-public-methods
 class Config(pdb.DefaultConfig):  # type: ignore
