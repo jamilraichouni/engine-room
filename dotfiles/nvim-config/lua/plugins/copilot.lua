@@ -32,4 +32,8 @@ return {
         --     require("copilot").setup(opts)
         -- end,
     },
+    -- }}}
+    -- https://github.com/AndreM222/copilot-lualine {{{
+    { 'AndreM222/copilot-lualine' }
+    -- }}}
 }
