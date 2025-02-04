@@ -3,7 +3,6 @@ unalias -a
 # core:
 alias :q='exit'
 alias :qa='exit'
-alias cd='source ~/engine-room/dotfiles/zsh/bin/cd.zsh'
 alias venv-deactivate='source ~/engine-room/dotfiles/zsh/bin/deactivate-venv.zsh'
 if [[ "$(uname -o)" == *"Darwin"* ]]; then
   alias ls='ls --color';
