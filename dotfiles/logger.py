@@ -26,7 +26,7 @@ class ColoredFormatter(logging.Formatter):
             levelname_color = (
                 COLORS[levelname] + formatted_level_name + RESET_SEQ
             )
-            msg_color = COLORS[levelname] + msg + RESET_SEQ
+            msg_color = COLORS[levelname] + str(msg) + RESET_SEQ
         else:
             levelname_color = levelname
             msg_color = msg
