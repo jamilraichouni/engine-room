@@ -7,6 +7,9 @@ unalias -a && [[ -f $DOT/zsh/aliases.zsh ]] && . $DOT/zsh/aliases.zsh
 # fzf
 source <(fzf --zsh)
 
+# load custom functions
+. $DOT/zsh/funcs.zsh
+
 # venv handling with `cd` command
 function __python_venv_on_cd() {
   setopt local_options err_return

@@ -1,7 +1,6 @@
 if [ -x /usr/libexec/path_helper ]; then
 	eval `/usr/libexec/path_helper -s`
 fi
-. $DOT/zsh/funcs.zsh
 . $DOT/zsh/zsh.zsh
 
 # rust, cargo
