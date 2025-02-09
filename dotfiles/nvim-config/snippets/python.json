@@ -1065,6 +1065,13 @@
     "description": "Match a RegEx pattern",
     "prefix": ["re.match", "RegEx", "match", "Regular Expressions"]
   },
+  "redirect_response": {
+    "body": [
+      "fh.RedirectResponse(url=${1:ENDPOINT_NAME}.to())"
+    ],
+    "description": "Redirect response (FastHTML)",
+    "prefix": ["redirect_response (fasthtml)", "fasthtml (redirect_response)"]
+  },
   "ser (compare/ diff)": {
     "body": [
       "from pandas.testing import assert_series_equal",
