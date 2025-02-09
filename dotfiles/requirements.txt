@@ -1,4 +1,5 @@
 black
+cairosvg
 click
 cookiecutter
 git+https://github.com/bretello/pdbpp.git@0.11.4
