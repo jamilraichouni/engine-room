@@ -10,13 +10,17 @@
 .process_jobs.sh
 .python-version
 .run.sh
+
 # created by fasthtml apps
 .sesskey
+
 Session.vim
 __pycache__/
+
 data/*
 !data/.gitkeep
 !tests/data/
+
 dev/
 ipython/*/db/dhist
 ipython/*/dhist
