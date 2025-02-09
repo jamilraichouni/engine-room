@@ -1,0 +1,14 @@
+{
+    "co-author-github-wuestengecko": {
+        "body": [
+            "Co-authored-by: Martin Lehmann <martin.lehmann@deutschebahn.com>"
+        ],
+        "description": "Martin Lehmann as co-author of GitHub commit",
+        "prefix": [
+            "author-github-martin-lehmann",
+            "co-author-github-martin-lehmann",
+            "wuestengecko",
+            "martin"
+        ]
+    }
+}
