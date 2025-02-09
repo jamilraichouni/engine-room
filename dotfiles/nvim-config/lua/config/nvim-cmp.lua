@@ -83,7 +83,6 @@ cmp.setup({
             else
                 fallback() -- The fallback function sends an already mapped key. In this case, it's probably `<Tab>`.
             end
-            -- end, { "i", "s", "t" }),
         end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function()
             if cmp.visible() then
@@ -91,7 +90,6 @@ cmp.setup({
             elseif vim.fn["vsnip#jumpable"](-1) == 1 then
                 feedkey("<Plug>(vsnip-jump-prev)", "")
             end
-            -- end, { "i", "s", "t" }),
         end, { "i", "s" }),
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
