@@ -63,8 +63,54 @@ return {
         },
         config = function()
             local cmp = require("cmp")
-
+            local cmp_kinds = {
+                Class = "  ",
+                Color = "  ",
+                Constant = "  ",
+                Constructor = "  ",
+                Enum = "  ",
+                EnumMember = "  ",
+                Event = "  ",
+                Field = "  ",
+                File = "  ",
+                Folder = "  ",
+                Function = "  ",
+                Interface = "  ",
+                Keyword = "  ",
+                Method = "  ",
+                Module = "  ",
+                Operator = "  ",
+                Property = "  ",
+                Reference = "  ",
+                Snippet = "  ",
+                Struct = "  ",
+                Text = "  ",
+                TypeParameter = "  ",
+                Unit = "  ",
+                Value = "  ",
+                Variable = "  ",
+            }
+            local feedkey = function(key, mode)
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+            end
             cmp.setup({
+                formatting = {
+                    -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#how-to-add-visual-studio-code-codicons-to-the-menu
+                    format = function(_, vim_item)
+                        vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
+                        return vim_item
+                    end,
+                },
+                snippet = {
+                    expand = function(args)
+                        vim.fn["vsnip#anonymous"](args.body)
+                    end
+                },
+                -- snippet = {
+                --     expand = function(args)
+                --         vim.snippet.expand(args.body)
+                --     end,
+                -- },
                 sources = {
                     {
                         name = "buffer",
@@ -86,17 +132,26 @@ return {
 
                 },
                 mapping = cmp.mapping.preset.insert({
+                    ["<Tab>"] = cmp.mapping(function(fallback)
+                        if vim.fn["vsnip#available"](1) == 1 then
+                            feedkey("<Plug>(vsnip-expand-or-jump)", "")
+                        else
+                            fallback() -- The fallback function sends an already mapped key. In this case, it's probably `<Tab>`.
+                        end
+                    end, { "i", "s" }),
+                    ["<S-Tab>"] = cmp.mapping(function(fallback)
+                        if vim.fn["vsnip#jumpable"](-1) == 1 then
+                            feedkey("<Plug>(vsnip-jump-prev)", "")
+                        else
+                            fallback() -- The fallback function sends an already mapped key. In this case, it's probably `<Tab>`.
+                        end
+                    end, { "i", "s" }),
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-d>"] = cmp.mapping.scroll_docs(4),
+                    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 }),
-                snippet = {
-                    expand = function(args)
-                        vim.snippet.expand(args.body)
-                    end,
-                },
             })
-            require("config.nvim-cmp")
         end
     },
     -- }}}
