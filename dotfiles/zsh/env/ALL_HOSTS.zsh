@@ -17,7 +17,6 @@ export KEEPASS_DB_PASSWORD=$([[ -e /run/secrets/KEEPASS_DB_PASSWORD ]] && cat /r
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US:en:C
 export MANPAGER="nvim +Man! "
-export NPM_DIR=$HOME/.local/share/npm
 export NVM_DIR="$HOME/.nvm"
 export OPENAI_API_KEY=$([[ -e /run/secrets/OPENAI_API_KEY ]] && cat /run/secrets/OPENAI_API_KEY)
 export SHELL=/bin/zsh

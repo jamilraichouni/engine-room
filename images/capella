@@ -118,13 +118,9 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | b
 RUN touch /home/techuser/.zshrc && \
   zsh -c "source /home/techuser/.nvm/nvm.sh && nvm install --lts"
 
-# npm
-ENV NPM_DIR=/home/techuser/.local/share/npm
-RUN [[ -d ${NPM_DIR} ]] || mkdir -p ${NPM_DIR}
-
 # yarn
 RUN zsh -c "source /home/techuser/.nvm/nvm.sh && nvm use default && \
-  npm install -g --prefix ${NPM_DIR} yarn"
+  npm install -g yarn"
 # }}}
 
 # workspace setup {{{

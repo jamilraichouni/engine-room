@@ -92,15 +92,18 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | b
 RUN touch /home/nerd/.zshrc && \
   zsh -c "source /home/nerd/.nvm/nvm.sh && nvm install --lts"
 
-# npm
-ENV NPM_DIR=/home/nerd/.local/share/npm
-RUN [[ -d ${NPM_DIR} ]] || mkdir -p ${NPM_DIR}
-
 # yarn, gh-actions-language-server, remark-parse
 # `remark-parse` is needed to format Markdown files using `prettier`
 RUN zsh -c "source /home/nerd/.nvm/nvm.sh && \
   nvm use default && \
-  npm install -g --prefix ${NPM_DIR} gh-actions-language-server remark-parse yarn"
+  npm install -g \
+  elkjs \
+  gh-actions-language-server \
+  prettier \
+  prettier-plugin-jinja-template \
+  prettier-plugin-tailwindcss \
+  remark-parse \
+  yarn"
 # }}}
 
 # hadolint (Dockerfile linter) {{{

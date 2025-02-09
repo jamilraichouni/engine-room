@@ -20,14 +20,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
-# npm
-export NPM_DIR=$HOME/.local/share/npm # for nvim-lspconfig
-[[ -L $NPM_DIR ]] || [[ -d $NPM_DIR ]] || mkdir -p $NPM_DIR
-if [ -d /mnt/volume/data/npm ]; then
-    [[ -L $NPM_DIR ]] || (rm -rf $NPM_DIR && ln -s /mnt/volume/data/npm $NPM_DIR)
-fi
-$DOT/zsh/bin/pathprepend.zsh $NPM_DIR/bin
-
 # # docker
 # [[ -e /var/run/docker.sock ]] && sudo chmod 777 /var/run/docker.sock
 
