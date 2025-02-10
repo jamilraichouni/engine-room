@@ -83,7 +83,6 @@ alias vil='$EDITOR -c"Gclog"'
 alias vio='$EDITOR -c"Oil"'
 alias vis='([[ -f Session.vim ]] && $EDITOR -S) || $EDITOR'
 alias vit='$EDITOR -c"term" -c"startinsert"'
-alias wt='update_working_times'
 alias xmlgrep='grep --include="*.xml"'
 
 # git:
