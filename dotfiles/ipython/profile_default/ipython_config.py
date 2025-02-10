@@ -1,11 +1,11 @@
 # pylint: disable=undefined-variable,too-many-lines
 import os
-import sys
 import pathlib
+import sys
 
 from IPython.core.ultratb import VerboseTB
 
-VerboseTB._tb_highlight = "bg:#000000"
+VerboseTB.tb_highlight = "bg:#000000"
 
 c.InteractiveShell.warn_venv = False
 # Configuration file for ipython.
