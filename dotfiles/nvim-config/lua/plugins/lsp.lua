@@ -247,6 +247,7 @@ return {
                     "ruff",
                     "sqlls",
                     "taplo",
+                    "ts_ls",
                     "yamlls",
                 },
                 handlers = {
