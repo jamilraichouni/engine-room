@@ -11,6 +11,7 @@ line_profiler
 mccabe
 PyYAML
 pre-commit
+pre-commit-uv
 pydocstyle
 pyfzf
 pylint
