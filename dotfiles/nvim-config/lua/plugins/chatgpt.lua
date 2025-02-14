@@ -20,6 +20,17 @@ return {
             { "<leader>Bl", "<cmd>belowright vnew<cr><cmd>lua vim.g.startChat()<cr>" },
         },
         config = function()
+            -- "/mnt/volume/deepseek.token"
+            vim.g.vim_ai_token_file_path = "/mnt/volume/openai.token"
+
+            -- "https://api.deepseek.com/v1", "https://api.openai.com/v1/chat/completions"
+            -- local endpoint_url = "https://api.deepseek.com/v1"
+            local endpoint_url = "https://api.openai.com/v1/chat/completions"
+
+            -- "gpt-4o", "deepseek-chat"
+            -- local model = "deepseek-chat"
+            local model = "gpt-4o"
+
             local initial_chat_prompt = [[
 >>> system
 
@@ -32,8 +43,8 @@ follow the latest OpenAPI standard. ]]
             local chat_engine_cfg = {
                 engine = "chat",
                 options = {
-                    model = "gpt-4o",
-                    -- model = "o1-mini",
+                    endpoint_url = endpoint_url,
+                    model = model,
                     max_tokens = 0,
                     temperature = 0,
                     request_timeout = 20,
@@ -49,18 +60,17 @@ follow the latest OpenAPI standard. ]]
 >>> system
 
 You are going to play a role of a completion engine with following parameters:
-Task: Provide compact code/text completion, generation, transformation or explanation
-Topic: general programming and text editing
-Style: Plain result without any commentary, unless commentary is necessary or given in the prompt
+Task: Provide compact code/text completion, generation, transformation or explanation.
+Topic: General programming and text editing (Python, Shell, Lua, Neovim plugin development, GitHub actions, etc.)
+Style: Plain result without any commentary, unless commentary is necessary or given in the prompt.
 Audience: Users of text editor and programmers that need to transform/generate text
 ]]
 
-            local complete_engine_cfg = {
+            local complete_engine_cfg_chatgpt = {
                 engine = "chat",
                 options = {
-                    model = "gpt-4o",
-                    -- model = "o1-mini",
-                    endpoint_url = "https://api.openai.com/v1/chat/completions",
+                    endpoint_url = endpoint_url,
+                    model = model,
                     max_tokens = 0,
                     temperature = 0,
                     request_timeout = 20,
@@ -70,8 +80,8 @@ Audience: Users of text editor and programmers that need to transform/generate t
             }
 
             vim.g.vim_ai_chat = chat_engine_cfg
-            vim.g.vim_ai_complete = complete_engine_cfg
-            vim.g.vim_ai_edit = complete_engine_cfg
+            vim.g.vim_ai_complete = complete_engine_cfg_chatgpt
+            vim.g.vim_ai_edit = complete_engine_cfg_chatgpt
 
             vim.cmd("highlight link aichatRole Title")
             -- hightlight steps in gpt answers:
