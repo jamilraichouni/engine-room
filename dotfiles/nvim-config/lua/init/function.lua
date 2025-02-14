@@ -21,9 +21,7 @@ vim.g.CompilePackageAndDeployCapellaAddon = function()
     end
     -- package
     local cmd = {
-        "python",
-        "-m",
-        "capella_addons",
+        "capella-addons",
         "package",
         vim.g.JAVA_HOME,
         vim.g.capella_home
@@ -34,9 +32,7 @@ vim.g.CompilePackageAndDeployCapellaAddon = function()
     -- deploy
     if proc.code == 0 then
         cmd = {
-            "python",
-            "-m",
-            "capella_addons",
+            "capella-addons",
             "deploy",
             vim.g.capella_home
         }
@@ -102,9 +98,7 @@ end
 vim.g.JavaBuildClassPath = function()
     local current_buffer_path = vim.api.nvim_buf_get_name(0)
     local cmd = {
-        "python",
-        "-m",
-        "capella_addons",
+        "capella-addons",
         "build-classpath",
         "--java-execution-environment=" ..
         vim.g.JavaGetDefaultRuntime().name,
