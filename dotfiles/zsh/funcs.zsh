@@ -70,8 +70,9 @@ venv() {
   source .venv/bin/activate
   uv pip install --upgrade pip
   uv pip install -r $DOT/requirements.txt
+  uv tool install pre-commit --with pre-commit-uv --force-reinstall
   [[ -f pyproject.toml ]] && uv sync --inexact
   # python -m pip install --force-reinstall $HOME/dev/3rdparty/mypy_mypyc-wheels/wheelhouse/mypy-0.991-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl;
-  echo "/home/nerd/engine-room/dotfiles/" >$(realpath .venv/lib/python*)/site-packages/extendpath.pth
+  echo "$HOME/engine-room/dotfiles/" >$(realpath .venv/lib/python*)/site-packages/extendpath.pth
   echo "import logger" >$(realpath .venv/lib/python*)/site-packages/logger.pth
 }
