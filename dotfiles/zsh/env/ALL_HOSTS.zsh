@@ -31,7 +31,6 @@ export TZ=":/usr/share/zoneinfo/Europe/Berlin"
 export VISUAL=nvim
 export VOL=/mnt/volume
 
-export PATH=/home/nerd/.local/share/uv/python/cpython-3.12.8-linux-aarch64-gnu/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/go/bin:$PATH

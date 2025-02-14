@@ -29,6 +29,9 @@ RUN dnf --refresh -y install \
   maven \
   neovim \
   pip \
+  # `python3-devel` is needed to have `Python.h` (needed by `line_profiler`)
+  python3-devel \
+  python3.12-devel \
   openssl \
   # `pinentry` is needed for `gnupg` to work with `pass`
   pinentry \
@@ -37,7 +40,26 @@ RUN dnf --refresh -y install \
   ln -s /usr/bin/gcc /usr/bin/aarch64-linux-gnu-gcc  # fixes build of python's line_profiler
 # }}}
 
+# system python setup {{{
+COPY dotfiles/requirements.txt /tmp
+RUN python3 -m pip install -r /tmp/requirements.txt && \
+  rm /tmp/requirements.txt
+# }}}
+
+# uv setup {{{
+USER nerd
+ENV PATH="/home/nerd/.local/bin:${PATH}"
+ENV PYTHON_VERSION="3.12.8"
+COPY dotfiles/requirements.txt /tmp
+RUN curl -Lo /tmp/install.sh https://astral.sh/uv/install.sh && \
+  chmod +x /tmp/install.sh && \
+  UV_NO_MODIFY_PATH=1 sh /tmp/install.sh && \
+  rm /tmp/install.sh && \
+  uv python install ${PYTHON_VERSION}
+# }}}
+
 # Recent JDK {{{
+USER root
 RUN mkdir -p /usr/lib/jvm
 ADD build/${JDK_FILE}/ /usr/lib/jvm
 RUN mv /usr/lib/jvm/jdk-* /usr/lib/jvm/jdk && \
@@ -45,6 +67,7 @@ RUN mv /usr/lib/jvm/jdk-* /usr/lib/jvm/jdk && \
 # }}}
 
 # kubectl {{{
+USER root
 RUN mkdir -p /home/nerd/.kube && \
   chown $(id -u nerd):$(id -g nerd) /home/nerd/.kube && \
   chmod 700 /home/nerd/.kube && \
@@ -54,6 +77,7 @@ RUN mkdir -p /home/nerd/.kube && \
 # }}}
 
 # GNU Privacy Guard (GnuPG) and Mozilla Secrets OPerationS (SOPS)" {{{
+USER root
 RUN mkdir -p /home/nerd/.gnupg/private-keys-v1.d && \
   chown -R $(id -u nerd):$(id -g nerd) /home/nerd/.gnupg && \
   chmod -R 700 /home/nerd/.gnupg && \
@@ -62,6 +86,7 @@ RUN mkdir -p /home/nerd/.gnupg/private-keys-v1.d && \
 # }}}
 
 # oc - OpenShift Command Line Interface (CLI) {{{
+USER root
 COPY build/oc.tar /home/nerd
 RUN tar -xvf oc.tar && \
   mv oc /opt && ln -s /opt/oc /usr/local/bin && \
@@ -69,6 +94,7 @@ RUN tar -xvf oc.tar && \
 # }}}
 
 # act {{{
+USER root
 WORKDIR /tmp
 RUN curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash && \
   mv bin/act /opt && \
@@ -79,6 +105,7 @@ WORKDIR /home/nerd
 
 # OpenAPI Generator {{{
 # see https://github.com/OpenAPITools/openapi-generator
+USER root
 RUN curl -Lo /opt/openapi-generator.jar \
   https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/7.9.0/openapi-generator-cli-7.9.0.jar && \
   echo "java -jar /opt/openapi-generator.jar \$@" > /usr/local/bin/openapi-generator && \
@@ -107,30 +134,12 @@ RUN zsh -c "source /home/nerd/.nvm/nvm.sh && \
 # }}}
 
 # hadolint (Dockerfile linter) {{{
-RUN sudo curl -Lo \
+USER root
+RUN curl -Lo \
   /opt/hadolint https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-arm64 && \
-  sudo chmod +x /opt/hadolint && \
-  sudo ln -s /opt/hadolint /usr/local/bin/hadolint
-# }}}
-
-# python setup {{{
-USER nerd
-ENV PYTHON_VERSION="3.12.8"
-COPY dotfiles/requirements.txt /tmp
-RUN curl -Lo /tmp/install.sh https://astral.sh/uv/install.sh && \
-  chmod +x /tmp/install.sh && \
-  UV_NO_MODIFY_PATH=1 sh /tmp/install.sh && \
-  rm /tmp/install.sh && \
-  sudo ln -s /home/nerd/.local/bin/uv /usr/local/bin/uv && \
-  uv python install ${PYTHON_VERSION} && \
-  sudo ln -s $(uv python find ${PYTHON_VERSION}) /usr/local/bin/python3 && \
-  sudo ln -s /usr/local/bin/python3 /usr/local/bin/python && \
-  # hash to ensure, that python3 will use the correct version we symlinked above
-  hash -r && \
-  uv pip install --system --break-system-packages -r /tmp/requirements.txt && \
-  sudo rm /tmp/requirements.txt
+  chmod +x /opt/hadolint && \
+  ln -s /opt/hadolint /usr/local/bin/hadolint
 # }}}
 
 USER root
-
 ENTRYPOINT ["python3", "/home/nerd/engine-room/entrypoint.py"]
