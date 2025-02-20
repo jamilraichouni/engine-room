@@ -66,6 +66,15 @@ RUN mv /usr/lib/jvm/jdk-* /usr/lib/jvm/jdk && \
   if [ -e /usr/bin/java ]; then mv /usr/bin/java /usr/bin/java.system; fi
 # }}}
 
+# GNU Privacy Guard (GnuPG) and Mozilla Secrets OPerationS (SOPS)" {{{
+USER root
+RUN mkdir -p /home/nerd/.gnupg/private-keys-v1.d && \
+  chown -R $(id -u nerd):$(id -g nerd) /home/nerd/.gnupg && \
+  chmod -R 700 /home/nerd/.gnupg && \
+  dnf -y install \
+  https://github.com/getsops/sops/releases/download/v3.9.0/sops-3.9.0-1.$(uname -m).rpm
+# }}}
+
 # kubectl {{{
 USER root
 RUN mkdir -p /home/nerd/.kube && \
@@ -76,21 +85,18 @@ RUN mkdir -p /home/nerd/.kube && \
   chmod +x kubectl && mv kubectl /opt && ln -s /opt/kubectl /usr/local/bin
 # }}}
 
-# GNU Privacy Guard (GnuPG) and Mozilla Secrets OPerationS (SOPS)" {{{
-USER root
-RUN mkdir -p /home/nerd/.gnupg/private-keys-v1.d && \
-  chown -R $(id -u nerd):$(id -g nerd) /home/nerd/.gnupg && \
-  chmod -R 700 /home/nerd/.gnupg && \
-  dnf -y install \
-  https://github.com/getsops/sops/releases/download/v3.9.0/sops-3.9.0-1.$(uname -m).rpm
-# }}}
-
 # oc - OpenShift Command Line Interface (CLI) {{{
 USER root
 COPY build/oc.tar /home/nerd
 RUN tar -xvf oc.tar && \
   mv oc /opt && ln -s /opt/oc /usr/local/bin && \
   rm oc.tar
+# }}}
+
+# k3d and helm {{{
+USER root
+RUN curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash && \
+  curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 # }}}
 
 # act {{{
