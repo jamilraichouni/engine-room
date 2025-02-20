@@ -10,34 +10,13 @@ ENV SHELL=/bin/zsh
 
 # system pkg manager installs {{{
 RUN dnf --refresh -y install \
-  cargo \
-  ctags \
-  gcc \
-  gcc-c++ \
-  gdb \
-  gnupg \
-  golang \
-  icoutils \
   ImageMagick \
-  # to run `python -m engine-room build` command during development
   keepassxc \
-  # Command-line JSON processor
-  jq \
-  kitty-terminfo \
   luarocks \
-  make \
   maven \
   neovim \
-  pip \
-  # `python3-devel` is needed to have `Python.h` (needed by `line_profiler`)
-  python3-devel \
-  python3.12-devel \
-  openssl \
-  # `pinentry` is needed for `gnupg` to work with `pass`
-  pinentry \
   postgresql \
-  subversion && \
-  ln -s /usr/bin/gcc /usr/bin/aarch64-linux-gnu-gcc  # fixes build of python's line_profiler
+  subversion
 # }}}
 
 # system python setup {{{

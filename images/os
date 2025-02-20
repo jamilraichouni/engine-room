@@ -15,34 +15,53 @@ RUN rm installed
 
 # system pkg manager installs {{{
 RUN dnf --refresh -y install \
+  cargo \
   fontconfig \
-  # dependency of `rclone` (see below)
+  ctags \
+  # `fuse` is a dependency of `rclone` (see below)
   fuse \
   fzf \
+  gcc \
+  gcc-c++ \
+  gdb \
   git \
   git-lfs \
   git-subtree \
-  # `inotify-tools` comes with `inotifywait`
+  gnupg \
+  golang \
+  icoutils \
+  # `inotify-tools` to have `inotifywait`
   inotify-tools \
-  # `iputils` comes with `ping`
+  # `iputils` to have `ping`
   iputils \
-  # so that `icat` is available
+  # `jq` to have command line JSON processor
+  jq \
+  # `kitty` to have `icat`
   kitty \
+  kitty-terminfo \
   lsof \
+  make \
   # man pages datbase
   man-db \
   man-pages \
-  # `net-tools` comes with `netstat`
+  # `net-tools` to have `netstat`
   net-tools \
   openssh \
   openssh-server \
+  openssl \
   passwd \
+  # `pinentry` for `gnupg` to work with `pass`
+  pinentry \
+  pip \
   pkg-config \
-  # `procps-ng` comes with `ps`
+  # `procps-ng` to have `ps`
   procps-ng \
-  # `psmisc` comes with `killall`
+  # `psmisc` to have `killall`
   psmisc \
-  # to mount cloud drives (e. g. GoogleDrive)
+  # `python3-devel` to have `Python.h` (needed by `line_profiler`)
+  python3-devel \
+  python3.12-devel \
+  # `rclone` to mount cloud drives (e. g. GoogleDrive)
   rclone \
   rsync \
   # `strace` is a powerful diagnostic tool to trace system calls and signals
@@ -56,7 +75,8 @@ RUN dnf --refresh -y install \
   wget \
   which \
   zip \
-  zsh
+  zsh && \
+  ln -s /usr/bin/gcc /usr/bin/aarch64-linux-gnu-gcc  # fixes build of python's line_profiler
 # }}}
 
 # use zsh for RUN commands {{{
