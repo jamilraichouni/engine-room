@@ -293,6 +293,14 @@ return {
                 filetypes = { "sh", "zsh" }
             })
 
+            -- https://code.visualstudio.com/docs/languages/css
+            lspconfig.cssls.setup {
+                init_options = {
+                    -- we format using prettier
+                    provideFormatter = false,
+                },
+            }
+
             -- https://github.com/iamcco/diagnostic-languageserver
             lspconfig.diagnosticls.setup({
                 -- command = { "diagnostic-languageserver", "--stdio", "--log-level", "3" },
