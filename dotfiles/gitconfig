@@ -23,9 +23,12 @@
 [init]
     defaultBranch = main
 [pull]
+    ff = true
     rebase = false
 [merge]
     conflictstyle = diff3
+    ff = false
+    tool = nvimdiff
 [diff]
     tool = nvimdiff
 [nvimdiff]
