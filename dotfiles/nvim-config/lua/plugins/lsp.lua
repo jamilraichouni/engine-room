@@ -382,7 +382,7 @@ return {
                     languages = {
                         css = {
                             {
-                                formatCommand = "prettier --parser css --tab-width 4 --print-width 79",
+                                formatCommand = "prettier --parser css",
                                 formatStdin = true
                             }
                         },
