@@ -2,14 +2,15 @@
     "chat-options": {
         "body": [
             "[chat-options]",
-            "model=gpt-4o",
-            "temperature=0"
+            "model=${1:gpt-4o|o3-mini|o1}",
+            "temperature=0",
+            ""
         ],
-        "description": "ChatGPT configuration options",
+        "description": "ChatGPT configuration options to be placed before '>>> user'",
         "prefix": [
             "options",
-            "chat (options)",
-            "configuration"
+            "configuration",
+            "model"
         ]
     },
     "css": {
@@ -186,11 +187,11 @@
             ">>> system",
             "",
             "You are going to play a role of an expert in anything around the version control system Git",
-            "including GitLab and GitHub.",
+            "including GitLab and GitHub with GitHub action workflows.",
             "Task: Help with anything around Git which includes commands, configuration etc..",
             "Topic: Git version control.",
             "Style: Everything will be done in the console/ terminal.",
-            "Audience: Experienced professional Git users.",
+            "Audience: Experienced professional Git, GitLab, and GitHub users.",
             "",
             ">>> user",
             "",
@@ -455,7 +456,7 @@
             ">>> system",
             "",
             "You are going to play a role of an expert in anything around the programming language Python 3.13.",
-            "Task: Help with anything around Python and consider that I use pytest and always import modules and not classes or functions. Also note that I always type annotate my code and do `import typing as t`.",
+            "Task: Help with anything around Python and consider that I use pytest and always import modules and not classes or functions. Also note that I always type annotate my code.",
             "Topic: Programming language Python.",
             "Style: Plain precise result without any commentary, unless commentary is necessary or given in the prompt.",
             "Audience: Experienced professional Python developers.",
@@ -534,8 +535,8 @@
         "body": [
             ">>> system",
             "",
-            "You are going to play a role of an expert in anything around the CSS framework Tailwind CSS.",
-            "Task: Help with anything around Tailwind CSS.",
+            "You are going to play a role of an expert in anything around the CSS framework Tailwind CSS version 4.x.",
+            "Task: Help with anything around Tailwind CSS version 4 or higher.",
             "Topic: CSS framework Tailwind CSS.",
             "Style: Plain precise result without any commentary, unless commentary is necessary or given in the prompt.",
             "Audience: Experienced professional Tailwind CSS designers.",
