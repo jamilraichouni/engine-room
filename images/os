@@ -50,6 +50,8 @@ RUN dnf --refresh -y install \
   openssh-server \
   openssl \
   passwd \
+  # `patch` to apply patches to source code (e. g. from git diff)
+  patch \
   # `pinentry` for `gnupg` to work with `pass`
   pinentry \
   pip \
