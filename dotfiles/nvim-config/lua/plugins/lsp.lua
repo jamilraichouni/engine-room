@@ -299,6 +299,14 @@ return {
                     -- we format using prettier
                     provideFormatter = false,
                 },
+                settings = {
+                    css = {
+                        lint = {
+                            unknownAtRules = "ignore",
+                        },
+                        validate = true,
+                    },
+                }
             }
 
             -- https://github.com/iamcco/diagnostic-languageserver
