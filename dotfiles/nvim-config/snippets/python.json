@@ -1097,8 +1097,7 @@
   },
   "sort list of dictionaries": {
     "body": [
-      "from operator import itemgetter",
-      "${1:MY_LIST_NAME} = sorted(${1:MY_LIST_NAME}, key=itemgetter(\"name\"), reverse=False)"
+      "${1:MY_LIST_NAME} = sorted(${1:MY_LIST_NAME}, key=lambda x: x${2:.attribute}, reverse=False)"
     ],
     "description": "Sort list of dicts",
     "prefix": ["list_of_dicts_sort", "sort_list_of_dicts"]
