@@ -65,6 +65,15 @@ Topic: General programming and text editing (Python, Shell, Lua, Neovim plugin d
 Style: Plain result without any commentary, unless commentary is necessary or given in the prompt.
 Audience: Users of text editor and programmers that need to transform/generate text
 ]]
+            local edit_initial_prompt = [[
+>>> system
+
+You are going to play a role of a completion engine that replaces (edits) given software code or text with following parameters:
+Task: Provide compact code/ text replacements or improvements.
+Topic: General programming and text editing (Python, Shell, Lua, Neovim plugin development, GitHub actions, etc.)
+Style: Plain result without any commentary, unless commentary is necessary or given in the prompt. Do never surround resulting code with '```python' and '```' or similar markers. Keep the indentation of the prompt (number of blanks at the start will be kept).
+Audience: Users of text editor and programmers that need to transform/generate text
+]]
 
             local complete_engine_cfg_chatgpt = {
                 engine = "chat",
@@ -78,10 +87,22 @@ Audience: Users of text editor and programmers that need to transform/generate t
                     initial_prompt = complete_initial_prompt,
                 },
             }
+            local edit_engine_cfg_chatgpt = {
+                engine = "chat",
+                options = {
+                    endpoint_url = endpoint_url,
+                    model = model,
+                    max_tokens = 0,
+                    temperature = 0,
+                    request_timeout = 20,
+                    selection_boundary = "",
+                    initial_prompt = edit_initial_prompt,
+                },
+            }
 
             vim.g.vim_ai_chat = chat_engine_cfg
             vim.g.vim_ai_complete = complete_engine_cfg_chatgpt
-            vim.g.vim_ai_edit = complete_engine_cfg_chatgpt
+            vim.g.vim_ai_edit = edit_engine_cfg_chatgpt
 
             vim.cmd("highlight link aichatRole Title")
             -- hightlight steps in gpt answers:
