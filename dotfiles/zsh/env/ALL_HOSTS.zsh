@@ -26,6 +26,9 @@ fi
 if [[ "$(uname -o)" != *"Darwin"* ]]; then
   export TERM=xterm-kitty
   export TERMINFO=/usr/share/terminfo
+  sudo chmod 666 /run/secrets/GITLAB_PAT
+  sudo chmod 666 /run/secrets/KEEPASS_DB_PASSWORD
+  sudo chmod 666 /run/secrets/OPENAI_API_KEY
 fi
 export TZ=":/usr/share/zoneinfo/Europe/Berlin"
 export VISUAL=nvim
