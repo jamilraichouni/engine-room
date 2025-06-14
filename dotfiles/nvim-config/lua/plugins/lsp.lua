@@ -450,7 +450,7 @@ return {
             lspconfig.jinja_lsp.setup({})
 
             -- https://github.com/LuaLS/lua-language-server
-            -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
+            -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#lua_ls
             lspconfig.lua_ls.setup({
                 filetypes = { "lua" },
                 settings = {
@@ -524,7 +524,7 @@ return {
             })
 
             -- https://taplo.tamasfe.dev/cli/usage/language-server.html
-            -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#taplo
+            -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#taplo
             lspconfig.taplo.setup({})
 
             -- https://github.com/redhat-developer/yaml-language-server
