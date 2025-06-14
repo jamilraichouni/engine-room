@@ -73,12 +73,12 @@ vim.keymap.set("n", "<leader>Hk", "<cmd>new <bar> terminal htop<cr><cmd>startins
 vim.keymap.set("n", "<leader>Hl", "<cmd>belowright vnew <bar> terminal htop<cr><cmd>startinsert<cr>")
 
 -- ipython
-vim.keymap.set("n", "<leader>Ib", "<cmd>terminal ipython<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>It", "<cmd>tabedit term://ipython<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Ih", "<cmd>vnew <bar> terminal ipython<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Ij", "<cmd>belowright new <bar> terminal ipython<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Ik", "<cmd>new <bar> terminal ipython<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Il", "<cmd>belowright vnew <bar> terminal ipython<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Ib", "<cmd>terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>It", "<cmd>tabedit term://ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Ih", "<cmd>vnew <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Ij", "<cmd>belowright new <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Ik", "<cmd>new <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Il", "<cmd>belowright vnew <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
 
 -- python
 vim.keymap.set("n", "<leader>Pb", "<cmd>terminal python<cr><cmd>startinsert<cr>")
