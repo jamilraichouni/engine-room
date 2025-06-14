@@ -89,5 +89,6 @@ symlinks:
   $V/nvim/share: $H/.local/share/nvim
   $V/nvim/state: $H/.local/state/nvim
   $V/nvm: $H/.nvm  # Node Version Manager
+  $V/ollama: $H/.ollama
   $V/rustup: $H/.rustup
   $V/uv: $H/.local/share/uv

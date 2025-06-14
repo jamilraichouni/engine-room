@@ -126,5 +126,10 @@ RUN curl -Lo \
   ln -s /opt/hadolint /usr/local/bin/hadolint
 # }}}
 
+# ollama {{{
+USER root
+RUN curl -fsSL https://ollama.com/install.sh | sh
+# }}}
+
 USER root
 ENTRYPOINT ["python3", "/home/nerd/engine-room/entrypoint.py"]

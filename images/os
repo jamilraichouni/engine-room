@@ -39,6 +39,7 @@ RUN dnf --refresh -y install \
   # `kitty` to have `icat`
   kitty \
   kitty-terminfo \
+  lshw \
   lsof \
   make \
   # man pages datbase
