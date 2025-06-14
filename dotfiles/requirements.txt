@@ -1,15 +1,15 @@
+PyYAML
 black
 cairosvg
 click
 cookiecutter
-git+https://github.com/bretello/pdbpp.git@0.11.4
 gnureadline
 ipykernel
 ipython
 jupyter
 line_profiler
 mccabe
-PyYAML
+pdbpp
 pre-commit
 pre-commit-uv
 pydocstyle
