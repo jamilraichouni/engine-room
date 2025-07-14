@@ -40,6 +40,7 @@ export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=/opt/apache-maven/bin:$PATH
+export SSL_CERT_FILE=$HOME/engine-room/dotfiles/.allCAbundle.pem
 export UV_NO_SYNC=1
 
 [[ -f /etc/zshenv.secrets ]] && . /etc/zshenv.secrets
