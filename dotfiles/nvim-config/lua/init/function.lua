@@ -73,7 +73,7 @@ end
 vim.g.FormatCode = function()
     local bufnr = vim.api.nvim_get_current_buf()
     -- vim.lsp.buf.format({timeout_ms = 5000})
-    vim.lsp.buf.format({ async = false })
+    vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
     if next(vim.lsp.get_clients { bufnr = bufnr, method = "textDocument/codeAction" }) ~= nil then
         local kind = "source.organizeImports"
         if vim.bo.filetype == "python" then
