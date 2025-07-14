@@ -33,6 +33,8 @@ return {
                     "make",
                     "markdown",
                     "markdown_inline",
+                    "matlab",
+                    "mermaid",
                     "ninja",
                     "pem",
                     "perl",
