@@ -62,7 +62,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "**/snippets/*.json" },
     callback = function(_)
-        vim.cmd("setlocal foldmethod=expr")
         vim.cmd("setlocal foldlevel=1")
     end
 })
@@ -157,4 +156,142 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
             end
         end
     end
+})
+vim.api.nvim_create_autocmd({ "LspAttach" }, {
+    group = vim.g.augroup_jar,
+    callback = function(args)
+        local opts = { buffer = args.buf }
+        vim.keymap.set("n", "<leader>ltb", "<cmd>lua vim.lsp.buf.typehierarchy('subtypes')<cr>", opts)
+        vim.keymap.set("n", "<leader>ltp", "<cmd>lua vim.lsp.buf.typehierarchy('supertypes')<cr>", opts)
+        vim.keymap.set("n", "<leader>lS", "<cmd>lua require('jdtls').super_implementation()<cr>", opts)
+        local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+        if client:supports_method("textDocument/codeAction") then
+            vim.keymap.set("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+            vim.keymap.set("v", "<leader>la", "<cmd>lua vim.lsp.buf.range_code_action()<cr>", opts)
+        end
+        if client:supports_method("textDocument/defintion") then
+            vim.keymap.set("n", "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>z<cr>", opts)
+        end
+        if client:supports_method("textDocument/declaration") then
+            vim.keymap.set("n", "<leader>lc", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
+        end
+        if client:supports_method("textDocument/documentSymbol") then
+            vim.keymap.set("n", "<leader>lsd",
+                "<cmd>lua vim.lsp.buf.document_symbol()<cr><cmd>copen<cr><cmd>wincmd J<cr>",
+                opts)
+        end
+        if client:supports_method("textDocument/formatting") then
+            vim.keymap.set("n", "<leader>lf", "<cmd>lua vim.g.FormatCode()<cr>", opts)
+            vim.keymap.set("n", "<leader>lF", "<cmd>lua vim.lsp.buf.format({timeout_ms = 20000})<cr>", opts)
+        end
+        if client:supports_method("textDocument/hover") then
+            vim.keymap.set("n", "<leader>lh", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
+        end
+        if client:supports_method("textDocument/implementation") then
+            vim.keymap.set("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
+        end
+        if client:supports_method("textDocument/publishDiagnostics") then
+            vim.keymap.set("n", "<leader>lj",
+                "<cmd>lua vim.diagnostic.goto_next{wrap=false,popup_opts={border='single'}}<cr>", opts)
+            vim.keymap.set("n", "<leader>lk",
+                "<cmd>lua vim.diagnostic.goto_prev{wrap=false,popup_opts={border='single'}}<cr>", opts)
+            vim.keymap.set("n", "<leader>lp",
+                "<cmd>lua vim.diagnostic.open_float(nil, {scope = 'line', focus = true, focusable = true, focus_id = '1'})<cr>",
+                opts)
+            vim.keymap.set("n", "<leader>lP",
+                "<cmd>lua vim.diagnostic.open_float(nil, {scope = 'buffer', focus = true, focusable = true})<cr>",
+                opts)
+            vim.keymap.set("n", "<leader>dd",
+                "<cmd>lua vim.diagnostic.setqflist({open = true})<cr><cr><cmd>foldopen!<cr>", opts)
+            vim.keymap.set("n", "<leader>gg",
+                "<cmd>lua vim.diagnostic.setqflist({buffer = false})<cr><cr><cmd>foldopen!<cr>", opts)
+        end
+        if client:supports_method("textDocument/references") then
+            vim.keymap.set("n", "<leader>lr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
+        end
+        if client:supports_method("textDocument/rename") then
+            vim.keymap.set("n", "<leader>ln", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+        end
+        if client:supports_method("textDocument/typeDefinition") then
+            vim.keymap.set("n", "<leader>ltd", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
+        end
+        if client:supports_method("workspace/symbol") then
+            vim.keymap.set("n", "<leader>lsw", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", opts)
+        end
+    end
+})
+local sev_name = {
+    E = 'E', -- Error
+    W = 'W', -- Warning
+    I = 'I', -- Information
+    H = 'H', -- Hint
+}
+
+-- 2. the quick-fix formatting function ----------------------------
+--    (must be global so that the location list can see it)
+function _G.DiagnosticLoclistText(info)
+    local items = vim.fn.getloclist(info.winid,
+        { id = info.id, items = 0 }).items
+
+    local out = {}
+    for i = info.start_idx, info.end_idx do
+        local it      = items[i]
+        local udat    = it.user_data or {}
+        out[#out + 1] = string.format(
+            '%-7s │ %-10s │ %4d │ %s',
+            sev_name[it.type] or '',
+            udat.source or '',
+            it.lnum,
+            -- it.col,
+            -- vim.fn.fnamemodify(vim.api.nvim_buf_get_name(it.bufnr), ':~:.'),
+            it.text:gsub('[\n\r]', ' ')
+        )
+    end
+    return out
+end
+
+-- 3. function that rebuilds the list -------------------------------
+local function update_loclist(bufnr)
+    local diags = vim.diagnostic.get(bufnr)
+    if vim.tbl_isempty(diags) then
+        vim.fn.setloclist(0, {}, "r", { title = "Diagnostics", items = {} }) -- clear the location list
+        return
+    end                                                                      -- nothing to show
+
+    local items = {}
+    for _, d in ipairs(diags) do
+        items[#items + 1] = {
+            bufnr     = bufnr,
+            lnum      = d.lnum + 1,
+            col       = d.col + 1,
+            text      = d.message,
+            type      = ("EWHI"):sub(d.severity, d.severity), -- single-letter code
+            user_data = {                                     -- <-- extra information lives here
+                severity = d.severity,
+                source   = d.source or '',
+            },
+        }
+    end
+
+    -- Replace (r) the location list of the current window and attach
+    -- the custom text function defined above.
+    vim.fn.setloclist(0, {}, "r", {
+        title            = "Diagnostics",
+        items            = items,
+        quickfixtextfunc = "v:lua.DiagnosticLoclistText",
+    })
+
+    -- Open the list only once – if it is already open getloclist()
+    -- returns its window id instead of 0.
+    -- if vim.fn.getloclist(0, { winid = 0 }).winid == 0 then
+    --     vim.cmd.lopen()
+    -- end
+end
+
+vim.api.nvim_create_autocmd("DiagnosticChanged", {
+    group = vim.g.augroup_jar,
+    callback = function(ev)
+        -- ev.buf == buffer whose diagnostics changed
+        update_loclist(ev.buf)
+    end,
 })
