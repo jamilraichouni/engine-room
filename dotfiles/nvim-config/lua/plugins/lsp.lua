@@ -1,12 +1,4 @@
 return {
-    -- https://github.com/VonHeikemen/lsp-zero.nvim {{{
-    {
-        "VonHeikemen/lsp-zero.nvim",
-        branch = "v4.x",
-        lazy = true,
-        config = false,
-    },
-    -- }}}
     -- https://github.com/williamboman/mason.nvim {{{
     {
         "williamboman/mason.nvim",
@@ -164,7 +156,36 @@ return {
             { "hrsh7th/cmp-nvim-lsp" },
             { "williamboman/mason.nvim" },
             -- https://github.com/williamboman/mason-lspconfig.nvim
-            { "williamboman/mason-lspconfig.nvim" },
+            {
+                "williamboman/mason-lspconfig.nvim",
+                opts = {
+                    ensure_installed = {
+                        -- "actionlint",
+                        "angularls",
+                        "bashls",
+                        "cssls",
+                        "diagnosticls",
+                        "docker_compose_language_service",
+                        "dockerls",
+                        "efm",
+                        "html",
+                        -- "java-debug-adapter",
+                        "jdtls",
+                        "jinja_lsp",
+                        "jsonls",
+                        "lua_ls",
+                        -- "markdownlint",
+                        -- "prettier",
+                        "ruff",
+                        "sqlls",
+                        "taplo",
+                        "tailwindcss",
+                        "ts_ls",
+                        "ty",
+                        "yamlls",
+                    },
+                }
+            },
             {
                 -- https://github.com/mfussenegger/nvim-jdtls
                 "mfussenegger/nvim-jdtls",
@@ -182,87 +203,6 @@ return {
             },
         },
         config = function()
-            local lsp_zero = require("lsp-zero")
-
-            -- lsp_attach is where you enable features that only work
-            -- if there is a language server active in the file
-            local lsp_attach = function(_, bufnr)
-                local opts = { buffer = bufnr }
-                vim.keymap.set("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-                vim.keymap.set("v", "<leader>la", "<cmd>lua vim.lsp.buf.range_code_action()<cr>", opts)
-                vim.keymap.set("n", "<leader>lc", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
-                vim.keymap.set("n", "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>z<cr>", opts)
-                -- vim.keymap.set("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format({timeout_ms = 5000})<cr><cmd>Prettier<cr>", opts)
-                vim.keymap.set("n", "<leader>lf", "<cmd>lua vim.g.FormatCode()<cr>", opts)
-                vim.keymap.set("n", "<leader>lF", "<cmd>lua vim.lsp.buf.format({timeout_ms = 10000})<cr>", opts)
-                vim.keymap.set("n", "<leader>lh", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
-                vim.keymap.set("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
-                vim.keymap.set("n", "<leader>lj",
-                    "<cmd>lua vim.diagnostic.goto_next{wrap=false,popup_opts={border='single'}}<cr>", opts)
-                vim.keymap.set("n", "<leader>lk",
-                    "<cmd>lua vim.diagnostic.goto_prev{wrap=false,popup_opts={border='single'}}<cr>", opts)
-                vim.keymap.set("n", "<leader>ln", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-                vim.keymap.set("n", "<leader>lsd",
-                    "<cmd>lua vim.lsp.buf.document_symbol()<cr><cmd>copen<cr><cmd>wincmd J<cr>",
-                    opts)
-                vim.keymap.set("n", "<leader>lsw", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", opts)
-                vim.keymap.set("n", "<leader>ltd", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
-                vim.keymap.set("n", "<leader>ltb", "<cmd>lua vim.lsp.buf.typehierarchy('subtypes')<cr>", opts)
-                vim.keymap.set("n", "<leader>ltp", "<cmd>lua vim.lsp.buf.typehierarchy('supertypes')<cr>", opts)
-                vim.keymap.set("n", "<leader>lS", "<cmd>lua require('jdtls').super_implementation()<cr>", opts)
-                vim.keymap.set("n", "<leader>lp",
-                    "<cmd>lua vim.diagnostic.open_float(nil, {scope = 'line', focus = true, focusable = true, focus_id = '1'})<cr>",
-                    opts)
-                vim.keymap.set("n", "<leader>lP",
-                    "<cmd>lua vim.diagnostic.open_float(nil, {scope = 'buffer', focus = true, focusable = true})<cr>",
-                    opts)
-                vim.keymap.set("n", "<leader>lr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
-                vim.keymap.set("n", "<leader>dd",
-                    "<cmd>lua vim.diagnostic.setqflist({open = true})<cr><cr><cmd>foldopen!<cr>", opts)
-                vim.keymap.set("n", "<leader>gg",
-                    "<cmd>lua vim.diagnostic.setqflist({buffer = false})<cr><cr><cmd>foldopen!<cr>", opts)
-            end
-
-            lsp_zero.extend_lspconfig({
-                sign_text = true,
-                lsp_attach = lsp_attach,
-                capabilities = require("cmp_nvim_lsp").default_capabilities()
-            })
-
-            require("mason-lspconfig").setup({
-                automatic_installation = false,
-                ensure_installed = {
-                    "angularls",
-                    "bashls",
-                    "cssls",
-                    "diagnosticls",
-                    "docker_compose_language_service",
-                    "dockerls",
-                    "efm",
-                    "html",
-                    "jdtls",
-                    "jinja_lsp",
-                    "jsonls",
-                    "lua_ls",
-                    "ruff",
-                    "sqlls",
-                    "taplo",
-                    "ts_ls",
-                    "yamlls",
-                },
-                handlers = {
-                    -- this first function is the "default handler"
-                    -- it applies to every language server without a "custom handler"
-                    function(server_name)
-                        -- we setup jdtls in ftplugin/java.lua.
-                        -- hence, setup only when server_name is not "jdtls"
-                        if server_name == "jdtls" then
-                            return
-                        end
-                        require("lspconfig")[server_name].setup({})
-                    end,
-                }
-            })
             vim.diagnostic.config({
                 signs = true,
                 underline = true,
@@ -285,16 +225,17 @@ return {
                 local hl = "DiagnosticSign" .. type
                 vim.fn.sign_define(hl, { text = icon, texthl = hl })
             end
-            local lspconfig = require "lspconfig"
-            lspconfig.angularls.setup({})
+            -- local lspconfig = require "lspconfig"
+            vim.lsp.enable("angularls")
 
             -- https://github.com/bash-lsp/bash-language-server
-            lspconfig.bashls.setup({
-                filetypes = { "sh", "zsh" }
+            vim.lsp.config("bashls", {
+                filetypes = { "sh", "zsh" },
             })
+            vim.lsp.enable("bashls")
 
             -- https://code.visualstudio.com/docs/languages/css
-            lspconfig.cssls.setup {
+            vim.lsp.config("cssls", {
                 init_options = {
                     -- we format using prettier
                     provideFormatter = false,
@@ -307,75 +248,66 @@ return {
                         validate = true,
                     },
                 }
-            }
+            })
+            vim.lsp.enable("cssls")
 
             -- https://github.com/iamcco/diagnostic-languageserver
-            lspconfig.diagnosticls.setup({
-                -- command = { "diagnostic-languageserver", "--stdio", "--log-level", "3" },
-                filetypes = {
-                    -- "html",
-                    -- "jinja.html",
-                    "markdown",
-                },
-                init_options = {
-                    linters = {
-                        markdownlint = {
-                            -- https://github.com/igorshubovych/markdownlint-cli
-                            command = "markdownlint",
-                            sourceName = "markdownlint",
-                            args = { "--stdin", "--disable MD013 MD034", "-" },
-                            isStdout = false,
-                            isStderr = true,
-                            -- parseJson = {
-                            --     -- to see some example:
-                            --     -- cat /path/to/file | flake8 --format=json -
-                            --     errorsRoot = "",
-                            --     sourceName = "markdownlint",
-                            --     line = "kineNumber",
-                            --     column = "errorRange[0]",
-                            --     security = "ruleNames[0]",
-                            --     message = "[flake8] ${text} [${code}]",
-                            -- },
-                            formatLines = 1,
-                            formatPattern = {
-                                "^stdin:(\\d+):?(\\d+)? (\\w+)/([\\w\\-\\/]+) (.+)$",
-                                {
-                                    line = 1,
-                                    column = 2,
-                                    message = { "[", 3, "] ", 5 },
-                                    security = 3
-                                }
-                            },
-                        },
-                    },
-                    -- formatters = {
-                    --     djlint = {
-                    --         command = "strace",
-                    --         args = { "-o", "/tmp/strace", "-e trace=djlint --profile=jinja --reformat %file" },
-                    --         isStdout = true,
-                    --         isStderr = false,
-                    --         rootPatterns = { "pyproject.toml" },
-                    --         ignore = { ".git" },
-                    --         ignoreExitCode = false
-                    --     },
-                    -- },
-                    filetypes = {
-                        -- filetype to linter(s) mapping:
-                        markdown = { "markdownlint" }
-                    },
-                    -- formatFiletypes = {
-                    --     -- filetype to formatter(s) mapping:
-                    --     ["html"] = { "djlint" },
-                    --     ["jinja.html"] = { "djlint" }
-                    -- }
-                }
-            })
+            -- vim.lsp.config["diagnosticls"] = {
+            --     cmd = { "diagnostic-languageserver", "--stdio" },
+            --     filetypes = {
+            --         "markdown",
+            --     },
+            --     init_options = {
+            --         linters = {
+            --             markdownlint = {
+            --                 -- https://github.com/igorshubovych/markdownlint-cli
+            --                 command = "markdownlint",
+            --                 sourceName = "markdownlint",
+            --                 -- args = { "--stdin", "--disable MD013 MD034", "-" },
+            --                 isStdout = false,
+            --                 isStderr = true,
+            --                 -- parseJson = {
+            --                 --     -- to see some example:
+            --                 --     -- cat /path/to/file | flake8 --format=json -
+            --                 --     errorsRoot = "",
+            --                 --     sourceName = "markdownlint",
+            --                 --     line = "kineNumber",
+            --                 --     column = "errorRange[0]",
+            --                 --     security = "ruleNames[0]",
+            --                 --     message = "[flake8] ${text} [${code}]",
+            --                 -- },
+            --                 formatLines = 1,
+            --                 formatPattern = {
+            --                     "^stdin:(\\d+):?(\\d+)? (\\w+)/([\\w\\-\\/]+) (.+)$",
+            --                     {
+            --                         line = 1,
+            --                         column = 2,
+            --                         message = { "[", 3, "] ", 5 },
+            --                         security = 3
+            --                     }
+            --                 },
+            --             },
+            --         },
+            --         filetypes = {
+            --             -- filetype to linter(s) mapping:
+            --             markdown = { "markdownlint" }
+            --         },
+            --     }
+            -- }
+            -- vim.lsp.enable("diagnosticls")
 
             -- https://github.com/rcjsuen/dockerfile-language-server-nodejs
-            lspconfig.dockerls.setup({})
+            vim.lsp.enable("dockerls")
 
             -- https://github.com/mattn/efm-langserver
-            lspconfig.efm.setup {
+            local prettier_jinja_cfg = {
+                {
+                    formatCommand =
+                    'prettier --parser jinja-template --tab-width 4 --print-width 79 --single-attribute-per-line --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-tailwindcss/dist/index.mjs" --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-jinja-template/lib/index.js"',
+                    formatStdin = true
+                },
+            }
+            vim.lsp.config["efm"] = {
                 init_options = { documentFormatting = true },
                 settings = {
                     rootMarkers = { ".git/" },
@@ -394,28 +326,24 @@ return {
                         },
                         json = {
                             {
-                                formatCommand = "prettier --parser json --tab-width 4 --print-width 79",
+                                formatCommand = "prettier --parser json --tab-width 2 --print-width 79",
                                 formatStdin = true
                             }
                         },
-                        -- html = {
-                        --     {
-                        --         formatCommand =
-                        --         'prettier --parser html --tab-width 4 --print-width 79 --single-attribute-per-line --plugin "$NPM_DIR/lib/node_modules/prettier-plugin-tailwindcss/dist/index.mjs"',
-                        --         formatStdin = true
-                        --     }
-                        -- },
-                        ["jinja.html"] = {
+                        html = {
                             {
                                 formatCommand =
-                                'prettier --parser jinja-template --tab-width 4 --print-width 79 --single-attribute-per-line --plugin "$NPM_DIR/lib/node_modules/prettier-plugin-tailwindcss/dist/index.mjs" --plugin "$NPM_DIR/lib/node_modules/prettier-plugin-jinja-template/lib/index.js"',
+                                'prettier --parser html --tab-width 4 --print-width 79 --single-attribute-per-line --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-tailwindcss/dist/index.mjs"',
                                 formatStdin = true
-                            },
+                            }
                         },
+                        ["jinja.html"] = prettier_jinja_cfg,
+                        j2 = prettier_jinja_cfg,
+                        jinja = prettier_jinja_cfg,
                         -- sh = {
                         --     {
                         --         formatCommand =
-                        --         'prettier --parser sh --tab-width 2 --print-width 79 --plugin "$NPM_DIR/lib/node_modules/prettier-plugin-sh/lib/index.js"',
+                        --         'prettier --parser sh --tab-width 2 --print-width 79 --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-sh/lib/index.js"',
                         --         formatStdin = true
                         --     }
                         -- },
@@ -430,28 +358,44 @@ return {
                         xml = {
                             {
                                 formatCommand =
-                                'prettier --parser xml --tab-width 4 --print-width 79 --plugin "$NPM_DIR/lib/node_modules/@prettier/plugin-xml/src/plugin.js"',
+                                'prettier --parser xml --tab-width 4 --print-width 79 --plugin "$NVM_BIN/../lib/node_modules/@prettier/plugin-xml/src/plugin.js"',
                                 formatStdin = true
                             }
                         },
                         -- zsh = {
                         --     {
                         --         formatCommand =
-                        --         'prettier --parser sh --tab-width 2 --print-width 79 --plugin "$NPM_DIR/lib/node_modules/prettier-plugin-sh/lib/index.js"',
+                        --         'prettier --parser sh --tab-width 2 --print-width 79 --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-sh/lib/index.js"',
                         --         formatStdin = true
                         --     }
                         -- },
                     }
                 }
             }
+            vim.lsp.enable("efm")
 
-            lspconfig.gh_actions_ls.setup({})
+            vim.lsp.enable("gh_actions_ls")
 
-            lspconfig.jinja_lsp.setup({})
+            vim.filetype.add {
+                extension = {
+                    ["jinja.html"] = "jinja",
+                    j2 = "jinja",
+                    jinja = "jinja",
+                    jinja2 = "jinja",
+                },
+            }
+
+            vim.lsp.enable("jinja_lsp")
+            vim.lsp.config["jsonls"] = {
+                init_options = {
+                    provideFormatter = false,
+                },
+            }
+            vim.lsp.enable("jsonls")
 
             -- https://github.com/LuaLS/lua-language-server
             -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#lua_ls
-            lspconfig.lua_ls.setup({
+            vim.lsp.config["lua_ls"] = {
                 filetypes = { "lua" },
                 settings = {
                     Lua = {
@@ -475,8 +419,10 @@ return {
                         },
                     },
                 },
-            })
-            lspconfig.pylsp.setup {
+            }
+            vim.lsp.enable("lua_ls")
+            vim.lsp.enable("marksman")
+            vim.lsp.config["pylsp"] = {
                 cmd = { "pylsp" },
                 flags = {
                     debounce_text_changes = 500,
@@ -508,28 +454,57 @@ return {
                             -- pyls_black = { enabled = true, executable = "black" },
                             black = { enabled = false, line_length = 79, timeout = 10 }, -- https://github.com/python-lsp/python-lsp-black
                             isort = { enabled = false },
-                            mypy = { enabled = true },                                   -- https://github.com/python/mypy, https://github.com/python-lsp/pylsp-mypy
+                            mypy = { enabled = false },                                  -- https://github.com/python/mypy, https://github.com/python-lsp/pylsp-mypy
                             yapf = { enabled = false },
                         },
                     },
                 },
             }
-            lspconfig.ruff.setup({
+            vim.lsp.enable("pylsp")
+            vim.lsp.config["ruff"] = {
                 init_options = {
                     settings = {
                         lineLength = 79,
                         showSyntaxErrors = true
                     }
                 }
-            })
+            }
+            vim.lsp.enable("ruff")
+            vim.lsp.config["tailwindcss"] = {
+                filetypes = {
+                    "css",
+                    "django-html",
+                    "gohtml",
+                    "gohtmltmpl",
+                    "html",
+                    "html-eex",
+                    "htmlangular",
+                    "htmldjango",
+                    "javascript",
+                    "javascriptreact",
+                    "jinja",
+                    "less",
+                    "markdown",
+                    "php",
+                    "postcss",
+                    "sass",
+                    "scss",
+                    "svelte",
+                    "templ",
+                    "typescript",
+                    "typescriptreact",
+                    "vue",
+                }
+            }
+            vim.lsp.enable("tailwindcss")
 
             -- https://taplo.tamasfe.dev/cli/usage/language-server.html
             -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#taplo
-            lspconfig.taplo.setup({})
-
+            vim.lsp.enable("taplo")
+            vim.lsp.enable("ty")
             -- https://github.com/redhat-developer/yaml-language-server
             local home = os.getenv("HOME")
-            lspconfig.yamlls.setup({
+            vim.lsp.config["yamlls"] = {
                 settings = {
                     completion = {
                         enable = true,
@@ -555,7 +530,8 @@ return {
                     schemaDownload = { enable = true },
                     -- trace = { server = "verbose" },
                 }
-            })
+            }
+            vim.lsp.enable("yamlls")
             vim.lsp.set_log_level("warn") -- error, warn, info, or debug
         end
     }
