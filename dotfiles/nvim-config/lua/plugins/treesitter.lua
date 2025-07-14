@@ -58,7 +58,7 @@ return {
                     enable = true,
                     disable = function(lang, buf)
                         if lang == "csv" or -- because of https://github.com/mechatroner/rainbow_csv
-                            lang == "json" or lang == "json5" then
+                            lang =="jinja" or lang == "json" or lang == "json5" then
                             return true
                         end
                         local max_filesize = 100 * 1024 -- 100 KB
