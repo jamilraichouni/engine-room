@@ -77,6 +77,7 @@ vim.keymap.set("n", "<leader>Ib", "<cmd>terminal ipython<cr><cmd>silent! file te
 vim.keymap.set("n", "<leader>It", "<cmd>tabedit term://ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>Ih", "<cmd>vnew <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>Ij", "<cmd>belowright new <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>IJ", "<cmd>belowright new <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>wincmd J<cr><cmd>resize 25<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>Ik", "<cmd>new <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>Il", "<cmd>belowright vnew <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
 
