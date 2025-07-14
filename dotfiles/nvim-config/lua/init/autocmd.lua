@@ -55,6 +55,11 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 })
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
+    pattern = { "**/vim-ai-roles.ini" },
+    command = "setlocal wrap"
+})
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+    group = vim.g.augroup_jar,
     pattern = { "**/snippets/*.json" },
     callback = function(_)
         vim.cmd("setlocal foldmethod=expr")

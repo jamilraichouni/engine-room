@@ -5,23 +5,24 @@ end
 return {
     -- https://github.com/madox2/vim-ai (ChatGPT in Neovim) {{{
     {
-        "Konfekt/vim-ai",
-        commit = "f2990a5adbfd107324493e7cf84c002a3e989402",
-        cmd = { "AI", "AIChat", "AIEdit", "AINewChat", "AIRedo" },
+        "madox2/vim-ai",
+        cmd = { "AI", "AIChat", "AIEdit", "AINewChat", "AIRedo", "AIUtilRolesOpen", "AIUtilDebugOff", "AIUtilDebugOn" },
         ft = "aichat",
         keys = {
             { "<leader>bc", "<cmd>normal zt<cr><cmd>AIChat<cr>" },
             { "<leader>br", "<cmd>AIRedo<cr>" },
-            { "<leader>Bt", "<cmd>tabnew<cr><cmd>lua vim.g.startChat()<cr>" },
-            { "<leader>Bb", "<cmd>belowright new<cr><cmd>wincmd k<cr><cmd>close<cr><cmd>lua vim.g.startChat()<cr>" },
-            { "<leader>Bh", "<cmd>vnew<cr><cmd>lua vim.g.startChat()<cr>" },
-            { "<leader>Bj", "<cmd>bel new<cr><cmd>lua vim.g.startChat()<cr>" },
-            { "<leader>Bk", "<cmd>new<cr><cmd>lua vim.g.startChat()<cr>" },
-            { "<leader>Bl", "<cmd>belowright vnew<cr><cmd>lua vim.g.startChat()<cr>" },
+            { "<leader>Bt", "<cmd>AIC /t<cr>" },
+            { "<leader>Bb", "<cmd>AIC /b<cr>" },
+            { "<leader>Bh", "<cmd>AIC /h<cr>" },
+            { "<leader>Bj", "<cmd>AIC /j<cr>" },
+            { "<leader>Bk", "<cmd>AIC /k<cr>" },
+            { "<leader>Bl", "<cmd>AIC /l<cr>" },
         },
         config = function()
-            -- "/mnt/volume/deepseek.token"
-            vim.g.vim_ai_token_file_path = "/mnt/volume/openai.token"
+            vim.g.vim_ai_debug = 0
+            vim.g.vim_ai_debug_log_file = "/tmp/vim_ai_debug.log"
+            vim.g.vim_ai_roles_config_file = os.getenv("HOME") .. "/.config/nvim/vim-ai-roles.ini"
+            -- vim.g.vim_ai_token_file_path = "/mnt/volume/openai.token"
 
             -- "https://api.deepseek.com/v1", "https://api.openai.com/v1/chat/completions"
             -- local endpoint_url = "https://api.deepseek.com/v1"
@@ -100,9 +101,9 @@ Audience: Users of text editor and programmers that need to transform/generate t
                 },
             }
 
-            vim.g.vim_ai_chat = chat_engine_cfg
-            vim.g.vim_ai_complete = complete_engine_cfg_chatgpt
-            vim.g.vim_ai_edit = edit_engine_cfg_chatgpt
+            -- vim.g.vim_ai_chat = chat_engine_cfg
+            -- vim.g.vim_ai_complete = complete_engine_cfg_chatgpt
+            -- vim.g.vim_ai_edit = edit_engine_cfg_chatgpt
 
             vim.cmd("highlight link aichatRole Title")
             -- hightlight steps in gpt answers:
@@ -116,16 +117,16 @@ Audience: Users of text editor and programmers that need to transform/generate t
             vim.api.nvim_create_autocmd({ "FileType" }, {
                 group = vim.g.augroup_jar,
                 pattern = { "aichat" },
-                command = "call matchadd('aichat_user', '^>>> user')",
+                command = "call matchadd('Special', '^>>> user\\|^>>> include\\|^>>> exec')",
             })
-            vim.cmd.highlight("aichat_user", "guifg=#ff0008 guibg=#1e1e1e")
+            -- vim.cmd.highlight("aichat_user", "guifg=#ff0008 guibg=#1e1e1e")
 
             vim.api.nvim_create_autocmd({ "FileType" }, {
                 group = vim.g.augroup_jar,
                 pattern = { "aichat" },
-                command = "call matchadd('aichat_assistant', '^<<< assistant')",
+                command = "call matchadd('Constant', '^<<< assistant')",
             })
-            vim.cmd.highlight("aichat_assistant", "guifg=#00f900 guibg=#1e1e1e")
+            -- vim.cmd.highlight("aichat_assistant", "guifg=#00f900 guibg=#1e1e1e")
 
             function ChatGPTEclipsePluginExpertFn()
                 local prompt = "I have a question about Eclipse plugin development."
