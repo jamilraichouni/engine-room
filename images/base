@@ -37,6 +37,18 @@ RUN curl -Lo /tmp/install.sh https://astral.sh/uv/install.sh && \
   uv python install ${PYTHON_VERSION}
 # }}}
 
+# Recent Neovim {{{
+USER root
+WORKDIR /tmp
+RUN curl -Lo /tmp/nvim-linux-arm64.tar.gz \
+  https://github.com/neovim/neovim/releases/download/v0.11.2/nvim-linux-arm64.tar.gz && \
+  tar xvzf /tmp/nvim-linux-arm64.tar.gz && \
+  mv nvim-linux-arm64 /opt/nvim && \
+  ln -s /opt/nvim/bin/nvim /usr/local/bin/nvim && \
+  rm /tmp/nvim-linux-arm64.tar.gz
+WORKDIR /home/nerd
+# }}}
+
 # Recent JDK {{{
 USER root
 RUN mkdir -p /usr/lib/jvm
