@@ -77,6 +77,7 @@ alias termcolors='for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}
 alias tree='tree -C'
 alias vi='$EDITOR'
 alias vib="vi -c'setlocal filetype=aichat' -c'startinsert'"
+alias vic="$EDITOR -c'terminal claude' -c'startinsert'"
 alias vid='$EDITOR -c"TabooRename dev" -c"bel new +terminal" -c"wincmd k" -c"tabe +G" -c"TabooRename Git" -c"1tabn"'
 alias vig='$EDITOR -c"G"'
 alias vil='$EDITOR -c"Gclog"'

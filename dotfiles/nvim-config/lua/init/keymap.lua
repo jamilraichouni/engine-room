@@ -64,6 +64,14 @@ vim.keymap.set("n", "<leader>en", "<cmd>let @\" = fnamemodify(expand('%:t'), ':.
 -- }}}
 
 -- aliases {{{
+-- claude
+vim.keymap.set("n", "<leader>Cb", "<cmd>terminal claude<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Ct", "<cmd>tabedit term://claude<bar>startinsert<cr>")
+vim.keymap.set("n", "<leader>Ch", "<cmd>vnew <bar> terminal claude<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Cj", "<cmd>belowright new <bar> terminal claude<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Ck", "<cmd>new <bar> terminal claude<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Cl", "<cmd>belowright vnew <bar> terminal claude<cr><cmd>startinsert<cr>")
+
 -- htop
 vim.keymap.set("n", "<leader>Hb", "<cmd>terminal htop<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>Ht", "<cmd>tabedit term://htop<bar>startinsert<cr>")
