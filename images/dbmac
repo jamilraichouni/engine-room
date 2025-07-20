@@ -3,17 +3,6 @@ LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
 ARG USERMAP_UID
 ARG USERMAP_GID
 
-# Capella and Capelle Studio versions we use {{{
-COPY --from=engine-room:fedora-capella /usr/local/bin/capella* /usr/local/bin/
-COPY --from=engine-room:fedora-capella /opt/capella_6.0.0 /opt/capella_6.0.0
-COPY --from=engine-room:fedora-capella /opt/capella_7.0.0 /opt/capella_7.0.0
-
-# COPY --from=engine-room:fedora-capella /opt/capella_studio_6.1.0 /opt/capella_studio_6.1.0
-COPY --from=engine-room:fedora-capella /opt/capella_studio_7.0.0 /opt/capella_studio_7.0.0
-
-COPY --from=engine-room:fedora-capella /var/log/capella* /var/log/
-# }}}
-
 # JDKs for Capella plugin development {{{
 # for Capella 6.0.0 and 6.1.0
 ADD build/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.6_10.tar.gz /usr/lib/jvm
@@ -21,11 +10,7 @@ ADD build/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.6_10.tar.gz /usr/lib/jvm
 ADD build/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.11_9.tar.gz /usr/lib/jvm
 # }}}
 
-# ownership and permissions {{{
-RUN chown -R ${USERMAP_UID}:${USERMAP_GID} /opt/capella* && \
-  chown ${USERMAP_UID}:${USERMAP_GID} /var/log/capella*.log && \
-  chmod 666 /var/log/capella*.log
-# }}}
+# Create a directory for Google Drive mount point
 RUN mkdir -p /mnt/googledrive && \
   chown $USERMAP_UID:$USERMAP_GID /mnt/googledrive
 
