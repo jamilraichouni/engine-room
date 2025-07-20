@@ -14,7 +14,6 @@ RUN dnf --refresh -y install \
   keepassxc \
   luarocks \
   maven \
-  neovim \
   postgresql \
   subversion
 # }}}
@@ -41,7 +40,7 @@ RUN curl -Lo /tmp/install.sh https://astral.sh/uv/install.sh && \
 USER root
 WORKDIR /tmp
 RUN curl -Lo /tmp/nvim-linux-arm64.tar.gz \
-  https://github.com/neovim/neovim/releases/download/v0.11.2/nvim-linux-arm64.tar.gz && \
+  https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-arm64.tar.gz && \
   tar xvzf /tmp/nvim-linux-arm64.tar.gz && \
   mv nvim-linux-arm64 /opt/nvim && \
   ln -s /opt/nvim/bin/nvim /usr/local/bin/nvim && \
