@@ -198,12 +198,9 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
             vim.keymap.set("n", "<leader>lp",
                 "<cmd>lua vim.diagnostic.open_float(nil, {scope = 'line', focus = true, focusable = true, focus_id = '1'})<cr>",
                 opts)
-            vim.keymap.set("n", "<leader>lP",
-                "<cmd>lua vim.diagnostic.open_float(nil, {scope = 'buffer', focus = true, focusable = true})<cr>",
-                opts)
-            vim.keymap.set("n", "<leader>dd",
-                "<cmd>lua vim.diagnostic.setqflist({open = true})<cr><cr><cmd>foldopen!<cr>", opts)
-            vim.keymap.set("n", "<leader>gg",
+            vim.keymap.set("n", "<leader>lo", "<cmd>lopen<cr><cmd>wincmd k<cr>", opts)
+            vim.keymap.set("n", "<leader>lc", "<cmd>lclose<cr>", opts)
+            vim.keymap.set("n", "<leader>WS",
                 "<cmd>lua vim.diagnostic.setqflist({buffer = false})<cr><cr><cmd>foldopen!<cr>", opts)
         end
         if client:supports_method("textDocument/references") then
