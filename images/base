@@ -111,7 +111,7 @@ RUN curl -Lo /opt/openapi-generator.jar \
 # nvm, node, npm, yarn and Node packages {{{
 USER nerd
 # https://github.com/nvm-sh/nvm/releases
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 RUN touch /home/nerd/.zshrc && \
   zsh -c "source /home/nerd/.nvm/nvm.sh && nvm install --lts"
 
