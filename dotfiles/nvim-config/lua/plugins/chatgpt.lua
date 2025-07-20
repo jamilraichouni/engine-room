@@ -12,7 +12,7 @@ return {
             { "<leader>bc", "<cmd>normal zt<cr><cmd>AIChat<cr>" },
             { "<leader>br", "<cmd>AIRedo<cr>" },
             { "<leader>Bt", "<cmd>AIC /t<cr>" },
-            { "<leader>Bb", "<cmd>AIC /b<cr>" },
+            { "<leader>Bb", "<cmd>below new<cr><cmd>wincmd k<cr><cmd>close<cr><cmd>lua vim.g.startChat()<cr>" },
             { "<leader>Bh", "<cmd>AIC /h<cr>" },
             { "<leader>Bj", "<cmd>AIC /j<cr>" },
             { "<leader>Bk", "<cmd>AIC /k<cr>" },
@@ -22,7 +22,7 @@ return {
             vim.g.vim_ai_debug = 0
             vim.g.vim_ai_debug_log_file = "/tmp/vim_ai_debug.log"
             vim.g.vim_ai_roles_config_file = os.getenv("HOME") .. "/.config/nvim/vim-ai-roles.ini"
-            -- vim.g.vim_ai_token_file_path = "/mnt/volume/openai.token"
+            -- vim.g.vim_ai_token_file_path = "/mnt/volume/secrets/openai.token"
 
             -- "https://api.deepseek.com/v1", "https://api.openai.com/v1/chat/completions"
             -- local endpoint_url = "https://api.deepseek.com/v1"
