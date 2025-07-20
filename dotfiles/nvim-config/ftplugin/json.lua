@@ -9,8 +9,8 @@ vim.g.json_fold_text = function()
     local indent = string.rep(" ", vim.fn.indent(vim.v.foldstart))
     return string.format("%s\"%s\" (%d lines)", indent, key, num_lines, key)
 end
-vim.cmd.setlocal("foldtext=g:json_fold_text()")
-vim.cmd.setlocal("foldmethod=indent")
+vim.opt_local.foldtext = "g:json_fold_text()"
+vim.opt_local.foldmethod = "indent"
 vim.o.expandtab = true -- blanks instead of tab
 vim.o.shiftwidth = 2
 vim.o.softtabstop = 2

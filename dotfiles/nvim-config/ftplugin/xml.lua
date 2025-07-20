@@ -5,4 +5,4 @@ vim.g.xml_fold_text = function()
     local indent = string.rep(" ", vim.fn.indent(vim.v.foldstart))
     return string.format("%s<%s> (%d lines)", indent, tag, num_lines, tag)
 end
-vim.cmd.setlocal("foldtext=g:xml_fold_text()")
+vim.opt_local.foldtext = "g:xml_fold_text()"
