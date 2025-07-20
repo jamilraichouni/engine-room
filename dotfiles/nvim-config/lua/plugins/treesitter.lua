@@ -48,6 +48,7 @@ return {
                     "pymanifest",
                     "python",
                     "rst",
+                    "scala",
                     "scss",
                     "toml",
                     "typescript",
