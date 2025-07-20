@@ -1,0 +1,14 @@
+*.egg
+*.egg-info/
+*.pyc
+*.pyd
+*.pyo
+.eggs/
+.mypy_cache/
+.venv/
+/3rdparty/*
+__pycache__/
+eggs/
+node_modules/
+python-wheels/
+wheels/
