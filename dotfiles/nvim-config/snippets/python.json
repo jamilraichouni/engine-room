@@ -348,7 +348,10 @@
     ]
   },
   "dir_all": {
-    "body": ["for member_name in dir(${MY_OBJECT}):", "    print(member_name)"],
+    "body": [
+      "for member_name in dir(${MY_OBJECT}):",
+      "    print(member_name)"
+    ],
     "description": "dir() for all members",
     "prefix": ["dir (all)"]
   },
@@ -576,7 +579,10 @@
   "jinja (anchor reference link)": {
     "body": ["{{ template.anchor_href(${1:ID_STRING}, ${2:LABEL}) }}"],
     "description": "Jinja anchor reference link {{ ... }}",
-    "prefix": ["jinja (anchor reference link)", "anchor reference link (jinja)"]
+    "prefix": [
+      "jinja (anchor reference link)",
+      "anchor reference link (jinja)"
+    ]
   },
   "jinja (expression)": {
     "body": ["{{ $1 }}"],
@@ -811,9 +817,7 @@
     "prefix": ["lineprofiler", "profile code"]
   },
   "pylint-disable-next": {
-    "body": [
-      "# pylint: disable-next=${1:<PYLINT_MESSAGE_CODE>}"
-    ],
+    "body": ["# pylint: disable-next=${1:<PYLINT_MESSAGE_CODE>}"],
     "description": "Disable a pylint message for next line",
     "prefix": [
       "pylint (skip next line)",
@@ -874,7 +878,10 @@
     ]
   },
   "pylint (no-self-use)": {
-    "body": ["# pylint: disable=no-self-use", "# pylint: enable=no-self-use$1"],
+    "body": [
+      "# pylint: disable=no-self-use",
+      "# pylint: enable=no-self-use$1"
+    ],
     "description": "Disable and then enable no-self-use pylint message inline",
     "prefix": ["pylint (no-self-use)", "no-self-use (pylint)"]
   },
@@ -892,7 +899,10 @@
       "# pylint: enable=redefined-outer-name$1"
     ],
     "description": "Disable and then enable redefined-outer-name pylint message inline",
-    "prefix": ["pylint (redefined-outer-name)", "redefined-outer-name (pylint)"]
+    "prefix": [
+      "pylint (redefined-outer-name)",
+      "redefined-outer-name (pylint)"
+    ]
   },
   "pylint (too-many-lines)": {
     "body": [
@@ -1066,9 +1076,7 @@
     "prefix": ["re.match", "RegEx", "match", "Regular Expressions"]
   },
   "redirect_response": {
-    "body": [
-      "fh.RedirectResponse(url=${1:ENDPOINT_NAME}.to())"
-    ],
+    "body": ["fh.RedirectResponse(url=${1:ENDPOINT_NAME}.to())"],
     "description": "Redirect response (FastHTML)",
     "prefix": ["redirect_response (fasthtml)", "fasthtml (redirect_response)"]
   },
