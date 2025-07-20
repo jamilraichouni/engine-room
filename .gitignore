@@ -12,6 +12,7 @@ dotfiles/.oh-my-zsh/
 dotfiles/Session.vim
 dotfiles/__pycache__/
 dotfiles/bat/cache/
+dotfiles/claude/.credentials.json
 dotfiles/github-copilot/apps.json
 dotfiles/ipython/*/db/dhist
 dotfiles/ipython/*/dhist
