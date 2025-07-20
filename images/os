@@ -101,7 +101,7 @@ RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf && \
 # }}}
 
 # Install nerd font {{{
-ARG FONT_URL=https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/SourceCodePro.tar.xz
+ARG FONT_URL=https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/SourceCodePro.tar.xz
 RUN FONT_FILE=$(basename ${FONT_URL} | rev | cut -d/ -f1 | rev) && \
   mkdir -p /usr/local/share/fonts && \
   curl -Lo /usr/local/share/fonts/${FONT_FILE} ${FONT_URL} && \
