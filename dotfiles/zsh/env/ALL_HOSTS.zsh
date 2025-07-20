@@ -9,7 +9,6 @@ export ER=$HOME/engine-room
 export FZF_CTRL_T_OPTS='--color="fg+:#ffffff,fg:#608b4e,hl:#ff0000,hl+:#ff0000" --history-size=10000 --preview="bat --style=changes,header,numbers --color=always {}"'
 export FZF_DEFAULT_OPTS='--color="fg+:#ffffff,fg:#608b4e,hl:#ff0000,hl+:#ff0000" --history-size=10000'
 export GITLAB_PAT=$([[ -e /run/secrets/GITLAB_PAT ]] && cat /run/secrets/GITLAB_PAT)
-# set HISTFILE to /mnt/volume/zsh_history if the directory /mnt/volume exists, else set it to ~/.zsh_history
 [[ -d /mnt/volume ]] && export HISTFILE=/mnt/volume/zsh_history || export HISTFILE=$HOME/.zsh_history
 export JAVA_HOME=/usr/lib/jvm/jdk
 export JQ_COLORS="1;36:0;39:0;39:0;39:0;32:1;39:1;39"
@@ -40,6 +39,7 @@ export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=/opt/apache-maven/bin:$PATH
+export PATH=$(realpath $HOME/.nvm/versions/node/v*/bin):$PATH
 export SSL_CERT_FILE=$HOME/engine-room/dotfiles/.allCAbundle.pem
 export UV_NO_SYNC=1
 
