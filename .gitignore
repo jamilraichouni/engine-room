@@ -1,4 +1,5 @@
 *.log
+*.pem
 .env
 __pycache__/
 build/OpenJDK*
