@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
         vim.fn.matchadd('LogCritical', '.*20.*CRITICAL.*')
     end
 })
-vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "**/engine-room/images/*" },
     callback = function(_)
