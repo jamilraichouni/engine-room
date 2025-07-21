@@ -158,8 +158,7 @@ def _decompose_version(version: str) -> dict[str, t.Optional[str]]:
     version = version.strip()
     if re.match(SOFTWARE_VERSION_PATTERN, version) is None:
         raise ValueError(
-            "Cannot decompose software version information from "
-            f"'{version}'!"
+            f"Cannot decompose software version information from '{version}'!"
         )
     _version: dict[str, t.Optional[str]] = {
         "major": None,
