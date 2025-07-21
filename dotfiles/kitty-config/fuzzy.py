@@ -13,7 +13,7 @@ sys.path.insert(
     0, str(Path.home() / ".pyenv/versions/3.12.6/lib/python3.12/site-packages")
 )
 try:
-    from pyfzf.pyfzf import FzfPrompt  # noqa
+    from pyfzf.pyfzf import FzfPrompt  # type: ignore[import]
 except Exception as exp:
     msg = (
         "Cannot find 'pyfzf' module."
@@ -26,7 +26,7 @@ except Exception as exp:
     )
     raise RuntimeError(msg) from exp
 
-from kitty.boss import Boss, which
+from kitty.boss import Boss, which  # type: ignore[import]
 
 GOOGLE_DRIVE_PATH = (
     Path.home()
