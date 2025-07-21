@@ -2,12 +2,12 @@
 
 import json
 import os
+import pathlib
 import re
 import subprocess
 import sys
 import typing as t
 import webbrowser
-from pathlib import Path
 
 sys.path.insert(
     0, str(Path.home() / ".pyenv/versions/3.12.6/lib/python3.12/site-packages")
@@ -29,22 +29,22 @@ except Exception as exp:
 from kitty.boss import Boss, which  # type: ignore[import]
 
 GOOGLE_DRIVE_PATH = (
-    Path.home()
+    pathlib.Path.home()
     / "Library/CloudStorage/GoogleDrive-raichouni@gmail.com/My Drive"
 )
 ASSETS_PATH = GOOGLE_DRIVE_PATH / "assets"
 DB_PATH = GOOGLE_DRIVE_PATH / "jamil.kdbx"
 FZF_EXE = "/usr/local/bin/fzf"
-if not Path(FZF_EXE).is_file():
+if not pathlib.Path(FZF_EXE).is_file():
     FZF_EXE = "/usr/sbin/fzf"
 KEEPASSXC_EXE = (
-    Path.home() / "Applications/"
-    "KeePassXC.app/Contents/MacOS/keepassxc-cli"
+    pathlib.Path.home()
+    / "Applications/KeePassXC.app/Contents/MacOS/keepassxc-cli"
 )
-if not Path(KEEPASSXC_EXE).is_file():
-    KEEPASSXC_EXE = "keepassxc-cli"
+if not KEEPASSXC_EXE.is_file():
+    KEEPASSXC_EXE = pathlib.Path("keepassxc-cli")
 MASTER_SECRET = (
-    Path(Path.home() / "engine-room/secrets/keepass_jamil")
+    (pathlib.Path.home() / "engine-room/secrets/keepass_jamil")
     .read_text(encoding="utf8")
     .replace("\n", "")
 )
@@ -71,7 +71,7 @@ def _attr_value_of_secret(
         attr_name = option
     val = None
     cmd = [
-        KEEPASSXC_EXE,
+        str(KEEPASSXC_EXE),
         "show",
         "--quiet",
     ]
@@ -264,7 +264,7 @@ def _python_pkg_version(name: str) -> t.Optional[str]:
         python: t.Optional[str] = which("python")
         if python is None:
             return None
-        python_interpreter: str = str(Path(python).resolve())
+        python_interpreter: str = str(pathlib.Path(python).resolve())
         output = subprocess.check_output(
             [
                 python_interpreter,
@@ -308,7 +308,7 @@ def _select_keepass_secret(option: str) -> t.Optional[str]:
     secret: t.Optional[str] = None
     stdout, stderr = subprocess.Popen(
         [
-            KEEPASSXC_EXE,
+            str(KEEPASSXC_EXE),
             "ls",
             "--quiet",
             "--recursive",
@@ -374,7 +374,7 @@ def main(args: list[str]) -> t.Optional[str]:
             "out of 'bookmark', 'file', 'password', 'url', 'user'."
         )
         return None
-    if not Path(FZF_EXE).exists():
+    if not pathlib.Path(FZF_EXE).exists():
         _error(f"Cannot find FZF at '{FZF_EXE}'!")
         return None
     if (secret := _select_keepass_secret(option)) is None:
