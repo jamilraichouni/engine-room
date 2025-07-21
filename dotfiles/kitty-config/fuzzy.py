@@ -44,7 +44,7 @@ KEEPASSXC_EXE = (
 if not Path(KEEPASSXC_EXE).is_file():
     KEEPASSXC_EXE = "keepassxc-cli"
 MASTER_SECRET = (
-    Path(Path.home() / ".config/kitty/mastersecret")
+    Path(Path.home() / "engine-room/secrets/keepass_jamil")
     .read_text(encoding="utf8")
     .replace("\n", "")
 )

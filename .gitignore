@@ -17,7 +17,6 @@ dotfiles/claude/
 dotfiles/github-copilot/apps.json
 dotfiles/ipython/*/db/dhist
 dotfiles/ipython/*/dhist
-dotfiles/kitty-config/mastersecret
 dotfiles/kube/cache/
 dotfiles/nvim-config/lazy-lock.json
 dotfiles/nvim-config/node_modules/
