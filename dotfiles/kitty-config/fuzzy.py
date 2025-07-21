@@ -10,7 +10,14 @@ import typing as t
 import webbrowser
 
 sys.path.insert(
-    0, str(Path.home() / ".pyenv/versions/3.12.6/lib/python3.12/site-packages")
+    0,
+    str(
+        pathlib.Path.home()
+        / (
+            ".local/share/uv/python/cpython-3.12.8-macos-aarch64-none"
+            "/lib/python3.12/site-packages"
+        )
+    ),
 )
 try:
     from pyfzf.pyfzf import FzfPrompt  # type: ignore[import]
