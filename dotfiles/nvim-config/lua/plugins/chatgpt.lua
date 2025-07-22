@@ -19,6 +19,7 @@ return {
             { "<leader>Bl", "<cmd>AIC /l<cr>" },
         },
         config = function()
+            vim.g.vim_ai_async_chat=0
             vim.g.vim_ai_debug = 0
             vim.g.vim_ai_debug_log_file = "/tmp/vim_ai_debug.log"
             vim.g.vim_ai_roles_config_file = os.getenv("HOME") .. "/.config/nvim/vim-ai-roles.ini"
