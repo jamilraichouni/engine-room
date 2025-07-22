@@ -20,6 +20,13 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     group = vim.g.augroup_jar,
+    pattern = { ".env" },
+    callback = function(_)
+        vim.b.copilot_enabled = false
+    end
+})
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+    group = vim.g.augroup_jar,
     pattern = { "*.class" },
     callback = function(_)
         if vim.bo.filetype == "java" then
