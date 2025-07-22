@@ -11,6 +11,13 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         end
     end,
 })
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+    group = vim.g.augroup_jar,
+    pattern = { "*.py" },
+    callback = function(args)
+        vim.wo.foldlevel = 0
+    end,
+})
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "*.class" },

@@ -5,4 +5,3 @@ vim.g.python_fold_text = function()
 end
 vim.o.foldtext = "g:python_fold_text()"
 vim.opt_local.colorcolumn = { "72", "79" }
-vim.wo.foldlevel = 0
