@@ -5,6 +5,7 @@
 *.pyo
 .eggs/
 .mypy_cache/
+.ruff_cache/
 .venv/
 /3rdparty/*
 __pycache__/
