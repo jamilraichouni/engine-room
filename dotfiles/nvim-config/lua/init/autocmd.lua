@@ -1,5 +1,18 @@
 vim.g.augroup_jar = vim.api.nvim_create_augroup("augroup_jar", { clear = true })
 
+function colorize_logs()
+    vim.cmd.highlight("LogDebug", "guifg=#767676")
+    vim.cmd.highlight("LogWarning", "guifg=#c6c43f")
+    vim.cmd.highlight("LogError", "guifg=#bb281b")
+    vim.cmd.highlight("LogCritical", "guifg=#bb281b")
+    -- Below, the `20` matches the century of the datetime stamp in a log file.
+    vim.fn.matchadd('LogDebug', '.*20.*DEBUG.*')
+    vim.fn.matchadd('Special', '.*20.*INFO.*')
+    vim.fn.matchadd('LogWarning', '.*20.*WARNING.*')
+    vim.fn.matchadd('LogError', '.*20.*ERROR.*')
+    vim.fn.matchadd('LogCritical', '.*20.*CRITICAL.*')
+end
+
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "*" },
@@ -29,21 +42,23 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
         -- vim.cmd.edit()
     end
 })
+-- Create an empty Lua function `colorize_logs`:
+
+
+
+
+
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "*.log" },
     callback = function(_)
-        vim.cmd.highlight("LogDebug", "guifg=#767676")
-        vim.cmd.highlight("LogInfo", "guifg=#5fc83b")
-        vim.cmd.highlight("LogWarning", "guifg=#c6c43f")
-        vim.cmd.highlight("LogError", "guifg=#bb281b")
-        vim.cmd.highlight("LogCritical", "guifg=#bb281b")
-        -- Below, the `20` matches the century of the datetime stamp in a log file.
-        vim.fn.matchadd('LogDebug', '.*20.*DEBUG.*')
-        vim.fn.matchadd('LogInfo', '.*20.*INFO.*')
-        vim.fn.matchadd('LogWarning', '.*20.*WARNING.*')
-        vim.fn.matchadd('LogError', '.*20.*ERROR.*')
-        vim.fn.matchadd('LogCritical', '.*20.*CRITICAL.*')
+        colorize_logs()
+    end
+})
+vim.api.nvim_create_autocmd({ "TermOpen"}, {
+    group = vim.g.augroup_jar,
+    callback = function(_)
+        colorize_logs()
     end
 })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
