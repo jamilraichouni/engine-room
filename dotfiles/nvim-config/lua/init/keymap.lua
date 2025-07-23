@@ -42,7 +42,7 @@ vim.keymap.set("n", "<leader>Doc", "<cmd>tabnew $DOT/JARDOC.md<cr>", { silent = 
 
 -- working times
 vim.keymap.set("n", "<leader>Ewt",
-    "<cmd>tabnew ~/dev/github/working-times/data/working_times.csv<bar>TSBufDisable highlight<cr>", { silent = true })
+    "<cmd>tabnew ~/dev/github/working-times/data/working_times.csv<cr><cmd>TSBufDisable highlight<cr>", { silent = true })
 -- }}}
 
 -- current file attrs with and without line number {{{
