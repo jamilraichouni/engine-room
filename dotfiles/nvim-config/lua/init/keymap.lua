@@ -65,12 +65,13 @@ vim.keymap.set("n", "<leader>en", "<cmd>let @\" = fnamemodify(expand('%:t'), ':.
 
 -- aliases {{{
 -- claude
-vim.keymap.set("n", "<leader>Cb", "<cmd>terminal claude<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Ct", "<cmd>tabedit term://claude<bar>startinsert<cr>")
-vim.keymap.set("n", "<leader>Ch", "<cmd>vnew <bar> terminal claude<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Cj", "<cmd>belowright new <bar> terminal claude<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Ck", "<cmd>new <bar> terminal claude<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Cl", "<cmd>belowright vnew <bar> terminal claude<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Cb", "<cmd>terminal claude<cr><cmd>silent! file term://claude<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Ct", "<cmd>tabedit term://claude<cr><cmd>silent! file term://claude<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Ch", "<cmd>vnew<cr><cmd>terminal claude<cr><cmd>silent! file term://claude<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Cj", "<cmd>belowright new<cr><cmd>terminal claude<cr><cmd>silent! file term://claude<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Ck", "<cmd>new<cr><cmd>terminal claude<cr><cmd>silent! file term://claude<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>CK", "<cmd>new<cr><cmd>terminal claude<cr><cmd>wincmd K<cr><cmd>resize 10<cr><cmd>silent! file term://claude<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Cl", "<cmd>belowright vnew<cr><cmd>terminal claude<cr><cmd>silent! file term://claude<cr><cmd>startinsert<cr>")
 
 -- top
 vim.keymap.set("n", "<leader>Pb", "<cmd>terminal top<cr><cmd>silent! file term://top<cr><cmd>startinsert<cr>")
@@ -83,22 +84,22 @@ vim.keymap.set("n", "<leader>Pl", "<cmd>belowright vnew<cr><cmd>terminal top<cr>
 -- ipython
 vim.keymap.set("n", "<leader>Ib", "<cmd>terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
 vim.keymap.set("n", "<leader>It", "<cmd>tabedit term://ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Ih", "<cmd>vnew <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Ij", "<cmd>belowright new <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>IJ", "<cmd>belowright new <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>wincmd J<cr><cmd>resize 25<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Ik", "<cmd>new <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Il", "<cmd>belowright vnew <bar> terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
-
+vim.keymap.set("n", "<leader>Ih", "<cmd>vnew<cr><cmd>terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Ij", "<cmd>belowright new<cr><cmd>terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>IJ", "<cmd>belowright new<cr><cmd>terminal ipython<cr><cmd>wincmd J<cr><cmd>resize 25<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Ik", "<cmd>new<cr><cmd>terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>IK", "<cmd>new +terminal ipython<cr><cmd>wincmd K<cr><cmd>resize 10<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Il", "<cmd>belowright vnew<cr><cmd>terminal ipython<cr><cmd>silent! file term://ipython<cr><cmd>startinsert<cr>")
 
 -- terminal
-vim.keymap.set("n", "<leader>Tb", "<cmd>terminal<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Tt", "<cmd>tabedit +terminal<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Th", "<cmd>vnew +terminal<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>TH", "<cmd>vnew +terminal<cr><cmd>wincmd H<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Tj", "<cmd>belowright new +terminal<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>TJ", "<cmd>belowright new +terminal<cr><cmd>wincmd J<cr><cmd>resize 25<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Tk", "<cmd>new +terminal<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>TK", "<cmd>new +terminal<cr><cmd>wincmd K<cr><cmd>resize 10<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>Tl", "<cmd>belowright vnew +terminal<cr><cmd>startinsert<cr>")
-vim.keymap.set("n", "<leader>TL", "<cmd>belowright vnew +terminal<cr><cmd>wincmd L<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Tb", "<cmd>terminal<cr><cmd>silent! file term://terminal<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Tt", "<cmd>tabedit +terminal<cr><cmd>silent! file term://terminal<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Th", "<cmd>vnew +terminal<cr><cmd>silent! file term://terminal<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>TH", "<cmd>vnew +terminal<cr><cmd>wincmd H<cr><cmd>silent! file term://terminal<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Tj", "<cmd>belowright new +terminal<cr><cmd>silent! file term://terminal<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>TJ", "<cmd>belowright new +terminal<cr><cmd>wincmd J<cr><cmd>resize 25<cr><cmd>silent! file term://terminal<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Tk", "<cmd>new +terminal<cr><cmd>silent! file term://terminal<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>TK", "<cmd>new +terminal<cr><cmd>wincmd K<cr><cmd>resize 10<cr><cmd>silent! file term://terminal<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>Tl", "<cmd>belowright vnew +terminal<cr><cmd>silent! file term://terminal<cr><cmd>startinsert<cr>")
+vim.keymap.set("n", "<leader>TL", "<cmd>belowright vnew +terminal<cr><cmd>wincmd L<cr><cmd>silent! file term://terminal<cr><cmd>startinsert<cr>")
 -- }}}
