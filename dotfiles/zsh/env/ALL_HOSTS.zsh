@@ -35,6 +35,7 @@ export VOL=/mnt/volume
 
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/engine-room/dotfiles/zsh/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
