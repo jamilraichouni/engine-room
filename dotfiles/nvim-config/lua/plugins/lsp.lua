@@ -160,7 +160,6 @@ return {
                 "williamboman/mason-lspconfig.nvim",
                 opts = {
                     ensure_installed = {
-                        -- "actionlint",
                         "angularls",
                         "bashls",
                         "cssls",
@@ -169,13 +168,10 @@ return {
                         "dockerls",
                         "efm",
                         "html",
-                        -- "java-debug-adapter",
                         "jdtls",
                         "jinja_lsp",
                         "jsonls",
                         "lua_ls",
-                        -- "markdownlint",
-                        -- "prettier",
                         "ruff",
                         "sqlls",
                         "taplo",
