@@ -1,6 +1,6 @@
 vim.g.augroup_jar = vim.api.nvim_create_augroup("augroup_jar", { clear = true })
 
-function colorize_logs()
+local function colorize_logs()
     vim.cmd.highlight("LogDebug", "guifg=#767676")
     vim.cmd.highlight("LogWarning", "guifg=#c6c43f")
     vim.cmd.highlight("LogError", "guifg=#bb281b")
