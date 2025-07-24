@@ -42,12 +42,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
         -- vim.cmd.edit()
     end
 })
--- Create an empty Lua function `colorize_logs`:
-
-
-
-
-
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "*.log" },
