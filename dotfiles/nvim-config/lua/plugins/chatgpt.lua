@@ -23,26 +23,6 @@ return {
             vim.g.vim_ai_debug = 0
             vim.g.vim_ai_debug_log_file = "/tmp/vim_ai_debug.log"
             vim.g.vim_ai_roles_config_file = os.getenv("HOME") .. "/.config/nvim/vim-ai-roles.ini"
-
-            vim.api.nvim_create_autocmd({ "FileType" }, {
-                group = vim.g.augroup_jar,
-                pattern = { "aichat" },
-                callback = function(_)
-                    vim.fn.matchadd("Title", "^# .*\\|^## .*\\|^### .*\\|^#### .*\\|^##### .*\\|^###### .*")
-                end
-            })
-            vim.cmd.highlight("aichat_step", "guifg=#569cd6 guibg=#1e1e1e")
-
-            vim.api.nvim_create_autocmd({ "FileType" }, {
-                group = vim.g.augroup_jar,
-                pattern = { "aichat" },
-                callback = function(_)
-                    vim.fn.matchadd("PreProc", "^>>> system")
-                    vim.fn.matchadd("String", "^>>> user\\|^>>> include\\|^>>> exec")
-                    vim.fn.matchadd("Constant", "^<<< assistant")
-                end
-            })
-
             function ChatGPTEclipsePluginExpertFn()
                 local prompt = "I have a question about Eclipse plugin development."
                 local config = {
