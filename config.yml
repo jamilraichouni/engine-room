@@ -55,9 +55,6 @@ symlinks:
   # with this mapping, we can also symlink one source multiple times, as YAML
   # keys must be unique.
   $D/actrc: $H/.actrc
-  $D/claude: $H/.claude
-  $D/claude.json: $H/.claude.json
-  $D/claude.json.backup: $H/.claude.json.backup
   $D/gdbextension.py: $H/.gdbextension.py
   $D/gdbinit: $H/.gdbinit
   $D/git_askpass.py: $E/git_askpass.py

@@ -1,6 +1,8 @@
 [[ -f $HOME/.cargo/env ]] && . "$HOME/.cargo/env"
+export ANTHROPIC_API_KEY=$(cat $HOME/engine-room/secrets/anthropic_api_key.token)
 export BAT_CONFIG_PATH=$HOME/engine-room/dotfiles/bat/config/bat.conf
 export BAT_THEME="JAR"
+export CLAUDE_CONFIG_DIR=$HOME/engine-room/dotfiles/claude
 export DISPLAY="host.docker.internal:0.0"
 export DOT=$HOME/engine-room/dotfiles
 export EDITOR=nvim

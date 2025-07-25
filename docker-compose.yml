@@ -87,8 +87,6 @@ services:
       - keepass_db
       - KEEPASS_DB_PASSWORD
       - OPENAI_API_KEY
-      - source: claude_code_credentials
-        target: /home/nerd/engine-room/dotfiles/claude/.credentials.json
       - source: github_copilot_apps
         target: /home/nerd/.config/github-copilot/apps.json
       - source: kube_config
@@ -283,8 +281,6 @@ services:
 secrets:
   # value of env vars/ content of files land in
   # /run/secrets/secret_name of the container
-  claude_code_credentials:
-    file: ./secrets/claude_code_credentials.json
   github_copilot_apps:
     file: ./secrets/github_copilot_apps_jamilraichouni_db.json
   keepass_db:
