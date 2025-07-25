@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
         colorize_logs()
     end
 })
-vim.api.nvim_create_autocmd({ "TermOpen"}, {
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
     group = vim.g.augroup_jar,
     callback = function(_)
         colorize_logs()
@@ -60,13 +60,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     pattern = { "**/engine-room/images/*" },
     callback = function(_)
         vim.bo.filetype = "dockerfile"
-    end
-})
-vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-    group = vim.g.augroup_jar,
-    pattern = { "**/engine-room/config.yml" },
-    callback = function(_)
-        vim.cmd.setlocal("nofoldenable")
     end
 })
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
@@ -90,19 +83,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "MANIFEST.MF" },
     command = "setlocal colorcolumn=72"
-})
-vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-    group = vim.g.augroup_jar,
-    pattern = { "*/init/*.lua", "*/plugins/*.lua" },
-    callback = function(_)
-        if vim.fn.match(vim.fn.expand("<afile>"), "lua/init/function.lua") then
-            vim.cmd("setlocal foldmethod=expr")
-            vim.cmd("setlocal foldlevel=0")
-        else
-            vim.cmd("setlocal foldmethod=marker")
-            vim.cmd("setlocal foldlevel=1")
-        end
-    end
 })
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
     group = vim.g.augroup_jar,
@@ -231,6 +211,8 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
         if client:supports_method("workspace/symbol") then
             vim.keymap.set("n", "<leader>lsw", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", opts)
         end
+        vim.cmd.normal("zx")
+        vim.cmd.normal("zR")
     end
 })
 local sev_name = {
