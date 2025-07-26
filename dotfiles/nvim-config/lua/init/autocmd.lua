@@ -212,7 +212,6 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
             vim.keymap.set("n", "<leader>lsw", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", opts)
         end
         vim.cmd.normal("zx")
-        vim.cmd.normal("zR")
     end
 })
 local sev_name = {

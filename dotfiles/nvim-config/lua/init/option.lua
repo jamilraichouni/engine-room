@@ -12,6 +12,7 @@ vim.o.fillchars = "diff:-"
 vim.o.colorcolumn = "79"
 vim.o.completeopt = "menuone,noinsert,noselect,preview"
 vim.o.diffopt = "internal,filler,closeoff,vertical"
+vim.o.foldlevelstart = 10
 vim.o.foldmethod = "expr"
 vim.o.guicursor = "n-v-c:block,i-ci-ve:ver25,t:ver25-blinkon500-blinkoff500"
 -- search:
