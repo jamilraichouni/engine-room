@@ -1,4 +1,5 @@
 [[ -f $HOME/.cargo/env ]] && . "$HOME/.cargo/env"
+[[ -f $HOME/.engine_room_env ]] && . "$HOME/.engine_room_env"
 export ANTHROPIC_API_KEY=$(cat $HOME/engine-room/secrets/anthropic_api_key.token)
 export BAT_CONFIG_PATH=$HOME/engine-room/dotfiles/bat/config/bat.conf
 export BAT_THEME="JAR"

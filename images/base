@@ -151,4 +151,4 @@ RUN if [ "$WITH_OLLAMA" = "true" ]; then \
 # }}}
 
 USER root
-ENTRYPOINT ["python3", "/home/nerd/engine-room/entrypoint.py"]
+ENTRYPOINT ["python3", "/home/nerd/engine-room/supervisor.py"]

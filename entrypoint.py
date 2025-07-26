@@ -8,6 +8,7 @@ import pathlib
 import pwd
 import shutil
 import socket
+import subprocess
 import threading
 
 import yaml
@@ -257,24 +258,44 @@ def _setup_secret_dirs() -> None:
         # os.chown(path, USERMAP_UID, USERMAP_GID)
 
 
-if __name__ == "__main__":
-    """Start the `engine-room` container (entry point)."""
+def setup():
+    """Run the setup tasks without starting services."""
     # _setup_secret_dirs()
     _create_volume_dirs()
-    for k, v in LOCATIONS.items():
-        logger.debug("Set environment variable '%s' to '%s'…", k, v)
-        os.environ[k] = str(v)
+
+    # Write environment variables to a file for zsh to source
+    env_file = H / ".engine_room_env"
+    with open(env_file, "w") as f:
+        for k, v in LOCATIONS.items():
+            logger.debug("Set environment variable '%s' to '%s'…", k, v)
+            os.environ[k] = str(v)
+            f.write(f"export {k}={v}\n")
+    os.chown(env_file, USERMAP_UID, USERMAP_GID)
+
     _process_copies()
     _process_symbolic_links()
     _set_mount_permissions()
     logger.info("Setup completed.")
-    try:
-        entrypoint = CONFIG["engine-rooms"][HOST]["original-entrypoint"]
-    except KeyError:
-        entrypoint = [
-            "/usr/sbin/sshd",
-            "-D",
-            f"-p {os.getenv('SSH_PORT', '1978')}",
-        ]
-    logger.info("Execute entrypoint command '%s'…", entrypoint[0])
-    os.execv(entrypoint[0], entrypoint)
+
+
+if __name__ == "__main__":
+    """Start the `engine-room` container (entry point)."""
+    import sys
+
+    if len(sys.argv) > 1 and sys.argv[1] == "setup":
+        # Just run setup and exit
+        setup()
+    else:
+        # Original behavior - run setup and exec the main process
+        setup()
+
+        try:
+            entrypoint = CONFIG["engine-rooms"][HOST]["original-entrypoint"]
+        except KeyError:
+            entrypoint = [
+                "/usr/sbin/sshd",
+                "-D",
+                f"-p {os.getenv('SSH_PORT', '1978')}",
+            ]
+        logger.info("Execute entrypoint command '%s'…", entrypoint[0])
+        os.execv(entrypoint[0], entrypoint)
