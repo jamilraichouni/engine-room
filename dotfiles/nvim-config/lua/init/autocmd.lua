@@ -165,8 +165,8 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
             vim.keymap.set("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
             vim.keymap.set("v", "<leader>la", "<cmd>lua vim.lsp.buf.range_code_action()<cr>", opts)
         end
-        if client:supports_method("textDocument/defintion") then
-            vim.keymap.set("n", "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>z<cr>", opts)
+        if client:supports_method("textDocument/definition") then
+            vim.keymap.set("n", "<leader>ld", "<cmd>lua vim.lsp.buf.definition({reuse_win=false})<cr>z<cr>", opts)
         end
         if client:supports_method("textDocument/declaration") then
             vim.keymap.set("n", "<leader>lc", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
