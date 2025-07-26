@@ -7,7 +7,7 @@ gnureadline
 ipykernel
 ipython
 jupyter
-line_profiler
+line_profiler==4.2.0
 litellm[proxy]
 mccabe
 pdbpp
