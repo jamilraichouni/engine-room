@@ -120,12 +120,14 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     desc = "LSP format on save",
     nested = true,
     callback = function()
-        if vim.bo.filetype == "python" then
+        if vim.bo.filetype == "lua" or vim.bo.filetype == "markdown" or vim.bo.filetype == "python" then
             local did_something = false
 
             if next(vim.lsp.get_clients { bufnr = 0, method = "textDocument/codeAction" }) ~= nil then
                 local kind = "source.organizeImports"
-                kind = "source.organizeImports.ruff"
+                if vim.bo.filetype == "python" then
+                    kind = "source.organizeImports.ruff"
+                end
 
                 local has_code_action = false
                 vim.lsp.buf.code_action {
