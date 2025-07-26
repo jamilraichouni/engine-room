@@ -2,7 +2,7 @@
 vim.keymap.set("n", "<leader>a", "<cmd>setlocal norelativenumber number<cr>", { silent = true })
 vim.keymap.set("n", "<leader>r", "<cmd>setlocal relativenumber<cr>", { silent = true })
 vim.keymap.set("n", "<leader>n", "<cmd>setlocal norelativenumber nonumber<cr>", { silent = true })
-vim.keymap.set("n", "<leader>ö", "<cmd>nohlsearch<cr>", { silent = true })
+vim.keymap.set("n", "<leader><leader>", "<cmd>nohlsearch<cr>", { silent = true })
 -- resize window
 vim.keymap.set("n", "<left>", "<cmd>vertical resize -5<cr>", { silent = true })
 vim.keymap.set("n", "<right>", "<cmd>vertical resize +5<cr>", { silent = true })
