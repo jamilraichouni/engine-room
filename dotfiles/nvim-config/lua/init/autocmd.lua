@@ -172,7 +172,7 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
             vim.keymap.set("n", "<leader>lc", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
         end
         if client:supports_method("textDocument/documentSymbol") then
-            vim.keymap.set("n", "<leader>lsd",
+            vim.keymap.set("n", "<leader>ly",
                 "<cmd>lua vim.lsp.buf.document_symbol()<cr><cmd>copen<cr><cmd>wincmd J<cr>",
                 opts)
         end
@@ -209,7 +209,7 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
             vim.keymap.set("n", "<leader>ltd", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
         end
         if client:supports_method("workspace/symbol") then
-            vim.keymap.set("n", "<leader>lsw", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", opts)
+            vim.keymap.set("n", "<leader>lY", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", opts)
         end
         vim.cmd.normal("zx")
     end
