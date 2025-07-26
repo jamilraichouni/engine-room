@@ -13,10 +13,12 @@ ENV SHELL=/bin/zsh
 RUN dnf --refresh -y install \
   ImageMagick \
   keepassxc \
+  lua5.1 \
   luarocks \
   maven \
   postgresql \
-  subversion
+  subversion \
+  tree-sitter-cli
 # }}}
 
 # system python setup {{{
@@ -46,6 +48,8 @@ RUN curl -Lo /tmp/nvim-linux-arm64.tar.gz \
   mv nvim-linux-arm64 /opt/nvim && \
   ln -s /opt/nvim/bin/nvim /usr/local/bin/nvim && \
   rm /tmp/nvim-linux-arm64.tar.gz
+# Neovim needs Lua 5.1 (see checkhealth)
+RUN rm /usr/bin/lua && ln -s /usr/bin/lua-5.1 /usr/bin/lua
 WORKDIR /home/nerd
 # }}}
 
