@@ -52,6 +52,7 @@ alias x='cd /opt/bind/x'
 
 # edit specific files
 alias Ali='$EDITOR $DOT/zsh/aliases.zsh'
+alias Auto='$EDITOR ~/.config/nvim/lua/init/autocmd.lua'
 alias Doc='$EDITOR $DOT/JARDOC.md'
 alias Ewt='$EDITOR ~/dev/github/working-times/data/working_times.csv'
 alias Init='$EDITOR ~/.config/nvim/init.lua'
