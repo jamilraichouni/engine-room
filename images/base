@@ -1,6 +1,7 @@
 FROM engine-room:os
 LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
 ARG JDK_FILE
+ARG WITH_OLLAMA=false
 USER root
 
 # use zsh for RUN commands {{{
@@ -140,7 +141,9 @@ RUN curl -Lo \
 
 # ollama {{{
 USER root
-RUN curl -fsSL https://ollama.com/install.sh | sh
+RUN if [ "$WITH_OLLAMA" = "true" ]; then \
+      curl -fsSL https://ollama.com/install.sh | sh; \
+    fi
 # }}}
 
 USER root
