@@ -1,4 +1,4 @@
-vim.g.mapleader = "ö"
+vim.g.mapleader = " "
 vim.g.JAVA_HOME = ""
 
 vim.g.capella_home = ""
