@@ -158,6 +158,7 @@ return {
             -- https://github.com/williamboman/mason-lspconfig.nvim
             {
                 "williamboman/mason-lspconfig.nvim",
+                cmd = { "Mason" },
                 opts = {
                     ensure_installed = {
                         "angularls",
@@ -221,17 +222,12 @@ return {
                 local hl = "DiagnosticSign" .. type
                 vim.fn.sign_define(hl, { text = icon, texthl = hl })
             end
-            -- local lspconfig = require "lspconfig"
-            vim.lsp.enable("angularls")
 
-            -- https://github.com/bash-lsp/bash-language-server
-            vim.lsp.config("bashls", {
+            vim.lsp.config.bashls = {
                 filetypes = { "sh", "zsh" },
-            })
-            vim.lsp.enable("bashls")
+            }
 
-            -- https://code.visualstudio.com/docs/languages/css
-            vim.lsp.config("cssls", {
+            vim.lsp.config.cssls = {
                 init_options = {
                     -- we format using prettier
                     provideFormatter = false,
@@ -244,58 +240,45 @@ return {
                         validate = true,
                     },
                 }
-            })
-            vim.lsp.enable("cssls")
+            }
 
-            -- https://github.com/iamcco/diagnostic-languageserver
-            -- vim.lsp.config["diagnosticls"] = {
-            --     cmd = { "diagnostic-languageserver", "--stdio" },
-            --     filetypes = {
-            --         "markdown",
-            --     },
-            --     init_options = {
-            --         linters = {
-            --             markdownlint = {
-            --                 -- https://github.com/igorshubovych/markdownlint-cli
-            --                 command = "markdownlint",
-            --                 sourceName = "markdownlint",
-            --                 -- args = { "--stdin", "--disable MD013 MD034", "-" },
-            --                 isStdout = false,
-            --                 isStderr = true,
-            --                 -- parseJson = {
-            --                 --     -- to see some example:
-            --                 --     -- cat /path/to/file | flake8 --format=json -
-            --                 --     errorsRoot = "",
-            --                 --     sourceName = "markdownlint",
-            --                 --     line = "kineNumber",
-            --                 --     column = "errorRange[0]",
-            --                 --     security = "ruleNames[0]",
-            --                 --     message = "[flake8] ${text} [${code}]",
-            --                 -- },
-            --                 formatLines = 1,
-            --                 formatPattern = {
-            --                     "^stdin:(\\d+):?(\\d+)? (\\w+)/([\\w\\-\\/]+) (.+)$",
-            --                     {
-            --                         line = 1,
-            --                         column = 2,
-            --                         message = { "[", 3, "] ", 5 },
-            --                         security = 3
-            --                     }
-            --                 },
-            --             },
-            --         },
-            --         filetypes = {
-            --             -- filetype to linter(s) mapping:
-            --             markdown = { "markdownlint" }
-            --         },
-            --     }
-            -- }
-            -- vim.lsp.enable("diagnosticls")
+            vim.lsp.config.diagnosticls = {
+                cmd = { "diagnostic-languageserver", "--stdio" },
+                root_markers = { '.git' },
+                filetypes = {
+                    "markdown",
+                },
+                init_options = {
+                    linters = {
+                        markdownlint = {
+                            command = 'markdownlint',
+                            rootPatterns = { '.git' },
+                            isStderr = true,
+                            debounce = 100,
+                            args = { '--stdin' },
+                            offsetLine = 0,
+                            offsetColumn = 0,
+                            sourceName = 'markdownlint',
+                            securities = {
+                                undefined = 'hint'
+                            },
+                            formatLines = 1,
+                            formatPattern = {
+                                '^.*:(\\d+)\\s+(.*)$',
+                                {
+                                    line = 1,
+                                    column = -1,
+                                    message = 2,
+                                }
+                            }
+                        }
+                    },
+                    filetypes = {
+                        markdown = { "markdownlint" }
+                    },
+                }
+            }
 
-            -- https://github.com/rcjsuen/dockerfile-language-server-nodejs
-            vim.lsp.enable("dockerls")
-
-            -- https://github.com/mattn/efm-langserver
             local prettier_jinja_cfg = {
                 {
                     formatCommand =
@@ -303,7 +286,7 @@ return {
                     formatStdin = true
                 },
             }
-            vim.lsp.config["efm"] = {
+            vim.lsp.config.efm = {
                 init_options = { documentFormatting = true },
                 settings = {
                     rootMarkers = { ".git/" },
@@ -347,7 +330,8 @@ return {
                         -- https://github.com/remarkjs/remark/tree/main/packages/remark-parse
                         markdown = {
                             {
-                                formatCommand = "prettier --parser markdown --tab-width 2",
+                                formatCommand =
+                                "prettier --parser markdown --tab-width 2 --print-width 79 --prose-wrap always",
                                 formatStdin = true
                             }
                         },
@@ -368,10 +352,6 @@ return {
                     }
                 }
             }
-            vim.lsp.enable("efm")
-
-            vim.lsp.enable("gh_actions_ls")
-
             vim.filetype.add {
                 extension = {
                     ["jinja.html"] = "jinja",
@@ -381,17 +361,13 @@ return {
                 },
             }
 
-            vim.lsp.enable("jinja_lsp")
-            vim.lsp.config["jsonls"] = {
+            vim.lsp.config.jsonls = {
                 init_options = {
                     provideFormatter = false,
                 },
             }
-            vim.lsp.enable("jsonls")
 
-            -- https://github.com/LuaLS/lua-language-server
-            -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#lua_ls
-            vim.lsp.config["lua_ls"] = {
+            vim.lsp.config.lua_ls = {
                 filetypes = { "lua" },
                 settings = {
                     Lua = {
@@ -416,9 +392,7 @@ return {
                     },
                 },
             }
-            vim.lsp.enable("lua_ls")
-            vim.lsp.enable("marksman")
-            vim.lsp.config["pylsp"] = {
+            vim.lsp.config.pylsp = {
                 cmd = { "pylsp" },
                 flags = {
                     debounce_text_changes = 500,
@@ -450,14 +424,13 @@ return {
                             -- pyls_black = { enabled = true, executable = "black" },
                             black = { enabled = false, line_length = 79, timeout = 10 }, -- https://github.com/python-lsp/python-lsp-black
                             isort = { enabled = false },
-                            mypy = { enabled = true },                                  -- https://github.com/python/mypy, https://github.com/python-lsp/pylsp-mypy
+                            mypy = { enabled = true },                                   -- https://github.com/python/mypy, https://github.com/python-lsp/pylsp-mypy
                             yapf = { enabled = false },
                         },
                     },
                 },
             }
-            vim.lsp.enable("pylsp")
-            vim.lsp.config["ruff"] = {
+            vim.lsp.config.ruff = {
                 init_options = {
                     settings = {
                         lineLength = 79,
@@ -465,22 +438,19 @@ return {
                     }
                 }
             }
-            vim.lsp.enable("ruff")
-            vim.lsp.config["tailwindcss"] = {
+            vim.lsp.config.tailwindcss = {
                 filetypes = {
                     "css",
                     "django-html",
                     "gohtml",
                     "gohtmltmpl",
                     "html",
-                    "html-eex",
                     "htmlangular",
                     "htmldjango",
                     "javascript",
                     "javascriptreact",
                     "jinja",
                     "less",
-                    "markdown",
                     "php",
                     "postcss",
                     "sass",
@@ -492,15 +462,20 @@ return {
                     "vue",
                 }
             }
-            vim.lsp.enable("tailwindcss")
 
-            -- https://taplo.tamasfe.dev/cli/usage/language-server.html
-            -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#taplo
-            vim.lsp.enable("taplo")
-            vim.lsp.enable("ty")
-            -- https://github.com/redhat-developer/yaml-language-server
-            local home = os.getenv("HOME")
-            vim.lsp.config["yamlls"] = {
+            vim.lsp.config.ty = {
+                init_options = {
+                    -- https://github.com/astral-sh/ty/blob/main/docs/reference/editor-settings.md
+                    settings = {
+                        python = {
+                            ty = {
+                                disableLanguageServices = true
+                            }
+                        }
+                    }
+                }
+            }
+            vim.lsp.config.yamlls = {
                 settings = {
                     completion = {
                         enable = true,
@@ -519,7 +494,7 @@ return {
                     },
                     yaml = {
                         schemas = {
-                            [home .. "/dev/dbgitlab/mddocgen/builddesc_schema.json"] = "/builddesc*.yml",
+                            [os.getenv("HOME") .. "/dev/dbgitlab/mddocgen/builddesc_schema.json"] = "/builddesc*.yml",
                             ["/mnt/volume/data/dotfiles/openapi_schema.yaml"] = "**/openapi/*.yaml"
                         },
                     },
@@ -527,7 +502,35 @@ return {
                     -- trace = { server = "verbose" },
                 }
             }
-            vim.lsp.enable("yamlls")
+
+            vim.lsp.enable({
+                "angularls",
+                -- https://github.com/bash-lsp/bash-language-server
+                "bashls",
+                -- https://code.visualstudio.com/docs/languages/css
+                "cssls",
+                -- https://github.com/iamcco/diagnostic-languageserver
+                "diagnosticls",
+                -- https://github.com/rcjsuen/dockerfile-language-server-nodejs
+                "dockerls",
+                -- https://github.com/mattn/efm-langserver
+                "efm",
+                "gh_actions_ls",
+                "jinja_lsp",
+                "jsonls",
+                -- https://github.com/LuaLS/lua-language-server
+                -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#lua_ls
+                "lua_ls",
+                "pylsp",
+                "ruff",
+                "tailwindcss",
+                -- https://taplo.tamasfe.dev/cli/usage/language-server.html
+                -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#taplo
+                "taplo",
+                "ty",
+                -- https://github.com/redhat-developer/yaml-language-server
+                "yamlls",
+            })
             vim.lsp.set_log_level("warn") -- error, warn, info, or debug
         end
     }
