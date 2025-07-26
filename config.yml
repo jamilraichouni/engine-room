@@ -54,7 +54,6 @@ symlinks:
   # otherwise we get `$E/zsh/zshenv` and `$E/zshenv` in Debian containers etc..
   # with this mapping, we can also symlink one source multiple times, as YAML
   # keys must be unique.
-  /mnt/googledrive/My\ Drive: $H/googledrive
   $D/actrc: $H/.actrc
   $D/gdbextension.py: $H/.gdbextension.py
   $D/gdbinit: $H/.gdbinit
