@@ -8,6 +8,7 @@ ipykernel
 ipython
 jupyter
 line_profiler
+litellm[proxy]
 mccabe
 pdbpp
 pre-commit
