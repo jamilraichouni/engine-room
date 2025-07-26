@@ -2,12 +2,22 @@ FROM engine-room:base
 LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
 ARG USERMAP_UID
 ARG USERMAP_GID
+ARG WITH_CAPELLA_JDKS=false
 
 # JDKs for Capella plugin development {{{
 # for Capella 6.0.0 and 6.1.0
-ADD build/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.6_10.tar.gz /usr/lib/jvm
+COPY build/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.6_10.tar.gz /tmp/
+RUN if [ "$WITH_CAPELLA_JDKS" = "true" ] && [ -f /tmp/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.6_10.tar.gz ]; then \
+    tar -xzf /tmp/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.6_10.tar.gz -C /usr/lib/jvm; \
+    fi && \
+    rm -f /tmp/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.6_10.tar.gz
+
 # for Capella 7.0.0
-ADD build/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.11_9.tar.gz /usr/lib/jvm
+COPY build/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.11_9.tar.gz /tmp/
+RUN if [ "$WITH_CAPELLA_JDKS" = "true" ] && [ -f /tmp/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.11_9.tar.gz ]; then \
+    tar -xzf /tmp/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.11_9.tar.gz -C /usr/lib/jvm; \
+    fi && \
+    rm -f /tmp/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.11_9.tar.gz
 # }}}
 
 # Create a directory for Google Drive mount point
