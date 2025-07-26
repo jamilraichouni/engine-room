@@ -77,7 +77,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "COMMIT_EDITMSG" },
-    command = "startinsert"
+    command = "AI /commit-message"
 })
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
