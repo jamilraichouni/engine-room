@@ -127,12 +127,12 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
                 local kind = "source.organizeImports"
                 kind = "source.organizeImports.ruff"
 
-                local has_ca = false
+                local has_code_action = false
                 vim.lsp.buf.code_action {
                     context = { only = { kind } },
                     filter = function(_)
-                        if not has_ca then
-                            has_ca = true
+                        if not has_code_action then
+                            has_code_action = true
                             return true
                         end
                         return false
