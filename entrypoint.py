@@ -8,7 +8,6 @@ import pathlib
 import pwd
 import shutil
 import socket
-import subprocess
 import threading
 
 import yaml
@@ -88,6 +87,7 @@ def _change_ownership_recursively(
             # do not change non nerd stuff (outside of H and V)
             (not path.is_relative_to(H) and not path.is_relative_to(V)),
             path == H,  # takes far too long
+            path.is_relative_to(O),
         )
     ):
         return
@@ -155,7 +155,15 @@ def _process_symbolic_links() -> None:
                 if link.is_symlink():
                     link.unlink()  # better recreate with known target
                 elif link.is_dir():
-                    shutil.rmtree(link)  # volume has precedence over img data
+                    try:
+                        shutil.rmtree(
+                            link
+                        )  # volume has precedence over img data
+                    except OSError as exp:
+                        logger.error(
+                            "Cannot remove directory '%s': %s", link, exp
+                        )
+                        continue
                 else:
                     link.parent.mkdir(parents=True, exist_ok=True)
                     _change_ownership_recursively(link.parent)
