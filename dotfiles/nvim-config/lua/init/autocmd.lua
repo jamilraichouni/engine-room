@@ -49,12 +49,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
         colorize_logs()
     end
 })
-vim.api.nvim_create_autocmd({ "TermOpen" }, {
-    group = vim.g.augroup_jar,
-    callback = function(_)
-        colorize_logs()
-    end
-})
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "**/engine-room/images/*" },
