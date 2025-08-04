@@ -1,5 +1,4 @@
 PyYAML
-black
 cairosvg
 click
 cookiecutter
@@ -13,14 +12,10 @@ mccabe
 pdbpp
 pre-commit
 pre-commit-uv
-pydocstyle
 pyfzf
-pylint
-pylsp-mypy
 pynvim
 pytest
 python-dotenv
-python-lsp-black
 python-lsp-server
 ruff
 ty
