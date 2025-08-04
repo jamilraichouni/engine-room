@@ -8,6 +8,7 @@ vim.keymap.set("n", "<left>", "<cmd>vertical resize -5<cr>", { silent = true })
 vim.keymap.set("n", "<right>", "<cmd>vertical resize +5<cr>", { silent = true })
 vim.keymap.set("n", "<up>", "<cmd>resize +5<cr>", { silent = true })
 vim.keymap.set("n", "<down>", "<cmd>resize -5<cr>", { silent = true })
+vim.keymap.set("n", "<leader>ww", "<cmd>vertical resize 86<cr>")
 
 -- edit specific files
 vim.keymap.set("n", "<leader>Lsp", "<cmd>e ~/.config/nvim/lua/plugins/lsp.lua<cr>", { silent = true })
