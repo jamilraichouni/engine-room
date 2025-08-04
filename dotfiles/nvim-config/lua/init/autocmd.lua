@@ -213,7 +213,10 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
         if client:supports_method("workspace/symbol") then
             vim.keymap.set("n", "<leader>lY", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", opts)
         end
-        vim.cmd.normal("zx")
+        -- if vim is in normal mode:
+        if vim.api.nvim_get_mode().mode == "n" then
+            vim.cmd.normal("zx")
+        end
     end
 })
 local sev_name = {
