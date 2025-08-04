@@ -335,6 +335,14 @@ return {
                                 formatStdin = true
                             }
                         },
+                        toml = {
+                            {
+                                formatCommand =
+                                    'prettier --parser toml --tab-width 2 --print-width 79 --array-auto-collapse=false --plugin "' ..
+                                    os.getenv("NVM_BIN") .. '/../lib/node_modules/prettier-plugin-toml/lib/index.js"',
+                                formatStdin = true
+                            }
+                        },
                         xml = {
                             {
                                 formatCommand =
