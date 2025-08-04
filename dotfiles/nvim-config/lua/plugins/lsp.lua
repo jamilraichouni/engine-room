@@ -154,35 +154,6 @@ return {
         event = { "BufReadPre", "BufReadPost", "BufNewFile", "LspAttach" },
         dependencies = {
             { "hrsh7th/cmp-nvim-lsp" },
-            { "williamboman/mason.nvim" },
-            -- https://github.com/williamboman/mason-lspconfig.nvim
-            {
-                "williamboman/mason-lspconfig.nvim",
-                cmd = { "Mason" },
-                opts = {
-                    ensure_installed = {
-                        "angularls",
-                        "bashls",
-                        "cssls",
-                        "diagnosticls",
-                        "docker_compose_language_service",
-                        "dockerls",
-                        "efm",
-                        "html",
-                        "jdtls",
-                        "jinja_lsp",
-                        "jsonls",
-                        "lua_ls",
-                        "ruff",
-                        "sqlls",
-                        "taplo",
-                        "tailwindcss",
-                        "ts_ls",
-                        "ty",
-                        "yamlls",
-                    },
-                }
-            },
             {
                 -- https://github.com/mfussenegger/nvim-jdtls
                 "mfussenegger/nvim-jdtls",
