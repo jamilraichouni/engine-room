@@ -481,7 +481,7 @@ return {
                     -- trace = { server = "verbose" },
                 }
             }
-
+            -- :h lspconfig-all
             vim.lsp.enable({
                 "angularls",
                 -- https://github.com/bash-lsp/bash-language-server
