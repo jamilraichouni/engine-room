@@ -12,6 +12,34 @@ local function get_last_modified_date(filepath)
         return nil, "File not found"
     end
 end
+vim.g.claude = function()
+    vim.cmd("terminal claude")
+    vim.cmd([[
+        silent! file term://claude
+        startinsert
+    ]])
+end
+vim.g.ipython = function()
+    vim.cmd("terminal ipython")
+    vim.cmd([[
+        silent! file term://ipython
+        startinsert
+    ]])
+end
+vim.g.terminal = function()
+    vim.cmd.terminal()
+    vim.cmd([[
+        silent! file term://terminal
+        startinsert
+    ]])
+end
+vim.g.top = function()
+    vim.cmd("terminal top")
+    vim.cmd([[
+        silent! file term://top
+        startinsert
+    ]])
+end
 
 vim.g.CompilePackageAndDeployCapellaAddon = function()
     -- compile
