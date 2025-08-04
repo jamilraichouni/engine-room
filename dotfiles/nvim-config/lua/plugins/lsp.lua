@@ -195,10 +195,12 @@ return {
             end
 
             vim.lsp.config.bashls = {
+                rootMarkers = { ".git/", "pyproject.toml" },
                 filetypes = { "sh", "zsh" },
             }
 
             vim.lsp.config.cssls = {
+                rootMarkers = { ".git/", "pyproject.toml" },
                 init_options = {
                     -- we format using prettier
                     provideFormatter = false,
@@ -215,7 +217,7 @@ return {
 
             vim.lsp.config.diagnosticls = {
                 cmd = { "diagnostic-languageserver", "--stdio" },
-                root_markers = { '.git' },
+                rootMarkers = { ".git/", "pyproject.toml" },
                 filetypes = {
                     "markdown",
                 },
@@ -341,6 +343,7 @@ return {
             }
 
             vim.lsp.config.jsonls = {
+                root_markers = { '.git' },
                 init_options = {
                     provideFormatter = false,
                 },
@@ -348,6 +351,7 @@ return {
 
             vim.lsp.config.lua_ls = {
                 filetypes = { "lua" },
+                root_markers = { '.git' },
                 settings = {
                     Lua = {
                         diagnostics = {
@@ -373,6 +377,7 @@ return {
             }
             vim.lsp.config.pylsp = {
                 cmd = { "pylsp" },
+                rootMarkers = { ".git/", "pyproject.toml" },
                 flags = {
                     debounce_text_changes = 500,
                 },
@@ -410,6 +415,7 @@ return {
                 },
             }
             vim.lsp.config.ruff = {
+                rootMarkers = { ".git/", "pyproject.toml" },
                 init_options = {
                     settings = {
                         lineLength = 79,
@@ -418,6 +424,7 @@ return {
                 }
             }
             vim.lsp.config.tailwindcss = {
+                rootMarkers = { ".git/", "pyproject.toml" },
                 filetypes = {
                     "css",
                     "django-html",
@@ -443,6 +450,7 @@ return {
             }
 
             vim.lsp.config.ty = {
+                rootMarkers = { ".git/", "pyproject.toml" },
                 init_options = {
                     -- https://github.com/astral-sh/ty/blob/main/docs/reference/editor-settings.md
                     settings = {
@@ -455,6 +463,7 @@ return {
                 }
             }
             vim.lsp.config.yamlls = {
+                rootMarkers = { ".git/", "pyproject.toml" },
                 settings = {
                     completion = {
                         enable = true,
