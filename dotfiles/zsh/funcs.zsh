@@ -65,7 +65,7 @@ venv() {
   # git+https://github.com/bretello/pdbpp.git@fix-on-3.11 \
 
   [[ -f .python-version ]] && rm .python-version
-  VERSION=${1:-3.12.8}
+  VERSION=${1:-3.13.5}
   uv venv --python=$VERSION .venv
   source .venv/bin/activate
   uv pip install --upgrade pip
