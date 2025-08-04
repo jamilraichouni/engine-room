@@ -70,7 +70,6 @@ venv() {
   source .venv/bin/activate
   uv pip install --upgrade pip
   uv pip install -r $DOT/requirements.txt
-  uv pip install git+https://github.com/bretello/pyrepl.git@v0.9.0  # this version makes command history between sessions work
   uv tool install pre-commit --with pre-commit-uv --force-reinstall
   [[ -f pyproject.toml ]] && uv sync --inexact
 }
