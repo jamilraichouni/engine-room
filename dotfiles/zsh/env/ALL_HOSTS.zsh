@@ -20,6 +20,7 @@ export LANG=en_US.UTF-8
 export LANGUAGE=en_US:en:C
 export MANPAGER="nvim +Man! "
 export NVM_DIR="$HOME/.nvm"
+export NVM_BIN="$(realpath $NVM_DIR/versions/node/v*/bin)"
 export OPENAI_API_KEY=$([[ -e /run/secrets/OPENAI_API_KEY ]] && cat /run/secrets/OPENAI_API_KEY)
 export SHELL=/bin/zsh
 if [[ "$HOST" == "engine-room-"* ]]; then
