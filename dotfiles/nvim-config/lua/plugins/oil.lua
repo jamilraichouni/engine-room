@@ -32,13 +32,9 @@ return {
                     wrap = false,
                 },
                 columns = {
-                    "icon",
-                    "permissions",
-                    "size",
-                    ctime = {
-                        format = "%Y-%m-%d %H:%M",
-                    },
-                    "mtime",
+                    { "size",  highlight = "Constant" },
+                    { "ctime", format = "%Y-%m-%d %H:%M:%S" },
+                    { "mtime", format = "%Y-%m-%d %H:%M:%S", highlight = "Comment" },
                 },
                 keymaps = {
                     ["g?"] = "actions.show_help",
