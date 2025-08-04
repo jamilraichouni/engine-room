@@ -18,6 +18,13 @@ return {
             vim.g.copilot_no_tab_map = true
             vim.g.copilot_filetypes = {
                 ['*'] = true,
+                sh = function()
+                    if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), '^%.env.*') then
+                        -- disable for .env files
+                        return false
+                    end
+                    return true
+                end,
             }
         end,
     },
