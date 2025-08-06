@@ -21,22 +21,25 @@ RUN dnf --refresh -y install \
   tree-sitter-cli
 # }}}
 
-# system python setup {{{
-COPY dotfiles/requirements.txt /tmp
-RUN python3 -m pip install -r /tmp/requirements.txt && \
-  rm /tmp/requirements.txt
+# container startup deps {{{
+USER root
+RUN python3 -m pip install PyYAML && \
+  python3 -m pip install 'litellm[proxy]'
 # }}}
 
-# uv setup {{{
+# uv setup and system python setup {{{
 USER nerd
 ENV PATH="/home/nerd/.local/bin:${PATH}"
-ENV PYTHON_VERSION="3.12.8"
 COPY dotfiles/requirements.txt /tmp
 RUN curl -Lo /tmp/install.sh https://astral.sh/uv/install.sh && \
   chmod +x /tmp/install.sh && \
   UV_NO_MODIFY_PATH=1 sh /tmp/install.sh && \
   rm /tmp/install.sh && \
-  uv python install ${PYTHON_VERSION}
+  python -m pip install PyYAML && \
+  uv python install 3.13 --default && \
+  uv pip install --system --break-system-packages -r /tmp/requirements.txt
+USER root
+RUN rm /tmp/requirements.txt
 # }}}
 
 # Recent Neovim {{{
