@@ -24,6 +24,12 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         end
     end,
 })
+-- Avoid format on save
+vim.api.nvim_create_autocmd({ "LspAttach" }, {
+    group = vim.g.augroup_jar,
+    pattern = { "**/*cookiecutter.__project_slug_dash*/**/*.py" },
+    command = "LspStop ruff"
+})
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { ".env" },
