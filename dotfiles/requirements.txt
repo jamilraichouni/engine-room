@@ -1,9 +1,7 @@
 PyYAML
-cairosvg
 click
 cookiecutter
 gnureadline
-ipykernel
 ipython
 jupyter
 line_profiler==4.2.0
