@@ -45,6 +45,9 @@ export PATH=$HOME/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=/opt/apache-maven/bin:$PATH
 export PATH=$(realpath $HOME/.nvm/versions/node/v*/bin):$PATH
+if [[ -d $(realpath $HOME/.local/share/uv/python/cpython-*-linux-aarch64-gnu/bin) ]]; then
+  export PATH=$(realpath $HOME/.local/share/uv/python/cpython-*-linux-aarch64-gnu/bin):$PATH
+fi
 export REQUESTS_CA_BUNDLE=$HOME/engine-room/secrets/ssl_certificates.pem
 export SSL_CERT_FILE=$REQUESTS_CA_BUNDLE
 export UV_NO_SYNC=1
