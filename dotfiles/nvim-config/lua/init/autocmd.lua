@@ -266,6 +266,14 @@ local function update_loclist(bufnr)
         }
     end
 
+    -- Sort items by line number or column number (when line numbers are equal)
+    table.sort(items, function(a, b)
+        if a.lnum == b.lnum then
+            return a.col < b.col
+        end
+        return a.lnum < b.lnum
+    end)
+
     -- Replace (r) the location list of the current window and attach
     -- the custom text function defined above.
     vim.fn.setloclist(0, {}, "r", {
