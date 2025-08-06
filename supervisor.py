@@ -32,7 +32,12 @@ if api_key_path.exists():
     env = os.environ.copy()
     env["ANTHROPIC_API_KEY"] = api_key_path.read_text().strip()
     litellm_proc = subprocess.Popen(
-        ["litellm", "--model", "anthropic/claude-opus-4-20250514"],
+        [
+            "litellm",
+            "--model",
+            "anthropic/claude-opus-4-20250514",
+            "--drop_params",
+        ],
         env=env,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
