@@ -2,12 +2,12 @@
 """Simple process supervisor for running multiple services in Docker container."""
 
 import os
+import pathlib
 import pwd
 import signal
 import subprocess
 import sys
 import time
-from pathlib import Path
 
 # Determine the user
 try:
@@ -17,7 +17,7 @@ try:
 except Exception:
     USER = "nerd"  # fallback
 
-HOME = Path(f"/home/{USER}")
+HOME = pathlib.Path(f"/home/{USER}")
 ENTRYPOINT_SCRIPT = HOME / "engine-room" / "entrypoint.py"
 
 # First, run the setup
@@ -82,4 +82,3 @@ try:
         time.sleep(1)
 except KeyboardInterrupt:
     signal_handler(signal.SIGINT, None)
-
