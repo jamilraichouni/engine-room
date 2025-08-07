@@ -151,7 +151,7 @@ return {
     {
         "neovim/nvim-lspconfig",
         cmd = { "LspInfo", "LspInstall", "LspStart" },
-        event = { "BufReadPre", "BufReadPost", "BufNewFile", "LspAttach" },
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             { "hrsh7th/cmp-nvim-lsp" },
             {
@@ -179,7 +179,8 @@ return {
                     focusable = true,
                     focus = true,
                     severity_sort = true,
-                    source = "always"
+                    source = "always",
+                    border = "rounded"
                 },
                 severity_sort = true,
                 source = true,
@@ -193,6 +194,18 @@ return {
                 local hl = "DiagnosticSign" .. type
                 vim.fn.sign_define(hl, { text = icon, texthl = hl })
             end
+
+            -- Configure bordered floating windows for LSP handlers
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+                vim.lsp.handlers.hover, {
+                    border = "rounded",
+                }
+            )
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+                vim.lsp.handlers.signature_help, {
+                    border = "rounded",
+                }
+            )
 
             vim.lsp.config.bashls = {
                 rootMarkers = { ".git/", "pyproject.toml" },

@@ -183,18 +183,18 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
             vim.keymap.set("n", "<leader>lF", "<cmd>lua vim.lsp.buf.format({timeout_ms = 20000})<cr>", opts)
         end
         if client:supports_method("textDocument/hover") then
-            vim.keymap.set("n", "<leader>lh", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
+            vim.keymap.set("n", "<leader>lh", "<cmd>lua vim.lsp.buf.hover({border='rounded'})<cr>", opts)
         end
         if client:supports_method("textDocument/implementation") then
             vim.keymap.set("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
         end
         if client:supports_method("textDocument/publishDiagnostics") then
             vim.keymap.set("n", "<leader>lj",
-                "<cmd>lua vim.diagnostic.goto_next{wrap=false,popup_opts={border='single'}}<cr>", opts)
+                "<cmd>lua vim.diagnostic.goto_next{wrap=false,popup_opts={border='rounded'}}<cr>", opts)
             vim.keymap.set("n", "<leader>lk",
-                "<cmd>lua vim.diagnostic.goto_prev{wrap=false,popup_opts={border='single'}}<cr>", opts)
+                "<cmd>lua vim.diagnostic.goto_prev{wrap=false,popup_opts={border='rounded'}}<cr>", opts)
             vim.keymap.set("n", "<leader>lp",
-                "<cmd>lua vim.diagnostic.open_float(nil, {scope = 'line', focus = true, focusable = true, focus_id = '1'})<cr>",
+                "<cmd>lua vim.diagnostic.open_float(nil, {scope = 'line', focus = true, focusable = true, focus_id = '1', border = 'rounded'})<cr>",
                 opts)
             vim.keymap.set("n", "<leader>lo", "<cmd>lopen<cr><cmd>wincmd k<cr>", opts)
             vim.keymap.set("n", "<leader>lc", "<cmd>lclose<cr>", opts)
