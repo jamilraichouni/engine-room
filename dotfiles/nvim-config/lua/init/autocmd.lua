@@ -259,15 +259,21 @@ local function update_loclist(bufnr)
 
     local items = {}
     for _, d in ipairs(diags) do
+        -- Append diagnostic code to message if it exists
+        local text = d.message
+        if d.code then
+            text = text .. " [" .. tostring(d.code) .. "]"
+        end
         items[#items + 1] = {
             bufnr     = bufnr,
             lnum      = d.lnum + 1,
             col       = d.col + 1,
-            text      = d.message,
+            text      = text,
             type      = ("EWHI"):sub(d.severity, d.severity), -- single-letter code
             user_data = {                                     -- <-- extra information lives here
                 severity = d.severity,
                 source   = d.source or '',
+                code     = d.code,
             },
         }
     end
