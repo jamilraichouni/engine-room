@@ -15,8 +15,7 @@ dotfiles/__pycache__/
 dotfiles/bat/cache/
 dotfiles/claude/
 dotfiles/github-copilot/apps.json
-dotfiles/ipython/*/db/dhist
-dotfiles/ipython/*/dhist
+dotfiles/ipython/**/dhist
 dotfiles/kube/cache/
 dotfiles/nvim-config/lazy-lock.json
 dotfiles/nvim-config/node_modules/
