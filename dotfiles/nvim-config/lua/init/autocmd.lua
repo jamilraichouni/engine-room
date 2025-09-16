@@ -121,6 +121,11 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     nested = true,
     callback = function()
         if vim.bo.filetype == "lua" or vim.bo.filetype == "markdown" or vim.bo.filetype == "python" or vim.bo.filetype == "toml" then
+        -- Skip formatting for KEYMAPS.md
+        local filename = vim.fn.expand('%:t')
+        if filename == "KEYMAPS.md" then
+            return
+        end
             local did_something = false
 
             if next(vim.lsp.get_clients { bufnr = 0, method = "textDocument/codeAction" }) ~= nil then
