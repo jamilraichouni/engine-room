@@ -80,7 +80,7 @@ alias tree='tree -C'
 alias vi='$EDITOR'
 alias vib="vi -c'setlocal filetype=aichat' -c'startinsert'"
 alias vic="$EDITOR -c'terminal claude' -c'startinsert'"
-alias vid='$EDITOR -c"TabooRename dev" -c"bel new +terminal" -c"wincmd k" -c"tabe +G" -c"TabooRename Git" -c"1tabn"'
+alias vid='$EDITOR -c"TabooRename dev" -c"tabe +G" -c"TabooRename Git" -c"1tabn"'
 alias vig='$EDITOR -c"G"'
 alias vil='$EDITOR -c"Gclog"'
 alias vio='$EDITOR -c"Oil"'
