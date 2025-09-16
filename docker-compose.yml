@@ -90,8 +90,6 @@ services:
       - OPENAI_API_KEY
       - source: github_copilot_apps
         target: /home/nerd/.config/github-copilot/apps.json
-      - source: kube_config
-        target: /home/nerd/.kube/config.readonly
       - source: pip_config
         target: /home/nerd/.config/pip/pip.conf
       - source: gnupg_private_key_01
@@ -298,8 +296,6 @@ secrets:
       file: ./secrets/private-keys-v1.d/CEC7187FE23C9B8300A49A19C849F8A7251E7331.key
   gnupg_private_key_06:
       file: ./secrets/private-keys-v1.d/D922702565EEB2910DD2675F172182FB184FDE03.key
-  kube_config:
-    file: ./secrets/kube_config
   pip_config:
     file: ./secrets/pip.conf
   ssh_authorized_keys:
