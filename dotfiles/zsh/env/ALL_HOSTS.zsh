@@ -44,9 +44,9 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/engine-room/dotfiles/zsh/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=$(realpath $HOME/.nvm/versions/node/v*/bin):$PATH
-if [[ -d $(realpath $HOME/.local/share/uv/python/cpython-*-linux-aarch64-gnu/bin) ]]; then
-  export PATH=$(realpath $HOME/.local/share/uv/python/cpython-*-linux-aarch64-gnu/bin):$PATH
-fi
+for dir in $HOME/.local/share/uv/python/cpython-*-linux-aarch64-*/bin; do
+    [[ -e "$dir" ]] && [[ -d "$dir" ]] && export PATH="$(realpath "$dir"):$PATH" && break
+done 2>/dev/null
 export REQUESTS_CA_BUNDLE=$HOME/engine-room/secrets/ssl_certificates.pem
 export SSL_CERT_FILE=$REQUESTS_CA_BUNDLE
 export UV_NO_SYNC=1
