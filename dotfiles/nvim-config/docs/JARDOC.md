@@ -2,8 +2,7 @@
 
 ## Fonts
 
-see:
-<https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts>
+see: <https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts>
 
 ## Recipes
 
@@ -49,9 +48,9 @@ find . ! -path './3rdparty/*' -type f -name ".project"
 
 ### Recipe(shellscript): Translate, squeeze, and/or delete chars in strings
 
-Translate, squeeze, and/or delete characters from standard input,
-writing to standard output.  STRING1 and STRING2 specify arrays of
-characters ARRAY1 and ARRAY2 that control the action.
+Translate, squeeze, and/or delete characters from standard input, writing to
+standard output. STRING1 and STRING2 specify arrays of characters ARRAY1 and
+ARRAY2 that control the action.
 
 ```bash
 echo "Hello World" | tr '[:lower:]' '[:upper:]'  # HELLO WORLD
@@ -74,10 +73,10 @@ capella -consoleLog -noSplash \
 
 - Click on `Edit profile` below your name
 
-- Generate an Identity Token or find one in password manager
-  (look for entry named `SET Docker images (Artifactory)`)
+- Generate an Identity Token or find one in password manager (look for entry
+  named `SET Docker images (Artifactory)`)
 
-- Add description (e.g. `dbb-set-pypi-stage-dev-local`)
+- Add description (e.g. `ato-c-docker-stage-local`)
 
 - Edit appropriate cfg files (e.g. `~/.config/pip/pip.conf`)
 
@@ -88,6 +87,7 @@ four different registries:
 
 ```bash
 docker login dbb-set-docker-prod-local.bahnhub.tech.rz.db.de  # user: BKU user, password: BKU password
+docker login ato-c-docker-stage-local.bahnhub.tech.rz.db.de  # user: BKU user, password: BKU password
 docker login dbb-set-docker-stage-dev-local.bahnhub.tech.rz.db.de  # user: BKU user, password: BKU password
 docker login -u jamilraichouni  # login at docker.io (DB)
 docker login -u raichouni  # login at docker.io (private)
@@ -334,9 +334,9 @@ Out[15]:
 
 ### Recipe(python): Inject IPython kernel with GDB
 
-Developing EASE scripts with Python can be tedious. It is of great help to be able
-to run an EASE script and be able to halt and get an IPython command line with the scope
-at a specified location.
+Developing EASE scripts with Python can be tedious. It is of great help to be
+able to run an EASE script and be able to halt and get an IPython command line
+with the scope at a specified location.
 
 #### Preconditions
 
@@ -344,10 +344,11 @@ at a specified location.
 1. Install Python debug symbols, e. g. `apt-get install python3-dbg`
 
    (provides at least `/usr/share/gdb/auto-load/usr/bin/pythonx.ym-gdb.py`)
-1. Install Python packages `ipykernel` and `jupyter`,
-   e. g. `pip install ipykernel jupyter`
-1. Create a custom gdb Python extension for easy injection of Python code into a halted
-   (breakpoint) Python process:
+
+1. Install Python packages `ipykernel` and `jupyter`, e. g.
+   `pip install ipykernel jupyter`
+1. Create a custom gdb Python extension for easy injection of Python code into
+   a halted (breakpoint) Python process:
 
    - Create a file `~/.gdbextension.py` with the following content:
 
@@ -430,8 +431,8 @@ services:
       - "seccomp=unconfined"
 ```
 
-1. Prepare the script of interest you want to debug in an IPython
-   command line shell by placing the following line at the location of interest:
+1. Prepare the script of interest you want to debug in an IPython command line
+   shell by placing the following line at the location of interest:
    `import os; print(os.getpid()); breakpoint()`
 1. Execute the script and note the PID that will be printed onto the console
 1. Start GDB: `$ gdb`
@@ -442,22 +443,21 @@ services:
    (gdb) py "import IPython; IPython.embed_kernel()"
    ```
 
-   This injects an IPython kernel at the line where you placed above Python code
-   snippet that ends with a `breakpoint()` statement.
+   This injects an IPython kernel at the line where you placed above Python
+   code snippet that ends with a `breakpoint()` statement.
 
 1. In a separate shell run `$jupyter console --existing kernel-<PID>.json`
 
 ### Recipe(vim): Change case in vim
 
-see <https://stackoverflow.com/questions/2946051/changing-case-in-vim/2966034#2966034>
+see
+<https://stackoverflow.com/questions/2946051/changing-case-in-vim/2966034#2966034>
 
-`gu<motion>` to change to lowercase
-`gU<motion>` to change to uppercase
+`gu<motion>` to change to lowercase `gU<motion>` to change to uppercase
 
 **Examples:**
 
-`guaw` to lowercase for a word
-`guap` to lowercase for a paragraph
+`guaw` to lowercase for a word `guap` to lowercase for a paragraph
 
 ### Recipe(vim): LSP
 
@@ -508,8 +508,7 @@ Command `:Inspect`
 
 Create a manual fold:
 
-`zf{motion}` (e. g. `zf3j`)
-`:<range>zf`
+`zf{motion}` (e. g. `zf3j`) `:<range>zf`
 
 Open, close, delete a fold under cursor:
 
@@ -555,8 +554,8 @@ Examples:
    - `:setl[ocal] tw=72` for docstrings or
    - `:setl[ocal] tw=79` for Python code
 
-1. Format a paragraph via the keymap `gwap` or a line via `Shift+V` visual
-   mode line selection and the keymap `gw`.
+1. Format a paragraph via the keymap `gwap` or a line via `Shift+V` visual mode
+   line selection and the keymap `gw`.
 
 ### Recipe(vim): Plugin management with `packer`
 
@@ -582,8 +581,8 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 
 1. Load file of interest into a buffer
 1. Command `:Gllog`
-1. Select commit of interest in location list
-   (navigate in list with `:lnext` and `:lprevious`)
+1. Select commit of interest in location list (navigate in list with `:lnext`
+   and `:lprevious`)
 1. Press Enter to see changes of commit
 1. In new window select any line starting with `diff -- (...)`
 1. Press `o` for diff in horizontal split or `O` for diff in a new tab page
@@ -610,8 +609,8 @@ Dual panes: `:split` or `:vsplit`, single pane: `:only`
 
 ### Recipe(vifm): Compare dirs
 
-Set paths in both panes and command `:compare`.
-Press `h` to leave the compare view.
+Set paths in both panes and command `:compare`. Press `h` to leave the compare
+view.
 
 ### Recipe(vifm): Compare files
 
@@ -650,6 +649,7 @@ defaults write com.apple.loginwindow DisableScreenLockImmediate -bool yes
     export DOCKER_XHOST_SET=1
   fi
   ```
+
 - Run a container via
 
   ```bash
@@ -665,11 +665,11 @@ https://www.sdcard.org/downloads/formatter/sd-memory-card-formatter-for-mac-down
 
 ### Download and install Ubuntu Server
 
-Download https://downloads.raspberrypi.org/imager/ for your operating system
-on which you want to prepare the SD card.
+Download https://downloads.raspberrypi.org/imager/ for your operating system on
+which you want to prepare the SD card.
 
-Once this is done, start the Imager and open the `CHOOSE OS` menu.
-Scroll down the menu click `Other general-purpose OS`.
+Once this is done, start the Imager and open the `CHOOSE OS` menu. Scroll down
+the menu click `Other general-purpose OS`.
 
 Customize the OS and edit settings for user authentication, ssh etc..
 
@@ -679,15 +679,15 @@ https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi
 
 ### First start
 
-* Insert the SD card
-* Connect the power supply
+- Insert the SD card
+- Connect the power supply
 
 On the client that wants to connect to the `raspberrypi` it can be needed to
-remove a line from ``~/.ssh/known_hosts`` that starts with the IP address of
-the Raspberry PI
+remove a line from `~/.ssh/known_hosts` that starts with the IP address of the
+Raspberry PI
 
-We can login to the CLI with the user data we customized before.
-It may be defined in `~/.ssh/config` as
+We can login to the CLI with the user data we customized before. It may be
+defined in `~/.ssh/config` as
 
 ```sshconfig
 Host raspberrypi
@@ -789,3 +789,140 @@ Start the service:
 ```bash
 sudo systemctl start engine-room.service
 ```
+
+## Neovim help files
+
+- api.txt
+- arabic.txt
+- autocmd.txt
+- change.txt
+- channel.txt
+- cmdline.txt
+- credits.txt
+- debug.txt
+- deprecated.txt
+- dev_arch.txt
+- develop.txt
+- dev_style.txt
+- dev_theme.txt
+- dev_tools.txt
+- dev_vimpatch.txt
+- diagnostic.txt
+- diff.txt
+- digraph.txt
+- editing.txt
+- editorconfig.txt
+- faq.txt
+- filetype.txt
+- fold.txt
+- ft_ada.txt
+- ft_hare.txt
+- ft_ps1.txt
+- ft_raku.txt
+- ft_rust.txt
+- ft_sql.txt
+- gui.txt
+- health.txt
+- hebrew.txt
+- helphelp.txt
+- help.txt
+- if_perl.txt
+- if_pyth.txt
+- if_ruby.txt
+- indent.txt
+- index.txt
+- insert.txt
+- intro.txt
+- job_control.txt
+- lsp.txt
+- lua-bit.txt
+- lua-guide.txt
+- luaref.txt
+- lua.txt
+- luvref.txt
+- map.txt
+- mbyte.txt
+- message.txt
+- mlang.txt
+- motion.txt
+- news-0.10.txt
+- news-0.9.txt
+- news.txt
+- nvim.txt
+- options.txt
+- pattern.txt
+- pi_gzip.txt
+- pi_msgpack.txt
+- pi_paren.txt
+- pi_spec.txt
+- pi_tar.txt
+- pi_tutor.txt
+- pi_zip.txt
+- provider.txt
+- quickfix.txt
+- quickref.txt
+- recover.txt
+- remote_plugin.txt
+- remote.txt
+- repeat.txt
+- rileft.txt
+- russian.txt
+- scroll.txt
+- sign.txt
+- spell.txt
+- starting.txt
+- support.txt
+- syntax.txt
+- tabpage.txt
+- tags
+- tagsrch.txt
+- terminal.txt
+- testing.txt
+- tips.txt
+- treesitter.txt
+- tui.txt
+- uganda.txt
+- ui.txt
+- undo.txt
+- userfunc.txt
+- usr_01.txt
+- usr_02.txt
+- usr_03.txt
+- usr_04.txt
+- usr_05.txt
+- usr_06.txt
+- usr_07.txt
+- usr_08.txt
+- usr_09.txt
+- usr_10.txt
+- usr_11.txt
+- usr_12.txt
+- usr_20.txt
+- usr_21.txt
+- usr_22.txt
+- usr_23.txt
+- usr_24.txt
+- usr_25.txt
+- usr_26.txt
+- usr_27.txt
+- usr_28.txt
+- usr_29.txt
+- usr_30.txt
+- usr_31.txt
+- usr_32.txt
+- usr_40.txt
+- usr_41.txt
+- usr_42.txt
+- usr_43.txt
+- usr_44.txt
+- usr_45.txt
+- usr_toc.txt
+- various.txt
+- vi_diff.txt
+- vietnamese.txt
+- vim_diff.txt
+- vimeval.txt
+- vimfn.txt
+- visual.txt
+- vvars.txt
+- windows.txt

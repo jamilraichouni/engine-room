@@ -35,11 +35,11 @@ vim.keymap.set("n", "<leader>do", "<cmd>windo diffoff<cr>", { silent = true })
 
 -- edit specific files {{{
 vim.keymap.set("n", "<leader>Auto", "<cmd>e ~/.config/nvim/lua/init/autocmd.lua<cr>", { silent = true })
-vim.keymap.set("n", "<leader>Init", "<cmd>e ~/.config/nvim/init.lua<cr>", { silent = true })
+vim.keymap.set("n", "<leader>Init", "<cmd>e ~/.config/nvim/lua<cr>", { silent = true })
 vim.keymap.set("n", "<leader>Key", "<cmd>e ~/.config/nvim/lua/init/keymap.lua<cr>", { silent = true })
 vim.keymap.set("n", "<leader>Plug", "<cmd>Oil ~/.config/nvim/lua/plugins<cr>", { silent = true })
 vim.keymap.set("n", "<leader>Cfg", "<cmd>Oil ~/.config/nvim<cr>", { silent = true })
-vim.keymap.set("n", "<leader>Doc", "<cmd>tabnew $DOT/JARDOC.md<cr>", { silent = true })
+vim.keymap.set("n", "<leader>Doc", "<cmd>tabnew $DOT/nvim-config/docs/JARDOC.md<cr>", { silent = true })
 
 -- working times
 vim.keymap.set("n", "<leader>Ewt",
