@@ -42,10 +42,7 @@ export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.krew/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/engine-room/dotfiles/zsh/bin:$PATH
-export PATH=$HOME/go/bin:$PATH
-export PATH=$HOME/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
-export PATH=/opt/apache-maven/bin:$PATH
 export PATH=$(realpath $HOME/.nvm/versions/node/v*/bin):$PATH
 if [[ -d $(realpath $HOME/.local/share/uv/python/cpython-*-linux-aarch64-gnu/bin) ]]; then
   export PATH=$(realpath $HOME/.local/share/uv/python/cpython-*-linux-aarch64-gnu/bin):$PATH
