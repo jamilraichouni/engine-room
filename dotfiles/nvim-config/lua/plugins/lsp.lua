@@ -264,11 +264,15 @@ return {
                     },
                 }
             }
+            local nvm_bin = os.getenv("NVM_BIN") or ""
 
             local prettier_jinja_cfg = {
                 {
                     formatCommand =
-                    'prettier --parser jinja-template --tab-width 4 --print-width 79 --single-attribute-per-line --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-tailwindcss/dist/index.mjs" --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-jinja-template/lib/index.js"',
+                        'prettier --parser jinja-template --tab-width 4 --print-width 79 --single-attribute-per-line --plugin "' ..
+                        nvm_bin ..
+                        '/../lib/node_modules/prettier-plugin-tailwindcss/dist/index.mjs" --plugin "' ..
+                        nvm_bin .. '/../lib/node_modules/prettier-plugin-jinja-template/lib/index.js"',
                     formatStdin = true
                 },
             }
@@ -298,7 +302,8 @@ return {
                         html = {
                             {
                                 formatCommand =
-                                'prettier --parser html --tab-width 4 --print-width 79 --single-attribute-per-line --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-tailwindcss/dist/index.mjs"',
+                                    'prettier --parser html --tab-width 4 --print-width 79 --single-attribute-per-line --plugin "' ..
+                                    nvm_bin .. '/../lib/node_modules/prettier-plugin-tailwindcss/dist/index.mjs"',
                                 formatStdin = true
                             }
                         },
@@ -308,7 +313,7 @@ return {
                         -- sh = {
                         --     {
                         --         formatCommand =
-                        --         'prettier --parser sh --tab-width 2 --print-width 79 --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-sh/lib/index.js"',
+                        --         'prettier --parser sh --tab-width 2 --print-width 79 --plugin "' .. nvm_bin .. '/../lib/node_modules/prettier-plugin-sh/lib/index.js"',
                         --         formatStdin = true
                         --     }
                         -- },
@@ -325,21 +330,22 @@ return {
                             {
                                 formatCommand =
                                     'prettier --parser toml --tab-width 2 --print-width 79 --array-auto-collapse=false --plugin "' ..
-                                    os.getenv("NVM_BIN") .. '/../lib/node_modules/prettier-plugin-toml/lib/index.js"',
+                                    nvm_bin .. '/../lib/node_modules/prettier-plugin-toml/lib/index.js"',
                                 formatStdin = true
                             }
                         },
                         xml = {
                             {
                                 formatCommand =
-                                'prettier --parser xml --tab-width 4 --print-width 79 --plugin "$NVM_BIN/../lib/node_modules/@prettier/plugin-xml/src/plugin.js"',
+                                    'prettier --parser xml --tab-width 4 --print-width 79 --plugin "' ..
+                                    nvm_bin .. '/../lib/node_modules/@prettier/plugin-xml/src/plugin.js"',
                                 formatStdin = true
                             }
                         },
                         -- zsh = {
                         --     {
                         --         formatCommand =
-                        --         'prettier --parser sh --tab-width 2 --print-width 79 --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-sh/lib/index.js"',
+                        --         'prettier --parser sh --tab-width 2 --print-width 79 --plugin "' .. nvm_bin .. '/../lib/node_modules/prettier-plugin-sh/lib/index.js"',
                         --         formatStdin = true
                         --     }
                         -- },
