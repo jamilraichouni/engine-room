@@ -16,6 +16,7 @@ export GITLAB_PAT=$([[ -e /run/secrets/GITLAB_PAT ]] && cat /run/secrets/GITLAB_
 export JAVA_HOME=/usr/lib/jvm/jdk
 export JQ_COLORS="1;36:0;39:0;39:0;39:0;32:1;39:1;39"
 export KEEPASS_DB_PASSWORD=$([[ -e /run/secrets/KEEPASS_DB_PASSWORD ]] && cat /run/secrets/KEEPASS_DB_PASSWORD)
+export KUBECONFIG=$HOME/dev/dbgitlab/gitops/access/ardks-iat-nzfcw.kubeconfig
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US:en:C
 export MANPAGER="nvim +Man! "
@@ -38,6 +39,7 @@ export VISUAL=nvim
 export VOL=/mnt/volume
 
 export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.krew/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/engine-room/dotfiles/zsh/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
