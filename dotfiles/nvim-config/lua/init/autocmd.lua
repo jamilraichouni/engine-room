@@ -163,55 +163,28 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
         vim.keymap.set("n", "<leader>ltp", "<cmd>lua vim.lsp.buf.typehierarchy('supertypes')<cr>", opts)
         vim.keymap.set("n", "<leader>lS", "<cmd>lua require('jdtls').super_implementation()<cr>", opts)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-        if client:supports_method("textDocument/codeAction") then
-            vim.keymap.set("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-            vim.keymap.set("v", "<leader>la", "<cmd>lua vim.lsp.buf.range_code_action()<cr>", opts)
-        end
         if client:supports_method("textDocument/definition") then
-            vim.keymap.set("n", "<leader>ld", "<cmd>lua vim.lsp.buf.definition({reuse_win=false})<cr>z<cr>", opts)
-        end
-        if client:supports_method("textDocument/declaration") then
-            vim.keymap.set("n", "<leader>lc", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
-        end
-        if client:supports_method("textDocument/documentSymbol") then
-            vim.keymap.set("n", "<leader>ly",
-                "<cmd>lua vim.lsp.buf.document_symbol()<cr><cmd>copen<cr><cmd>wincmd J<cr>",
-                opts)
+            vim.keymap.set("n", "grd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
         end
         if client:supports_method("textDocument/formatting") then
-            vim.keymap.set("n", "<leader>lf", "<cmd>lua vim.g.FormatCode()<cr>", opts)
-            vim.keymap.set("n", "<leader>lF", "<cmd>lua vim.lsp.buf.format({timeout_ms = 20000})<cr>", opts)
-        end
-        if client:supports_method("textDocument/hover") then
-            vim.keymap.set("n", "<leader>lh", "<cmd>lua vim.lsp.buf.hover({border='rounded'})<cr>", opts)
-        end
-        if client:supports_method("textDocument/implementation") then
-            vim.keymap.set("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
+            vim.keymap.set("n", "grf", "<cmd>lua vim.g.FormatCode()<cr>", opts)
+            vim.keymap.set("n", "grF", "<cmd>lua vim.lsp.buf.format({timeout_ms = 20000})<cr>", opts)
         end
         if client:supports_method("textDocument/publishDiagnostics") then
-            vim.keymap.set("n", "<leader>lj",
+            vim.keymap.set("n", "]g",
                 "<cmd>lua vim.diagnostic.goto_next{wrap=false,popup_opts={border='rounded'}}<cr>", opts)
-            vim.keymap.set("n", "<leader>lk",
+            vim.keymap.set("n", "[g",
                 "<cmd>lua vim.diagnostic.goto_prev{wrap=false,popup_opts={border='rounded'}}<cr>", opts)
-            vim.keymap.set("n", "<leader>lp",
+            vim.keymap.set("n", "grp",
                 "<cmd>lua vim.diagnostic.open_float(nil, {scope = 'line', focus = true, focusable = true, focus_id = '1', border = 'rounded'})<cr>",
                 opts)
-            vim.keymap.set("n", "<leader>lo", "<cmd>lopen<cr><cmd>wincmd k<cr>", opts)
-            vim.keymap.set("n", "<leader>lc", "<cmd>lclose<cr>", opts)
+            vim.keymap.set("n", "grl", "<cmd>lopen<cr><cmd>wincmd k<cr>", opts)
+            vim.keymap.set("n", "grL", "<cmd>lclose<cr>", opts)
             vim.keymap.set("n", "<leader>WS",
                 "<cmd>lua vim.diagnostic.setqflist({buffer = false})<cr><cr><cmd>foldopen!<cr>", opts)
         end
-        if client:supports_method("textDocument/references") then
-            vim.keymap.set("n", "<leader>lr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
-        end
-        if client:supports_method("textDocument/rename") then
-            vim.keymap.set("n", "<leader>ln", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-        end
-        if client:supports_method("textDocument/typeDefinition") then
-            vim.keymap.set("n", "<leader>ltd", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
-        end
         if client:supports_method("workspace/symbol") then
-            vim.keymap.set("n", "<leader>lY", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", opts)
+            vim.keymap.set("n", "grs", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", opts)
         end
         -- if vim is in normal mode:
         if vim.api.nvim_get_mode().mode == "n" then
