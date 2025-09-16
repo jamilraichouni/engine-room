@@ -241,7 +241,11 @@ return {
                             rootPatterns = { '.git' },
                             isStderr = true,
                             debounce = 100,
-                            args = { '--stdin' },
+                            args = {
+                                '--stdin',
+                                '--disable',
+                                'MD013', -- line length
+                            },
                             offsetLine = 0,
                             offsetColumn = 0,
                             sourceName = 'markdownlint',
