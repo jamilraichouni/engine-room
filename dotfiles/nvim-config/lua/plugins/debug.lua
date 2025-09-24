@@ -2,6 +2,7 @@ return {
     {
         -- https://github.com/mfussenegger/nvim-dap
         "mfussenegger/nvim-dap",
+        enabled = false,
         ft = { "java" },
         config = function()
             local dap = require("dap")
@@ -60,6 +61,7 @@ return {
     {
         -- https://github.com/theHamsta/nvim-dap-virtual-text
         "theHamsta/nvim-dap-virtual-text",
+        enabled = false,
         config = function()
             require("nvim-dap-virtual-text").setup({ virt_text_pos = "eol" })
         end,
