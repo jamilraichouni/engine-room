@@ -15,6 +15,7 @@
     }; f"
 [core]
     abbrev = 4
+    autocrlf = input
     editor = nvim
     excludesfile = ~/.gitignore
 [commit]
