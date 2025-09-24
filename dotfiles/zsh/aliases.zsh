@@ -78,7 +78,7 @@ alias rpdb='nc localhost 4444'
 alias termcolors='for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+"\n"}; done'
 alias tree='tree -C'
 alias vi='$EDITOR'
-alias vib="vi -c'setlocal filetype=aichat' -c'startinsert'"
+alias vib="vi -c'AIC /b'"
 alias vic="$EDITOR -c'terminal claude' -c'startinsert'"
 alias vid='$EDITOR -c"TabooRename dev" -c"tabe +G" -c"TabooRename Git" -c"1tabn"'
 alias vig='$EDITOR -c"G"'
