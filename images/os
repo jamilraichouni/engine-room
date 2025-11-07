@@ -67,6 +67,8 @@ RUN dnf --refresh -y install \
   # `rclone` to mount cloud drives (e. g. GoogleDrive)
   rclone \
   rsync \
+  # `skopeo` to work with remote container image registries
+  skopeo \
   # `strace` is a powerful diagnostic tool to trace system calls and signals
   # and check what an app is doing at system level, particularly with file operations.
   strace \
