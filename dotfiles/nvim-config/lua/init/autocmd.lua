@@ -64,6 +64,11 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
 })
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
+    pattern = { "pyproject.toml" },
+    command = "setlocal foldmethod=indent foldlevel=0"
+})
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+    group = vim.g.augroup_jar,
     pattern = { "**/vim-ai-roles.ini" },
     command = "setlocal wrap"
 })
