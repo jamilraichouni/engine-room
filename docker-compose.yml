@@ -85,8 +85,6 @@ services:
       SSH_PORT: 1978
     secrets:
       - GITLAB_PAT
-      - keepass_db
-      - KEEPASS_DB_PASSWORD
       - OPENAI_API_KEY
       - source: github_copilot_apps
         target: /home/nerd/.config/github-copilot/apps.json
@@ -276,8 +274,6 @@ secrets:
   # /run/secrets/secret_name of the container
   github_copilot_apps:
     file: ./secrets/github_copilot_apps_jamilraichouni_db.json
-  keepass_db:
-    file: /Users/jamilraichouni/Library/CloudStorage/GoogleDrive-raichouni@gmail.com/My Drive/jamil.kdbx
   gnupg_private_key_01:
       file: ./secrets/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
   gnupg_private_key_02:
@@ -298,8 +294,6 @@ secrets:
     environment: OPENAI_API_KEY
   GITLAB_PAT:
     environment: GITLAB_PAT
-  KEEPASS_DB_PASSWORD:
-    environment: KEEPASS_DB_PASSWORD
 
 volumes:
   base:

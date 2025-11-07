@@ -83,7 +83,6 @@ symlinks:
   $D/zsh/profile/ALL_HOSTS.zsh: $E/zprofile  # Fedora (base image) path
   $D/zsh/interactive/ALL_HOSTS.zsh: $E/zshrc
   $O/bind/workspaces: $H/workspaces
-  $S/keepass_db: $H/keepass.kdbx
   $V/cache: $H/.cache
   $V/cargo: $H/.cargo
   $V/dev: $H/dev

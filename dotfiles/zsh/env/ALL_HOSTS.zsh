@@ -15,14 +15,14 @@ export GITLAB_PAT=$([[ -e /run/secrets/GITLAB_PAT ]] && cat /run/secrets/GITLAB_
 [[ -d /mnt/volume ]] && export HISTFILE=/mnt/volume/zsh_history || export HISTFILE=$HOME/.zsh_history
 export JAVA_HOME=/usr/lib/jvm/jdk
 export JQ_COLORS="1;36:0;39:0;39:0;39:0;32:1;39:1;39"
-export KEEPASS_DB_PASSWORD=$([[ -e /run/secrets/KEEPASS_DB_PASSWORD ]] && cat /run/secrets/KEEPASS_DB_PASSWORD)
+export KEEPASS_DB_PASSWORD=$(cat $HOME/engine-room/secrets/keepass_jamil)
 export KUBECONFIG=$HOME/dev/dbgitlab/gitops/access/ardks-iat-nzfcw.kubeconfig
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US:en:C
 export MANPAGER="nvim +Man! "
 export NVM_DIR="$HOME/.nvm"
 export NVM_BIN="$(realpath $NVM_DIR/versions/node/v*/bin)"
-export OPENAI_API_KEY=$([[ -e /run/secrets/OPENAI_API_KEY ]] && cat /run/secrets/OPENAI_API_KEY)
+export OPENAI_API_KEY=$(cat $HOME/engine-room/secrets/openai.token)
 export PYTHON_COLORS=1
 export SHELL=/bin/zsh
 if [[ "$HOST" == "engine-room-"* ]]; then
@@ -32,8 +32,6 @@ if [[ "$(uname -o)" != *"Darwin"* ]]; then
   export TERM=xterm-kitty
   export TERMINFO=/usr/share/terminfo
   sudo chmod 666 /run/secrets/GITLAB_PAT
-  sudo chmod 666 /run/secrets/KEEPASS_DB_PASSWORD
-  sudo chmod 666 /run/secrets/OPENAI_API_KEY
 fi
 export TZ=":/usr/share/zoneinfo/Europe/Berlin"
 export VISUAL=nvim
