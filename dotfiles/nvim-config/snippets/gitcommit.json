@@ -10,5 +10,31 @@
             "wuestengecko",
             "martin"
         ]
+    },
+    "co-author-gitlab-kai-blumberg": {
+        "body": [
+            "Co-authored-by: Kai Blumberg <kai.blumberg@deutschebahn.com>"
+        ],
+        "description": "Kai Blumberg as co-author of GitLab commit",
+        "prefix": [
+            "author-gitlab-kai-blumberg",
+            "co-author-gitlab-kai-blumberg",
+            "kai"
+        ]
+    },
+    "issue": {
+        "body": [
+            "Issue: STARSATOC-${issue_number}"
+        ],
+        "description": "Reference to a JIRA issue",
+        "prefix": [
+            "closes",
+            "fixes",
+            "issue",
+            "jira",
+            "resolves",
+            "solves",
+            "starsatoc"
+        ]
     }
 }
