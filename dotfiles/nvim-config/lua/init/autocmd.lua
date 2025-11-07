@@ -125,12 +125,12 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     desc = "LSP format on save",
     nested = true,
     callback = function()
-        if vim.bo.filetype == "lua" or vim.bo.filetype == "markdown" or vim.bo.filetype == "python" or vim.bo.filetype == "toml" then
         -- Skip formatting for CHEATSHEET.md
         local filename = vim.fn.expand('%:t')
         if filename == "CHEATSHEET.md" then
             return
         end
+        if vim.bo.filetype == "lua" or vim.bo.filetype == "markdown" or vim.bo.filetype == "python" or vim.bo.filetype == "toml" then
             local did_something = false
 
             if next(vim.lsp.get_clients { bufnr = 0, method = "textDocument/codeAction" }) ~= nil then
