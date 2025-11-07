@@ -126,9 +126,9 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     nested = true,
     callback = function()
         if vim.bo.filetype == "lua" or vim.bo.filetype == "markdown" or vim.bo.filetype == "python" or vim.bo.filetype == "toml" then
-        -- Skip formatting for KEYMAPS.md
+        -- Skip formatting for CHEATSHEET.md
         local filename = vim.fn.expand('%:t')
-        if filename == "KEYMAPS.md" then
+        if filename == "CHEATSHEET.md" then
             return
         end
             local did_something = false

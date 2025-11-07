@@ -11,10 +11,10 @@ vim.api.nvim_create_user_command("JarKeymapsAll", "redir! > /tmp/.map | silent m
 vim.api.nvim_create_user_command("JarDoc",
     "edit ~/engine-room/dotfiles/nvim-config/docs/JARDOC.md",
     { force = true })
-vim.api.nvim_create_user_command("JarKeymapsCheatSheet",
-    "echo system('cat ~/engine-room/dotfiles/nvim-config/docs/KEYMAPS.md')",
+vim.api.nvim_create_user_command("JarCheatSheet",
+    "echo system('cat ~/engine-room/dotfiles/nvim-config/docs/CHEATSHEET.md')",
     { force = true })
-vim.api.nvim_create_user_command("JarKeymapsCheatSheetEdit", "edit ~/engine-room/dotfiles/nvim-config/docs/KEYMAPS.md",
+vim.api.nvim_create_user_command("JarCheatSheetEdit", "edit ~/engine-room/dotfiles/nvim-config/docs/CHEATSHEET.md",
     { force = true })
 
 vim.api.nvim_create_user_command("TSInspect", "Inspect!", { force = true })

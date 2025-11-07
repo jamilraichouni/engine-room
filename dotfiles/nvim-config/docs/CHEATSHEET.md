@@ -48,6 +48,7 @@ grs    - vim.lsp.buf.workspace_symbol()
 
 [q    - previous entry
 ]q    - next entry
+:ccX  - go to Xth entry in quickfix list
 
 [Q    - first entry
 ]Q    - last entry
@@ -70,3 +71,14 @@ Press `gv` to select between the marks
 CTRL-W f  - Split current window in two.  Edit file name under cursor.
 CTRL-W F  - Split current window in two.  Edit file name under cursor at line
             following the file name under the cursor.
+
+## kubectl
+
+kubectl -n dev-opcua get pods
+kubectl -n dev-opcua describe pod $pod
+
+kubectl -n dev-opcua get cm
+kubectl -n dev-opcua describe cm $cm
+
+kubectl -n dev-opcua get secret
+kubectl -n dev-opcua describe secret $secret
