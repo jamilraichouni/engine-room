@@ -73,6 +73,7 @@ symlinks:
   $D/nvim-config: $H/.config/nvim
   $D/pdbrc.py: $H/.pdbrc.py
   $D/pdbrc: $H/.pdbrc
+  $D/pip.conf: $H/.config/pip/pip.conf
   $D/pygmentsstyles.py: $H/pygmentsstyles.py
   $D/ruff: $H/.config/ruff
   $D/ssh/known_hosts: $H/.ssh/known_hosts
