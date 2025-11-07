@@ -1,14 +1,11 @@
 PyYAML
 click
 cookiecutter
-gnureadline
 ipython
 jupyter
-line_profiler==4.2.0
+line_profiler
 litellm[proxy]
 mccabe
-pdbpp
-pre-commit
 pre-commit-uv
 pyfzf
 pynvim
@@ -16,4 +13,4 @@ pytest
 python-dotenv
 python-lsp-server
 ruff
-ty
+

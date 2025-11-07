@@ -21,27 +21,29 @@ RUN dnf --refresh -y install \
   tree-sitter-cli
 # }}}
 
-# container startup deps {{{
-USER root
-RUN python3 -m pip install PyYAML && \
-  python3 -m pip install 'litellm[proxy]'
-# }}}
-
 # uv setup and system python setup {{{
-USER nerd
-ENV PATH="/home/nerd/.local/bin:${PATH}"
+USER root
 COPY dotfiles/requirements.txt /tmp
+COPY dotfiles/uv.toml /etc/uv/uv.toml
+ENV UV_CACHE_DIR=/mnt/volume/cache/uv
+ENV UV_UNMANAGED_INSTALL=/usr/bin/
+ENV UV_PYTHON_INSTALL_DIR=/opt/python
+ENV UV_PYTHON_DOWNLOADS=auto
+ENV _OLD_VIRTUAL_PATH="$PATH"
+ENV VIRTUAL_ENV=/opt/.venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN curl -Lo /tmp/install.sh https://astral.sh/uv/install.sh && \
   chmod +x /tmp/install.sh && \
   UV_NO_MODIFY_PATH=1 sh /tmp/install.sh && \
   rm /tmp/install.sh && \
-  python -m pip install PyYAML && \
-  uv python install 3.13 --default && \
-  sudo /home/nerd/.local/bin/uv pip install \
-  --system --break-system-packages -r /tmp/requirements.txt
-USER root
-RUN rm /tmp/requirements.txt && /home/nerd/.local/bin/uv pip install \
-  --system --break-system-packages PyYAML
+  uv python install --no-cache --default 3.14 && \
+  uv venv --seed /opt/.venv && \
+  chmod -R 777 /opt/.venv/bin && \
+  chmod -R 777 /opt/.venv/lib/python*/site-packages && \
+  chmod -R 777 /opt/python && \
+  uv pip install -r /tmp/requirements.txt && \
+  rm /tmp/requirements.txt && \
+  rm /etc/uv/uv.toml
 # }}}
 
 # Recent Neovim {{{

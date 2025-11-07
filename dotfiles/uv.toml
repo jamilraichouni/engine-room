@@ -1,0 +1,6 @@
+[[index]]
+url = "https://bahnhub.tech.rz.db.de/artifactory/api/pypi/pypi-remote/simple"
+default = true
+
+[[index]]
+url = "https://bahnhub.tech.rz.db.de/artifactory/api/pypi/pypi-remote/pypi"

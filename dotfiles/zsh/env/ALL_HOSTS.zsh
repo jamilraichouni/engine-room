@@ -23,6 +23,7 @@ export MANPAGER="nvim +Man! "
 export NVM_DIR="$HOME/.nvm"
 export NVM_BIN="$(realpath $NVM_DIR/versions/node/v*/bin)"
 export OPENAI_API_KEY=$([[ -e /run/secrets/OPENAI_API_KEY ]] && cat /run/secrets/OPENAI_API_KEY)
+export PYTHON_COLORS=1
 export SHELL=/bin/zsh
 if [[ "$HOST" == "engine-room-"* ]]; then
   export SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
@@ -44,11 +45,17 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/engine-room/dotfiles/zsh/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=$(realpath $HOME/.nvm/versions/node/v*/bin):$PATH
-for dir in $HOME/.local/share/uv/python/cpython-*-linux-aarch64-*/bin; do
-    [[ -e "$dir" ]] && [[ -d "$dir" ]] && export PATH="$(realpath "$dir"):$PATH" && break
-done 2>/dev/null
+export _OLD_VIRTUAL_PATH="$PATH"
+export VIRTUAL_ENV=/opt/.venv
+export PATH=/opt/.venv/bin:$PATH
 export REQUESTS_CA_BUNDLE=$HOME/engine-room/secrets/ssl_certificates.pem
 export SSL_CERT_FILE=$REQUESTS_CA_BUNDLE
-export UV_NO_SYNC=1
+export UV_CACHE_DIR=/mnt/volume/cache/uv
+export UV_CONFIG_FILE=$HOME/engine-room/dotfiles/uv.toml
+export UV_DEFAULT_INDEX=https://bahnhub.tech.rz.db.de/artifactory/api/pypi/pypi-remote/simple
+export UV_INDEX=https://bahnhub.tech.rz.db.de/artifactory/api/pypi/pypi-remote/pypi
+export UV_PYTHON_DOWNLOADS=auto
+export UV_PYTHON_INSTALL_DIR=/opt/python
+export UV_UNMANAGED_INSTALL=/usr/bin/
 
 [[ -f /etc/zshenv.secrets ]] && . /etc/zshenv.secrets
