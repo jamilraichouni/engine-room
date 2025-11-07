@@ -6,7 +6,7 @@
 .eggs/
 .mypy_cache/
 .ruff_cache/
-.venv/
+.venv*/
 S.*
 /3rdparty/*
 __pycache__/
