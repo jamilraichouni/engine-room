@@ -431,7 +431,7 @@ return {
                             -- pyls_black = { enabled = true, executable = "black" },
                             black = { enabled = false, line_length = 79, timeout = 10 }, -- https://github.com/python-lsp/python-lsp-black
                             isort = { enabled = false },
-                            mypy = { enabled = false },                                  -- https://github.com/python/mypy, https://github.com/python-lsp/pylsp-mypy
+                            mypy = { enabled = true },                                   -- https://github.com/python/mypy, https://github.com/python-lsp/pylsp-mypy
                             yapf = { enabled = false },
                         },
                     },
@@ -607,7 +607,8 @@ return {
                 -- https://taplo.tamasfe.dev/cli/usage/language-server.html
                 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#taplo
                 "taplo",
-                "ty",
+                -- https://github.com/astral-sh/ty
+                -- "ty",
                 -- https://github.com/redhat-developer/yaml-language-server
                 "yamlls",
             })
