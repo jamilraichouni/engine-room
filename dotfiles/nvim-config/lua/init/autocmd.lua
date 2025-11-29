@@ -6,11 +6,12 @@ local function colorize_logs()
     vim.cmd.highlight("LogError", "guifg=#bb281b")
     vim.cmd.highlight("LogCritical", "guifg=#bb281b")
     -- Below, the `20` matches the century of the datetime stamp in a log file.
-    vim.fn.matchadd('LogDebug', '.*20.*DEBUG.*')
-    vim.fn.matchadd('Special', '.*20.*INFO.*')
-    vim.fn.matchadd('LogWarning', '.*20.*WARNING.*')
-    vim.fn.matchadd('LogError', '.*20.*ERROR.*')
-    vim.fn.matchadd('LogCritical', '.*20.*CRITICAL.*')
+    -- Use priority -1 (less than hlsearch's 0) to not override search highlighting
+    vim.fn.matchadd('LogDebug', '.*20.*DEBUG.*', -1)
+    vim.fn.matchadd('Special', '.*20.*INFO.*', -1)
+    vim.fn.matchadd('LogWarning', '.*20.*WARNING.*', -1)
+    vim.fn.matchadd('LogError', '.*20.*ERROR.*', -1)
+    vim.fn.matchadd('LogCritical', '.*20.*CRITICAL.*', -1)
 end
 
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
