@@ -417,76 +417,7 @@ return {
                 init_options = {
                     settings = {
                         configurationPreference = "filesystemFirst",
-                        lineLength = 79,
                         logLevel = "warn",
-                        configuration = {
-                            format = {
-                                ["quote-style"] = "double",
-                            },
-                            lint = {
-                                mccabe = {
-                                    ["max-complexity"] = 14,
-                                },
-                                pydocstyle = { convention = "google" },
-                                select = {
-                                    "A",     -- https://docs.astral.sh/ruff/rules/#flake8-builtins-a
-                                    "ANN",   -- https://docs.astral.sh/ruff/rules/#flake8-annotations-ann
-                                    "ARG",   -- https://docs.astral.sh/ruff/rules/#flake8-unused-arguments-arg
-                                    "ASYNC", -- https://docs.astral.sh/ruff/rules/#flake8-async-async
-                                    "B",     -- https://docs.astral.sh/ruff/rules/#flake8-bugbear-b
-                                    "BLE",   -- https://docs.astral.sh/ruff/rules/#flake8-blind-except-ble
-                                    "C4",    -- https://docs.astral.sh/ruff/rules/#flake8-comprehensions-c4
-                                    "C90",   -- https://docs.astral.sh/ruff/rules/#mccabe-c90
-                                    "COM",   -- https://docs.astral.sh/ruff/rules/#flake8-commas-com
-                                    "D",     -- https://docs.astral.sh/ruff/rules/#pydocstyle-d
-                                    "DJ",    -- https://docs.astral.sh/ruff/rules/#flake8-django-dj
-                                    "DTZ",   -- https://docs.astral.sh/ruff/rules/#flake8-datetimez-dtz
-                                    "E",     -- https://docs.astral.sh/ruff/rules/#pycodestyle-e-w
-                                    "EM",    -- https://docs.astral.sh/ruff/rules/#flake8-errmsg-em
-                                    "ERA",   -- https://docs.astral.sh/ruff/rules/#eradicate-era
-                                    "EXE",   -- https://docs.astral.sh/ruff/rules/#flake8-executable-exe
-                                    "F",     -- https://docs.astral.sh/ruff/rules/#pyflakes-f
-                                    "FAST",  -- https://docs.astral.sh/ruff/rules/#fastapi-fast
-                                    "FBT",   -- https://docs.astral.sh/ruff/rules/#flake8-boolean-trap-fbt
-                                    "FIX",   -- https://docs.astral.sh/ruff/rules/#flake8-fixme-fix
-                                    "FURB",  -- https://docs.astral.sh/ruff/rules/#refurb-furb
-                                    "G",     -- https://docs.astral.sh/ruff/rules/#flake8-logging-format-g
-                                    "I",     -- https://docs.astral.sh/ruff/rules/#isort-i
-                                    "ICN",   -- https://docs.astral.sh/ruff/rules/#flake8-import-conventions-icn
-                                    "ISC",   -- https://docs.astral.sh/ruff/rules/#flake8-implicit-str-concat-isc
-                                    "LOG",   -- https://docs.astral.sh/ruff/rules/#flake8-logging-log
-                                    "N",     -- https://docs.astral.sh/ruff/rules/#pep8-naming-n
-                                    "NPY",   -- https://docs.astral.sh/ruff/rules/#numpy-specific-rules-npy
-                                    "PD",    -- https://docs.astral.sh/ruff/rules/#pandas-vet-pd
-                                    "PERF",  -- https://docs.astral.sh/ruff/rules/#perflint-perf
-                                    "PGH",   -- https://docs.astral.sh/ruff/rules/#pygrep-hooks-pgh
-                                    "PIE",   -- https://docs.astral.sh/ruff/rules/#flake8-pie-pie
-                                    "PL",    -- https://docs.astral.sh/ruff/rules/#pylint-pl
-                                    "PLC",   -- https://docs.astral.sh/ruff/rules/#convention-plc
-                                    "PLE",   -- https://docs.astral.sh/ruff/rules/#error-ple
-                                    "PLR",   -- https://docs.astral.sh/ruff/rules/#refactor-plr
-                                    "PLW",   -- https://docs.astral.sh/ruff/rules/#warning-plw
-                                    "PT",    -- https://docs.astral.sh/ruff/rules/#flake8-pytest-style-pt
-                                    "PTH",   -- https://docs.astral.sh/ruff/rules/#flake8-use-pathlib-pth
-                                    "PYI",   -- https://docs.astral.sh/ruff/rules/#flake8-pyi-pyi
-                                    "Q",     -- https://docs.astral.sh/ruff/rules/#flake8-quotes-q
-                                    "RET",   -- https://docs.astral.sh/ruff/rules/#flake8-return-ret
-                                    "RSE",   -- https://docs.astral.sh/ruff/rules/#flake8-raise-rse
-                                    "RUF",   -- https://docs.astral.sh/ruff/rules/#ruff-specific-rules-ruf
-                                    "S",     -- https://docs.astral.sh/ruff/rules/#flake8-bandit-s
-                                    "SIM",   -- https://docs.astral.sh/ruff/rules/#flake8-simplify-sim
-                                    "SLF",   -- https://docs.astral.sh/ruff/rules/#flake8-self-slf
-                                    "SLOT",  -- https://docs.astral.sh/ruff/rules/#flake8-slots-slot
-                                    "T10",   -- https://docs.astral.sh/ruff/rules/#flake8-debugger-t10
-                                    "T20",   -- https://docs.astral.sh/ruff/rules/#flake8-print-t20
-                                    "TC",    -- https://docs.astral.sh/ruff/rules/#flake8-type-checking-tc
-                                    "TID",   -- https://docs.astral.sh/ruff/rules/#flake8-tidy-imports-tid
-                                    "TRY",   -- https://docs.astral.sh/ruff/rules/#tryceratops-try
-                                    "UP",    -- https://docs.astral.sh/ruff/rules/#pyupgrade-up
-                                    "W",     -- https://docs.astral.sh/ruff/rules/#pycodestyle-e-w
-                                }
-                            }
-                        }
                     }
                 }
             }

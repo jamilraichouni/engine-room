@@ -1,9 +1,8 @@
-[project]
-name = "ruff"
-requires-python = ">=3.12, <3.14"
-
 [tool.ruff]
 line-length = 79
+
+[tool.ruff.format]
+line-ending = "lf"
 
 [tool.ruff.lint]
 select = [
@@ -60,12 +59,23 @@ select = [
   "TC",    # https://docs.astral.sh/ruff/rules/#flake8-type-checking-tc
   "TID",   # https://docs.astral.sh/ruff/rules/#flake8-tidy-imports-tid
   "TRY",   # https://docs.astral.sh/ruff/rules/#tryceratops-try
-  "UP",    #https://docs.astral.sh/ruff/rules/#pyupgrade-up
+  "UP",    # https://docs.astral.sh/ruff/rules/#pyupgrade-up
   "W",     # https://docs.astral.sh/ruff/rules/#pycodestyle-e-w
 ]
+ignore = [
+  "ANN401",  # https://docs.astral.sh/ruff/rules/any-type
+  "COM812",  # https://docs.astral.sh/ruff/rules/missing-trailing-comma
+  "D100",    # https://docs.astral.sh/ruff/rules/undocumented-public-module
+  "D203",    # https://docs.astral.sh/ruff/rules/incorrect-blank-line-before-class
+  "D213",    # https://docs.astral.sh/ruff/rules/multi-line-summary-second-line
+  "PLR0913", # https://docs.astral.sh/ruff/rules/too-many-arguments
+]
 
-[tool.ruff.lint.mccabe]
-max-complexity = 14
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]  # https://docs.astral.sh/ruff/rules/assert
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
