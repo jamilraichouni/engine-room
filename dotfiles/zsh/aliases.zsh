@@ -6,8 +6,10 @@ alias :qa='exit'
 alias venv-deactivate='source ~/engine-room/dotfiles/zsh/bin/deactivate-venv.zsh'
 if [[ "$(uname -o)" == *"Darwin"* ]]; then
   alias ls='ls --color';
+  alias dbmac='/usr/bin/ssh -q -o StrictHostKeyChecking=false dbmac'
 else
   alias ls='ls --color --time-style=+"%Y-%m-%d|%H:%M:%S"';
+  alias ua-tools='docker run --platform linux/amd64 -p 6080:6080 -v uaexpert-config:/root/.config/unifiedautomation -v /opt/bind:/opt/bind --rm --name ua-tools ua-tools'
 fi
 alias l='ls -lh'   # h makes sizes human-readable
 alias ll='ls -lha' # a shows dot files
@@ -61,6 +63,7 @@ alias ff='(firefox &> /dev/null & disown &> /dev/null)'
 alias fonts='kitty +list-fonts'
 alias grep='grep --color --exclude-dir={.git,.mypy_cache,.pytest_cache,.ruff_cache,.venv,__pycache__,node_modules}'
 alias icat='kitty +kitten icat --align left --background=white'
+alias opencode='rm -f $HOME/.cache/opencode/models.json && rm -f $HOME/.local/state/opencode/model.json && opencode'
 alias prettifyhtml='prettier --parser html --tab-width 2 --print-width 79 --single-attribute-per-line'
 alias prettifyjinja='prettier --parser jinja-template --tab-width 2 --print-width 79 --single-attribute-per-line --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-jinja-template/lib/index.js"'
 alias prettifyall='prettier --parser jinja-template --tab-width 2 --print-width 79 --single-attribute-per-line --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-tailwindcss/dist/index.mjs" --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-jinja-template/lib/index.js"'
