@@ -5,7 +5,7 @@ return {
         lazy = false,
         config = function()
             require("mason").setup({
-                log_level = vim.log.levels.INFO
+                log_level = vim.log.levels.WARN, -- TRACE, DEBUG, INFO, WARN, ERROR, OFF
             })
         end
     },
