@@ -25,6 +25,10 @@ vim.keymap.set("v", "<down>", "<nop>")
 -- unfold and on top
 vim.keymap.set("n", "<leader>zo", "<cmd>normal zt<cr><cmd>normal zO<cr>", { silent = true })
 
+-- Gitsign hunk navigation
+vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>", { silent = true })
+vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", { silent = true })
+
 -- diff keymaps (do -> obtain, dp -> put)
 vim.keymap.set("n", "<leader>dt", "<cmd>windo diffthis<cr>", { silent = true })
 vim.keymap.set("n", "<leader>do", "<cmd>windo diffoff<cr>", { silent = true })
