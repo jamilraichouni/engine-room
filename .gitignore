@@ -30,3 +30,5 @@ dotfiles/gnupg/*
 !dotfiles/gnupg/gpg.conf
 !dotfiles/gnupg/gpg-agent.conf
 !dotfiles/gnupg/pubring.kbx
+
+uv.lock
