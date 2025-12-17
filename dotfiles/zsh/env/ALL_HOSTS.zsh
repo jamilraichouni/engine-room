@@ -12,8 +12,9 @@ export JQ_COLORS="1;36:0;39:0;39:0;39:0;32:1;39:1;39"
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US:en:C
 export MANPAGER="nvim +Man! "
-export NVM_DIR="$HOME/.nvm"
+export NVIM_DOCS="/opt/nvim/share/nvim/runtime/doc"
 export NVM_BIN="$(realpath $NVM_DIR/versions/node/v*/bin)"
+export NVM_DIR="$HOME/.nvm"
 export PYTHON_COLORS=1
 export SHELL=/bin/zsh
 if [[ "$HOST" == "engine-room-"* ]]; then
