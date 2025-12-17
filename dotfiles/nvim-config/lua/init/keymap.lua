@@ -22,9 +22,6 @@ vim.keymap.set("v", "<right>", "<nop>")
 vim.keymap.set("v", "<up>", "<nop>")
 vim.keymap.set("v", "<down>", "<nop>")
 
--- exit insert mode of terminal as it is in vim
-vim.keymap.set("t", "<c-w>N", "<c-\\><c-n>")
-
 -- unfold and on top
 vim.keymap.set("n", "<leader>zo", "<cmd>normal zt<cr><cmd>normal zO<cr>", { silent = true })
 
