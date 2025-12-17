@@ -87,7 +87,7 @@ four different registries:
 
 ```bash
 docker login dbb-set-docker-prod-local.bahnhub.tech.rz.db.de  # user: BKU user, password: BKU password
-docker login ato-c-docker-stage-local.bahnhub.tech.rz.db.de  # user: BKU user, password: BKU password
+docker login ato-c-docker-stage-local.bahnhub.tech.rz.db.de  # user: BKU user, password: PAT
 docker login dbb-set-docker-stage-dev-local.bahnhub.tech.rz.db.de  # user: BKU user, password: BKU password
 docker login -u jamilraichouni  # login at docker.io (DB)
 docker login -u raichouni  # login at docker.io (private)
