@@ -66,6 +66,13 @@ Press `gv` to select between the marks
 
 `:file term://myname`
 
+## Histories
+
+q: - command history
+q/ - search history
+q? - backward search history
+gQ - Ex mode (exit with :vi)
+
 ## Miscellaneous
 
 CTRL-W f  - Split current window in two.  Edit file name under cursor.
