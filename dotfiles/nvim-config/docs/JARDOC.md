@@ -524,11 +524,11 @@ Open, close all folds in block under cursor and recursively:
 - `zr`
 - `zm`
 
-### Recipe(vim): Filter lines into # buffer
+### Recipe(vim): Filter lines into quickfix list
 
 ```vim
 :vimgrep PATTERN %
-:cwindow
+:copen
 ```
 
 ### Recipe(vim): Edit in multiple lines
