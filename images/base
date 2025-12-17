@@ -15,7 +15,6 @@ RUN dnf --refresh -y install \
   keepassxc \
   lua5.1 \
   luarocks \
-  maven \
   postgresql \
   subversion \
   tree-sitter-cli
@@ -152,7 +151,6 @@ RUN zsh -c "source /home/nerd/.nvm/nvm.sh && \
   nvm use default && \
   npm install -g \
   @anthropic-ai/claude-code \
-  elkjs \
   gh-actions-language-server \
   opencode-ai \
   prettier \

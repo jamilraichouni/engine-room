@@ -40,18 +40,13 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
 })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     group = vim.g.augroup_jar,
-    pattern = { "*.class" },
+    pattern = { "*.log" },
     callback = function(_)
-        if vim.bo.filetype == "java" then
-            return
-        end
-        vim.bo.filetype = "java"
-        -- vim.cmd.edit()
+        colorize_logs()
     end
 })
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
     group = vim.g.augroup_jar,
-    pattern = { "*.log" },
     callback = function(_)
         colorize_logs()
     end
@@ -100,26 +95,6 @@ vim.api.nvim_create_autocmd({ "TermClose" }, {
         vim.o.ruler = true
         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true))
     end,
-})
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    group = vim.g.augroup_jar,
-    pattern = { "*.java" },
-    callback = function(_)
-        if vim.bo.filetype ~= "java" then
-            return
-        end
-        local bufnr = vim.api.nvim_get_current_buf()
-        local jdtls_lspclients = vim.lsp.get_clients(
-            { name = "jdtls", bufnr = bufnr }
-        )
-        if #jdtls_lspclients == 0 then
-            return
-        end
-        -- give the LSP server time to process the file
-        vim.defer_fn(function()
-            vim.cmd("silent! JdtUpdateHotcode")
-        end, 500)
-    end
 })
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     group = vim.g.augroup_jar,

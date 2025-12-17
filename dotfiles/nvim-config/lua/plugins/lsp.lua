@@ -154,21 +154,6 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             { "hrsh7th/cmp-nvim-lsp" },
-            {
-                -- https://github.com/mfussenegger/nvim-jdtls
-                "mfussenegger/nvim-jdtls",
-                -- https://github.com/mfussenegger/nvim-dap
-                dependencies = "mfussenegger/nvim-dap",
-                ft = "java",
-                keys = {
-                    { "<leader>jb", "<cmd>lua require('jdtls').build_projects({select_mode='all', full_build=false})<cr>", silent = true },
-                    { "<leader>jc", "<cmd>lua vim.g.CompileJavaProject()<cr>",                                             silent = true },
-                    { "<leader>jC", "<cmd>lua vim.g.CompilePackageAndDeployCapellaAddon()<cr>",                            silent = true },
-                    { "<leader>jh", "<cmd>JdtUpdateHotcode<cr>",                                                           silent = true },
-                    { "<leader>jo", "<cmd>lua require('jdtls').organize_imports()<cr>",                                    silent = true },
-                    { "<leader>jp", "<cmd>lua vim.g.JavaBuildClassPath()<cr>",                                             silent = true },
-                },
-            },
         },
         config = function()
             vim.diagnostic.config({

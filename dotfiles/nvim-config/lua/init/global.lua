@@ -1,8 +1,4 @@
 vim.g.mapleader = " "
-vim.g.JAVA_HOME = ""
-
-vim.g.capella_home = ""
-vim.g.capella_version = ""
 
 -- language providers
 vim.g.python3_host_prog = "python3"

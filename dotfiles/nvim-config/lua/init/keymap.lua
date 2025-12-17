@@ -12,7 +12,6 @@ vim.keymap.set("n", "<leader>ww", "<cmd>vertical resize 86<cr>")
 
 -- edit specific files
 vim.keymap.set("n", "<leader>Lsp", "<cmd>e ~/.config/nvim/lua/plugins/lsp.lua<cr>", { silent = true })
-vim.keymap.set("n", "<leader>Jdt", "<cmd>e ~/.config/nvim/ftplugin/java.lua<cr>", { silent = true })
 
 -- dedent in insert mode
 vim.keymap.set("i", "<S-Tab>", "<C-d>")
