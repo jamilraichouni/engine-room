@@ -50,7 +50,7 @@ RUN curl -Lo /tmp/install.sh https://astral.sh/uv/install.sh && \
 USER root
 WORKDIR /tmp
 RUN curl -Lo /tmp/nvim-linux-arm64.tar.gz \
-  https://github.com/neovim/neovim/releases/download/v0.11.4/nvim-linux-arm64.tar.gz && \
+  https://github.com/neovim/neovim/releases/latest/download/nvim-linux-arm64.tar.gz && \
   tar xvzf /tmp/nvim-linux-arm64.tar.gz && \
   mv nvim-linux-arm64 /opt/nvim && \
   ln -s /opt/nvim/bin/nvim /usr/local/bin/nvim && \
@@ -164,7 +164,7 @@ RUN zsh -c "source /home/nerd/.nvm/nvm.sh && \
 # hadolint (Dockerfile linter) {{{
 USER root
 RUN curl -Lo \
-  /opt/hadolint https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-arm64 && \
+  /opt/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-$(go env GOARCH) && \
   chmod +x /opt/hadolint && \
   ln -s /opt/hadolint /usr/local/bin/hadolint
 # }}}
