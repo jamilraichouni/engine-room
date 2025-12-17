@@ -1,0 +1,161 @@
+[build-system]
+requires = ["hatchling >= 1.27.0", "hatch-vcs >= 0.5.0"]
+build-backend = "hatchling.build"
+
+[project]
+authors = [
+  { name = "Jamil Andre RAICHOUNI" },
+]
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Typing :: Typed",
+]
+dependencies = ["pynvim"]
+description = "Jamil's personal jopilot in Neovim"
+name = "jopilot"
+requires-python = ">=3.14"
+version = "0.1.0"
+
+[dependency-groups]
+build = [
+  "hatch",
+  "hatch-vcs",
+]
+lint-and-format = [
+  "docformatter",
+  "ruff",
+]
+pre-commit = [
+  "codespell",
+  "pre-commit-uv",
+  "validate-pyproject[all]",
+]
+test = [
+  "pytest",
+  "pytest-asyncio",
+  "pytest-cov",
+]
+type = [
+  "mypy",
+  "pylsp-mypy",
+  "types-requests",
+]
+dev = [
+  "ipython",
+  "python-dotenv",
+  "python-lsp-server",
+  "vulture",
+  { include-group = "build" },
+  { include-group = "lint-and-format" },
+  { include-group = "pre-commit" },
+  { include-group = "test" },
+  { include-group = "type" },
+]
+
+[tool.docformatter]
+wrap-descriptions = 72
+wrap-summaries = 79
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jopilot"]
+
+[tool.mypy]
+disallow_incomplete_defs = true
+ignore_missing_imports = true
+implicit_optional = true
+warn_redundant_casts = true
+
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.format]
+line-ending = "lf"
+
+[tool.ruff.lint]
+select = [
+  "A",     # https://docs.astral.sh/ruff/rules/#flake8-builtins-a
+  "ANN",   # https://docs.astral.sh/ruff/rules/#flake8-annotations-ann
+  "ARG",   # https://docs.astral.sh/ruff/rules/#flake8-unused-arguments-arg
+  "ASYNC", # https://docs.astral.sh/ruff/rules/#flake8-async-async
+  "B",     # https://docs.astral.sh/ruff/rules/#flake8-bugbear-b
+  "BLE",   # https://docs.astral.sh/ruff/rules/#flake8-blind-except-ble
+  "C4",    # https://docs.astral.sh/ruff/rules/#flake8-comprehensions-c4
+  "C90",   # https://docs.astral.sh/ruff/rules/#mccabe-c90
+  "COM",   # https://docs.astral.sh/ruff/rules/#flake8-commas-com
+  "D",     # https://docs.astral.sh/ruff/rules/#pydocstyle-d
+  "DJ",    # https://docs.astral.sh/ruff/rules/#flake8-django-dj
+  "DTZ",   # https://docs.astral.sh/ruff/rules/#flake8-datetimez-dtz
+  "E",     # https://docs.astral.sh/ruff/rules/#pycodestyle-e-w
+  "EM",    # https://docs.astral.sh/ruff/rules/#flake8-errmsg-em
+  "ERA",   # https://docs.astral.sh/ruff/rules/#eradicate-era
+  "EXE",   # https://docs.astral.sh/ruff/rules/#flake8-executable-exe
+  "F",     # https://docs.astral.sh/ruff/rules/#pyflakes-f
+  "FAST",  # https://docs.astral.sh/ruff/rules/#fastapi-fast
+  "FBT",   # https://docs.astral.sh/ruff/rules/#flake8-boolean-trap-fbt
+  "FIX",   # https://docs.astral.sh/ruff/rules/#flake8-fixme-fix
+  "FURB",  # https://docs.astral.sh/ruff/rules/#refurb-furb
+  "G",     # https://docs.astral.sh/ruff/rules/#flake8-logging-format-g
+  "I",     # https://docs.astral.sh/ruff/rules/#isort-i
+  "ICN",   # https://docs.astral.sh/ruff/rules/#flake8-import-conventions-icn
+  "ISC",   # https://docs.astral.sh/ruff/rules/#flake8-implicit-str-concat-isc
+  "LOG",   # https://docs.astral.sh/ruff/rules/#flake8-logging-log
+  "N",     # https://docs.astral.sh/ruff/rules/#pep8-naming-n
+  "NPY",   # https://docs.astral.sh/ruff/rules/#numpy-specific-rules-npy
+  "PD",    # https://docs.astral.sh/ruff/rules/#pandas-vet-pd
+  "PERF",  # https://docs.astral.sh/ruff/rules/#perflint-perf
+  "PGH",   # https://docs.astral.sh/ruff/rules/#pygrep-hooks-pgh
+  "PIE",   # https://docs.astral.sh/ruff/rules/#flake8-pie-pie
+  "PL",    # https://docs.astral.sh/ruff/rules/#pylint-pl
+  "PLC",   # https://docs.astral.sh/ruff/rules/#convention-plc
+  "PLE",   # https://docs.astral.sh/ruff/rules/#error-ple
+  "PLR",   # https://docs.astral.sh/ruff/rules/#refactor-plr
+  "PLW",   # https://docs.astral.sh/ruff/rules/#warning-plw
+  "PT",    # https://docs.astral.sh/ruff/rules/#flake8-pytest-style-pt
+  "PTH",   # https://docs.astral.sh/ruff/rules/#flake8-use-pathlib-pth
+  "PYI",   # https://docs.astral.sh/ruff/rules/#flake8-pyi-pyi
+  "Q",     # https://docs.astral.sh/ruff/rules/#flake8-quotes-q
+  "RET",   # https://docs.astral.sh/ruff/rules/#flake8-return-ret
+  "RSE",   # https://docs.astral.sh/ruff/rules/#flake8-raise-rse
+  "RUF",   # https://docs.astral.sh/ruff/rules/#ruff-specific-rules-ruf
+  "S",     # https://docs.astral.sh/ruff/rules/#flake8-bandit-s
+  "SIM",   # https://docs.astral.sh/ruff/rules/#flake8-simplify-sim
+  "SLF",   # https://docs.astral.sh/ruff/rules/#flake8-self-slf
+  "SLOT",  # https://docs.astral.sh/ruff/rules/#flake8-slots-slot
+  "T10",   # https://docs.astral.sh/ruff/rules/#flake8-debugger-t10
+  "T20",   # https://docs.astral.sh/ruff/rules/#flake8-print-t20
+  "TC",    # https://docs.astral.sh/ruff/rules/#flake8-type-checking-tc
+  "TID",   # https://docs.astral.sh/ruff/rules/#flake8-tidy-imports-tid
+  "TRY",   # https://docs.astral.sh/ruff/rules/#tryceratops-try
+  "UP",    # https://docs.astral.sh/ruff/rules/#pyupgrade-up
+  "W",     # https://docs.astral.sh/ruff/rules/#pycodestyle-e-w
+]
+ignore = [
+  "ANN401",  # https://docs.astral.sh/ruff/rules/any-type
+  "COM812",  # https://docs.astral.sh/ruff/rules/missing-trailing-comma
+  "D100",    # https://docs.astral.sh/ruff/rules/undocumented-public-module
+  "D203",    # https://docs.astral.sh/ruff/rules/incorrect-blank-line-before-class
+  "D213",    # https://docs.astral.sh/ruff/rules/multi-line-summary-second-line
+  "PLR0913", # https://docs.astral.sh/ruff/rules/too-many-arguments
+  "S603",    # https://docs.astral.sh/ruff/rules/subprocess-without-shell-equals-true
+]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.uv]
+cache-keys = [
+  { file = "pyproject.toml" },
+  { git = { commit = true, tags = true } },
+]
+
+[tool.vulture]
+min_confidence = 80

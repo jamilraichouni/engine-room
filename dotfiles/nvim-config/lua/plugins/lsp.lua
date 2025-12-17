@@ -278,12 +278,6 @@ return {
                                 formatStdin = true
                             }
                         },
-                        json = {
-                            {
-                                formatCommand = "prettier --parser json --tab-width 2 --print-width 79",
-                                formatStdin = true
-                            }
-                        },
                         html = {
                             {
                                 formatCommand =
