@@ -524,6 +524,12 @@ Open, close all folds in block under cursor and recursively:
 - `zr`
 - `zm`
 
+### Recipe(vim): Yank/ copy search matches into register
+
+```vim
+`:let @a='' | g /PATTERN/ yank A` (capital A to append to register a)
+```
+
 ### Recipe(vim): Filter lines into quickfix list
 
 ```vim
