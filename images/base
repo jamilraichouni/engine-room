@@ -70,7 +70,7 @@ RUN mkdir -p /home/nerd/.gnupg/private-keys-v1.d && \
   chown -R $(id -u nerd):$(id -g nerd) /home/nerd/.gnupg && \
   chmod -R 700 /home/nerd/.gnupg && \
   dnf -y install \
-  https://github.com/getsops/sops/releases/download/v3.10.2/sops-3.10.2-1.$(uname -m).rpm
+  https://github.com/getsops/sops/releases/download/v3.11.0/sops-3.11.0-1.$(uname -m).rpm
 # }}}
 
 # kubectl {{{
