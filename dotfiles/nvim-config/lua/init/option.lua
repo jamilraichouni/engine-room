@@ -14,8 +14,7 @@ vim.opt.completeopt = "menuone,noinsert,noselect,preview"
 vim.opt.diffopt = "internal,filler,closeoff,vertical"
 vim.opt.foldlevelstart = 10
 vim.opt.foldmethod = "expr"
-vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,t:ver25-blinkon500-blinkoff500"
-
+vim.opt.guicursor = "i-t-c-ci-ve:ver25-blinkon500-blinkoff500,n-v:block-blinkon500-blinkoff500"
 -- search:
 vim.opt.ignorecase = true -- case insensitive search
 vim.opt.smartcase = true  -- become case-sensitive if you type uppercase chars

@@ -141,6 +141,14 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
         end
     end
 })
+vim.api.nvim_create_autocmd({ "InsertEnter", "TermEnter" }, {
+    group = vim.g.augroup_jar,
+    command = "setlocal guicursor=i-t-c-ci-ve:ver25-blinkon500-blinkoff500"
+})
+vim.api.nvim_create_autocmd({ "InsertLeave", "TermLeave" }, {
+    group = vim.g.augroup_jar,
+    command = "setlocal guicursor=i-t-c-ci-ve:ver25-blinkon500-blinkoff500,n-v:block-blinkon500-blinkoff500"
+})
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
     group = vim.g.augroup_jar,
     callback = function(args)
