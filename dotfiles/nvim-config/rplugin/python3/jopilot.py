@@ -27,28 +27,33 @@ vimfn.txt           - funcs to call via `vim.func_name()`
 ```
 """
 
+import os
 import pathlib
+import typing as t
 
 import pynvim
-from pynvim.api.nvim import Nvim
 
-vim: Nvim
+if t.TYPE_CHECKING:
+    from pynvim.api import nvim
+
+vim: nvim.Nvim = pynvim.attach("socket", path=os.environ["NVIM"])
 
 
 @pynvim.plugin
 class Jopilot:
-    def __init__(self, vim_: Nvim):
-        global vim  # noqa: PLW0603
-        vim = vim_
+    """The jopilot Neovim plugin."""
 
-    @pynvim.command("JoUpdate", range="", nargs="*", sync=True)
-    def update(self, _1, _2):  # args, range
-        rplugin_path = pathlib.Path.home() / ".local/share/nvim/rplugin.vim"
-        rplugin_path.unlink(missing_ok=True)
-        vim.command("UpdateRemotePlugins")
-        rplugin_path = pathlib.Path.home() / ".local/share/nvim/rplugin.vim"
-        rplugin_path.unlink(missing_ok=True)
-        vim.command("UpdateRemotePlugins")
+    def __init__(self, vim_: nvim.Nvim) -> None:
+        """Initialize the plugin."""
+
+    # @pynvim.command("JoUpdate", range="", nargs="*", sync=True)
+    # def update(self, _1, _2) -> None:  # args, range
+    #     rplugin_path = pathlib.Path.home() / ".local/share/nvim/rplugin.vim"
+    #     rplugin_path.unlink(missing_ok=True)
+    #     vim.command("UpdateRemotePlugins")
+    #     rplugin_path = pathlib.Path.home() / ".local/share/nvim/rplugin.vim"
+    #     rplugin_path.unlink(missing_ok=True)
+    #     vim.command("UpdateRemotePlugins")
 
     @pynvim.command("JoTest", range="", nargs="*", sync=True)
     def test(self, _1, _2):  # args, range
