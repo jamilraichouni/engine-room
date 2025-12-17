@@ -65,46 +65,46 @@ vim.keymap.set("n", "<leader>en", "<cmd>let @\" = fnamemodify(expand('%:t'), ':.
 -- }}}
 
 -- aliases {{{
--- claude
+-- console
 vim.keymap.set("n",
     "<leader>Cb",
-    "<cmd>lua vim.g.claude()<cr>"
+    "<cmd>lua vim.g.console()<cr>"
 )
 vim.keymap.set("n",
     "<leader>Ct",
-    "<cmd>tabnew<cr><cmd>lua vim.g.claude()<cr>"
+    "<cmd>tabnew<cr><cmd>lua vim.g.console()<cr>"
 )
 vim.keymap.set("n",
     "<leader>Ch",
-    "<cmd>vnew<cr><cmd>lua vim.g.claude()<cr>"
+    "<cmd>vnew<cr><cmd>lua vim.g.console()<cr>"
 )
 vim.keymap.set("n",
     "<leader>CH",
-    "<cmd>vnew<cr><cmd>lua vim.g.claude()<cr><cmd>wincmd H<cr>"
+    "<cmd>vnew<cr><cmd>lua vim.g.console()<cr><cmd>wincmd H<cr>"
 )
 vim.keymap.set("n",
     "<leader>Cj",
-    "<cmd>belowright new<cr><cmd>lua vim.g.claude()<cr>"
+    "<cmd>belowright new<cr><cmd>lua vim.g.console()<cr>"
 )
 vim.keymap.set("n",
     "<leader>CJ",
-    "<cmd>belowright new<cr><cmd>lua vim.g.claude()<cr><cmd>wincmd J<cr><cmd>resize 25<cr>"
+    "<cmd>belowright new<cr><cmd>lua vim.g.console()<cr><cmd>wincmd J<cr><cmd>resize 25<cr>"
 )
 vim.keymap.set("n",
     "<leader>Ck",
-    "<cmd>new<cr><cmd>lua vim.g.claude()<cr>"
+    "<cmd>new<cr><cmd>lua vim.g.console()<cr>"
 )
 vim.keymap.set("n",
     "<leader>CK",
-    "<cmd>lua vim.g.claude()<cr><cmd>wincmd K<cr><cmd>resize 10<cr>"
+    "<cmd>lua vim.g.console()<cr><cmd>wincmd K<cr><cmd>resize 10<cr>"
 )
 vim.keymap.set("n",
     "<leader>Cl",
-    "<cmd>belowright vnew<cr><cmd>lua vim.g.claude()<cr>"
+    "<cmd>belowright vnew<cr><cmd>lua vim.g.console()<cr>"
 )
 vim.keymap.set("n",
     "<leader>CL",
-    "<cmd>belowright vnew<cr><cmd>wincmd L<cr><cmd>lua vim.g.claude()<cr>"
+    "<cmd>belowright vnew<cr><cmd>wincmd L<cr><cmd>lua vim.g.console()<cr>"
 )
 
 -- opencode
