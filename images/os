@@ -70,7 +70,8 @@ RUN dnf --refresh -y install \
   # `skopeo` to work with remote container image registries
   skopeo \
   # `strace` is a powerful diagnostic tool to trace system calls and signals
-  # and check what an app is doing at system level, particularly with file operations.
+  # and check what an app is doing at system level, particularly wrt file
+  # operations.
   strace \
   sudo \
   tree \
