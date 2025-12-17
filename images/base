@@ -154,6 +154,7 @@ RUN zsh -c "source /home/nerd/.nvm/nvm.sh && \
   @anthropic-ai/claude-code \
   elkjs \
   gh-actions-language-server \
+  opencode-ai \
   prettier \
   prettier-plugin-jinja-template \
   prettier-plugin-tailwindcss \

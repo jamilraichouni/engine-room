@@ -1,9 +1,7 @@
 [[ -f $HOME/.cargo/env ]] && . "$HOME/.cargo/env"
 [[ -f $HOME/.engine_room_env ]] && . "$HOME/.engine_room_env"
-export ANTHROPIC_API_KEY=$(cat $HOME/engine-room/secrets/anthropic_api_key.token)
 export BAT_CONFIG_PATH=$HOME/engine-room/dotfiles/bat/config/bat.conf
 export BAT_THEME="JAR"
-export CLAUDE_CONFIG_DIR=$HOME/engine-room/dotfiles/claude
 export DISPLAY="host.docker.internal:0.0"
 export DOT=$HOME/engine-room/dotfiles
 export EDITOR=nvim
@@ -22,7 +20,6 @@ export LANGUAGE=en_US:en:C
 export MANPAGER="nvim +Man! "
 export NVM_DIR="$HOME/.nvm"
 export NVM_BIN="$(realpath $NVM_DIR/versions/node/v*/bin)"
-export OPENAI_API_KEY=$(cat $HOME/engine-room/secrets/openai.token)
 export PYTHON_COLORS=1
 export SHELL=/bin/zsh
 if [[ "$HOST" == "engine-room-"* ]]; then

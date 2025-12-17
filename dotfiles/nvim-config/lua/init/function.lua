@@ -12,13 +12,6 @@ local function get_last_modified_date(filepath)
         return nil, "File not found"
     end
 end
-vim.g.claude = function()
-    vim.cmd("terminal claude")
-    vim.cmd([[
-        silent! file term://claude
-        startinsert
-    ]])
-end
 vim.g.ipython = function()
     vim.cmd("terminal ipython")
     vim.cmd([[

@@ -107,6 +107,48 @@ vim.keymap.set("n",
     "<cmd>belowright vnew<cr><cmd>wincmd L<cr><cmd>lua vim.g.claude()<cr>"
 )
 
+-- opencode
+vim.keymap.set("n",
+    "<leader>Ab",
+    "<cmd>lua vim.g.opencode()<cr>"
+)
+vim.keymap.set("n",
+    "<leader>At",
+    "<cmd>tabnew<cr><cmd>lua vim.g.opencode()<cr>"
+)
+vim.keymap.set("n",
+    "<leader>Ah",
+    "<cmd>vnew<cr><cmd>lua vim.g.opencode()<cr>"
+)
+vim.keymap.set("n",
+    "<leader>AH",
+    "<cmd>vnew<cr><cmd>lua vim.g.opencode()<cr><cmd>wincmd H<cr>"
+)
+vim.keymap.set("n",
+    "<leader>Aj",
+    "<cmd>belowright new<cr><cmd>lua vim.g.opencode()<cr>"
+)
+vim.keymap.set("n",
+    "<leader>AJ",
+    "<cmd>belowright new<cr><cmd>lua vim.g.opencode()<cr><cmd>wincmd J<cr><cmd>resize 25<cr>"
+)
+vim.keymap.set("n",
+    "<leader>Ak",
+    "<cmd>new<cr><cmd>lua vim.g.opencode()<cr>"
+)
+vim.keymap.set("n",
+    "<leader>AK",
+    "<cmd>lua vim.g.opencode()<cr><cmd>wincmd K<cr><cmd>resize 10<cr>"
+)
+vim.keymap.set("n",
+    "<leader>Al",
+    "<cmd>belowright vnew<cr><cmd>lua vim.g.opencode()<cr>"
+)
+vim.keymap.set("n",
+    "<leader>AL",
+    "<cmd>belowright vnew<cr><cmd>wincmd L<cr><cmd>lua vim.g.opencode()<cr>"
+)
+
 -- top
 vim.keymap.set("n",
     "<leader>Pb",

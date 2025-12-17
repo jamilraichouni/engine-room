@@ -4,7 +4,6 @@ cookiecutter
 ipython
 jupyter
 line_profiler
-litellm[proxy]
 mccabe
 pre-commit-uv
 pyfzf

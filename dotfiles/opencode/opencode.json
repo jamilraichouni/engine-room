@@ -1,0 +1,30 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["CONTRIBUTING.md", "~/.config/opencode/AGENTS.md"],
+  "keybinds": {
+    "leader": "ctrl+x",
+    "app_exit": "ctrl+d,<leader>q",
+    "input_clear": "ctrl+c",
+    "input_newline": "alt+enter"
+  },
+  "lsp": {
+    "pylsp": {
+      "command": ["uv", "run", "pylsp"],
+      "extensions": [".py"]
+    },
+    "pyright": {
+      "disabled": true
+    },
+    "ruff": {
+      "command": ["uv", "run", "ruff", "server"],
+      "extensions": [".py"]
+    }
+  },
+  "model": "github-copilot/claude-sonnet-4.5",
+  "small_model": "github-copilot/claude-haiku-4.5",
+  "tui": {
+    "scroll_acceleration": {
+      "enabled": true
+    }
+  }
+}

@@ -71,6 +71,7 @@ symlinks:
   $D/act-config: $H/.config/act
   $D/kitty-config: $H/.config/kitty
   $D/nvim-config: $H/.config/nvim
+  $D/opencode: $H/.config/opencode
   $D/pdbrc.py: $H/.pdbrc.py
   $D/pdbrc: $H/.pdbrc
   $D/pip.conf: $H/.config/pip/pip.conf
@@ -92,5 +93,7 @@ symlinks:
   $V/nvim/state: $H/.local/state/nvim
   $V/nvm: $H/.nvm  # Node Version Manager
   $V/ollama: $H/.ollama
+  $V/opencode/data: $H/.local/share/opencode
+  $V/opencode/mix: $H/.opencode
   $V/rustup: $H/.rustup
   $V/uv: $H/.local/share/uv
