@@ -1,18 +1,14 @@
 [[ -f $HOME/.cargo/env ]] && . "$HOME/.cargo/env"
 [[ -f $HOME/.engine_room_env ]] && . "$HOME/.engine_room_env"
-export BAT_CONFIG_PATH=$HOME/engine-room/dotfiles/bat/config/bat.conf
-export BAT_THEME="JAR"
 export DOT=$HOME/engine-room/dotfiles
 export EDITOR=nvim
 export ENV GPG_TTY=$TTY  # see: https://unix.stackexchange.com/a/608921
 export ER=$HOME/engine-room
 export FZF_CTRL_T_OPTS='--color="fg+:#ffffff,fg:#608b4e,hl:#ff0000,hl+:#ff0000" --history-size=10000 --preview="bat --style=changes,header,numbers --color=always {}"'
 export FZF_DEFAULT_OPTS='--color="fg+:#ffffff,fg:#608b4e,hl:#ff0000,hl+:#ff0000" --history-size=10000'
-export GITLAB_PAT=$([[ -e /run/secrets/GITLAB_PAT ]] && cat /run/secrets/GITLAB_PAT)
 [[ -d /mnt/volume ]] && export HISTFILE=/mnt/volume/zsh_history || export HISTFILE=$HOME/.zsh_history
 export JAVA_HOME=/usr/lib/jvm/jdk
 export JQ_COLORS="1;36:0;39:0;39:0;39:0;32:1;39:1;39"
-export KEEPASS_DB_PASSWORD=$(cat $HOME/engine-room/secrets/keepass_jamil)
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US:en:C
 export MANPAGER="nvim +Man! "
