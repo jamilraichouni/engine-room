@@ -2,7 +2,6 @@
 [[ -f $HOME/.engine_room_env ]] && . "$HOME/.engine_room_env"
 export BAT_CONFIG_PATH=$HOME/engine-room/dotfiles/bat/config/bat.conf
 export BAT_THEME="JAR"
-export DISPLAY="host.docker.internal:0.0"
 export DOT=$HOME/engine-room/dotfiles
 export EDITOR=nvim
 export ENV GPG_TTY=$TTY  # see: https://unix.stackexchange.com/a/608921
@@ -14,7 +13,6 @@ export GITLAB_PAT=$([[ -e /run/secrets/GITLAB_PAT ]] && cat /run/secrets/GITLAB_
 export JAVA_HOME=/usr/lib/jvm/jdk
 export JQ_COLORS="1;36:0;39:0;39:0;39:0;32:1;39:1;39"
 export KEEPASS_DB_PASSWORD=$(cat $HOME/engine-room/secrets/keepass_jamil)
-export KUBECONFIG=$HOME/dev/dbgitlab/gitops/access/ardks-iat-nzfcw.kubeconfig
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US:en:C
 export MANPAGER="nvim +Man! "
@@ -26,23 +24,24 @@ if [[ "$HOST" == "engine-room-"* ]]; then
   export SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
 fi
 if [[ "$(uname -o)" != *"Darwin"* ]]; then
+  export DISPLAY="host.docker.internal:0.0"
+  export KUBECONFIG=$HOME/dev/dbgitlab/gitops/access/ardks-iat-nzfcw.kubeconfig
+  export PATH=/opt/.venv/bin:$PATH
   export TERM=xterm-kitty
   export TERMINFO=/usr/share/terminfo
+  export _OLD_VIRTUAL_PATH="$PATH"
+  export VIRTUAL_ENV=/opt/.venv
+  export VOL=/mnt/volume
   sudo chmod 666 /run/secrets/GITLAB_PAT
 fi
 export TZ=":/usr/share/zoneinfo/Europe/Berlin"
 export VISUAL=nvim
-export VOL=/mnt/volume
-
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.krew/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/engine-room/dotfiles/zsh/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=$(realpath $HOME/.nvm/versions/node/v*/bin):$PATH
-export _OLD_VIRTUAL_PATH="$PATH"
-export VIRTUAL_ENV=/opt/.venv
-export PATH=/opt/.venv/bin:$PATH
 export REQUESTS_CA_BUNDLE=$HOME/engine-room/secrets/ssl_certificates.pem
 export SSL_CERT_FILE=$REQUESTS_CA_BUNDLE
 export UV_CACHE_DIR=/mnt/volume/cache/uv
