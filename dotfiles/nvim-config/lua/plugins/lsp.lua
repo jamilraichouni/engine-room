@@ -381,7 +381,7 @@ return {
             }
             vim.lsp.config.pylsp = {
                 cmd = { "pylsp" },
-                rootMarkers = { ".git/", "pyproject.toml" },
+                rootMarkers = { "pyproject.toml", ".git/" },
                 flags = {
                     debounce_text_changes = 500,
                 },
