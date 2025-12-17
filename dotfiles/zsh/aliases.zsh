@@ -75,12 +75,12 @@ alias tree='tree -C'
 alias vi='$EDITOR'
 alias vib="vi -c'AIC /b'"
 alias vic="$EDITOR -c'terminal claude' -c'startinsert'"
-alias vid='$EDITOR -c"TabooRename dev" -c"tabe +G" -c"TabooRename Git" -c"1tabn"'
+alias vid='$EDITOR -c"TabooRename dev" -c"tabe +G" -c"TabooRename Git" -c"2tabnew" -c"TabooRename opencode" -c"lua vim.g.opencode(true)" -c"normal 1tabnext" -c"stopinsert" -c"file term://opencode" -c"1tabnext"'
 alias vig='$EDITOR -c"G"'
 alias vil='$EDITOR -c"Gclog"'
 alias vio='$EDITOR -c"Oil"'
 alias vis='([[ -f Session.vim ]] && $EDITOR -S) || $EDITOR'
-alias vit='$EDITOR -c"term" -c"startinsert"'
+alias vit='$EDITOR -c"lua vim.g.terminal()"'
 alias xmlgrep='grep --include="*.xml"'
 
 # git:
@@ -111,3 +111,4 @@ alias source-file='source_file'
 if [[ "$(uname -o)" == *"Darwin"* ]]; then
   alias kittyupdate='curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=/Users/jamilraichouni/Applications'
 fi
+
