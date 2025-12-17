@@ -12,11 +12,8 @@ ENV SHELL=/bin/zsh
 # system pkg manager installs {{{
 RUN dnf --refresh -y install \
   ImageMagick \
-  keepassxc \
   lua5.1 \
   luarocks \
-  postgresql \
-  subversion \
   tree-sitter-cli
 # }}}
 
