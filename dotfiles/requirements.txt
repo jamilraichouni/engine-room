@@ -3,7 +3,6 @@ click
 cookiecutter
 ipython
 jupyter
-line_profiler
 mccabe
 pre-commit-uv
 pyfzf
