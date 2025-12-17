@@ -190,12 +190,6 @@ changes for CI pre-commit job.
 1. Optionally remove everything in
    `python -c "import site; print(site.USER_SITE)"`
 
-#### Manage Python versions using pyenv
-
-1. Install pyenv (https://github.com/pyenv/pyenv-installer)
-1. Install pyenv-virtualenv (https://github.com/pyenv/pyenv-virtualenv)
-1. Install Python version from python.org via `pyenv install x.y.z`
-
 #### Download and install Python from python.org on macOS
 
 1. Download Python from <http://www.python.org/downloads>
