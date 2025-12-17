@@ -191,17 +191,14 @@ return {
                     border = "rounded",
                 }
             )
-
             vim.lsp.config.bashls = {
                 rootMarkers = { ".git/", "pyproject.toml" },
                 filetypes = { "sh", "zsh" },
             }
-
             vim.lsp.config.cssls = {
                 rootMarkers = { ".git/", "pyproject.toml" },
                 init_options = {
-                    -- we format using prettier
-                    provideFormatter = false,
+                    provideFormatter = false, -- we format using prettier
                 },
                 settings = {
                     css = {
@@ -212,7 +209,6 @@ return {
                     },
                 }
             }
-
             vim.lsp.config.diagnosticls = {
                 cmd = { "diagnostic-languageserver", "--stdio" },
                 rootMarkers = { ".git/", "pyproject.toml" },
