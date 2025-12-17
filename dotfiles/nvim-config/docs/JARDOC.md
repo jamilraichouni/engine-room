@@ -33,7 +33,7 @@ done
 netstat -tulpn
 ```
 
-### Recipe(shellscript): Process files found by `find` command:
+### Recipe(shellscript): Process files found by `find` command
 
 ```bash
 find . -type f -name "*.txt" -exec cat {} \;
@@ -69,7 +69,7 @@ capella -consoleLog -noSplash \
 
 ### Recipe(docker,artifactory): Login to Artifactory registry
 
-- Login at https://bahnhub.tech.rz.db.de/ui/user_profile
+- Login at <https://bahnhub.tech.rz.db.de/ui/user_profile>
 
 - Click on `Edit profile` below your name
 
@@ -463,7 +463,7 @@ see
 
 #### Increase LSP log level
 
-```
+```text
 :lua vim.lsp.set_log_level("debug")
 ```
 
@@ -618,7 +618,7 @@ Select the files in the panes using `t` and command `:diff`
 
 ### Recipe(macos): Brightness of displays
 
-https://github.com/MonitorControl/MonitorControl/releases
+<https://github.com/MonitorControl/MonitorControl/releases>
 
 ### Recipe(macos): Change hostname and computer name on MacOS
 
@@ -635,7 +635,7 @@ defaults write com.apple.loginwindow DisableScreenLockImmediate -bool yes
 
 ### Recipe(devcontainer): Run GUI applications in Docker container
 
-- Download and install XQuartz from https://www.xquartz.org/
+- Download and install XQuartz from <https://www.xquartz.org>
 - Register `XQuartz` as login item (macOS' autostart)
 - Reboot
 - Open the `XQuartz.app`, go to the settings tab "Security" and tick the
@@ -661,11 +661,11 @@ defaults write com.apple.loginwindow DisableScreenLockImmediate -bool yes
 
 ### Format SD card
 
-https://www.sdcard.org/downloads/formatter/sd-memory-card-formatter-for-mac-download/
+<https://www.sdcard.org/downloads/formatter/sd-memory-card-formatter-for-mac-download>
 
 ### Download and install Ubuntu Server
 
-Download https://downloads.raspberrypi.org/imager/ for your operating system on
+Download <https://downloads.raspberrypi.org/imager> for your operating system on
 which you want to prepare the SD card.
 
 Once this is done, start the Imager and open the `CHOOSE OS` menu. Scroll down
@@ -675,7 +675,7 @@ Customize the OS and edit settings for user authentication, ssh etc..
 
 How to install Ubuntu Server on your Raspberry Pi:
 
-https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi
+<https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi>
 
 ### First start
 
