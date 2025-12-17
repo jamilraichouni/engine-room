@@ -1,6 +1,6 @@
 """The jopilot Neovim plugin.
 
-# After ever change:
+# After every change:
 
 :UpdateRemotePlugins
 :source /home/nerd/.local/share/nvim/rplugin.vim
