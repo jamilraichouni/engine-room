@@ -18,6 +18,7 @@ RUN dnf --refresh -y install \
   cargo \
   fontconfig \
   ctags \
+  file \
   # `fuse` is a dependency of `rclone` (see below)
   fuse \
   fzf \
