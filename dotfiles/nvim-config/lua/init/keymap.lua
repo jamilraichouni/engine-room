@@ -26,6 +26,7 @@ vim.keymap.set("v", "<down>", "<nop>")
 vim.keymap.set("n", "<leader>zo", "<cmd>normal zt<cr><cmd>normal zO<cr>", { silent = true })
 
 -- outline
+vim.keymap.set("n", "grf", "<cmd>lua vim.g.FormatCode()<cr>", { silent = true })
 vim.keymap.set("n", "gO", "<cmd>pyfile ~/engine-room/dotfiles/nvim-config/jopilot/src/jopilot/outline.py<cr>",
     { silent = true })
 

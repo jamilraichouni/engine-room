@@ -106,7 +106,16 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
         if filename == "CHEATSHEET.md" then
             return
         end
-        if vim.bo.filetype == "lua" or vim.bo.filetype == "markdown" or vim.bo.filetype == "python" or vim.bo.filetype == "toml" then
+        local format_on_save = {
+            bash = true,
+            lua = true,
+            markdown = true,
+            python = true,
+            toml = true,
+            sh = true,
+            zsh = true,
+        }
+        if format_on_save[vim.bo.filetype] then
             local did_something = false
 
             if next(vim.lsp.get_clients { bufnr = 0, method = "textDocument/codeAction" }) ~= nil then
@@ -131,7 +140,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
             end
 
             if next(vim.lsp.get_clients { bufnr = 0, method = "textDocument/formatting" }) ~= nil then
-                vim.lsp.buf.format { async = false }
+                vim.g.FormatCode()
                 did_something = true
             end
 
@@ -161,7 +170,6 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
             vim.keymap.set("n", "grd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
         end
         if client:supports_method("textDocument/formatting") then
-            vim.keymap.set("n", "grf", "<cmd>lua vim.g.FormatCode()<cr>", opts)
             vim.keymap.set("n", "grF", "<cmd>lua vim.lsp.buf.format({timeout_ms = 20000})<cr>", opts)
         end
         if client:supports_method("textDocument/publishDiagnostics") then
@@ -275,3 +283,4 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
         update_loclist(ev.buf)
     end,
 })
+
