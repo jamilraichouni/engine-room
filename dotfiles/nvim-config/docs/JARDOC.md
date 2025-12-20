@@ -173,12 +173,6 @@ java -jar \
   -consolelog -application org.eclipse.equinox.p2.director -repository
 ```
 
-### Recipe(pre-commit): Solve RuntimeError: The Poetry configuration is invalid
-
-Run `pre-commit autoupdate`, commit potentially modified
-`.pre-commit-config.yaml` and re-run pre-commit via `pre-commit run -a` or push
-changes for CI pre-commit job.
-
 ### Recipe(python): Install Python development environment on macOS
 
 #### Remove macos Python from python.org
