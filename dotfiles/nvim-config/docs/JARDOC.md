@@ -326,7 +326,7 @@ Developing EASE scripts with Python can be tedious. It is of great help to be
 able to run an EASE script and be able to halt and get an IPython command line
 with the scope at a specified location.
 
-#### Preconditions
+Preconditions:
 
 1. Install the GNU Project Debugger (GDB), e. g. `apt-get install gdb`
 1. Install Python debug symbols, e. g. `apt-get install python3-dbg`
