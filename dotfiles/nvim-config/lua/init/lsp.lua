@@ -1,3 +1,4 @@
+-- https://github.com/bash-lsp/bash-language-server
 vim.lsp.config("bashls", {
     cmd = { "bash-language-server", "start" },
     settings = {
@@ -8,6 +9,7 @@ vim.lsp.config("bashls", {
     root_markers = { ".git", "pyproject.toml" },
     filetypes = { "bash", "sh", "zsh" },
 })
+-- https://code.visualstudio.com/docs/languages/css
 vim.lsp.config("cssls", {
     cmd = { "vscode-css-language-server", "--stdio" },
     filetypes = { "css", "scss", "less" },
@@ -24,6 +26,7 @@ vim.lsp.config("cssls", {
     },
     root_markers = { ".git", "pyproject.toml" },
 })
+-- https://github.com/iamcco/diagnostic-languageserver
 vim.lsp.config("diagnosticls", {
     cmd = { "diagnostic-languageserver", "--stdio" },
     root_markers = { ".git", "pyproject.toml" },
@@ -64,6 +67,54 @@ vim.lsp.config("diagnosticls", {
         },
     }
 })
+-- https://github.com/rcjsuen/dockerfile-language-server-nodejs
+vim.lsp.config("dockerls", {
+    cmd = { "docker-langserver", "--stdio" },
+    filetypes = { "dockerfile" },
+    root_markers = { ".git", "pyproject.toml" },
+})
+vim.lsp.config("gh_actions_ls", {
+    filetypes = { 'yaml' },
+    root_dir = function(bufnr, on_dir)
+        local parent = vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr))
+        if
+            vim.endswith(parent, '/.github/workflows')
+            or vim.endswith(parent, '/.forgejo/workflows')
+            or vim.endswith(parent, '/.gitea/workflows')
+        then
+            on_dir(parent)
+        end
+    end,
+    handlers = {
+        ['actions/readFile'] = function(_, result)
+            if type(result.path) ~= 'string' then
+                return nil, nil
+            end
+            local file_path = vim.uri_to_fname(result.path)
+            if vim.fn.filereadable(file_path) == 1 then
+                local f = assert(io.open(file_path, 'r'))
+                local text = f:read('*a')
+                f:close()
+
+                return text, nil
+            end
+            return nil, nil
+        end,
+    },
+    init_options = {}, -- needs to be present https://github.com/neovim/nvim-lspconfig/pull/3713#issuecomment-2857394868
+    capabilities = {
+        workspace = {
+            didChangeWorkspaceFolders = {
+                dynamicRegistration = true,
+            },
+        },
+    },
+})
+vim.lsp.config("jinja_lsp", {
+    cmd = { "jinja-lsp" },
+    filetypes = { "j2", "jinja", "jinja2", "jinja.html", "htmldjango", "django-html" },
+    root_markers = { ".git", "pyproject.toml" },
+})
 vim.lsp.config("jsonls", {
     cmd = { "vscode-json-language-server", "--stdio" },
     filetypes = { "json", "jsonc" },
@@ -72,6 +123,7 @@ vim.lsp.config("jsonls", {
         provideFormatter = false,
     },
 })
+-- https://github.com/LuaLS/lua-language-server
 vim.lsp.config("lua_ls", {
     cmd = { "lua-language-server" },
     filetypes = { "lua" },
@@ -104,7 +156,7 @@ vim.lsp.config("pylsp", {
     filetypes = { "python" },
     root_markers = { "pyproject.toml", ".git" },
     flags = {
-        debounce_text_changes = 500,
+        debounce_text_changes = 250,
     },
     settings = {
         pylsp = {
@@ -133,7 +185,7 @@ vim.lsp.config("pylsp", {
                 -- pyls_black = { enabled = true, executable = "black" },
                 black = { enabled = false, line_length = 79, timeout = 10 }, -- https://github.com/python-lsp/python-lsp-black
                 isort = { enabled = false },
-                mypy = { enabled = true },                                   -- https://github.com/python/mypy, https://github.com/python-lsp/pylsp-mypy
+                mypy = { enabled = false },                                  -- https://github.com/python/mypy, https://github.com/python-lsp/pylsp-mypy
                 yapf = { enabled = false },
             },
         },
@@ -216,14 +268,10 @@ vim.lsp.config("ty", {
     cmd = { "ty", "server" },
     filetypes = { "python" },
     root_markers = { "pyproject.toml", ".git", "ty.toml" },
-    init_options = {
+    settings = {
         -- https://github.com/astral-sh/ty/blob/main/docs/reference/editor-settings.md
-        settings = {
-            python = {
-                ty = {
-                    disableLanguageServices = true
-                }
-            }
+        ty = {
+            disableLanguageServices = true
         }
     }
 })
@@ -252,31 +300,19 @@ vim.lsp.config("yamlls", {
 })
 -- :h lspconfig-all
 vim.lsp.enable({
-    "angularls",
-    -- https://github.com/bash-lsp/bash-language-server
     "bashls",
-    -- https://code.visualstudio.com/docs/languages/css
     "cssls",
-    -- https://github.com/iamcco/diagnostic-languageserver
     "diagnosticls",
-    -- https://github.com/rcjsuen/dockerfile-language-server-nodejs
     "dockerls",
-    -- https://github.com/mattn/efm-langserver
-    "efm",
     "gh_actions_ls",
     "jinja_lsp",
     "jsonls",
-    -- https://github.com/LuaLS/lua-language-server
-    -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#lua_ls
     "lua_ls",
     "pylsp",
     "ruff",
     "tailwindcss",
-    -- https://taplo.tamasfe.dev/cli/usage/language-server.html
-    -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#taplo
-    "taplo",
     -- https://github.com/astral-sh/ty
-    -- "ty",
+    "ty",
     -- https://github.com/redhat-developer/yaml-language-server
     "yamlls",
 })
