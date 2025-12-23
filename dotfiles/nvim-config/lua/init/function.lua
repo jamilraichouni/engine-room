@@ -46,15 +46,9 @@ vim.g.top = function()
     vim.cmd("startinsert")
     vim.defer_fn(function()
         vim.cmd([[
-        silent! file term://terminal
+        silent! file term://top
     ]])
     end, 500)
-
-    vim.cmd("terminal top")
-    vim.cmd([[
-        silent! file term://top
-        startinsert
-    ]])
 end
 vim.g.FormatCode = function()
     local bufnr = vim.api.nvim_get_current_buf()
@@ -95,3 +89,4 @@ vim.g.WorkingTimesCompute = function()
         print("Error: " .. proc.stdout)
     end
 end
+
