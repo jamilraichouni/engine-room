@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pathlib
 import sys
 
@@ -11,3 +13,4 @@ if __name__ == "__main__":
         directory = directory[0].strip()
         directory = directory.replace("~", str(pathlib.Path.home()))
         print(directory)
+
