@@ -1,12 +1,13 @@
 vim.cmd.colorscheme("habamax")
 vim.cmd("filetype plugin indent on")
 
+require("init.global")
+
+require("init.lazy")
 require("init.autocmd")
 require("init.function")
-require("init.global")
 require("init.highlight")
 require("init.keymap")
-require("init.lazy")
 require("init.lsp")
 require("init.option")
 require("init.diagnostic")
