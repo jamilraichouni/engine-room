@@ -2,7 +2,6 @@ return {
     -- https://github.com/github/copilot.vim {{{
     {
         "github/copilot.vim",
-        cmd = "Copilot",
         lazy = false,
         event = "InsertEnter",
         config = function()
@@ -84,3 +83,4 @@ return {
     -- }}}
 }
 -- vim: foldmethod=marker:foldlevel=10:foldenable
+
