@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "autoupdate": true,
   "instructions": ["CONTRIBUTING.md", "~/.config/opencode/AGENTS.md"],
   "keybinds": {
     "leader": "ctrl+x",
