@@ -4,15 +4,17 @@
 
 ### Defaults
 
-K      - vim.lsp.buf.hover()
-grt    - vim.lsp.buf.type_definition()
-grn    - vim.lsp.buf.rename()
-gra    - vim.lsp.buf.code_action()
-grr    - vim.lsp.buf.references()
-gO     - vim.lsp.buf.document_symbol()
+K         - vim.lsp.buf.hover()
+grt       - vim.lsp.buf.type_definition()
+grn       - vim.lsp.buf.rename()
+gra       - vim.lsp.buf.code_action()
+grr       - vim.lsp.buf.references()
+gO        - vim.lsp.buf.document_symbol()
 
-gri    - vim.lsp.buf.implementation()
-CTRL-S - vim.lsp.buf.signature_help() -> insert mode only
+CTRL-W d  - Diagnostics under cursor in a floating window
+
+gri       - vim.lsp.buf.implementation()
+CTRL-S    - vim.lsp.buf.signature_help() -> insert mode only
 
 ### Customized (JAR)
 
@@ -49,6 +51,7 @@ grs    - vim.lsp.buf.workspace_symbol()
 [q    - previous entry
 ]q    - next entry
 :ccX  - go to Xth entry in quickfix list
+:llX  - go to Xth entry in location list
 
 [Q    - first entry
 ]Q    - last entry
