@@ -108,6 +108,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
         end
         local format_on_save = {
             bash = true,
+            dockerfile = true,
             lua = true,
             markdown = true,
             python = true,
