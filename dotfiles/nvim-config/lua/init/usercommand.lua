@@ -6,15 +6,15 @@ vim.api.nvim_create_user_command("Qa", "qa", { force = true })
 vim.api.nvim_create_user_command("Showautocmd", "redir! > /tmp/.autocmd | silent autocmd | redir END | e /tmp/.autocmd",
     { force = true })
 
-vim.api.nvim_create_user_command("JarKeymapsAll", "redir! > /tmp/.map | silent map | redir END | e /tmp/.map",
+vim.api.nvim_create_user_command("JoKeymapsAll", "redir! > /tmp/.map | silent map | redir END | e /tmp/.map",
     { force = true })
-vim.api.nvim_create_user_command("JarDoc",
+vim.api.nvim_create_user_command("JoDoc",
     "edit ~/engine-room/dotfiles/nvim-config/docs/JARDOC.md",
     { force = true })
-vim.api.nvim_create_user_command("JarCheatSheet",
+vim.api.nvim_create_user_command("JoCheatSheet",
     "echo system('cat ~/engine-room/dotfiles/nvim-config/docs/CHEATSHEET.md')",
     { force = true })
-vim.api.nvim_create_user_command("JarCheatSheetEdit", "edit ~/engine-room/dotfiles/nvim-config/docs/CHEATSHEET.md",
+vim.api.nvim_create_user_command("JoCheatSheetEdit", "edit ~/engine-room/dotfiles/nvim-config/docs/CHEATSHEET.md",
     { force = true })
 
 vim.api.nvim_create_user_command("TSInspect", "Inspect!", { force = true })
