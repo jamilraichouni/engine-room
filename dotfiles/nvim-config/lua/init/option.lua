@@ -24,6 +24,7 @@ vim.opt.listchars = "tab:→  ,trail:·,extends:>,precedes:<" -- highlight trail
 vim.opt.mouse = "a"
 vim.opt.backup = false
 vim.opt.showmode = false
+vim.opt.signcolumn = "yes"
 vim.opt.swapfile = false
 vim.opt.wrap = false
 vim.opt.writebackup = false
@@ -38,3 +39,4 @@ vim.opt.undofile = true
 vim.opt.wildmenu = true                    -- display all matching files when we tab complete
 vim.opt.wildignore = "**/.git/**,**/.venv/**,!.*"
 vim.opt.shortmess = vim.o.shortmess .. "S" -- Don't show search count since we use it in feline
+
