@@ -9,12 +9,17 @@ SHELL ["/bin/zsh", "-c"]
 ENV SHELL=/bin/zsh
 # }}}
 
+# Set ARCH environment variable once for all installations {{{
+RUN ARCH="$(uname -m | sed -e 's/aarch64$/arm64/' -e 's/x86_64/amd64/')" && \
+  echo "export ARCH=${ARCH}" >> /etc/environment && \
+  echo "export ARCH=${ARCH}" >> /etc/zshenv
+# }}}
+
 # system pkg manager installs {{{
 RUN dnf --refresh -y install \
   ImageMagick \
   lua5.1 \
-  luarocks \
-  tree-sitter-cli
+  luarocks
 # }}}
 
 # uv setup and system python setup {{{
@@ -94,6 +99,20 @@ RUN set -x && \
   curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" && \
   tar zxvf "${KREW}.tar.gz" && \
   ./"${KREW}" install krew
+WORKDIR /home/nerd
+# }}}
+
+# tree-sitter {{{
+USER root
+WORKDIR /tmp
+RUN source /etc/zshenv && \
+  TREE_SITTER="tree-sitter-linux-${ARCH}" && \
+  curl -fsSLO "https://github.com/tree-sitter/tree-sitter/releases/latest/download/${TREE_SITTER}.gz" && \
+  gunzip tree-sitter-linux-*.gz && \
+  mv ${TREE_SITTER} tree-sitter && \
+  chmod +x tree-sitter && \
+  mv tree-sitter /opt && \
+  ln -s /opt/tree-sitter /usr/local/bin/tree-sitter
 WORKDIR /home/nerd
 # }}}
 
