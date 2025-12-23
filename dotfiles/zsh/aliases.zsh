@@ -49,11 +49,11 @@ alias x='cd /opt/bind/x'
 # edit specific files
 alias Ali='$EDITOR $DOT/zsh/aliases.zsh'
 alias Auto='$EDITOR ~/.config/nvim/lua/init/autocmd.lua'
-alias Doc='$EDITOR $DOT/JARDOC.md'
+alias Doc='$EDITOR $DOT/nvim-config/docs/JARDOC.md'
 alias Ewt='$EDITOR ~/dev/github/working-times/data/working_times.csv'
 alias Init='$EDITOR ~/.config/nvim/init.lua'
 alias Key='$EDITOR ~/.config/nvim/lua/init/keymap.lua'
-alias Lsp='$EDITOR ~/.config/nvim/lua/plugins/lsp.lua'
+alias Lsp='$EDITOR ~/engine-room/dotfiles/nvim-config/lua/init/lsp.lua'
 alias Plug='$EDITOR ~/.config/nvim/lua/plugins'
 alias Zsh='$EDITOR -c"tcd $DOT/zsh" $DOT/zsh'
 
