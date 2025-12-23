@@ -86,7 +86,9 @@ match filetype:
     case "javascript":
         vim.current.buffer[:] = prettier(parser="babel")
         end_buffer_with_newline()
-    case "j2" | "jinja" | "jinja2" | "jinja.html":
+    case (
+        "j2" | "jinja" | "jinja2" | "jinja.html" | "htmldjango" | "django-html"
+    ):
         plugins = (
             next(
                 iter(
