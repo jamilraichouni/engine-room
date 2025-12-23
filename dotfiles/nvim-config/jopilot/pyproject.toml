@@ -148,6 +148,9 @@ ignore = [
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"
 
+[tool.ruff.lint.per-file-ignores]
+"src/**/*" = ["T201"] # https://docs.astral.sh/ruff/rules/print
+
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
