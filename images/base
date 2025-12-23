@@ -161,18 +161,20 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | b
 RUN touch /home/nerd/.zshrc && \
   zsh -c "source /home/nerd/.nvm/nvm.sh && nvm install --lts"
 
-# yarn, gh-actions-language-server, remark-parse
-# `remark-parse` is needed to format Markdown files using `prettier`
+# npm pkgs
 RUN zsh -c "source /home/nerd/.nvm/nvm.sh && \
   nvm use default && \
   npm install -g \
   @anthropic-ai/claude-code \
+  @prettier/plugin-xml \
   gh-actions-language-server \
+  markdownlint-cli \
   opencode-ai \
   prettier \
   prettier-plugin-jinja-template \
+  prettier-plugin-sh \
   prettier-plugin-tailwindcss \
-  remark-parse \
+  prettier-plugin-toml \
   yarn"
 # }}}
 
