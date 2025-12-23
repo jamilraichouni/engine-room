@@ -3,6 +3,7 @@ return {
     {
         "andythigpen/nvim-coverage",
         version = "*",
+        cmd = { "CoverageLoad", "CoverageSummary", "CoverageToggle" },
         config = function()
             require("coverage").setup({
                 auto_reload = true,
@@ -37,3 +38,4 @@ return {
         },
     },
 }
+
