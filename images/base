@@ -37,7 +37,7 @@ RUN curl -Lo /tmp/install.sh https://astral.sh/uv/install.sh && \
   chmod +x /tmp/install.sh && \
   UV_NO_MODIFY_PATH=1 sh /tmp/install.sh && \
   rm /tmp/install.sh && \
-  uv python install --no-cache --default 3.14 && \
+  uv python install --no-cache --default 3.13 && \
   uv venv --seed /opt/.venv && \
   chmod -R 777 /opt/.venv/bin && \
   chmod -R 777 /opt/.venv/lib/python*/site-packages && \
@@ -93,8 +93,8 @@ USER nerd
 WORKDIR /tmp
 RUN set -x && \
   cd "$(mktemp -d)" && \
+  source /etc/zshenv && \
   OS="$(uname | tr '[:upper:]' '[:lower:]')" && \
-  ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" && \
   KREW="krew-${OS}_${ARCH}" && \
   curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" && \
   tar xvzf "${KREW}.tar.gz" && \
@@ -180,8 +180,9 @@ RUN zsh -c "source /home/nerd/.nvm/nvm.sh && \
 
 # hadolint (Dockerfile linter) {{{
 USER root
-RUN curl -Lo \
-  /opt/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-$(go env GOARCH) && \
+RUN source /etc/zshenv && \
+  curl -Lo \
+  /opt/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-${ARCH} && \
   chmod +x /opt/hadolint && \
   ln -s /opt/hadolint /usr/local/bin/hadolint
 # }}}
@@ -195,3 +196,4 @@ RUN if [ "$WITH_OLLAMA" = "true" ]; then \
 
 USER root
 ENTRYPOINT ["python3", "/home/nerd/engine-room/supervisor.py"]
+
