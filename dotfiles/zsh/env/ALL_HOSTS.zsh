@@ -13,8 +13,8 @@ export LANG=en_US.UTF-8
 export LANGUAGE=en_US:en:C
 export MANPAGER="nvim +Man! "
 export NVIM_DOCS="/opt/nvim/share/nvim/runtime/doc"
-export NVM_BIN="$(realpath $NVM_DIR/versions/node/v*/bin)"
 export NVM_DIR="$HOME/.nvm"
+export NVM_BIN="$(realpath $NVM_DIR/versions/node/v*/bin)"
 export PYTHON_COLORS=1
 export SHELL=/bin/zsh
 if [[ "$HOST" == "engine-room-"* ]]; then
