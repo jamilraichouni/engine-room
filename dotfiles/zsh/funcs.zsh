@@ -60,16 +60,14 @@ urlencode() {
 }
 
 venv() {
-  # `pynvim` is needed by Python plugins (e. g. https://github.com/madox2/vim-ai)
-
-  # git+https://github.com/bretello/pdbpp.git@fix-on-3.11 \
-
+  deactivate
   [[ -f .python-version ]] && rm .python-version
-  VERSION=${1:-3.14.0}
+  [[ -d .venv ]] && rm -rf .venv
+  VERSION=${1:-3.13.0}
   uv venv --python=$VERSION .venv
   source .venv/bin/activate
   uv pip install --upgrade pip
   uv pip install -r $DOT/requirements.txt
-  uv tool install pre-commit --with pre-commit-uv --force-reinstall
-  [[ -f pyproject.toml ]] && uv sync --inexact
+  [[ -f pyproject.toml ]] && uv sync --frozen --inexact
 }
+
