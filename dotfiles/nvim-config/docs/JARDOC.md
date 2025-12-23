@@ -337,7 +337,6 @@ Preconditions:
    `pip install ipykernel jupyter`
 1. Create a custom gdb Python extension for easy injection of Python code into
    a halted (breakpoint) Python process:
-
    - Create a file `~/.gdbextension.py` with the following content:
 
      ```python
@@ -544,7 +543,6 @@ Examples:
 ### Recipe(vim): Wrap text by line length limit (textwidth)
 
 1. Set the text width via
-
    - `:setl[ocal] tw=72` for docstrings or
    - `:setl[ocal] tw=79` for Python code
 
@@ -659,8 +657,8 @@ defaults write com.apple.loginwindow DisableScreenLockImmediate -bool yes
 
 ### Download and install Ubuntu Server
 
-Download <https://downloads.raspberrypi.org/imager> for your operating system on
-which you want to prepare the SD card.
+Download <https://downloads.raspberrypi.org/imager> for your operating system
+on which you want to prepare the SD card.
 
 Once this is done, start the Imager and open the `CHOOSE OS` menu. Scroll down
 the menu click `Other general-purpose OS`.
