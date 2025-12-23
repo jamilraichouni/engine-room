@@ -177,9 +177,6 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
                 "<cmd>lua vim.diagnostic.goto_next{wrap=false,popup_opts={border='rounded'}}<cr>", opts)
             vim.keymap.set("n", "[g",
                 "<cmd>lua vim.diagnostic.goto_prev{wrap=false,popup_opts={border='rounded'}}<cr>", opts)
-            vim.keymap.set("n", "grp",
-                "<cmd>lua vim.diagnostic.open_float(nil, {scope = 'line', focus = true, focusable = true, focus_id = '1', border = 'rounded'})<cr>",
-                opts)
             vim.keymap.set("n", "grl", "<cmd>lopen<cr><cmd>wincmd k<cr>", opts)
             vim.keymap.set("n", "grL", "<cmd>lclose<cr>", opts)
             vim.keymap.set("n", "<leader>WS",
