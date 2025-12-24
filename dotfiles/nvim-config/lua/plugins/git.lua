@@ -2,22 +2,16 @@ return {
     {
         -- https://github.com/tpope/vim-fugitive
         "tpope/vim-fugitive",
-        cmd = { "G", "Gclog" },
-        event = { "VeryLazy" },
-        config = function()
-            vim.keymap.set('n', '<leader>Gb', '<cmd>G<cr>', { silent = true })
-            -- FIXME: Gh behaves weird
-            vim.keymap.set('n', '<leader>Gh', '<cmd>vnew +G<cr>', { silent = true })
-            vim.keymap.set('n', '<leader>Gj', '<cmd>belowright new +G<cr>', { silent = true })
-            vim.keymap.set('n', '<leader>Gk', '<cmd>new +G<cr>', { silent = true })
-            vim.keymap.set('n', '<leader>Gl', '<cmd>belowright vnew +G<cr>', { silent = true })
-            vim.keymap.set('n', '<leader>Gt', '<cmd>tabedit +G<cr><cmd>TabooRename Git<cr>', { silent = true })
-        end,
+        cmd = { "G", "Git", "Gclog", "Gwrite", "Gread", "Gdiff", "GBrowse" },
+        keys = {
+            { "<leader>Gb", "<cmd>G<cr>", desc = "Open Git status" },
+            { "<leader>Gt", "<cmd>tabedit +G<cr><cmd>TabooRename Git<cr>", desc = "Git status in new tab" },
+        },
     },
     {
         -- https://github.com/lewis6991/gitsigns.nvim
         "lewis6991/gitsigns.nvim",
-        event = "VeryLazy",
+        event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("gitsigns").setup({
                 diff_opts = {

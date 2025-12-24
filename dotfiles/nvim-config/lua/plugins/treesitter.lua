@@ -3,7 +3,17 @@ return {
         -- https://github.com/nvim-treesitter/nvim-treesitter
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        lazy = false,
+        lazy = true,
+        event = { "BufReadPost", "BufNewFile" },
+        cmd = {
+            "TSInstall",
+            "TSUninstall",
+            "TSUpdate",
+            "TSUpdateSync",
+            "TSInstallInfo",
+            "TSInstallSync",
+            "TSInstallFromGrammar",
+        },
         config = function()
             require "nvim-treesitter".setup {
                 auto_install = true,
