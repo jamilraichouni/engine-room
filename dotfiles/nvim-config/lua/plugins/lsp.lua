@@ -2,7 +2,16 @@ return {
     -- https://github.com/williamboman/mason.nvim {{{
     {
         "williamboman/mason.nvim",
-        lazy = false,
+        lazy = true,
+        cmd = {
+            "Mason",
+            "MasonInstall",
+            "MasonInstallAll",
+            "MasonUpdate",
+            "MasonUninstall",
+            "MasonUninstallAll",
+            "MasonLog",
+        },
         config = function()
             require("mason").setup({
                 log_level = vim.log.levels.WARN, -- TRACE, DEBUG, INFO, WARN, ERROR, OFF

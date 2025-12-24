@@ -14,5 +14,4 @@ require("init.diagnostic")
 require("init.usercommand")
 
 vim.cmd.set("foldtext=g:fold_text()")
-require("mason-registry").update()
 

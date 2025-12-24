@@ -13,6 +13,8 @@ return {
     {
         -- https://github.com/nvim-lualine/lualine.nvim
         "nvim-lualine/lualine.nvim",
+        lazy = true,
+        event = "VeryLazy",
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
             local colors = {

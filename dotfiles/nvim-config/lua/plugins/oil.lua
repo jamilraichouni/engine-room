@@ -1,6 +1,15 @@
 return {
     {
         'stevearc/oil.nvim',
+        lazy = false,
+        keys = {
+            { "<leader>Ob", "<cmd>Oil<cr>", desc = "Open Oil in current window" },
+            { "<leader>Ot", "<cmd>tabnew <bar> Oil<cr><cmd>TabooRename Oil<cr>", desc = "Open Oil in new tab" },
+            { "<leader>Oh", "<cmd>vnew <bar> Oil<cr>", desc = "Open Oil in vertical split left" },
+            { "<leader>Oj", "<cmd>belowright new <bar> Oil<cr>", desc = "Open Oil in horizontal split below" },
+            { "<leader>Ok", "<cmd>new <bar> Oil<cr>", desc = "Open Oil in horizontal split above" },
+            { "<leader>Ol", "<cmd>belowright vnew <bar> Oil<cr>", desc = "Open Oil in vertical split right" },
+        },
         opts = {},
         -- Optional dependencies
         dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -81,14 +90,6 @@ return {
                 },
                 watch_for_changes = true,
             })
-            vim.cmd [[
-            nnoremap <silent><leader>Ob <cmd>Oil<cr>
-            nnoremap <silent><leader>Ot <cmd>tabnew <bar> Oil<cr><cmd>TabooRename Oil<cr>
-            nnoremap <silent><leader>Oh <cmd>vnew <bar> Oil<cr>
-            nnoremap <silent><leader>Oj <cmd>belowright new <bar> Oil<cr>
-            nnoremap <silent><leader>Ok <cmd>new <bar> Oil<cr>
-            nnoremap <silent><leader>Ol <cmd>belowright vnew <bar> Oil<cr>
-        ]]
         end,
     },
 }
