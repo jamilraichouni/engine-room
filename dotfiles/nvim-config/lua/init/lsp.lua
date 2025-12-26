@@ -198,7 +198,9 @@ vim.lsp.config("ruff", {
     init_options = {
         settings = {
             configurationPreference = "filesystemFirst",
+            lineLength = 79,
             logLevel = "warn",
+            showSyntaxErrors = false,
         }
     }
 })
@@ -264,15 +266,13 @@ vim.lsp.config("tailwindcss", {
         },
     },
 })
+-- https://github.com/astral-sh/ty
 vim.lsp.config("ty", {
     cmd = { "ty", "server" },
     filetypes = { "python" },
     root_markers = { "pyproject.toml", ".git", "ty.toml" },
     settings = {
         -- https://github.com/astral-sh/ty/blob/main/docs/reference/editor-settings.md
-        ty = {
-            disableLanguageServices = true
-        }
     }
 })
 -- https://github.com/redhat-developer/yaml-language-server
@@ -309,10 +309,8 @@ vim.lsp.enable({
     "jinja_lsp",
     "jsonls",
     "lua_ls",
-    "pylsp",
     "ruff",
     "tailwindcss",
-    -- https://github.com/astral-sh/ty
     "ty",
     "yamlls",
 })
