@@ -49,6 +49,13 @@ return {
             {
                 -- https://github.com/hrsh7th/vim-vsnip
                 "hrsh7th/vim-vsnip", -- provider
+                cmd = {
+                    "VsnipOpen",
+                    "VsnipOpenEdit",
+                    "VsnipOpenSplit",
+                    "VsnipOpenVsplit",
+                    "VsnipYank",
+                },
                 config = function()
                     vim.g.vsnip_snippet_dir = "~/.config/nvim/snippets"
                     vim.g.vsnip_filetypes = {}
