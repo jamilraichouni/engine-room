@@ -23,22 +23,26 @@ fi
 if [[ "$(uname -o)" != *"Darwin"* ]]; then
   export DISPLAY="host.docker.internal:0.0"
   export KUBECONFIG=$HOME/dev/dbgitlab/gitops/access/ardks-iat-nzfcw.kubeconfig
-  export PATH=/opt/.venv/bin:$PATH
   export TERM=xterm-kitty
   export TERMINFO=/usr/share/terminfo
-  export _OLD_VIRTUAL_PATH="$PATH"
-  export VIRTUAL_ENV=/opt/.venv
   export VOL=/mnt/volume
   sudo chmod 666 /run/secrets/GITLAB_PAT
 fi
 export TZ=":/usr/share/zoneinfo/Europe/Berlin"
 export VISUAL=nvim
-export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$HOME/.krew/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/engine-room/dotfiles/zsh/bin:$PATH
-export PATH=$JAVA_HOME/bin:$PATH
-export PATH=$(realpath $HOME/.nvm/versions/node/v*/bin):$PATH
+
+# Source zsh functions
+source $HOME/engine-room/dotfiles/zsh/funcs.zsh
+
+# Add paths without duplication
+pathprepend $HOME/.cargo/bin
+pathprepend $HOME/.krew/bin
+pathprepend $HOME/.local/bin
+pathprepend $HOME/engine-room/dotfiles/zsh/bin
+pathprepend $JAVA_HOME/bin
+pathprepend $HOME/.local/share/nvim/mason/bin
+NVM_NODE_BIN=$(realpath $HOME/.nvm/versions/node/v*/bin 2>/dev/null | head -1)
+[[ -n "$NVM_NODE_BIN" ]] && pathprepend $NVM_NODE_BIN
 export REQUESTS_CA_BUNDLE=$HOME/engine-room/secrets/ssl_certificates.pem
 export SSL_CERT_FILE=$REQUESTS_CA_BUNDLE
 export UV_CACHE_DIR=/mnt/volume/cache/uv
@@ -50,3 +54,8 @@ export UV_PYTHON_INSTALL_DIR=/opt/python
 export UV_UNMANAGED_INSTALL=/usr/bin/
 
 [[ -f /etc/zshenv.secrets ]] && . /etc/zshenv.secrets
+
+# Properly activate /opt/.venv if it exists and not already in a venv
+if [[ -f /opt/.venv/bin/activate ]] && [[ -z "$VIRTUAL_ENV" ]]; then
+  . /opt/.venv/bin/activate
+fi
