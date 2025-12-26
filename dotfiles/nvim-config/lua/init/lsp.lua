@@ -275,6 +275,7 @@ vim.lsp.config("ty", {
         }
     }
 })
+-- https://github.com/redhat-developer/yaml-language-server
 vim.lsp.config("yamlls", {
     cmd = { "yaml-language-server", "--stdio" },
     root_markers = { "pyproject.toml", ".git" },
@@ -313,7 +314,6 @@ vim.lsp.enable({
     "tailwindcss",
     -- https://github.com/astral-sh/ty
     "ty",
-    -- https://github.com/redhat-developer/yaml-language-server
     "yamlls",
 })
 vim.lsp.set_log_level("warn") -- error, warn, info, or debug
