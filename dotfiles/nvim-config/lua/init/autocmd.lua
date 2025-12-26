@@ -13,15 +13,22 @@ local function colorize_logs()
     vim.fn.matchadd('LogError', '.*20.*ERROR.*', -1)
     vim.fn.matchadd('LogCritical', '.*20.*CRITICAL.*', -1)
 end
-
+local setup_treesitter = function()
+    pcall(function()
+        vim.treesitter.start()
+        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt_local.foldmethod = "expr"
+        vim.opt_local.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end)
+end
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "*" },
     callback = function(args)
-        local file = args.file
-        local file_size_kb = vim.fn.getfsize(file) / 1024
+        setup_treesitter()
+        local file_size_kb = vim.fn.getfsize(args.file) / 1024
         if file_size_kb > 1000 then
-            vim.cmd.setlocal("foldmethod=manual")
+            vim.opt_local.foldmethod = "manual"
         end
     end,
 })

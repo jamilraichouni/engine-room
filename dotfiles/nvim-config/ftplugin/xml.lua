@@ -7,9 +7,3 @@ vim.g.xml_fold_text = function()
 end
 vim.opt_local.foldtext = "g:xml_fold_text()"
 
--- treesitter
-vim.treesitter.start()
-vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.wo[0][0].foldmethod = "expr"
-vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-
