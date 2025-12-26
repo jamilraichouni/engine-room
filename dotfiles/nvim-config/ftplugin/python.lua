@@ -6,9 +6,3 @@ end
 vim.o.foldtext = "g:python_fold_text()"
 vim.opt_local.colorcolumn = { "72", "79" }
 
--- treesitter
-vim.treesitter.start()
-vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.wo[0][0].foldmethod = "expr"
-vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-
