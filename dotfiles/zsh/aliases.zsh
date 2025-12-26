@@ -3,7 +3,7 @@ unalias -a
 # core:
 alias :q='exit'
 alias :qa='exit'
-alias venv-deactivate='source ~/engine-room/dotfiles/zsh/bin/deactivate-venv.zsh'
+alias venv-deactivate='deactivate-venv'
 if [[ "$(uname -o)" == *"Darwin"* ]]; then
   alias ls='ls --color';
   alias dbmac='/usr/bin/ssh -q -o StrictHostKeyChecking=false dbmac'
@@ -15,10 +15,6 @@ alias l='ls -lh'   # h makes sizes human-readable
 alias ll='ls -lha' # a shows dot files
 alias src='. ~/.zshrc'
 alias watch='watch --color'
-
-# functions:
-alias pathprepend='/bin/zsh ~/engine-room/dotfiles/zsh/bin/pathprepend.zsh'
-alias ssh='/bin/zsh ~/engine-room/dotfiles/zsh/bin/ssh.zsh'
 
 # dirs:
 alias ..='cd ..'
