@@ -70,14 +70,10 @@ vim.g.FormatCode = function()
     end
 end
 vim.g.WorkingTimesCompute = function()
-    -- save the modified working time buffer
     vim.api.nvim_command("write")
     local proc = vim.system(
         { "uv", "run", "python", "-m", "working_times" },
-        {
-            cwd = os.getenv("HOME") .. "/dev/github/working-times",
-            -- env = { PYENV_VERSION = "working-times" }
-        }
+        { cwd = os.getenv("HOME") .. "/dev/github/working-times" }
     ):wait()
     if proc.code == 0 then
         vim.api.nvim_command("edit")
