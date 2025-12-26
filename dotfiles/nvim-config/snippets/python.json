@@ -1,11 +1,4 @@
 {
-  "EASE_BOT": {
-    "body": [
-      "BOT: t.Any = org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot()  # type: ignore # noqa"
-    ],
-    "description": "Create an EASE SWTWorkbenchBot",
-    "prefix": ["EASE (BOT)"]
-  },
   "HTTP Status Codes": {
     "body": [
       "from http.client import responses",
@@ -711,16 +704,6 @@
     "description": "Monkeypatch return value of a function",
     "prefix": ["monkeypatch retval of func"]
   },
-  "mypy/ pylance (ignore line)": {
-    "body": ["# type: ignore"],
-    "description": "Disable mypy checking for this line",
-    "prefix": [
-      "mypy (ignore)",
-      "ignore (mypy)",
-      "line (mypy ignore)",
-      "pyce ignore)"
-    ]
-  },
   "namedtuple": {
     "body": [
       "from collections import namedtuple",
@@ -1224,15 +1207,15 @@
     "description": "Define or type a queue",
     "prefix": ["queue", "type (queue)"]
   },
-  "typing": {
-    "body": ["import typing as t"],
-    "description": "import typing as t",
-    "prefix": ["import"]
-  },
   "import typing as t": {
     "body": ["import typing as t"],
     "description": "import typing as t",
     "prefix": ["import typing as t"]
+  },
+  "ty (ignore line)": {
+    "body": ["# type: ignore[${1:ERROR_CODE}, ${2:ANOTHER_ERROR_CODE}]"],
+    "description": "Disable mypy checking for this line",
+    "prefix": ["ty (ignore)", "ignore (ty)", "skip (ty)", "suppress (ty)"]
   },
   "username": {
     "body": ["from getpass import getuser", "getuser()"],
@@ -1323,3 +1306,4 @@
     "prefix": ["which"]
   }
 }
+
