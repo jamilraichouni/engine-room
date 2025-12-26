@@ -10,7 +10,6 @@ pyfzf
 pynvim
 pytest
 python-dotenv
-python-lsp-server
 ruff
 ty
 
