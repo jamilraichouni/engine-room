@@ -4,7 +4,7 @@ import os
 import pathlib
 import subprocess
 
-import vim
+import vim  # type: ignore[unresolved-import]
 
 
 def end_buffer_with_newline() -> None:
