@@ -32,11 +32,15 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         end
     end,
 })
--- Avoid format on save
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
     group = vim.g.augroup_jar,
     pattern = { "**/*cookiecutter.__project_slug_dash*/**/*.py" },
-    command = "LspStop ruff"
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client and client.name == "ruff" then
+            vim.lsp.buf_detach_client(args.buf, args.data.client_id)
+        end
+    end
 })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     group = vim.g.augroup_jar,
@@ -78,9 +82,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "**/snippets/*.json" },
-    callback = function(_)
-        vim.cmd("setlocal foldlevel=1")
-    end
+    command = "setlocal foldlevel=1"
 })
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
@@ -124,36 +126,8 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
             zsh = true,
         }
         if format_on_save[vim.bo.filetype] then
-            local did_something = false
-
-            if next(vim.lsp.get_clients { bufnr = 0, method = "textDocument/codeAction" }) ~= nil then
-                local kind = "source.organizeImports"
-                if vim.bo.filetype == "python" then
-                    kind = "source.organizeImports.ruff"
-                end
-
-                local has_code_action = false
-                vim.lsp.buf.code_action {
-                    context = { only = { kind } },
-                    filter = function(_)
-                        if not has_code_action then
-                            has_code_action = true
-                            return true
-                        end
-                        return false
-                    end,
-                    apply = true,
-                }
-                did_something = true
-            end
-
             if next(vim.lsp.get_clients { bufnr = 0, method = "textDocument/formatting" }) ~= nil then
                 vim.g.FormatCode()
-                did_something = true
-            end
-
-            if not did_something then
-                vim.api.nvim_echo({ { "Format-on-save failed, no matching language servers.", "Error" } }, true, {})
             end
         end
     end

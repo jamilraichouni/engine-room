@@ -51,12 +51,22 @@ vim.g.top = function()
     end, 500)
 end
 vim.g.FormatCode = function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    -- Custom Python formatting
     vim.cmd("pyfile ~/engine-room/dotfiles/nvim-config/jopilot/src/jopilot/format.py")
-    -- LSP formatting (organize imports removed - handled in autocmd)
-    if next(vim.lsp.get_clients { bufnr = bufnr, method = "textDocument/formatting" }) ~= nil then
-        vim.lsp.buf.format({ bufnr = bufnr })
+    if vim.bo.filetype == "python" then
+        if next(vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf(), method = "textDocument/codeAction" }) ~= nil then
+            local has_code_action = false
+            vim.lsp.buf.code_action {
+                context = { only = { "source.organizeImports.ruff" } },
+                filter = function(_)
+                    if not has_code_action then
+                        has_code_action = true
+                        return true
+                    end
+                    return false
+                end,
+                apply = true,
+            }
+        end
     end
 end
 vim.g.WorkingTimesCompute = function()
