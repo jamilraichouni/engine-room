@@ -1,7 +1,7 @@
-aiofiles
-PyYAML
 click
 cookiecutter
+aiofiles  # needed by entrypoint.py
+PyYAML  # needed by entrypoint.py
 ipython
 jupyter
 mccabe
