@@ -106,7 +106,24 @@ return {
                 },
                 sections = {
                     lualine_a = {
-                        "mode",
+                        {
+                            "mode",
+                            fmt = function(str)
+                                local first_char = str:sub(1, 1)
+                                if first_char == "I" then
+                                    return ""
+                                elseif first_char == "N" then
+                                    return " "
+                                elseif first_char == "V" then
+                                    return " "
+                                elseif first_char == "R" then
+                                    return " "
+                                elseif first_char == "T" then
+                                    return " "
+                                end
+                                return first_char
+                            end
+                        },
                         {
                             "diagnostics",
 
