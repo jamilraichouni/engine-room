@@ -183,6 +183,17 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
         end
     end
 })
+vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+    desc = "Show cursorline only in active window",
+    group = vim.api.nvim_create_augroup("active_cursorline", { clear = true }),
+    callback = function() vim.opt_local.cursorline = true end,
+})
+
+vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave" }, {
+    desc = "Hide cursorline in inactive window",
+    group = "active_cursorline",
+    callback = function() vim.opt_local.cursorline = false end,
+})
 local sev_name = {
     E = 'E', -- Error
     W = 'W', -- Warning
