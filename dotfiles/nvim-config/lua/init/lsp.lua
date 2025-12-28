@@ -192,6 +192,7 @@ vim.lsp.config("pylsp", {
     },
 })
 vim.lsp.config("ruff", {
+    -- https://github.com/astral-sh/ruff/blob/main/docs/editors/settings.md
     cmd = { "ruff", "server" },
     filetypes = { "python" },
     root_markers = { "pyproject.toml", ".git", "ruff.toml", ".ruff.toml" },
