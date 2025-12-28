@@ -1,42 +1,42 @@
-vim.opt.background = "dark" -- Tell vim that the terminal has a dark background
-vim.opt.hidden = true       -- allow switching buffers without saving
+vim.o.background = "dark" -- Tell vim that the terminal has a dark background
+vim.o.hidden = true       -- allow switching buffers without saving
 
 -- indentation
-vim.opt.expandtab = true -- blanks instead of tab
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
-vim.opt.tabstop = 4
+vim.o.expandtab = true -- blanks instead of tab
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
+vim.o.tabstop = 4
 
-vim.opt.colorcolumn = "80"
-vim.opt.shell = "/bin/zsh"
-vim.opt.fillchars = "diff:-"
-vim.opt.completeopt = "menuone,noinsert,noselect,preview"
-vim.opt.diffopt = "internal,filler,closeoff,vertical"
-vim.opt.foldlevelstart = 10
-vim.opt.foldmethod = "expr"
-vim.opt.guicursor = "i-t-c-ci-ve:ver25-blinkon500-blinkoff500,n-v:block-blinkon500-blinkoff500"
+vim.o.colorcolumn = "80"
+vim.o.shell = "/bin/zsh"
+vim.o.fillchars = "diff:-"
+vim.o.completeopt = "menuone,noinsert,noselect,preview"
+vim.o.diffopt = "internal,filler,closeoff,vertical"
+vim.o.foldlevelstart = 10
+vim.o.foldmethod = "expr"
+vim.o.guicursor = "i-t-c-ci-ve:ver25-blinkon500-blinkoff500,n-v:block-blinkon500-blinkoff500"
 -- search:
-vim.opt.ignorecase = true -- case insensitive search
-vim.opt.smartcase = true  -- become case-sensitive if you type uppercase chars
+vim.o.ignorecase = true -- case insensitive search
+vim.o.smartcase = true  -- become case-sensitive if you type uppercase chars
 
-vim.opt.list = true
-vim.opt.listchars = "tab:→  ,trail:·,extends:>,precedes:<" -- highlight trailing whitespace
-vim.opt.mouse = "a"
-vim.opt.backup = false
-vim.opt.showmode = false
-vim.opt.signcolumn = "yes"
-vim.opt.swapfile = false
-vim.opt.wrap = false
-vim.opt.writebackup = false
+vim.o.list = true
+vim.o.listchars = "tab:→  ,trail:·,extends:>,precedes:<" -- highlight trailing whitespace
+vim.o.mouse = "a"
+vim.o.backup = false
+vim.o.showmode = false
+vim.o.signcolumn = "yes"
+vim.o.swapfile = false
+vim.o.wrap = false
+vim.o.writebackup = false
 
 -- line numbers
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.cursorline = true -- highlight current line
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.cursorline = true -- highlight current line
 
-vim.opt.termguicolors = true
-vim.opt.undofile = true
-vim.opt.wildmenu = true                    -- display all matching files when we tab complete
-vim.opt.wildignore = "**/.git/**,**/.venv/**,!.*"
-vim.opt.shortmess = vim.o.shortmess .. "S" -- Don't show search count since we use it in feline
+vim.o.termguicolors = true
+vim.o.undofile = true
+vim.o.wildmenu = true                    -- display all matching files when we tab complete
+vim.o.wildignore = "**/.git/**,**/.venv/**,!.*"
+vim.o.shortmess = vim.o.shortmess .. "S" -- Don't show search count since we use it in feline
 
