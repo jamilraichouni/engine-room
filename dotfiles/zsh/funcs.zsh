@@ -36,6 +36,27 @@ bak() {
   echo "Backup created at '$backup_path'"
 }
 
+cd() {
+  if [[ "$1" == "-" && "$#" -eq 1 ]]; then
+    local target_dir
+    target_dir=$("$DOT/zsh/bin/cd.py" "-")
+    if [[ $? -eq 0 && -n "$target_dir" ]]; then
+      builtin cd "$target_dir"
+    fi
+  else
+    if [[ -z "$1" ]]; then
+      builtin cd
+    else
+      local resolved_path
+      resolved_path=$("$DOT/zsh/bin/cd.py" "$1")
+      if [[ -n "$resolved_path" ]]; then
+        builtin cd "$resolved_path" "${@:2}"
+      else
+        builtin cd "$@"
+      fi
+    fi
+  fi
+}
 cleanpy_func() {
   find $PWD -depth -type d -name '__pycache__' -exec rm -Rf {} \;
   find $PWD -depth -type f -name '*.pyc' -exec rm -f {} \;
@@ -112,27 +133,5 @@ venv() {
   uv pip install --upgrade pip
   uv pip install -r $DOT/requirements.txt
   [[ -f pyproject.toml ]] && uv sync --frozen --inexact
-}
-
-cd() {
-  if [[ "$1" == "-" && "$#" -eq 1 ]]; then
-    local target_dir
-    target_dir=$("$DOT/zsh/bin/cd.py" "-")
-    if [[ $? -eq 0 && -n "$target_dir" ]]; then
-      builtin cd "$target_dir"
-    fi
-  else
-    if [[ -z "$1" ]]; then
-      builtin cd
-    else
-      local resolved_path
-      resolved_path=$("$DOT/zsh/bin/cd.py" "$1")
-      if [[ -n "$resolved_path" ]]; then
-        builtin cd "$resolved_path" "${@:2}"
-      else
-        builtin cd "$@"
-      fi
-    fi
-  fi
 }
 
