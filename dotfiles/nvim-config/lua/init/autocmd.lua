@@ -63,16 +63,10 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
     end
 })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+    desc = "Set dockerfile filetype for engine-room image files",
     group = vim.g.augroup_jar,
     pattern = { "**/engine-room/images/*" },
-    callback = function(_)
-        vim.bo.filetype = "dockerfile"
-    end
-})
-vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-    group = vim.g.augroup_jar,
-    pattern = { "pyproject.toml" },
-    command = "setlocal foldmethod=indent foldlevel=0"
+    command = "set filetype=dockerfile",
 })
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
@@ -106,8 +100,8 @@ vim.api.nvim_create_autocmd({ "TermClose" }, {
     end,
 })
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    desc = "Format on save",
     group = vim.g.augroup_jar,
-    desc = "LSP format on save",
     nested = true,
     callback = function()
         -- Skip formatting for CHEATSHEET.md
