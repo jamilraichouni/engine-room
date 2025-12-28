@@ -22,6 +22,7 @@ local setup_treesitter = function()
     end)
 end
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+    desc = "Setup treesitter-based folding and disable for large files",
     group = vim.g.augroup_jar,
     pattern = { "*" },
     callback = function(args)
@@ -41,6 +42,7 @@ vim.api.nvim_create_autocmd('FileType', {
     end,
 })
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
+    desc = "Disable ruff LSP for .py files with cookiecutter template code",
     group = vim.g.augroup_jar,
     pattern = { "**/*cookiecutter.__project_slug_dash*/**/*.py" },
     callback = function(args)
@@ -51,6 +53,7 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
     end
 })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+    desc = "Disable copilot for .env files",
     group = vim.g.augroup_jar,
     pattern = { ".env" },
     callback = function(_)
@@ -58,6 +61,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     end
 })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+    desc = "Colorize log files",
     group = vim.g.augroup_jar,
     pattern = { "*.log" },
     callback = function(_)
@@ -65,6 +69,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     end
 })
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
+    desc = "Colorize log output in terminal buffers",
     group = vim.g.augroup_jar,
     callback = function(_)
         colorize_logs()
@@ -135,14 +140,17 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     end
 })
 vim.api.nvim_create_autocmd({ "InsertEnter", "TermEnter" }, {
+    desc = "Set cursor style in insert/terminal mode",
     group = vim.g.augroup_jar,
     command = "setlocal guicursor=i-t-c-ci-ve:ver25-blinkon500-blinkoff500"
 })
 vim.api.nvim_create_autocmd({ "InsertLeave", "TermLeave" }, {
+    desc = "Set cursor style in normal mode",
     group = vim.g.augroup_jar,
     command = "setlocal guicursor=i-t-c-ci-ve:ver25-blinkon500-blinkoff500,n-v:block-blinkon500-blinkoff500"
 })
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
+    desc = "LSP keymaps and settings",
     group = vim.g.augroup_jar,
     callback = function(args)
         local opts = { buffer = args.buf }
