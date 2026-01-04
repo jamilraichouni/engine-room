@@ -18,12 +18,20 @@ function __python_venv_on_cd() {
     deactivate > /dev/null 2>&1 || unset VIRTUAL_ENV
   fi
 
-  if ! (($+VIRTUAL_ENV)) && [[ -f .venv/bin/activate ]]; then
-      . .venv/bin/activate
+  if [[ -f .venv/bin/activate ]]; then
+    . .venv/bin/activate
+  elif [[ -f /opt/.venv/bin/activate ]]; then
+    . /opt/.venv/bin/activate
   fi
 }
 
 chpwd_functions+=(__python_venv_on_cd)
 
 # when a terminal starts (especially in nvim), activate venv if .venv exists
-[[ -f .venv/bin/activate ]] && . .venv/bin/activate
+# or fall back to /opt/.venv if it exists
+if [[ -f .venv/bin/activate ]]; then
+  . .venv/bin/activate
+elif [[ -f /opt/.venv/bin/activate ]]; then
+  . /opt/.venv/bin/activate
+fi
+
