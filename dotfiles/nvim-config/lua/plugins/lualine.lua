@@ -20,7 +20,7 @@ return {
             local colors = {
                 black     = '#000000',
                 blue      = '#000EB0',
-                cyan      = '#00C8FF',
+                cyan      = '#00A2E1',
                 comment   = '#5d656f',
                 darkgreen = '#1a3a1a',
                 purple    = '#531B93',
