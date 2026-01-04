@@ -18,6 +18,7 @@ engine-rooms:
       # target: source
       $D/rclone: $H/.config/rclone
       "/mnt/googledrive/My Drive": $H/googledrive
+      "/mnt/proton": $H/proton
   capella-common: &capella-common
     user: techuser
     original-entrypoint:

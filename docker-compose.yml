@@ -116,6 +116,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - dbmac:/mnt/volume
       - $HOME/Library/CloudStorage/GoogleDrive-raichouni@gmail.com:/mnt/googledrive
+      - $HOME/Library/CloudStorage/ProtonDrive-janerd@proton.me-folder:/mnt/proton
   capella-6.0.0:
     # Start: `docker compose up -d capella-6.0.0`
     # Enter: `docker compose exec -it --user=techuser capella-6.0.0 zsh -l`
