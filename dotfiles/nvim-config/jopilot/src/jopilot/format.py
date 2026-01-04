@@ -69,7 +69,7 @@ match filetype:
     case "css" | "json":
         vim.current.buffer[:] = prettier(filetype)
         end_buffer_with_newline()
-    case "html":
+    case "html" | "htmlangular":
         plugins = tuple(
             pathlib.Path(os.environ["NVM_BIN"]).glob(
                 "../lib/**/prettier-plugin-tailwindcss/dist/index.mjs"
