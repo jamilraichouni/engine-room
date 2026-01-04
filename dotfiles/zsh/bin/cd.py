@@ -63,13 +63,12 @@ if __name__ == "__main__":
             sys.exit(0)
 
         selected = pyfzf.pyfzf.FzfPrompt().prompt(
-            dirs, fzf_options="--reverse --height=40% --preview 'ls -la {}'"
+            dirs, fzf_options="--reverse --height=40%"
         )
         if selected:
             directory = selected[0].strip()
             print(directory)
         else:
-            print(os.getcwd(), file=sys.stderr)
             sys.exit(1)
     else:
         if arg.startswith("~"):
