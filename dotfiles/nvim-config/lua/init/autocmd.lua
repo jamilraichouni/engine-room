@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     callback = function(args)
         setup_treesitter()
         local file_size_kb = vim.fn.getfsize(args.file) / 1024
-        if file_size_kb > 1000 then
+        if file_size_kb > 5000 then
             vim.opt_local.foldmethod = "manual"
         end
     end,
