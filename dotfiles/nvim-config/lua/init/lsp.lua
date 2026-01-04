@@ -201,7 +201,7 @@ vim.lsp.config("ruff", {
             configurationPreference = "filesystemFirst",
             lineLength = 79,
             logLevel = "warn",
-            showSyntaxErrors = false,
+            showSyntaxErrors = true,
         }
     }
 })
@@ -273,7 +273,10 @@ vim.lsp.config("ty", {
     filetypes = { "python" },
     root_markers = { "pyproject.toml", ".git", "ty.toml" },
     settings = {
-        -- https://github.com/astral-sh/ty/blob/main/docs/reference/editor-settings.md
+        ty = {
+            -- https://github.com/astral-sh/ty/blob/main/docs/reference/editor-settings.md
+            showSyntaxErrors = false,
+        }
     }
 })
 -- https://github.com/redhat-developer/yaml-language-server
