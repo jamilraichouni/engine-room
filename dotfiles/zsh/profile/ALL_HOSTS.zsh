@@ -10,8 +10,9 @@ fi
 source <(fzf --zsh)
 
 # p10k
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+_p10k_ipt="${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-$USER.zsh"
+if [[ -r "$_p10k_ipt" ]]; then
+  source "$_p10k_ipt"
 fi
 
 # nvm
