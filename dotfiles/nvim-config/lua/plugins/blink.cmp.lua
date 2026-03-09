@@ -88,7 +88,6 @@ return {
                     "copilot",
                     "lsp",
                     "path",
-                    "ripgrep",
                     "snippets",
                 },
                 providers = {
@@ -97,19 +96,6 @@ return {
                         module = "blink-copilot",
                         score_offset = 100,
                         async = true,
-                    },
-                    ripgrep = {
-                        module = "blink-ripgrep",
-                        name = "Ripgrep",
-                        opts = {
-                            project_root_marker = { ".git", "pyproject.toml" },
-                            backend = {
-                                use = "gitgrep-or-ripgrep",
-                                ripgrep = {
-                                    ignore_paths = { ".git", ".venv", "node_modules" },
-                                }
-                            }
-                        },
                     },
                 },
             },
