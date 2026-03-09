@@ -59,6 +59,7 @@ alias ff='(firefox &> /dev/null & disown &> /dev/null)'
 alias fonts='kitty +list-fonts'
 alias grep='grep --color --exclude-dir={.git,.mypy_cache,.pytest_cache,.ruff_cache,.venv,__pycache__,node_modules}'
 alias icat='kitty +kitten icat --align left --background=white'
+alias mmdc='docker run --rm -u `id -u`:`id -g` -v /opt/bind:/data minlag/mermaid-cli' # mermaid-cli with docker
 alias opencode='rm -f $HOME/.cache/opencode/models.json && rm -f $HOME/.local/state/opencode/model.json && opencode'
 alias prettifyhtml='prettier --parser html --tab-width 2 --print-width 79 --single-attribute-per-line'
 alias prettifyjinja='prettier --parser jinja-template --tab-width 2 --print-width 79 --single-attribute-per-line --plugin "$NVM_BIN/../lib/node_modules/prettier-plugin-jinja-template/lib/index.js"'
