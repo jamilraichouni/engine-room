@@ -48,6 +48,8 @@ return {
                 documentation = { auto_show = true, window = { border = 'single' } },
                 ghost_text = {
                     enabled = true,
+                    -- Show the ghost text when an item has been selected
+                    show_with_selection = true,
                 },
                 list = {
                     selection = {
