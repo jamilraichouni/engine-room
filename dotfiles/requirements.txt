@@ -3,7 +3,7 @@ PyYAML  # needed by entrypoint.py
 ipython
 pyfzf
 pynvim
-python-dotenv
+python-dotenv[cli]
 ruff
 ty
 
