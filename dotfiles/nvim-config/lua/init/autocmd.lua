@@ -22,10 +22,13 @@ local setup_treesitter = function()
     end)
 end
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-    desc = "Setup treesitter-based folding and disable for large files",
+    desc = "Setup treesitter-based folding and disable for csv or large files",
     group = vim.g.augroup_jar,
     pattern = { "*" },
     callback = function(args)
+        if vim.fn.fnamemodify(args.file, ":e") == "csv" then
+            return
+        end
         setup_treesitter()
         local file_size_kb = vim.fn.getfsize(args.file) / 1024
         if file_size_kb > 5000 then
