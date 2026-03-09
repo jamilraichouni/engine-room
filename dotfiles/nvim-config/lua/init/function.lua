@@ -22,7 +22,7 @@ vim.g.ipython = function()
     end, 500)
 end
 vim.g.opencode = function(no_rename_buffer)
-    vim.cmd("terminal opencode -c")
+    vim.cmd("terminal opencode")
     vim.cmd("startinsert")
     if not no_rename_buffer then
         vim.defer_fn(function()
