@@ -2,7 +2,7 @@
 [[ -f $HOME/.engine_room_env ]] && . "$HOME/.engine_room_env"
 export DOT=$HOME/engine-room/dotfiles
 export EDITOR=nvim
-export ENV GPG_TTY=$TTY  # see: https://unix.stackexchange.com/a/608921
+export ENV GPG_TTY=$TTY # see: https://unix.stackexchange.com/a/608921
 export ER=$HOME/engine-room
 export FZF_CTRL_T_OPTS='--color="fg+:#ffffff,fg:#608b4e,hl:#ff0000,hl+:#ff0000" --history-size=10000 --preview="bat --style=changes,header,numbers --color=always {}"'
 export FZF_DEFAULT_OPTS='--color="fg+:#ffffff,fg:#608b4e,hl:#ff0000,hl+:#ff0000" --history-size=10000'
@@ -41,7 +41,7 @@ pathprepend $HOME/.local/bin
 pathprepend $HOME/engine-room/dotfiles/zsh/bin
 pathprepend $JAVA_HOME/bin
 pathprepend $HOME/.local/share/nvim/mason/bin
-NVM_NODE_BIN=$(realpath $HOME/.nvm/versions/node/v*/bin 2>/dev/null | head -1)
+NVM_NODE_BIN=$(realpath $HOME/.nvm/versions/node/v*/bin 2> /dev/null | head -1)
 [[ -n "$NVM_NODE_BIN" ]] && pathprepend $NVM_NODE_BIN
 export REQUESTS_CA_BUNDLE=$HOME/engine-room/secrets/ssl_certificates.pem
 export SSL_CERT_FILE=$REQUESTS_CA_BUNDLE
@@ -59,3 +59,4 @@ export UV_UNMANAGED_INSTALL=/usr/bin/
 if [[ -f /opt/.venv/bin/activate ]] && [[ -z "$VIRTUAL_ENV" ]]; then
   . /opt/.venv/bin/activate
 fi
+
