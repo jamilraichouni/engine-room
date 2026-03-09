@@ -20,7 +20,7 @@ return {
             vim.g.mkdp_preview_options = {
                 content_editable = false,
                 disable_filename = 0,
-                disable_sync_scroll = 0,
+                disable_sync_scroll = 1,
                 flowchart_diagrams = {},
                 hide_yaml_meta = 1,
                 katex = {},
