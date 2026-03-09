@@ -1,0 +1,12 @@
+{
+  "$schema": "https://opencode.ai/tui.json",
+  "keybinds": {
+    "leader": "ctrl+x",
+    "app_exit": "ctrl+d,<leader>q",
+    "input_clear": "ctrl+c",
+    "input_newline": "alt+enter"
+  },
+  "scroll_acceleration": {
+    "enabled": true
+  }
+}
