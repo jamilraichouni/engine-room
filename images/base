@@ -37,7 +37,7 @@ RUN curl -Lo /tmp/install.sh https://astral.sh/uv/install.sh && \
   chmod +x /tmp/install.sh && \
   UV_NO_MODIFY_PATH=1 sh /tmp/install.sh && \
   rm /tmp/install.sh && \
-  uv python install --no-cache --default 3.13 && \
+  uv python install --no-cache --default 3.14.1 && \
   uv venv --seed /opt/.venv && \
   chmod -R 777 /opt/.venv/bin && \
   chmod -R 777 /opt/.venv/lib/python*/site-packages && \
