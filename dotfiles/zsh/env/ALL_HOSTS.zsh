@@ -24,6 +24,7 @@ export POLARION_URL_TU="https://awspoldsdtu.polarion-iat.comp.db.de"  # REST API
 export PYTHON_COLORS=1
 export SHELL=/bin/zsh
 if [[ "$HOST" == "engine-room-"* ]]; then
+  export PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
   export SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
 fi
 if [[ "$(uname -o)" != *"Darwin"* ]]; then
