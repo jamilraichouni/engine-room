@@ -5,10 +5,10 @@ alias :q='exit'
 alias :qa='exit'
 alias venv-deactivate='deactivate-venv'
 if [[ "$(uname -o)" == *"Darwin"* ]]; then
-  alias ls='ls --color';
+  alias ls='ls --color'
   alias dbmac='/usr/bin/ssh -q -o StrictHostKeyChecking=false dbmac'
 else
-  alias ls='ls --color --time-style=+"%Y-%m-%d|%H:%M:%S"';
+  alias ls='ls --color --time-style=+"%Y-%m-%d|%H:%M:%S"'
   alias ua-tools='docker run --platform linux/amd64 -p 6080:6080 -v uaexpert-config:/root/.config/unifiedautomation -v /opt/bind:/opt/bind --rm --name ua-tools ua-tools'
 fi
 alias l='ls -lh'   # h makes sizes human-readable
@@ -37,7 +37,7 @@ alias gl='cd ~/dev/gitlab'
 alias loc='cd ~/dev/local'
 alias mbse='cd ~/dev/github/capellambse'
 alias mdd='cd ~/dev/dbgitlab/mddocgen'
-alias opc='cd ~/dev/dbgitlab/opc-ua-server'
+alias oddp='cd ~/dev/dbgitlab/oddp'
 alias tmp='cd /tmp'
 alias ws='cd /opt/bind/workspaces'
 alias x='cd /opt/bind/x'
