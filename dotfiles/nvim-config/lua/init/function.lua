@@ -27,6 +27,16 @@ vim.g.opencode = function(no_rename_buffer)
     if not no_rename_buffer then
         vim.defer_fn(function()
             vim.cmd([[
+            silent! file term://opencode3
+        ]])
+        end, 500)
+        vim.defer_fn(function()
+            vim.cmd([[
+            silent! file term://opencode2
+        ]])
+        end, 500)
+        vim.defer_fn(function()
+            vim.cmd([[
             silent! file term://opencode
         ]])
         end, 500)
