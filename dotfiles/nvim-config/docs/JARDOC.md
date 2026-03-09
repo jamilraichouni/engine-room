@@ -67,30 +67,23 @@ capella -consoleLog -noSplash \
     -list
 ```
 
-### Recipe(docker,artifactory): Login to Artifactory registry
+### Recipe(docker,artifactory): Use Docker registries
+
+#### How to create a token to access the Artifactory registry
 
 - Login at <https://bahnhub.tech.rz.db.de/ui/user_profile>
+- Create an Identity Token
 
-- Click on `Edit profile` below your name
+#### How to pull images
 
-- Generate an Identity Token or find one in password manager (look for entry
-  named `SET Docker images (Artifactory)`)
+To be able to pull images from Docker registries, we need to be logged in using
+the `docker login` command.
 
-- Add description (e.g. `ato-c-docker-stage-local`)
-
-- Edit appropriate cfg files (e.g. `~/.config/pip/pip.conf`)
-
-- Store token in password manager
-
-To be able to pull images from anywhere, we need to be logged into the VPN and
-four different registries:
+In Artifactory with BKU username and Artifactory token as password. On
+docker.io with DB user or private user credentials.
 
 ```bash
-docker login dbb-set-docker-prod-local.bahnhub.tech.rz.db.de  # user: BKU user, password: BKU password
-docker login ato-c-docker-stage-local.bahnhub.tech.rz.db.de  # user: BKU user, password: PAT
-docker login dbb-set-docker-stage-dev-local.bahnhub.tech.rz.db.de  # user: BKU user, password: BKU password
-docker login -u jamilraichouni  # login at docker.io (DB)
-docker login -u raichouni  # login at docker.io (private)
+docker login -u jamilraichouni ato-c-docker-stage-local.bahnhub.tech.rz.db.de
 ```
 
 ### Recipe(git): Undo last local (unpushed) commit
@@ -569,12 +562,16 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
     - `:diffget` / map: do - like diff obtain - (left to right: index to
       working copy) to undo change
 
-### Recipe(vim): Get diff for a specific commit in history of a given file
+### Recipe(vim,fugitive): Diff current file with state on another branch
+
+`:Gdiffsplit BRANCH:%`
+
+### Recipe(vim,fugitive): Get diff for a specific commit in history of a given file
 
 1. Load file of interest into a buffer
-1. Command `:Gllog`
-1. Select commit of interest in location list (navigate in list with `:lnext`
-   and `:lprevious`)
+1. Command `:Gclog`
+1. Select commit of interest in location list (navigate in list with `]q` and
+   `[q`)
 1. Press Enter to see changes of commit
 1. In new window select any line starting with `diff -- (...)`
 1. Press `o` for diff in horizontal split or `O` for diff in a new tab page

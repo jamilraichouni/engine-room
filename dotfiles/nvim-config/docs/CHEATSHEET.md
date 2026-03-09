@@ -9,7 +9,8 @@ grt       - vim.lsp.buf.type_definition()
 grn       - vim.lsp.buf.rename()
 gra       - vim.lsp.buf.code_action()
 grr       - vim.lsp.buf.references()
-gO        - vim.lsp.buf.document_symbol()
+gO        - vim.lsp.buf.document_symbol() (TOC, table of contents, outline in
+Markdown files)
 
 CTRL-W d  - Diagnostics under cursor in a floating window
 
