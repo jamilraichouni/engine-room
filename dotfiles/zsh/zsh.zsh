@@ -34,3 +34,4 @@ autoload -Uz compinit && compinit
 if [[ -n $TERM ]] && [[ $TERM == "xterm-kitty" ]]; then
     alias ssh='kitty +kitten ssh'
 fi
+
