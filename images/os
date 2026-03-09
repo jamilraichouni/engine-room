@@ -15,7 +15,10 @@ RUN rm installed
 
 # system pkg manager installs {{{
 RUN dnf --refresh -y install \
+  bat \
   cargo \
+  # `chromium` for mermaid-cli
+  chromium \
   fontconfig \
   ctags \
   file \
@@ -33,6 +36,8 @@ RUN dnf --refresh -y install \
   icoutils \
   # `inotify-tools` to have `inotifywait`
   inotify-tools \
+  # `iproute` to have `ss`
+  iproute \
   # `iputils` to have `ping`
   iputils \
   # `jq` to have command line JSON processor
@@ -51,6 +56,8 @@ RUN dnf --refresh -y install \
   openssh \
   openssh-server \
   openssl \
+  # pandoc to convert Markdown to other formats (e. g. HTML, PDF)
+  pandoc \
   passwd \
   # `patch` to apply patches to source code (e. g. from git diff)
   patch \
@@ -181,3 +188,4 @@ RUN zsh -c "$(curl -fsSL \
   rm /home/nerd/.zshrc && \
   touch /home/nerd/.zshrc
 # }}}
+
