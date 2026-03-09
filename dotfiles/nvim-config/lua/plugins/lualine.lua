@@ -192,8 +192,8 @@ return {
                     lualine_z = { "location",
                         {
                             "searchcount",
-                            maxcount = 999,
-                            timeout = 500,
+                            maxcount = 10000,
+                            timeout = 2000,
                         }
                     }
                 },
@@ -226,8 +226,8 @@ return {
                     lualine_z = {
                         {
                             "searchcount",
-                            maxcount = 999,
-                            timeout = 300,
+                            maxcount = 10000,
+                            timeout = 2000,
                         }
                     }
                 },
