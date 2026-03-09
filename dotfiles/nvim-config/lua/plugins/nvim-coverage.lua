@@ -16,14 +16,9 @@ return {
                     covered = { hl = "CoverageCovered", text = "▎" },
                     uncovered = { hl = "CoverageUncovered", text = "▎" },
                 },
-                -- summary = {
-                --     -- customize the summary pop-up
-                --     min_coverage = 80.0, -- minimum coverage threshold (used for highlighting)
-                -- },
-                -- lang = {
-                --     python = {
-                --     }
-                -- },
+                summary = {
+                    min_coverage = 50.0,
+                },
             })
         end,
         dependencies = {
