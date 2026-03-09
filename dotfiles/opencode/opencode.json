@@ -1,16 +1,37 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": true,
-  "instructions": ["CONTRIBUTING.md", "~/.config/opencode/AGENTS.md"],
-  "keybinds": {
-    "leader": "ctrl+x",
-    "app_exit": "ctrl+d,<leader>q",
-    "input_clear": "ctrl+c",
-    "input_newline": "alt+enter"
+  "agent": {
+    "build": {
+      "permission": {
+        "skill": {
+          "*": "allow"
+        }
+      }
+    },
+    "plan": {
+      "permission": {
+        "skill": {
+          "*": "allow"
+        }
+      }
+    }
   },
+  "command": {
+    "neovim": {
+      "description": "@nerd answer from internal knowledge skills",
+      "template": ""
+    }
+  },
+  "instructions": [
+    "AGENTS.md",
+    "SKILL_ROUTING.md",
+    "CONTRIBUTING.md",
+    "~/.config/opencode/AGENTS.md"
+  ],
   "lsp": {
-    "pylsp": {
-      "command": ["uv", "run", "pylsp"],
+    "ty": {
+      "command": ["uv", "run", "ty", "server"],
       "extensions": [".py"]
     },
     "pyright": {
@@ -21,11 +42,65 @@
       "extensions": [".py"]
     }
   },
-  "model": "github-copilot/claude-sonnet-4.5",
+  "disabled_providers": ["genaihub", "opencode"],
+  "enabled_providers": ["github-copilot", "openai"],
   "small_model": "github-copilot/claude-haiku-4.5",
-  "tui": {
-    "scroll_acceleration": {
-      "enabled": true
+  "model": "github-copilot/gpt-5.4",
+  "permission": {
+    "external_directory": {
+      "/home/nerd/.config/opencode/**": "allow",
+      "/opt/bind/**": "allow",
+      "/opt/nvim/share/nvim/runtime/doc/**": "allow",
+      "/tmp/**": "allow",
+      "~/.config/opencode/**": "allow",
+      "~/.local/share/nvim/lazy/**": "allow",
+    },
+    "skill": {
+      "maintain-jamils-knowledge-base": "allow",
+      "opencode-*": "allow"
+    }
+  },
+  "provider": {
+    "genaihub": {
+      "npm": "file:///home/nerd/engine-room/dotfiles/opencode/ai-sdk-genaihub/dist/index.js",
+      "name": "GenAI Hub (DB)",
+      "env": ["AWS_BEARER_TOKEN_BEDROCK"],
+      "models": {
+        "claude-opus-4-6": {
+          "id": "eu.anthropic.claude-opus-4-6-v1",
+          "name": "Claude Opus 4.6 (EU)",
+          "cost": {
+            "input": 5.94,
+            "output": 29.7,
+            "cache_read": 0.594,
+            "cache_write": 7.425
+          }
+        },
+        "claude-sonnet-4-5": {
+          "id": "eu.anthropic.claude-sonnet-4-5-20250929-v1:0",
+          "name": "Claude Sonnet 4.5 (EU)",
+          "cost": {
+            "input": 3.564,
+            "output": 17.82,
+            "cache_read": 0.3564,
+            "cache_write": 4.455
+          }
+        },
+        "claude-sonnet-4-6": {
+          "id": "eu.anthropic.claude-sonnet-4-6",
+          "name": "Claude Sonnet 4.6 (EU)",
+          "cost": {
+            "input": 3.564,
+            "output": 17.82,
+            "cache_read": 0.3564,
+            "cache_write": 4.455
+          }
+        }
+      },
+      "options": {
+        "baseURL": "https://genaihub-gateway.genai-prod.comp.db.de/claude",
+        "apiKey": "{env:AWS_BEARER_TOKEN_BEDROCK}"
+      }
     }
   }
 }
