@@ -31,7 +31,8 @@ return {
                 toc = {},
                 uml = {},
             }
-            vim.g.mkdp_theme = "dark"
+            vim.g.mkdp_theme = "light"
         end
     },
 }
+
