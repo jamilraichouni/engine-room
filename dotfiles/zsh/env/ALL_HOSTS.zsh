@@ -18,6 +18,7 @@ export MANPAGER="nvim +Man! "
 export NVIM_DOCS="/opt/nvim/share/nvim/runtime/doc"
 export NVM_DIR="$HOME/.nvm"
 export NVM_BIN="$(realpath $NVM_DIR/versions/node/v*/bin)"
+export OPENCODE_ENABLE_EXA=1
 export POLARION_PAT_PU="`cat $HOME/engine-room/secrets/polarion-pu.pat`"
 export POLARION_PAT_TU="`cat $HOME/engine-room/secrets/polarion-tu.pat`"
 export POLARION_URL_PU="https://awspoldsdpu.polarion.comp.db.de"  # REST API at https://awspoldsdpu.polarion.comp.db.de/polarion/rest/v1
