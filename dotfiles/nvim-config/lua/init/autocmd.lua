@@ -36,6 +36,15 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         end
     end,
 })
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+    desc = "Set filetype to xml for Capella files",
+    group = vim.g.augroup_jar,
+    pattern = { "*.aird", "*.capella" },
+    callback = function(args)
+        vim.opt_local.filetype = "xml"
+        setup_treesitter()
+    end
+})
 vim.api.nvim_create_autocmd('FileType', {
     desc = "Enable spell check",
     pattern = { "markdown", "text", "gitcommit" },
