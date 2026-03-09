@@ -46,6 +46,14 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     end
 })
 vim.api.nvim_create_autocmd('FileType', {
+    desc = "Setup treesitter-based folding",
+    group = vim.g.augroup_jar,
+    pattern = { "aichat" },
+    callback = function()
+        setup_treesitter()
+    end,
+})
+vim.api.nvim_create_autocmd('FileType', {
     desc = "Enable spell check",
     pattern = { "markdown", "text", "gitcommit" },
     callback = function()
