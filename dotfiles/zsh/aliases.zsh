@@ -106,6 +106,6 @@ alias source-file='source_file'
 
 # if uname == Darwin, add macOS specific aliases
 if [[ "$(uname -o)" == *"Darwin"* ]]; then
-  alias kittyupdate='curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=/Users/jamilraichouni/Applications'
+  alias kittyupdate='curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=/Users/jamilraichouni/Applications installer=nightly'
 fi
 
