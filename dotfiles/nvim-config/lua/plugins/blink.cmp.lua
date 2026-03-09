@@ -4,6 +4,7 @@ return {
     {
         "saghen/blink.cmp",
         event = "VeryLazy",
+        enabled = false,
         dependencies = {
             {
                 -- https://github.com/hrsh7th/vim-vsnip

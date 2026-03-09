@@ -22,7 +22,7 @@ return {
     -- https://github.com/hrsh7th/nvim-cmp {{{
     {
         "hrsh7th/nvim-cmp",
-        enabled = false,
+        enabled = true,
         event = "InsertEnter",
         dependencies = {
             -- SOURCES/ PROVIDERS
