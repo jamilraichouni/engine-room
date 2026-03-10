@@ -3,6 +3,7 @@
   "autoupdate": true,
   "agent": {
     "build": {
+    "model": "github-copilot/gpt-5.4",
       "permission": {
         "skill": {
           "*": "allow"
@@ -18,14 +19,18 @@
     }
   },
   "command": {
+    "download-polarion-document": {
+      "description": "Download a document from Polarion",
+      "template": "@systems-and-requirements-engineer call the Python CLI tool in script ~/.config/opencode/tools to download reqs. read the help and use the tool `question` to ask me questions for the needed CLI tool inputs. Use the following defaults: project id: `AR_DKS`, space id: `Interfaces`, document id: `ARDKS_SYS_021`, filter: `\"type:heading or status:approved\"`."
+    },
     "neovim": {
       "description": "@nerd answer from internal knowledge skills",
       "template": ""
     }
   },
+  "default_agent": "plan",
   "instructions": [
     "AGENTS.md",
-    "SKILL_ROUTING.md",
     "CONTRIBUTING.md",
     "~/.config/opencode/AGENTS.md"
   ],
@@ -42,10 +47,10 @@
       "extensions": [".py"]
     }
   },
-  "disabled_providers": ["genaihub", "opencode"],
-  "enabled_providers": ["github-copilot", "openai"],
+  "disabled_providers": ["genaihub", "openai", "opencode"],
+  "enabled_providers": ["github-copilot"],
   "small_model": "github-copilot/claude-haiku-4.5",
-  "model": "github-copilot/gpt-5.4",
+  "model": "github-copilot/claude-sonnet-4.6",
   "permission": {
     "external_directory": {
       "/home/nerd/.config/opencode/**": "allow",
@@ -56,8 +61,7 @@
       "~/.local/share/nvim/lazy/**": "allow",
     },
     "skill": {
-      "maintain-jamils-knowledge-base": "allow",
-      "opencode-*": "allow"
+      "*": "allow"
     }
   },
   "provider": {
