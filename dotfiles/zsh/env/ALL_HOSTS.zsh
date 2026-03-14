@@ -17,6 +17,7 @@ export MANPAGER="nvim +Man! "
 export NVIM_DOCS="/opt/nvim/share/nvim/runtime/doc"
 export NVM_DIR="$HOME/.nvm"
 export NVM_BIN="$(realpath $NVM_DIR/versions/node/v*/bin)"
+export OPENCODE_CONFIG_DIR="$HOME/.config/opencode"
 export OPENCODE_ENABLE_EXA=1
 export POLARION_PAT_PU="$(cat $HOME/engine-room/secrets/polarion-pu.pat)"
 export POLARION_PAT_TU="$(cat $HOME/engine-room/secrets/polarion-tu.pat)"
