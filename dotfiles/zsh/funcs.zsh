@@ -80,11 +80,32 @@ deactivate-venv() {
   unset VIRTUAL_ENV
   unset VIRTUAL_ENV_PROMPT
 }
+__load_nvm() {
+  unfunction nvm node npm npx __load_nvm 2> /dev/null
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+}
 h2() {
   echo "$1;" | java -cp ./h2/bin/h2-1.3.169.jar org.h2.tools.Shell -user wsa -url jdbc:h2:tcp://172.17.0.3:5234/automated-train
 }
 json() {
   curl $@ -s | bat -l JSON --paging=auto
+}
+nvm() {
+  __load_nvm
+  nvm "$@"
+}
+node() {
+  __load_nvm
+  node "$@"
+}
+npm() {
+  __load_nvm
+  npm "$@"
+}
+npx() {
+  __load_nvm
+  npx "$@"
 }
 pathprepend() {
   if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
@@ -124,4 +145,3 @@ venv() {
   uv pip install -r $DOT/requirements.txt
   [[ -f pyproject.toml ]] && uv sync --frozen --inexact
 }
-
