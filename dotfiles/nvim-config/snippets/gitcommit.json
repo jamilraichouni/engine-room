@@ -36,5 +36,18 @@
             "solves",
             "starsatoc"
         ]
+    },
+    "spell": {
+        "body": [
+            "chore(nvim): update spell dictionary"
+        ],
+        "description": "Git commit message for spell update",
+        "prefix": [
+            "commit",
+            "dictionary",
+            "spell"
+        ]
     }
 }
+
+
