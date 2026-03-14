@@ -28,6 +28,7 @@ description: >-
   </example>
 mode: subagent
 tools:
+  question: true
   skill: true
   polariondoc2yaml: true
 permission:
@@ -52,6 +53,11 @@ Then follow the skill instructions exactly.
 
 Execution rules:
 
+- If more than one single user input is missing, use the `question` tool.
+- If the `question` tool is not available in the runtime tool list, do not ask
+  plain-text follow-up questions.
+- When `question` is unavailable, return a `needs_user_input` block with the
+  exact missing fields and any defaults the parent assistant should present.
 - Always use Polarion base URL
   `https://awspoldsdpu.polarion.comp.db.de/polarion`.
 - Use `POLARION_PAT` for authentication, or use a provided
@@ -77,6 +83,8 @@ Optional file saving:
 Response behavior:
 
 - Return the `yaml` output from `polariondoc2yaml`.
+- When execution is blocked by missing inputs and `question` is unavailable,
+  return only a `needs_user_input` block instead of plain-text questions.
 - Add a concise summary with the fixed Polarion base URL, `project`, `space`,
   `document`, applied filters, and file-save result when relevant.
 - Include `savedToPath` when a file was written.
@@ -92,3 +100,15 @@ Error handling:
   path and retry.
 - Existing target file without overwrite decision: ask user overwrite or
   cancel.
+
+`needs_user_input` format:
+
+```text
+needs_user_input:
+  fields:
+    - name: project
+      default: AR_DKS
+    - name: space
+    - name: document
+  message: Confirm the required Polarion identifiers before retrying.
+```

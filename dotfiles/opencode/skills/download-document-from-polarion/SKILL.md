@@ -2,12 +2,9 @@
 name: download-document-from-polarion
 description: >-
   Download workitems from a Polarion document by running `python
-  /home/nerd/engine-room/dotfiles/opencode/tools/polariondoc2yaml.py` via the
-  Bash tool. Workitems in Polarion can be of type heading, a type representing
-  a requirements, or other types.
+  $OPENCODE_CONFIG_DIR/tools/polariondoc2yaml.py` via the `bash` tool.
 compatibility: opencode
 metadata:
-  domain: polarion
   output: yaml
   polarion:
     polarionBaseUrl: https://awspoldsdpu.polarion.comp.db.de/polarion
@@ -18,13 +15,10 @@ metadata:
     - ensure Python package `polarion-rest-api-client` is installed using `pip
       show polarion-rest-api-client` or `pip install polarion-rest-api-client`.
     - for any execution request, MUST invoke the Python CLI through the Bash
-      tool with `python
-      /home/nerd/engine-room/dotfiles/opencode/tools/polariondoc2yaml.py`
+      tool with `python $OPENCODE_CONFIG_DIR/tools/polariondoc2yaml.py`
     - Before call the Python script read its help output that can be obtained
-      with `python
-      /home/nerd/engine-room/dotfiles/opencode/tools/polariondoc2yaml.py
-      --help` to understand the required and optional flags and their expected
-      values.
+      with `python $OPENCODE_CONFIG_DIR/tools/polariondoc2yaml.py --help` to
+      understand the required and optional flags and their expected values.
     - construct the command safely by passing required flags `--project-id`,
       `--space-id`, and `--document-id`, using `AR_DKS` as the default project
       id unless the user overrides it
@@ -52,82 +46,57 @@ metadata:
     - if reporting tool or runtime errors, paraphrase safely and avoid
       reproducing messages that might contain secret values
     - describe what you will do
+  tags:
+    - bash
+    - cli
+    - document
+    - filter
+    - polarion
+    - python
+    - requirement
+    - workitem
+    - yaml
 ---
 
 # Skill: Download Polarion document as YAML
 
-## What I do
+## What I do and execution mechanism
 
-- I always use Polarion base URL
-  `https://awspoldsdpu.polarion.comp.db.de/polarion` and authenticate with
+- I MUST download a specified Polarion document from a specified Polarion
+  server as YAML data using the Python CLI script `polariondoc2yaml.py` through
+  the bash tool.
+- I call `python $OPENCODE_CONFIG_DIR/tools/polariondoc2yaml.py --help` to
+  understand the required and optional flags and their expected values
+- I use the default value `https://awspoldsdpu.polarion.comp.db.de/polarion` as
+  Polarion base URL (`--polarion-base-url`) and give the option to override it
   `POLARION_PAT`
-- I download work items from a Polarion document using
-  `python /home/nerd/engine-room/dotfiles/opencode/tools/polariondoc2yaml.py`
-  through the Bash tool, return the YAML content, and can optionally save it to
-  a file.
-- Before I construct or run any Bash command for
-  `python /home/nerd/engine-room/dotfiles/opencode/tools/polariondoc2yaml.py`,
-  I MUST ALWAYS use the `question` tool as a mandatory prerequisite to ask for
-  or confirm whether to use the default project id `AR_DKS` or an override,
-  plus the resolved `project-id`, `space-id`, and `document-id`, even when the
-  user already supplied them.
-- I use `type:heading or status:approved` as the default `filter` value unless
-  the user provides a different filter.
+- I use the default value stored in the env var `POLARION_PAT` as Polarion
+  personal access token (`--personal-access-token`) and give the option to
+  override it
+- I use the default value `AR_DKS` as project id (`--project-id`) and give the
+  option to override it
+- I use the default value `type:heading or status:approved` as filter for work
+  items (`--filter`) and give the option to override it
+- I MUST ALWAYS use the tool `question` to ask for inputs after I have read the
+  `--help`
+- If the `question` tool is unavailable in the runtime tool list, I MUST NOT
+  ask plain-text follow-up questions and MUST return a `needs_user_input` block
+  for the parent assistant instead
+- I MUST not replace calling the script with manual REST calls or a different
+  retrieval mechanism like `curl` etc..
 
 ## When to use me
 
-Use this when you need to retrieve work items from a Polarion document as YAML
-
-## Execution mechanism
-
-- For any execution request, I MUST use the Bash tool to run
-  `python /home/nerd/engine-room/dotfiles/opencode/tools/polariondoc2yaml.py`.
-- I MUST construct the command only from inputs that were asked for or
-  confirmed through the `question` tool, passing required flags first and
-  appending optional flags only when they are provided.
-- I MUST not replace this script with manual REST calls or a different
-  retrieval mechanism.
-- I MUST use the `question` tool to ask questions to collect or confirm script
-  input parameter values which are project id (default: `AR_DKS`) or an
-  override, the `space-id`, and `document-id`, even when the user already
-  supplied them.
-- If the skill is loaded for an execution request, I MUST either run this
-  Python CLI after collecting the required inputs, or stop and report that Bash
-  or Python execution is unavailable or blocked.
-- For every execution request, these `question` interactions are mandatory
-  prerequisites for constructing the script command and for any Bash execution
-  of it.
-- For every execution request, I MUST ALWAYS use the `question` tool to ask
-  whether to use the default project id `AR_DKS` or an override, then ask for
-  or confirm the resolved `project-id`, `space-id`, and `document-id`, even
-  when the user already supplied them.
-- When I write a YAML file, I MUST add the following metadata as comments into
-  the header:
-
-  ```yaml
-  # Base URL: ...
-  # Timestamp: YYYY-MM-DD HH:MM:SS
-  # Project ID: ...
-  # Space ID: ...
-  # Document ID: ...
-  ```
+Use this when you need to retrieve work items from a Polarion document as YAML.
 
 ## Prerequisites
 
-- Python is available to the Bash tool.
-- Script `/home/nerd/engine-room/dotfiles/opencode/tools/polariondoc2yaml.py`
-  is available.
-- `POLARION_PAT` is set, or `personalAccessToken` is provided.
-- Valid Polarion IDs are provided for `space-id` and `document-id`, and for
-  `project-id` when overriding the default `AR_DKS`.
-
-## Polarion configuration
-
-- Always use Polarion base URL
-  `https://awspoldsdpu.polarion.comp.db.de/polarion`.
-- Always use `POLARION_PAT` as the token environment variable name.
-- Do not add a base URL flag or override. The Python script already uses the
-  fixed base URL.
+- Python is available to the bash tool.
+- The Python packages `click` and `polarion-rest-api-client` are installed and
+  available to the Python environment used by the bash tool.
+- Script `$OPENCODE_CONFIG_DIR/tools/polariondoc2yaml.py` is available.
+- `POLARION_PAT` is set, or `--personal-access-token` is provided.
+- Valid Polarion IDs are provided for all inputs
 
 ## Secret handling
 
@@ -152,6 +121,8 @@ Required for execution:
 - I MUST ALWAYS use the `question` tool to ask for or confirm these required
   IDs before constructing the script command or running Bash, even when the
   user already supplied values.
+- If the `question` tool is unavailable, I MUST stop before Bash execution and
+  return a `needs_user_input` block with the missing or confirmable inputs.
 
 - `project-id`, defaulting to `AR_DKS` unless the user overrides it
 - `space-id`
@@ -187,24 +158,26 @@ Optional file save:
    constructing the script command.
 4. Do not construct the script command or run Bash until the required ID
    questions have been completed through the `question` tool.
-5. Confirm that the fixed Polarion base URL is
+5. If `question` is unavailable, return a `needs_user_input` block and stop. Do
+   not emit multiple plain-text questions.
+6. Confirm that the fixed Polarion base URL is
    `https://awspoldsdpu.polarion.comp.db.de/polarion`.
-6. Confirm authentication by environment variable name `POLARION_PAT`, or note
+7. Confirm authentication by environment variable name `POLARION_PAT`, or note
    that a token was provided directly. Never show the token value.
-7. Ask whether output should only be returned, or also saved to a YAML file.
-8. If save is requested, ask whether the user wants to provide a directory or a
+8. Ask whether output should only be returned, or also saved to a YAML file.
+9. If save is requested, ask whether the user wants to provide a directory or a
    full file path.
-9. If a directory is provided, use the default filename
-   `<space-id>-<document-id>.YAML` in that directory.
-10. If a full file path is provided, require it to end with `.yaml` or `.yml`.
-11. If the target file exists, ask the user whether to overwrite or cancel.
-12. Reject requests that provide both `saveDirectory` and `savePath`.
-13. Resolve `project-id` to `AR_DKS`, or to the user-provided override.
-14. Resolve `filter` to the user-provided value, or default it to
+10. If a directory is provided, use the default filename
+    `<space-id>-<document-id>.YAML` in that directory.
+11. If a full file path is provided, require it to end with `.yaml` or `.yml`.
+12. If the target file exists, ask the user whether to overwrite or cancel.
+13. Reject requests that provide both `saveDirectory` and `savePath`.
+14. Resolve `project-id` to `AR_DKS`, or to the user-provided override.
+15. Resolve `filter` to the user-provided value, or default it to
     `type:heading or status:approved`.
-15. Build the Bash command as:
+16. Build the Bash command as:
 
-- `python /home/nerd/engine-room/dotfiles/opencode/tools/polariondoc2yaml.py`
+- `python $OPENCODE_CONFIG_DIR/tools/polariondoc2yaml.py`
 - `--project-id <resolved project id>`
 - `--space-id <space id>`
 - `--document-id <document id>`
@@ -213,14 +186,19 @@ Optional file save:
 - `--personal-access-token <token>` only when a direct token override is
   required
 
-16. Run the command through the Bash tool and capture stdout as the YAML
+17. Run the command through the Bash tool and capture stdout as the YAML
     result.
-17. If save is requested, resolve the target path first, then save the captured
-    YAML to that file without altering the YAML content.
-18. Return the YAML output and a concise summary of the fixed base URL,
+18. If save is requested, resolve the target path first, then save the captured
+    YAML to that file with the required metadata comment header.
+19. After saving, validate the saved file by checking that its first lines
+    begin with `# Base URL:`, `# Timestamp:`, `# Project ID:`, `# Space ID:`,
+    and `# Document ID:`.
+20. If the validation fails, stop and report that the saved file is missing the
+    required metadata header.
+21. Return the YAML output and a concise summary of the fixed base URL,
     resolved project-id, applied filter, and token source without exposing any
     token value.
-19. When a file is saved, report the resolved saved file path without storing
+22. When a file is saved, report the resolved saved file path without storing
     or repeating any token value.
 
 When constructing the command, quote each argument safely and never omit
@@ -255,7 +233,12 @@ Handle errors in this order:
 7. Existing target file without decision:
    - Error asks for overwrite or cancel.
    - Action: ask user and rerun with `ifExists`.
-8. Error output may include secrets:
+8. Saved file metadata header missing or invalid:
+   - Validation shows the saved file does not start with the required metadata
+     comment lines.
+   - Action: stop and report that the file-save path did not preserve the
+     required metadata header.
+9. Error output may include secrets:
    - Error text might contain token data.
    - Action: do not quote the raw error. Paraphrase the problem safely and
      retry only with secret-safe handling.
@@ -266,6 +249,24 @@ Return includes:
 
 - `yaml`, taken from the Python script stdout
 - `savedToPath` when the agent saves that YAML to a file
+
+When `question` is unavailable and input is missing, return:
+
+```text
+needs_user_input:
+  fields:
+    - name: project-id
+      default: AR_DKS
+    - name: space-id
+    - name: document-id
+    - name: filter
+      default: type:heading or status:approved
+    - name: pageSize
+    - name: saveMode
+    - name: authentication
+  message: Use the `question` tool in the parent assistant and retry me with
+    the answers.
+```
 
 YAML list items include:
 

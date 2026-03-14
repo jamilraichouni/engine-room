@@ -8,8 +8,10 @@ import html
 import html.parser
 import io
 import logging
+import pathlib
 import re
 import sys
+import time
 import typing as t
 
 import click
@@ -18,7 +20,6 @@ import yaml
 from polarion_rest_api_client.open_api_client import types as oa_types
 
 logger = logging.getLogger(__name__)
-POLARION_BASE_URL = "https://awspoldsdpu.polarion.comp.db.de/polarion"
 REST_API_ENDPOINT = "/rest/v1"
 CLI_HELP = (
     "Query requirements from a Polarion document via the REST API.\n\n"
@@ -27,31 +28,18 @@ CLI_HELP = (
     "by project ID, space ID and document ID. It serializes id, "
     "outlineNumber, title, type, status, space, document, description, "
     "description_plain, rationale and linkedWorkItems, and writes YAML to "
-    "stdout. The description_plain field is computed from description with "
+    "stdout. Optionally it also writes YAML to a file via --output. The "
+    "description_plain field is computed from description with "
     "HTML tags and entities removed. Inline work item links are resolved "
     "to double-quoted referenced work item titles, with the raw item ID as "
     "fallback. Inline document links are resolved to double-quoted "
     "referenced document titles, with the raw document name as fallback."
 )
 CLI_EPILOG = (
-    "Prerequisites:\n"
-    "  Install polarion-rest-api-client separately; it is not part of this "
-    "project's dependencies.\n\n"
-    "Examples:\n"
-    '  export POLARION_PAT="your-personal-access-token"\n\n'
-    "  python tools/polariondoc2yaml.py \\\n"
-    "      --project-id AR_DKS \\\n"
-    "      --space-id Interfaces \\\n"
-    "      --document-id ARDKS_SYS_021\n\n"
-    "  python tools/polariondoc2yaml.py \\\n"
-    "      --project-id AR_DKS \\\n"
-    "      --space-id Interfaces \\\n"
-    "      --document-id ARDKS_SYS_021 \\\n"
-    '      --filter "priority:90.0"\n\n'
-    "  python tools/polariondoc2yaml.py \\\n"
-    "      --project-id OTHER_PROJECT \\\n"
-    "      --space-id MySpace \\\n"
-    "      --document-id MY_DOC_001"
+    "Dependencies:\n"
+    "  This CLI depends on the third-party Python packages click and "
+    "polarion-rest-api-client. click provides the command-line interface "
+    "and polarion-rest-api-client provides Polarion API access."
 )
 
 
@@ -658,6 +646,155 @@ def render_output(data: list[dict[str, t.Any]]) -> str:
     )
 
 
+def render_output_with_metadata(
+    data: list[dict[str, t.Any]],
+    polarion_base_url: str,
+    project_id: str,
+    space_id: str,
+    document_id: str,
+    timestamp: str | None = None,
+) -> str:
+    """Render YAML text with the required metadata header comments.
+
+    Args:
+        data: List of serialized work item dictionaries.
+        polarion_base_url: Polarion base URL used for the request.
+        project_id: Polarion project ID.
+        space_id: Document space or module folder ID.
+        document_id: Document or module name ID.
+        timestamp: Optional preformatted timestamp.
+
+    Returns:
+        YAML text prefixed with metadata comment lines.
+    """
+    header_timestamp = timestamp or time.strftime("%Y-%m-%d %H:%M:%S")
+    header = (
+        f"# Base URL: {polarion_base_url}\n"
+        f"# Timestamp: {header_timestamp}\n"
+        f"# Project ID: {project_id}\n"
+        f"# Space ID: {space_id}\n"
+        f"# Document ID: {document_id}\n"
+    )
+    return header + render_output(data)
+
+
+def _resolve_output_path(
+    output: str,
+    project_id: str,
+    space_id: str,
+    document_id: str,
+) -> pathlib.Path:
+    """Resolve the effective output YAML file path.
+
+    Args:
+        output: User-provided output path.
+        project_id: Polarion project ID.
+        space_id: Document space or module folder ID.
+        document_id: Document or module name ID.
+
+    Returns:
+        Effective YAML file path.
+
+    Raises:
+        click.ClickException: If the output extension is unsupported.
+    """
+    path = pathlib.Path(output)
+    if path.exists() and path.is_dir():
+        filename = f"{project_id}-{space_id}-{document_id}.yaml"
+        return path / filename
+    suffix = path.suffix.lower()
+    if suffix in {".yaml", ".yml"}:
+        return path
+    if suffix:
+        raise click.ClickException(
+            "Output path must use .yaml or .yml, or omit the extension to "
+            "target a directory."
+        )
+    if path.exists() and path.is_file():
+        raise click.ClickException(
+            f"Output path {path} is a file without a YAML extension."
+        )
+    filename = f"{project_id}-{space_id}-{document_id}.yaml"
+    return path / filename
+
+
+def _write_output_file(
+    output: str,
+    force: bool,
+    rendered: str,
+    project_id: str,
+    space_id: str,
+    document_id: str,
+) -> pathlib.Path:
+    """Write rendered YAML to disk.
+
+    Args:
+        output: User-provided output path.
+        force: Whether overwriting an existing file is allowed.
+        rendered: YAML text to write.
+        project_id: Polarion project ID.
+        space_id: Document space or module folder ID.
+        document_id: Document or module name ID.
+
+    Returns:
+        Final written file path.
+
+    Raises:
+        click.ClickException: If the target exists and force is not enabled, or
+            if a directory blocks the target file path.
+    """
+    output_path = _resolve_output_path(
+        output,
+        project_id,
+        space_id,
+        document_id,
+    )
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    if output_path.exists() and output_path.is_dir():
+        raise click.ClickException(
+            f"Output path {output_path} is a directory, expected a file."
+        )
+    if output_path.exists() and not force:
+        raise click.ClickException(
+            f"Output file {output_path} already exists. Use --force to "
+            "overwrite it."
+        )
+    output_path.write_text(rendered, encoding="utf-8")
+    return output_path
+
+
+def _validate_output_header(output_path: pathlib.Path) -> None:
+    """Validate that the saved YAML file starts with the required header.
+
+    Args:
+        output_path: Path to the saved YAML file.
+
+    Raises:
+        click.ClickException: If the header is missing or malformed.
+    """
+    expected_prefixes = [
+        "# Base URL:",
+        "# Timestamp:",
+        "# Project ID:",
+        "# Space ID:",
+        "# Document ID:",
+    ]
+    lines = output_path.read_text(encoding="utf-8").splitlines()
+    if len(lines) < len(expected_prefixes):
+        raise click.ClickException(
+            f"Saved file {output_path} is missing the required metadata "
+            "header."
+        )
+    for prefix, line in zip(
+        expected_prefixes, lines[: len(expected_prefixes)]
+    ):
+        if not line.startswith(prefix):
+            raise click.ClickException(
+                f"Saved file {output_path} is missing the required metadata "
+                "header."
+            )
+
+
 @click.command(help=CLI_HELP, epilog=CLI_EPILOG)
 @click.option(
     "--project-id",
@@ -678,6 +815,14 @@ def render_output(data: list[dict[str, t.Any]]) -> str:
     help="Document or module_name ID.",
 )
 @click.option(
+    "--polarion-base-url",
+    required=True,
+    help=(
+        "Polarion base URL, for example "
+        "https://awspoldsdpu.polarion.comp.db.de/polarion."
+    ),
+)
+@click.option(
     "--filter",
     "filter_query",
     default="",
@@ -688,11 +833,7 @@ def render_output(data: list[dict[str, t.Any]]) -> str:
     "--personal-access-token",
     required=False,
     envvar="POLARION_PAT",
-    help=(
-        "Polarion personal access token. Uses POLARION_PAT when set. "
-        "The base URL is fixed to "
-        "https://awspoldsdpu.polarion.comp.db.de/polarion."
-    ),
+    help=("Polarion personal access token. Uses POLARION_PAT when set."),
 )
 @click.option(
     "--page-size",
@@ -701,20 +842,47 @@ def render_output(data: list[dict[str, t.Any]]) -> str:
     type=int,
     help="Number of items per page.",
 )
+@click.option(
+    "--output",
+    "-o",
+    required=False,
+    help=(
+        "Optional output path. When omitted, YAML is only written to stdout "
+        "and nothing is written to disk. When the path ends with .yaml or "
+        ".yml, that exact file is written and parent directories are created "
+        "as needed. When the path has no file extension, it is treated as a "
+        "directory and the file name is composed automatically as "
+        "<project-id>-<space-id>-<document-id>.yaml. Existing files are only "
+        "overwritten when --force is set."
+    ),
+)
+@click.option(
+    "--force",
+    "-f",
+    is_flag=True,
+    help=(
+        "Allow overwriting an existing output file selected via --output. "
+        "Without this flag, the command fails if the target YAML file already "
+        "exists."
+    ),
+)
 def main(
     project_id: str,
     space_id: str,
     document_id: str,
+    polarion_base_url: str,
     filter_query: str,
     personal_access_token: str,
     page_size: int,
+    output: str | None,
+    force: bool,
 ) -> None:
     """Query requirements from a Polarion document."""
     logging.basicConfig(
         level=logging.ERROR,
         format="%(levelname)s: %(message)s",
     )
-    api_endpoint = POLARION_BASE_URL + REST_API_ENDPOINT
+    api_endpoint = polarion_base_url.rstrip("/") + REST_API_ENDPOINT
     client = create_client(
         api_endpoint,
         personal_access_token,
@@ -760,7 +928,26 @@ def main(
         for wi in items
     ]
     serialized.sort(key=_outline_sort_key)
-    sys.stdout.write(render_output(serialized))
+    rendered = render_output(serialized)
+    sys.stdout.write(rendered)
+    if output:
+        rendered_with_metadata = render_output_with_metadata(
+            serialized,
+            polarion_base_url,
+            project_id,
+            space_id,
+            document_id,
+        )
+        output_path = _write_output_file(
+            output,
+            force,
+            rendered_with_metadata,
+            project_id,
+            space_id,
+            document_id,
+        )
+        _validate_output_header(output_path)
+        logger.debug("Wrote YAML to %s", output_path)
     logger.debug(
         "Wrote %d work items to stdout",
         len(serialized),

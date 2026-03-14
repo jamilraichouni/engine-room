@@ -1,5 +1,10 @@
 # Agent Development Guide
 
+## Asking questions
+
+ALWAYS, really ALWAYS use the tool `question` to ask questions, when you have
+more than one single question to ask.
+
 ## Code style
 
 ### General guidelines

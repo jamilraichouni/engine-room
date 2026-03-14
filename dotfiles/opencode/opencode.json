@@ -3,7 +3,6 @@
   "autoupdate": true,
   "agent": {
     "build": {
-    "model": "github-copilot/gpt-5.4",
       "permission": {
         "skill": {
           "*": "allow"
@@ -50,7 +49,6 @@
   "disabled_providers": ["genaihub", "openai", "opencode"],
   "enabled_providers": ["github-copilot"],
   "small_model": "github-copilot/claude-haiku-4.5",
-  "model": "github-copilot/claude-sonnet-4.6",
   "permission": {
     "external_directory": {
       "/home/nerd/.config/opencode/**": "allow",
