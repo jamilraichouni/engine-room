@@ -77,6 +77,12 @@ q/ - search history
 q? - backward search history
 gQ - Ex mode (exit with :vi)
 
+## Spelling
+
+`zg` - add word under cursor to dictionary
+`zG` - add word under cursor to dictionary for current filetype only
+`z=` - suggest spelling corrections for word under cursor
+
 ## Miscellaneous
 
 CTRL-W f  - Split current window in two.  Edit file name under cursor.
