@@ -31,8 +31,8 @@ vim.keymap.set("n", "gO", "<cmd>pyfile ~/engine-room/dotfiles/nvim-config/jopilo
     { silent = true })
 
 -- Gitsign hunk navigation
-vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>", { silent = true })
-vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", { silent = true })
+vim.keymap.set("n", "]h", "<cmd>Gitsigns nav_hunk next<cr>", { silent = true })
+vim.keymap.set("n", "[h", "<cmd>Gitsigns nav_hunk prev<cr>", { silent = true })
 
 -- diff keymaps (do -> obtain, dp -> put)
 vim.keymap.set("n", "<leader>dt", "<cmd>windo diffthis<cr>", { silent = true })
