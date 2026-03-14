@@ -34,4 +34,3 @@ if [[ -f .venv/bin/activate ]]; then
 elif [[ -f /opt/.venv/bin/activate ]]; then
   . /opt/.venv/bin/activate
 fi
-
