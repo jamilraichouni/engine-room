@@ -1,7 +1,7 @@
 vim.api.nvim_create_user_command("CapellaSetVersion", "lua vim.g.SetCapellaVersion(<f-args>)",
     { nargs = 1, force = true }
 )
-vim.api.nvim_create_user_command("Gitops", "tabnew | tcd ~/dev/dbgitlab/gitops | TabooRename gitops", { force = true })
+vim.api.nvim_create_user_command("GitopsTab", "tabnew | tcd ~/dev/dbgitlab/gitops | TabooRename gitops", { force = true })
 vim.api.nvim_create_user_command("HTML2FT", "%s/\\v(\\w+)\\(/\\=printf('ft.%s(', submatch(1))/g | nohl", { force = true })
 vim.api.nvim_create_user_command("OpenCode",
     "edit ~/engine-room/dotfiles/opencode/",
