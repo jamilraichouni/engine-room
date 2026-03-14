@@ -4,7 +4,7 @@ return {
         "tpope/vim-fugitive",
         cmd = { "G", "Git", "Gclog", "Gwrite", "Gread", "Gdiff", "GBrowse" },
         keys = {
-            { "<leader>Gb", "<cmd>G<cr>", desc = "Open Git status" },
+            { "<leader>Gb", "<cmd>G<cr>",                                  desc = "Open Git status" },
             { "<leader>Gt", "<cmd>tabedit +G<cr><cmd>TabooRename Git<cr>", desc = "Git status in new tab" },
         },
     },
