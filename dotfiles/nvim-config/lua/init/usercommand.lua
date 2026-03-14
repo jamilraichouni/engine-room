@@ -7,43 +7,43 @@ vim.api.nvim_create_user_command("DockerImagesTab",
 vim.api.nvim_create_user_command("GitopsTab", "tabnew | tcd ~/dev/dbgitlab/gitops | TabooRename gitops", { force = true })
 vim.api.nvim_create_user_command("HTML2FT", "%s/\\v(\\w+)\\(/\\=printf('ft.%s(', submatch(1))/g | nohl", { force = true })
 vim.api.nvim_create_user_command("OpenCode",
-    "tabnew | tcd ~/engine-room/dotfiles/opencode | edit . | TabooRename opencode (config)",
+    "tabnew | tcd ~/.config/opencode | edit . | TabooRename opencode (config)",
     { force = true }
 )
 vim.api.nvim_create_user_command("AgentsOpenCode",
-    "edit ~/engine-room/dotfiles/opencode/agents/",
+    "edit ~/.config/opencode/agents/",
     { force = true }
 )
 vim.api.nvim_create_user_command("OpenCodeAgents",
-    "edit ~/engine-room/dotfiles/opencode/agents/",
+    "edit ~/.config/opencode/agents/",
     { force = true }
 )
 vim.api.nvim_create_user_command("CommandsOpenCode",
-    "edit ~/engine-room/dotfiles/opencode/commands/",
+    "edit ~/.config/opencode/commands/",
     { force = true }
 )
 vim.api.nvim_create_user_command("OpenCodeCommands",
-    "edit ~/engine-room/dotfiles/opencode/commands/",
+    "edit ~/.config/opencode/commands/",
     { force = true }
 )
 vim.api.nvim_create_user_command("OpenCodeJson",
-    "edit ~/engine-room/dotfiles/opencode/opencode.json",
+    "edit ~/.config/opencode/opencode.json",
     { force = true }
 )
 vim.api.nvim_create_user_command("SkillsOpenCode",
-    "edit ~/engine-room/dotfiles/opencode/skills/",
+    "edit ~/.config/opencode/skills/",
     { force = true }
 )
 vim.api.nvim_create_user_command("OpenCodeSkills",
-    "edit ~/engine-room/dotfiles/opencode/skills/",
+    "edit ~/.config/opencode/skills/",
     { force = true }
 )
 vim.api.nvim_create_user_command("ToolsOpenCode",
-    "edit ~/engine-room/dotfiles/opencode/tools/",
+    "edit ~/.config/opencode/tools/",
     { force = true }
 )
 vim.api.nvim_create_user_command("OpenCodeTools",
-    "edit ~/engine-room/dotfiles/opencode/tools/",
+    "edit ~/.config/opencode/tools/",
     { force = true }
 )
 vim.api.nvim_create_user_command("Qa", "qa", { force = true })
