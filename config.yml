@@ -88,6 +88,7 @@ symlinks:
   $V/cache: $H/.cache
   $V/cargo: $H/.cargo
   $V/dev: $H/dev
+  $V/github-copilot: $H/.config/github-copilot
   $V/nvim/share: $H/.local/share/nvim
   $V/nvim/state: $H/.local/state/nvim
   $V/nvm: $H/.nvm  # Node Version Manager

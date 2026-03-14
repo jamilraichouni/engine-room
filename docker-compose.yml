@@ -89,8 +89,6 @@ services:
     secrets:
       - GITLAB_PAT
       - OPENAI_API_KEY
-      - source: github_copilot_apps
-        target: /home/nerd/.config/github-copilot/apps.json
       - source: gnupg_private_key_01
         target: /home/nerd/.gnupg/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
       - source: gnupg_private_key_02
@@ -148,8 +146,6 @@ services:
       XPRA_SUBPATH: "/"
     secrets:
       - OPENAI_API_KEY
-      - source: github_copilot_apps
-        target: /home/techuser/.config/github-copilot/apps.json
       - ssh_config
       - source: gnupg_private_key_01
         target: /home/techuser/.gnupg/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
@@ -201,8 +197,6 @@ services:
       XPRA_SUBPATH: "/"
     secrets:
       - OPENAI_API_KEY
-      - source: github_copilot_apps
-        target: /home/techuser/.config/github-copilot/apps.json
       - ssh_config
       - source: gnupg_private_key_01
         target: /home/techuser/.gnupg/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
@@ -276,8 +270,6 @@ services:
 secrets:
   # value of env vars/ content of files land in
   # /run/secrets/secret_name of the container
-  github_copilot_apps:
-    file: ./secrets/github_copilot_apps_jamilraichouni_db.json
   gnupg_private_key_01:
       file: ./secrets/private-keys-v1.d/3B2FACE6606B18B08D15628FAD77B29478F0C7FD.key
   gnupg_private_key_02:
