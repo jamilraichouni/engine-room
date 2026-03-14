@@ -34,15 +34,10 @@ grL    - lclose
 
 grs    - vim.lsp.buf.workspace_symbol()
 
-## Diff (text)
+## Diff (text and Git)
 
 [c    - previous change
 ]c    - next change
-
-## Diff (Git)
-
-[g    - previous hunk
-]g    - next hunk
 
 ## Location list
 
