@@ -205,9 +205,9 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
             vim.keymap.set("n", "grF", "<cmd>lua vim.lsp.buf.format({timeout_ms = 20000})<cr>", opts)
         end
         if client:supports_method("textDocument/publishDiagnostics") then
-            vim.keymap.set("n", "]g",
+            vim.keymap.set("n", "]d",
                 "<cmd>lua vim.diagnostic.goto_next{wrap=false,popup_opts={border='rounded'}}<cr>", opts)
-            vim.keymap.set("n", "[g",
+            vim.keymap.set("n", "[d",
                 "<cmd>lua vim.diagnostic.goto_prev{wrap=false,popup_opts={border='rounded'}}<cr>", opts)
             vim.keymap.set("n", "grl", "<cmd>lopen<cr><cmd>wincmd k<cr>", opts)
             vim.keymap.set("n", "grL", "<cmd>lclose<cr>", opts)

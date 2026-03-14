@@ -24,8 +24,8 @@ grp    - vim.diagnostic.open_float(...)
 grf    - vim.g.FormatCode()
 grF    - vim.lsp.buf.format({timeout_ms = 20000})
 
-[g     - previous diagnostic
-]g     - next diagnostic
+[d     - previous diagnostic
+]d     - next diagnostic
 
 grd    - vim.lsp.buf.definition()
 
@@ -34,10 +34,15 @@ grL    - lclose
 
 grs    - vim.lsp.buf.workspace_symbol()
 
-## Diff
+## Diff (text)
 
 [c    - previous change
 ]c    - next change
+
+## Diff (Git)
+
+[g    - previous hunk
+]g    - next hunk
 
 ## Location list
 
