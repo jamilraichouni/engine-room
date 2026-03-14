@@ -61,6 +61,15 @@ vim.api.nvim_create_autocmd('FileType', {
         vim.opt_local.spelllang = { "en_us", "en_gb" }
     end,
 })
+vim.api.nvim_create_autocmd('FileType', {
+    desc = "Setup indention for Markdown files",
+    pattern = { "markdown" },
+    callback = function()
+        vim.opt_local.shiftwidth = 2
+        vim.opt_local.softtabstop = 2
+        vim.opt_local.tabstop = 2
+    end,
+})
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
     desc = "Disable ruff LSP for .py files with cookiecutter template code",
     group = vim.g.augroup_jar,
