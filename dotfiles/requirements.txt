@@ -5,5 +5,5 @@ pyfzf
 pynvim
 python-dotenv[cli]
 ruff
+toml-sort
 ty
-

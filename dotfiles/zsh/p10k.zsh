@@ -192,7 +192,8 @@
 
   ################################[ prompt_char: prompt symbol ]################################
   # Transparent background.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND=
+  # typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND=
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND=#000000
   # Green prompt symbol if the last command succeeded.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=76
   # Red prompt symbol if the last command failed.
@@ -363,7 +364,7 @@
   #####################################[ vcs: git status ]######################################
   # Version control system colors.
   typeset -g POWERLEVEL9K_VCS_CLEAN_BACKGROUND=28
-  typeset -g POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=3
+  typeset -g POWERLEVEL9K_VCS_MODIFIED_BACKGROUND="#FFD60A"
   typeset -g POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=28
   typeset -g POWERLEVEL9K_VCS_CONFLICTED_BACKGROUND=3
   typeset -g POWERLEVEL9K_VCS_LOADING_BACKGROUND=8
@@ -515,7 +516,7 @@
   # Status on success. No content, just an icon. No need to show it if prompt_char is enabled as
   # it will signify success by turning green.
   typeset -g POWERLEVEL9K_STATUS_OK=true
-  typeset -g POWERLEVEL9K_STATUS_OK_BACKGROUND=0
+  typeset -g POWERLEVEL9K_STATUS_OK_BACKGROUND="#000"
 
   # Status when some part of a pipe command fails but the overall exit status is zero. It may look
   # like this: 1|0.
@@ -528,8 +529,8 @@
   # it will signify error by turning red.
   typeset -g POWERLEVEL9K_STATUS_ERROR=true
   typeset -g POWERLEVEL9K_STATUS_ERROR_VISUAL_IDENTIFIER_EXPANSION='✘'
-  typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND=3
-  typeset -g POWERLEVEL9K_STATUS_ERROR_BACKGROUND=1
+  typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND="#fff"
+  typeset -g POWERLEVEL9K_STATUS_ERROR_BACKGROUND="#ff0000"
 
   # Status when the last command was terminated by a signal.
   typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL=true
@@ -549,7 +550,7 @@
   ###################[ command_execution_time: duration of the last command ]###################
   # Execution time color.
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=0
-  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND=3
+  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND="#FFD60A"
   # Show duration of the last command if takes at least this many seconds.
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=3
   # Show this many fractional digits. Zero means round to seconds.
@@ -916,13 +917,13 @@
   ##################################[ context: user@hostname ]##################################
   # Context color when running with privileges.
   typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=1
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND=0
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND="#000000"
   # Context color in SSH without privileges.
   typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_FOREGROUND=4
-  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_BACKGROUND=0
+  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_BACKGROUND="#000000"
   # Default context color (no privileges, no SSH).
   typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=4
-  typeset -g POWERLEVEL9K_CONTEXT_BACKGROUND=0
+  typeset -g POWERLEVEL9K_CONTEXT_BACKGROUND="#000000"
 
   # Context format when running with privileges: user@hostname.
   typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%n@%m'

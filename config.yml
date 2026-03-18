@@ -67,6 +67,7 @@ symlinks:
   $D/gitignore: $H/.gitignore
   $D/gitmessage: $H/.gitmessage
   $D/gnupg/pubring.kbx: $H/.gnupg/pubring.kbx
+  $V/gradle: $H/.gradle
   $D/ipython: $H/.ipython
   $D/jupyter: $H/.jupyter
   $D/act-config: $H/.config/act
