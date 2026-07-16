@@ -185,10 +185,8 @@ RUN touch /home/nerd/.zshrc && \
 RUN zsh -c "source /home/nerd/.nvm/nvm.sh && \
   nvm use default && \
   npm install -g \
-  @anthropic-ai/claude-code \
   @mermaid-js/mermaid-cli \
   @prettier/plugin-xml \
-  gh-actions-language-server \
   allure \
   markdownlint-cli \
   opencode-ai \
