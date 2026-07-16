@@ -31,6 +31,7 @@
   "instructions": [
     "AGENTS.md",
     "CONTRIBUTING.md",
+    "CONTRIBUTING.adoc",
     "~/.config/opencode/AGENTS.md"
   ],
   "lsp": {
