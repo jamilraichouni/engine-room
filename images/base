@@ -22,6 +22,11 @@ RUN dnf --refresh -y install \
   luarocks
 # }}}
 
+# starship {{{
+USER root
+RUN dnf copr -y enable atim/starship && dnf -y install starship
+# }}}
+
 # uv setup and system python setup {{{
 USER root
 COPY dotfiles/requirements.txt /tmp
