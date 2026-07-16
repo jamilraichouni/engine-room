@@ -1,4 +1,4 @@
-FROM fedora:41
+FROM fedora:42
 LABEL maintainer="Jamil André RAICHOUNI <raichouni@gmail.com>"
 ARG USERMAP_UID
 ARG USERMAP_GID
@@ -53,6 +53,7 @@ RUN dnf --refresh -y install \
   man-pages \
   # `net-tools` to have `netstat`
   net-tools \
+  nslookup \
   openssh \
   openssh-server \
   openssl \
@@ -82,6 +83,7 @@ RUN dnf --refresh -y install \
   # operations.
   strace \
   sudo \
+  time \
   tree \
   unrar \
   unzip \
@@ -89,7 +91,8 @@ RUN dnf --refresh -y install \
   wget \
   which \
   zip \
-  zsh && \
+  zsh \
+  zsh-syntax-highlighting && \
   ln -s /usr/bin/gcc /usr/bin/aarch64-linux-gnu-gcc  # fixes build of python's line_profiler
 # }}}
 
