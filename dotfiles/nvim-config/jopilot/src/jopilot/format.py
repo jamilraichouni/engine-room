@@ -4,7 +4,9 @@ import os
 import pathlib
 import subprocess
 
-import vim  # type: ignore[unresolved-import]
+import vim  # ty: ignore[unresolved-import]
+from toml_sort import TomlSort
+from toml_sort.tomlsort import FormattingConfiguration, SortConfiguration
 
 
 def end_buffer_with_newline() -> None:
@@ -48,6 +50,27 @@ def prettier(
         msg = f"{' '.join(cmd)}\n{proc_result.stderr}"
         raise RuntimeError(msg)
     return content_lst
+
+
+def format_toml() -> list[str]:
+    """Format current buffer with `toml-sort`."""
+    content_str = "\n".join(vim.current.buffer[:])
+    return (
+        TomlSort(
+            content_str,
+            sort_config=SortConfiguration(
+                tables=False,
+                table_keys=True,
+                inline_tables=True,
+                inline_arrays=True,
+            ),
+            format_config=FormattingConfiguration(
+                trailing_comma_inline_array=True,
+            ),
+        )
+        .sorted()
+        .splitlines()
+    )
 
 
 filetype = vim.eval("&filetype")
@@ -116,19 +139,7 @@ match filetype:
             },
         )
     case "toml":
-        plugins = tuple(
-            pathlib.Path(os.environ["NVM_BIN"]).glob(
-                "../lib/**/prettier-plugin-toml/lib/index.js"
-            )
-        )
-        vim.current.buffer[:] = prettier(
-            parser=filetype,
-            plugins=plugins,
-            options={
-                "--array-auto-expand": "true",
-                "--array-auto-collapse": "false",
-            },
-        )
+        vim.current.buffer[:] = format_toml()
     case "xml":
         plugins = tuple(
             pathlib.Path(os.environ["NVM_BIN"]).glob(
@@ -145,4 +156,3 @@ match filetype:
         )
     case _:
         vim.exec_lua("vim.lsp.buf.format({timeout_ms = 10000})")
-

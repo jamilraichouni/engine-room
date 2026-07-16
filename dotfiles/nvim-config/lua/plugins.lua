@@ -2,6 +2,7 @@ return {
     {
         -- https://github.com/willothy/flatten.nvim
         "willothy/flatten.nvim",
+        disable = true,
         cond = function() return true end,
         lazy = false,
         priority = 1001,

@@ -3,12 +3,12 @@ return {
         'stevearc/oil.nvim',
         lazy = false,
         keys = {
-            { "<leader>Ob", "<cmd>Oil<cr>", desc = "Open Oil in current window" },
+            { "<leader>Ob", "<cmd>Oil<cr>",                                      desc = "Open Oil in current window" },
             { "<leader>Ot", "<cmd>tabnew <bar> Oil<cr><cmd>TabooRename Oil<cr>", desc = "Open Oil in new tab" },
-            { "<leader>Oh", "<cmd>vnew <bar> Oil<cr>", desc = "Open Oil in vertical split left" },
-            { "<leader>Oj", "<cmd>belowright new <bar> Oil<cr>", desc = "Open Oil in horizontal split below" },
-            { "<leader>Ok", "<cmd>new <bar> Oil<cr>", desc = "Open Oil in horizontal split above" },
-            { "<leader>Ol", "<cmd>belowright vnew <bar> Oil<cr>", desc = "Open Oil in vertical split right" },
+            { "<leader>Oh", "<cmd>vnew <bar> Oil<cr>",                           desc = "Open Oil in vertical split left" },
+            { "<leader>Oj", "<cmd>belowright new <bar> Oil<cr>",                 desc = "Open Oil in horizontal split below" },
+            { "<leader>Ok", "<cmd>new <bar> Oil<cr>",                            desc = "Open Oil in horizontal split above" },
+            { "<leader>Ol", "<cmd>belowright vnew <bar> Oil<cr>",                desc = "Open Oil in vertical split right" },
         },
         opts = {},
         -- Optional dependencies
@@ -41,9 +41,9 @@ return {
                     wrap = false,
                 },
                 columns = {
-                    { "size",  highlight = "Constant" },
-                    { "ctime", format = "%Y-%m-%d %H:%M:%S" },
-                    { "mtime", format = "%Y-%m-%d %H:%M:%S", highlight = "Comment" },
+                    { "permissions", highlight = "Comment" },
+                    { "size",        highlight = "Constant" },
+                    { "mtime",       format = "%Y-%m-%d|%H:%M:%S", highlight = "Comment" },
                 },
                 keymaps = {
                     ["g?"] = "actions.show_help",
@@ -93,3 +93,4 @@ return {
         end,
     },
 }
+

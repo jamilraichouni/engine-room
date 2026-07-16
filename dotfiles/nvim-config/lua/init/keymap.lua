@@ -109,10 +109,52 @@ vim.keymap.set("n",
     "<cmd>belowright vnew<cr><cmd>wincmd L<cr><cmd>lua vim.g.console()<cr>"
 )
 
+-- OBUSim.log
+vim.keymap.set("n",
+    "<leader>Lb",
+    "<cmd>lua vim.g.obu_sim_log()<cr>"
+)
+vim.keymap.set("n",
+    "<leader>Lt",
+    "<cmd>tabnew<cr><cmd>lua vim.g.obu_sim_log()<cr>"
+)
+vim.keymap.set("n",
+    "<leader>Lh",
+    "<cmd>vnew<cr><cmd>lua vim.g.obu_sim_log()<cr>"
+)
+vim.keymap.set("n",
+    "<leader>LH",
+    "<cmd>vnew<cr><cmd>lua vim.g.obu_sim_log()<cr><cmd>wincmd H<cr>"
+)
+vim.keymap.set("n",
+    "<leader>Lj",
+    "<cmd>belowright new<cr><cmd>lua vim.g.obu_sim_log()<cr>"
+)
+vim.keymap.set("n",
+    "<leader>LJ",
+    "<cmd>belowright new<cr><cmd>lua vim.g.obu_sim_log()<cr><cmd>wincmd J<cr><cmd>resize 25<cr>"
+)
+vim.keymap.set("n",
+    "<leader>Lk",
+    "<cmd>new<cr><cmd>lua vim.g.obu_sim_log()<cr>"
+)
+vim.keymap.set("n",
+    "<leader>LK",
+    "<cmd>lua vim.g.obu_sim_log()<cr><cmd>wincmd K<cr><cmd>resize 10<cr>"
+)
+vim.keymap.set("n",
+    "<leader>Ll",
+    "<cmd>belowright vnew<cr><cmd>lua vim.g.obu_sim_log()<cr>"
+)
+vim.keymap.set("n",
+    "<leader>LL",
+    "<cmd>belowright vnew<cr><cmd>wincmd L<cr><cmd>lua vim.g.obu_sim_log()<cr>"
+)
+
 -- opencode
 vim.keymap.set("n",
     "<leader>Ab",
-    "<cmd>lua vim.g.opencode()<cr>"
+    "<cmd>lua vim.g.obu_sim_log()<cr>"
 )
 vim.keymap.set("n",
     "<leader>At",
@@ -276,4 +318,3 @@ vim.keymap.set("n",
     "<cmd>belowright vnew<cr><cmd>wincmd L<cr><cmd>lua vim.g.terminal()<cr>"
 )
 -- }}}
-

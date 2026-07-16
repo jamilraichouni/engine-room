@@ -26,6 +26,12 @@ vim.lsp.config("cssls", {
     },
     root_markers = { ".git", "pyproject.toml" },
 })
+-- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/cucumber_language_server.lua
+vim.lsp.config("cucumber_language_server", {
+    cmd = { 'cucumber-language-server', '--stdio' },
+    filetypes = { 'cucumber' },
+    root_markers = { '.git' },
+})
 -- https://github.com/iamcco/diagnostic-languageserver
 vim.lsp.config("diagnosticls", {
     cmd = { "diagnostic-languageserver", "--stdio" },
@@ -307,6 +313,7 @@ vim.lsp.config("yamlls", {
 vim.lsp.enable({
     "bashls",
     "cssls",
+    "cucumber_language_server",
     "diagnosticls",
     "dockerls",
     "gh_actions_ls",
@@ -318,5 +325,4 @@ vim.lsp.enable({
     "ty",
     "yamlls",
 })
-vim.lsp.set_log_level("warn") -- error, warn, info, or debug
-
+vim.lsp.log.set_level("warn") -- error, warn, info, debug, trace

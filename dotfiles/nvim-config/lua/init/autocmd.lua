@@ -9,7 +9,7 @@ local function colorize_logs()
     -- Use priority -1 (less than hlsearch's 0) to not override search highlighting
     vim.fn.matchadd('LogDebug', '.*20.*DEBUG.*', -1)
     vim.fn.matchadd('Special', '.*20.*INFO.*', -1)
-    vim.fn.matchadd('LogWarning', '.*20.*WARNING.*', -1)
+    vim.fn.matchadd('LogWarning', '.*20.*WARN.*', -1)
     vim.fn.matchadd('LogError', '.*20.*ERROR.*', -1)
     vim.fn.matchadd('LogCritical', '.*20.*CRITICAL.*', -1)
 end
@@ -45,6 +45,14 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         setup_treesitter()
     end
 })
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+    desc = "Set foldlevel=3 for ATO OBU SIM (OpenAPI spec)",
+    group = vim.g.augroup_jar,
+    pattern = { "**/ato-ob-sim/**/api.json" },
+    callback = function(args)
+        vim.opt_local.foldlevel = 3
+    end
+})
 vim.api.nvim_create_autocmd('FileType', {
     desc = "Setup treesitter-based folding",
     group = vim.g.augroup_jar,
@@ -71,9 +79,9 @@ vim.api.nvim_create_autocmd('FileType', {
     end,
 })
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
-    desc = "Disable ruff LSP for .py files with cookiecutter template code",
+    desc = "Disable ruff LSP for specific .py files",
     group = vim.g.augroup_jar,
-    pattern = { "**/*cookiecutter.__project_slug_dash*/**/*.py" },
+    pattern = { "**/*cookiecutter.__project_slug_dash*/**/*.py", "_version.py" },
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         if client and client.name == "ruff" then
@@ -134,7 +142,10 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
     pattern = { "COMMIT_EDITMSG" },
-    command = "startinsert"
+    callback = function()
+        vim.api.nvim_win_set_cursor(0, { 1, 0 })
+        vim.cmd.startinsert()
+    end,
 })
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     group = vim.g.augroup_jar,
@@ -157,9 +168,9 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     group = vim.g.augroup_jar,
     nested = true,
     callback = function()
-        -- Skip formatting for CHEATSHEET.md
+        -- Skip formatting
         local filename = vim.fn.expand('%:t')
-        if filename == "CHEATSHEET.md" then
+        if filename == "CHEATSHEET.md" or filename == "p10k.zsh" then
             return
         end
         local format_on_save = {
@@ -323,4 +334,3 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
         update_loclist(ev.buf)
     end,
 })
-

@@ -4,9 +4,18 @@ vim.api.nvim_create_user_command("CapellaSetVersion", "lua vim.g.SetCapellaVersi
 vim.api.nvim_create_user_command("DevTab", "tabnew | tabm 0 | TabooRename dev", { force = true })
 vim.api.nvim_create_user_command("DockerImagesTab",
     "tabnew | tcd ~/dev/dbgitlab/docker-images | TabooRename docker-images", { force = true })
+vim.api.nvim_create_user_command("CapellaMbseTab", "tabnew | tcd ~/dev/github/capellambse | TabooRename capellambse",
+    { force = true })
+vim.api.nvim_create_user_command("CtmsTab", "tabnew | tcd ~/dev/dbgitlab/ctms-t | TabooRename ctms-t", { force = true })
+vim.api.nvim_create_user_command("EngineRoomTab", "tabnew | tcd ~/engine-room | TabooRename engine-room",
+    { force = true })
 vim.api.nvim_create_user_command("GitopsTab", "tabnew | tcd ~/dev/dbgitlab/gitops | TabooRename gitops", { force = true })
+vim.api.nvim_create_user_command("IvvTab", "tabnew | tcd ~/dev/dbgitlab/ivv | TabooRename ivv", { force = true })
+vim.api.nvim_create_user_command("OddpTab", "tabnew | tcd ~/dev/dbgitlab/oddp | TabooRename oddp", { force = true })
+vim.api.nvim_create_user_command("SwAppTestRunnerTab",
+    "tabnew | tcd /opt/bind/dev/dbgitlab/swapp-test-runner | TabooRename swapp-test-runner", { force = true })
 vim.api.nvim_create_user_command("HTML2FT", "%s/\\v(\\w+)\\(/\\=printf('ft.%s(', submatch(1))/g | nohl", { force = true })
-vim.api.nvim_create_user_command("OpenCode",
+vim.api.nvim_create_user_command("OpenCodeConfig",
     "tabnew | tcd ~/.config/opencode | edit . | TabooRename opencode (config)",
     { force = true }
 )
@@ -66,5 +75,3 @@ vim.api.nvim_create_user_command("JoCheatSheetEdit", "edit ~/engine-room/dotfile
 )
 vim.api.nvim_create_user_command("TSInspect", "Inspect!", { force = true })
 vim.api.nvim_create_user_command("WorkingTimesCompute", "lua vim.g.WorkingTimesCompute()", { force = true })
-vim.api.nvim_create_user_command("WorkingTimesSaveAndClose", "write | bdelete", { force = true })
-

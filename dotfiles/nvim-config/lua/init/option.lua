@@ -40,4 +40,3 @@ vim.o.wildmenu = true -- display all matching files when we tab complete
 vim.o.wildignore = "**/.git/**,**/.venv/**,!.*"
 vim.o.winborder = "rounded"
 vim.o.shortmess = vim.o.shortmess .. "S" -- Don't show search count since we use it in feline
-

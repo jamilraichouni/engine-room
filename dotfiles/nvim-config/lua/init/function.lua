@@ -21,6 +21,29 @@ vim.g.ipython = function()
     ]])
     end, 500)
 end
+vim.g.obu_sim_log = function(no_rename_buffer)
+    vim.cmd("terminal tail -n 1000 -f /opt/bind/dev/dbgitlab/atoc-test-runner/log/OBUSim.log")
+    vim.cmd("normal! G")
+    vim.opt_local.relativenumber = false
+    vim.opt_local.number = true
+    if not no_rename_buffer then
+        vim.defer_fn(function()
+            vim.cmd([[
+            silent! file term://OBUSim.log3
+        ]])
+        end, 500)
+        vim.defer_fn(function()
+            vim.cmd([[
+            silent! file term://OBUSim.log2
+        ]])
+        end, 500)
+        vim.defer_fn(function()
+            vim.cmd([[
+            silent! file term://OBUSim.log
+        ]])
+        end, 500)
+    end
+end
 vim.g.opencode = function(no_rename_buffer)
     vim.cmd("terminal opencode")
     vim.cmd("startinsert")
@@ -91,4 +114,3 @@ vim.g.WorkingTimesCompute = function()
         print("Error: " .. proc.stdout)
     end
 end
-

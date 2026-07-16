@@ -444,7 +444,7 @@ see
 #### Increase LSP log level
 
 ```text
-:lua vim.lsp.set_log_level("debug")
+:lua vim.lsp.log.set_level("debug")
 ```
 
 ### Recipe(vim): Recent files

@@ -19,8 +19,6 @@ CTRL-S    - vim.lsp.buf.signature_help() -> insert mode only
 
 ### Customized (JAR)
 
-grp    - vim.diagnostic.open_float(...)
-
 grf    - vim.g.FormatCode()
 grF    - vim.lsp.buf.format({timeout_ms = 20000})
 

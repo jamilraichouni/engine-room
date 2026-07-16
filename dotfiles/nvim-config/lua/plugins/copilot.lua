@@ -14,6 +14,7 @@ return {
             vim.keymap.set("i", "<c-j>", "<Plug>(copilot-next)")
             vim.keymap.set("i", "<c-k>", "<Plug>(copilot-previous)")
             vim.keymap.set("i", "<c-e>", "<Plug>(copilot-dismiss)")
+            vim.g.copilot_enterprise_uri = "https://deutschebahn.ghe.com"
             vim.g.copilot_no_tab_map = true
             vim.g.copilot_filetypes = {
                 ['*'] = true,
@@ -83,4 +84,3 @@ return {
     -- }}}
 }
 -- vim: foldmethod=marker:foldlevel=10:foldenable
-
