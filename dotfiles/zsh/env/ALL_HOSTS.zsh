@@ -7,7 +7,9 @@ export ER=$HOME/engine-room
 export FZF_CTRL_T_OPTS='--color="fg+:#ffffff,fg:#608b4e,hl:#ff0000,hl+:#ff0000" --history-size=10000 --preview="bat --style=changes,header,numbers --color=always {}"'
 export FZF_DEFAULT_OPTS='--color="fg+:#ffffff,fg:#608b4e,hl:#ff0000,hl+:#ff0000" --history-size=10000'
 [[ -d /mnt/volume ]] && export HISTFILE=/mnt/volume/zsh_history || export HISTFILE=$HOME/.zsh_history
+export ARTIFACTORY_ATOC_DOCKER_STAGE_PAT="$(cat $HOME/engine-room/secrets/artifactory-atoc-docker-stage-pat.pat)"
 export AWS_BEARER_TOKEN_BEDROCK="$(cat $HOME/engine-room/secrets/genai-aws-bedrock.pat)"
+export GITLAB_READ_PAT="$(cat $HOME/engine-room/secrets/gitlab-read.pat)"
 export JAVA_HOME=/usr/lib/jvm/jdk
 export JIRA_PAT="$(cat $HOME/engine-room/secrets/jira.token)"
 export JQ_COLORS="1;36:0;39:0;39:0;39:0;32:1;39:1;39"
