@@ -144,5 +144,11 @@ venv() {
   source .venv/bin/activate
   uv pip install --upgrade pip
   uv pip install -r $DOT/requirements.txt
-  [[ -f pyproject.toml ]] && uv sync --frozen --inexact
+  if [[ -f pyproject.toml ]]; then
+    if [[ -f uv.lock ]]; then
+      uv sync --frozen --inexact
+    else
+      uv sync --inexact
+    fi
+  fi
 }
