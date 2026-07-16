@@ -65,10 +65,8 @@ match filetype:
                 "--indent": "2",
             },
         )
-        end_buffer_with_newline()
     case "css" | "json":
         vim.current.buffer[:] = prettier(filetype)
-        end_buffer_with_newline()
     case "html" | "htmlangular":
         plugins = tuple(
             pathlib.Path(os.environ["NVM_BIN"]).glob(
@@ -82,10 +80,8 @@ match filetype:
                 "--single-attribute-per-line": "true",
             },
         )
-        end_buffer_with_newline()
     case "javascript":
         vim.current.buffer[:] = prettier(parser="babel")
-        end_buffer_with_newline()
     case (
         "j2" | "jinja" | "jinja2" | "jinja.html" | "htmldjango" | "django-html"
     ):
@@ -112,7 +108,6 @@ match filetype:
                 "--single-attribute-per-line": "true",
             },
         )
-        end_buffer_with_newline()
     case "markdown":
         vim.current.buffer[:] = prettier(
             parser=filetype,
@@ -134,7 +129,6 @@ match filetype:
                 "--array-auto-collapse": "false",
             },
         )
-        end_buffer_with_newline()
     case "xml":
         plugins = tuple(
             pathlib.Path(os.environ["NVM_BIN"]).glob(
@@ -149,8 +143,6 @@ match filetype:
                 "--array-auto-collapse": "false",
             },
         )
-        end_buffer_with_newline()
     case _:
         vim.exec_lua("vim.lsp.buf.format({timeout_ms = 10000})")
-        end_buffer_with_newline()
 
