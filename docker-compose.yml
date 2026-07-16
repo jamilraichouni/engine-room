@@ -24,7 +24,7 @@ services:
     build:
       dockerfile: images/base
       args:
-        JDK_FILE: OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.4_7.tar.gz
+        JDK_FILE: OpenJDK25U-jdk_aarch64_linux_hotspot_25.0.2_10.tar.gz
     hostname: "engine-room-base"
     container_name: "engine-room-base"
     environment:
