@@ -19,10 +19,6 @@ __pycache__/
 
 act_events*
 
-data/*
-!data/.gitkeep
-!tests/data/
-
 dev/
 ipython/*/db/dhist
 ipython/*/dhist
