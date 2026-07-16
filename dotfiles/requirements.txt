@@ -1,6 +1,7 @@
 aiofiles  # needed by entrypoint.py
 PyYAML  # needed by entrypoint.py
 ipython
+pdftotext
 pyfzf
 pynvim
 python-dotenv[cli]
