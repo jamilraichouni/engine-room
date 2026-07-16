@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
 
-import os
 import pathlib
 import sys
 from collections import OrderedDict
 
-import pyfzf
+try:
+    import pyfzf
+except ImportError:
+    sys.exit(1)
+
+PARTS_LEN = 2
+RECENT_DIRS_LIMIT = 100
 
 
-def get_recent_dirs_from_history():
+def _get_recent_dirs_from_history() -> list[str]:
     recent_dirs = OrderedDict()
     home = str(pathlib.Path.home())
     history_file = pathlib.Path("/mnt/volume/zsh_history")
@@ -17,14 +22,14 @@ def get_recent_dirs_from_history():
 
     if history_file.exists():
         try:
-            with open(history_file, "rb") as f:
+            with pathlib.Path(history_file).open(mode="rb") as f:
                 lines = f.read().decode("utf-8", errors="ignore").splitlines()
 
             for line in reversed(lines):
-                line = line.strip()
-                if line.startswith(": ") and ";cd " in line:
-                    parts = line.split(";cd ", 1)
-                    if len(parts) == 2:
+                stripped_line = line.strip()
+                if stripped_line.startswith(": ") and ";cd " in stripped_line:
+                    parts = stripped_line.split(";cd ", 1)
+                    if len(parts) == PARTS_LEN:
                         cd_part = parts[1].strip()
                         if cd_part and not cd_part.startswith("-"):
                             cd_part = cd_part.split(" && ")[0]
@@ -39,7 +44,7 @@ def get_recent_dirs_from_history():
 
                             if pathlib.Path(cd_part).exists():
                                 recent_dirs[cd_part] = None
-                                if len(recent_dirs) >= 100:
+                                if len(recent_dirs) >= RECENT_DIRS_LIMIT:
                                     break
         except Exception:  # noqa: BLE001, S110
             pass
@@ -58,7 +63,7 @@ if __name__ == "__main__":
     arg = sys.argv[1] if len(sys.argv) > 1 else ""
 
     if arg == "-":
-        dirs = get_recent_dirs_from_history()
+        dirs = _get_recent_dirs_from_history()
         if not dirs:
             sys.exit(0)
 
@@ -74,4 +79,3 @@ if __name__ == "__main__":
         if arg.startswith("~"):
             arg = arg.replace("~", str(pathlib.Path.home()), 1)
         print(arg)
-

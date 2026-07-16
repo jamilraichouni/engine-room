@@ -1,5 +1,4 @@
-[[ -f $DOT/zsh/oh-my-zsh.zsh ]] && . $DOT/zsh/oh-my-zsh.zsh
-[[ -f $DOT/zsh/p10k.zsh ]] && . $DOT/zsh/p10k.zsh
+. $DOT/zsh/key-bindings.zsh
 
 # aliases MUST be sourced after oh-my-zsh !!!
 unalias -a && [[ -f $DOT/zsh/aliases.zsh ]] && . $DOT/zsh/aliases.zsh
@@ -10,11 +9,19 @@ source <(fzf --zsh)
 # load custom functions
 . $DOT/zsh/funcs.zsh
 
+function __set_starship_python_venv_parent() {
+  if [[ -n ${VIRTUAL_ENV:-} ]]; then
+    export STARSHIP_PYTHON_VENV_PARENT=${VIRTUAL_ENV:h:t}
+  else
+    unset STARSHIP_PYTHON_VENV_PARENT
+  fi
+}
+
 # venv handling with `cd` command
 function __python_venv_on_cd() {
   setopt local_options err_return
 
-  if (($+VIRTUAL_ENV)) && [[ $PWD != ${VIRTUAL_ENV%/*}/* ]]; then
+  if [[ -n ${VIRTUAL_ENV:-} ]] && [[ $PWD != ${VIRTUAL_ENV%/*}/* ]]; then
     deactivate > /dev/null 2>&1 || unset VIRTUAL_ENV
   fi
 
@@ -22,6 +29,10 @@ function __python_venv_on_cd() {
     . .venv/bin/activate
   elif [[ -f /opt/.venv/bin/activate ]]; then
     . /opt/.venv/bin/activate
+  fi
+  __set_starship_python_venv_parent
+  if whence -p starship > /dev/null 2>&1; then
+    eval "$(starship init zsh)"
   fi
 }
 
@@ -33,4 +44,8 @@ if [[ -f .venv/bin/activate ]]; then
   . .venv/bin/activate
 elif [[ -f /opt/.venv/bin/activate ]]; then
   . /opt/.venv/bin/activate
+fi
+__set_starship_python_venv_parent
+if whence -p starship > /dev/null 2>&1; then
+  eval "$(starship init zsh)"
 fi

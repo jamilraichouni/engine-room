@@ -1,16 +1,23 @@
 #!/usr/bin/env zsh
 
-setopt dotglob  # copy/ move .dot files/ dirs
+setopt dotglob # copy/ move .dot files/ dirs
 
-setopt autopushd    # cd automatically pushes old dir onto dir stack
+setopt autopushd         # cd automatically pushes old dir onto dir stack
 setopt pushd_ignore_dups # don't push multiple copies of the same directory onto the directory stack
 
-setopt CDABLE_VARS  # expand the expression (allows 'cd -2/tmp')
+setopt CDABLE_VARS # expand the expression (allows 'cd -2/tmp')
 
 # shell history:
-export SAVEHIST=1000000  # No of cmds stored in hist file
-export HISTSIZE=1000000  # No of cmds loaded into RAM from hist file
-setopt INC_APPEND_HISTORY       # cmds are added to the history immediately
+export SAVEHIST=1000000 # No of cmds stored in hist file
+export HISTSIZE=1000000 # No of cmds loaded into RAM from hist file
+export HISTDUP=erase
+setopt extended_history
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_save_no_dups
+setopt incappendhistory
+setopt sharehistory
 
 # home/ end keys:
 bindkey "^[[H" beginning-of-line
@@ -19,9 +26,16 @@ bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
 bindkey "\e[3~" delete-char
 
-# Load version control information
-autoload -Uz vcs_info
-precmd() { vcs_info }
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search   # Up
+bindkey "^[[B" down-line-or-beginning-search # Down
+
+# # Load version control information
+# autoload -Uz vcs_info
+# precmd() { vcs_info }
 
 # Format the vcs_info_msg_0_ variable
 zstyle ':vcs_info:git:*' formats '%F{9}%b%f'
@@ -32,6 +46,5 @@ NEWLINE=$'\n'
 autoload -Uz compinit && compinit
 
 if [[ -n $TERM ]] && [[ $TERM == "xterm-kitty" ]]; then
-    alias ssh='kitty +kitten ssh'
+  alias ssh='kitty +kitten ssh'
 fi
-
