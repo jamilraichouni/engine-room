@@ -79,6 +79,7 @@ deactivate-venv() {
   fi
   unset VIRTUAL_ENV
   unset VIRTUAL_ENV_PROMPT
+  unset STARSHIP_PYTHON_VENV_PARENT
 }
 __load_nvm() {
   unfunction nvm node npm npx __load_nvm 2> /dev/null

@@ -80,6 +80,7 @@ symlinks:
   $D/pygmentsstyles.py: $H/pygmentsstyles.py
   $D/ruff: $H/.config/ruff
   $D/ssh/known_hosts: $H/.ssh/known_hosts
+  $D/starship.toml: $H/.config/starship.toml
   $D/vimrc: $H/.vimrc
   $D/zsh/env/ALL_HOSTS.zsh: $E/zshenv  # Fedora (base image) path
   $D/zsh/p10k.zsh: $H/.p10k.zsh

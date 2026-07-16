@@ -1,0 +1,81 @@
+add_newline = true
+format = '''[╭─](#444444)$os$username$hostname$directory$git_branch$git_state$git_status$git_metrics$fill$status$character$cmd_duration$python${env_var.STARSHIP_PYTHON_VENV_PARENT}[─╮ ](#444444)
+[╰─](#444444)'''
+
+right_format = '''[─╯](#444444)'''
+command_timeout = 2000
+scan_timeout = 2000
+
+[character]
+success_symbol = '[](fg:black)[ ](bg:black)[ ](bg:black fg:bold fg:green)'
+error_symbol = ''
+
+[cmd_duration]
+format = '[ ](bg:yellow)[$duration]($style)'
+min_time = 1
+style = 'bg:yellow fg:black'
+
+[directory]
+format = '[ $path]($style)[ ](bg:#52697d)[](fg:#52697d)[$read_only]($read_only_style) '
+style = 'bg:#52697d fg:bold fg:white'
+truncate_to_repo = false
+truncation_length = 5
+
+[fill]
+symbol = '⎯'
+style = '#52697d'
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+style = 'purple'
+symbol = ' '
+
+[git_metrics]
+disabled = false
+
+[git_state]
+disabled = false
+style = 'purple'
+
+[git_status]
+disabled = false
+style = 'purple'
+
+[hostname]
+format = '[$hostname ]($style)[](bg:#52697d fg:black)'
+ssh_only = false
+ssh_symbol = ''
+style = 'bg:black fg:blue'
+
+[os]
+disabled = false
+format = '[$symbol]($style)[](fg:white)'
+style = 'bg:white fg:black'
+
+[os.symbols]
+Arch = '  '
+Fedora = '  '
+Macos = ' 🍎'
+Ubuntu = '  '
+
+[python]
+detect_extensions = []
+detect_files = []
+detect_folders = ['.venv']
+format = '[ ](bg:#1a3a1a fg:#1a3a1a)[${symbol}${pyenv_prefix}(${version} )](bg:#1a3a1a fg:#5fffd7)'
+symbol = ' '
+
+[env_var.STARSHIP_PYTHON_VENV_PARENT]
+variable = 'STARSHIP_PYTHON_VENV_PARENT'
+format = '[(\($env_value\) )](bg:#1a3a1a fg:#5fffd7)'
+
+[status]
+disabled = false
+format = '[](fg:red)[ ](bg:red)[$status ]($style)'
+style = 'bg:red fg:white'
+symbol = ''
+
+[username]
+show_always = true
+style_user = 'bg:black fg:blue'
+format = '[ $user@]($style)'
