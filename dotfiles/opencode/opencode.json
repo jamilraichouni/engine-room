@@ -47,8 +47,8 @@
       "extensions": [".py"]
     }
   },
-  "disabled_providers": ["genaihub", "openai", "opencode"],
-  "enabled_providers": ["github-copilot"],
+  "disabled_providers": ["genaihub", "openai"],
+  "enabled_providers": ["github-copilot", "opencode"],
   "small_model": "github-copilot/claude-haiku-4.5",
   "permission": {
     "external_directory": {
