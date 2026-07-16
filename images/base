@@ -107,6 +107,20 @@ RUN set -x && \
 WORKDIR /home/nerd
 # }}}
 
+# task {{{
+USER root
+WORKDIR /tmp
+RUN source /etc/zshenv && \
+  TASK="task_linux_${ARCH}" && \
+  curl -fsSLO "https://github.com/go-task/task/releases/latest/download/${TASK}.tar.gz" && \
+  tar xvzf ${TASK}.tar.gz && \
+  rm -rf completion/ && \
+  chmod +x task && \
+  mv task /opt && \
+  ln -s /opt/task /usr/local/bin/task
+WORKDIR /home/nerd
+# }}}
+
 # tree-sitter {{{
 USER root
 WORKDIR /tmp
