@@ -37,6 +37,15 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     end,
 })
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+    desc = "Set filetype to sshconfig for engine-room SSH config file",
+    group = vim.g.augroup_jar,
+    pattern = { "**/ssh/config" },
+    callback = function(args)
+        vim.opt_local.filetype = "sshconfig"
+        setup_treesitter()
+    end
+})
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     desc = "Set filetype to xml for Capella files",
     group = vim.g.augroup_jar,
     pattern = { "*.aird", "*.capella" },
