@@ -54,6 +54,8 @@ def _main() -> None:
     logger.info("HOST: '%s'", HOST)
     logger.info("USER: '%s'", USER)
 
+    services: list[tuple[str, subprocess.Popen]] = []
+
     def _signal_handler(signum: int, _: t.Any) -> None:
         logger.info("Received signal %s, shutting down services...", signum)
         for name, proc in services:
@@ -66,8 +68,6 @@ def _main() -> None:
                     proc.kill()
         sys.exit(0)
 
-    subprocess.run([sys.executable, str(ENTRYPOINT_SCRIPT)], check=False)
-    services = []
     # ssh daemon
     sshd_proc = subprocess.Popen(
         ["/usr/sbin/sshd", "-D", "-p", os.getenv("SSH_PORT", "1978")],
@@ -76,11 +76,16 @@ def _main() -> None:
     )
     services.append(("sshd", sshd_proc))
     logger.info("Started sshd with PID %s", sshd_proc.pid)
+
+    entrypoint_proc = subprocess.Popen([sys.executable, str(ENTRYPOINT_SCRIPT)])
+    services.append(("entrypoint", entrypoint_proc))
+    logger.info("Started entrypoint with PID %s", entrypoint_proc.pid)
+
     signal.signal(signal.SIGTERM, _signal_handler)
     signal.signal(signal.SIGINT, _signal_handler)
     try:
         while True:
-            for name, proc in services:
+            for name, proc in list(services):
                 if proc.poll() is not None:
                     logger.info(
                         "Service %s (PID %d) has died with exit code %d",
@@ -91,6 +96,15 @@ def _main() -> None:
                     # If SSH dies, we should exit
                     if name == "sshd":
                         _signal_handler(signal.SIGTERM, None)
+                    if name == "entrypoint":
+                        if proc.returncode == 0:
+                            logger.info("Entrypoint setup completed")
+                        else:
+                            logger.error(
+                                "Entrypoint setup failed with exit code %d",
+                                proc.returncode,
+                            )
+                        services.remove((name, proc))
             time.sleep(1)
     except KeyboardInterrupt:
         _signal_handler(signal.SIGINT, None)
