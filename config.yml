@@ -96,4 +96,5 @@ symlinks:
   $V/nvm: $H/.nvm  # Node Version Manager
   $V/opencode/data: $H/.local/share/opencode
   $V/opencode/mix: $H/.opencode
+  $V/opencode/state: $H/.local/state/opencode
   $V/uv: $H/.local/share/uv
