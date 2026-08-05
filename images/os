@@ -66,6 +66,9 @@ RUN dnf --refresh -y install \
   pinentry \
   pip \
   pkg-config \
+  # pkgconf-pkg-config and poppler-cpp-devel are needed to build python's pdftotext
+  pkgconf-pkg-config \
+  poppler-cpp-devel  \
   # `procps-ng` to have `ps`
   procps-ng \
   # `psmisc` to have `killall`
