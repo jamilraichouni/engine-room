@@ -154,7 +154,7 @@ vim.keymap.set("n",
 -- opencode
 vim.keymap.set("n",
     "<leader>Ab",
-    "<cmd>lua vim.g.obu_sim_log()<cr>"
+    "<cmd>lua vim.g.opencode()<cr>"
 )
 vim.keymap.set("n",
     "<leader>At",
