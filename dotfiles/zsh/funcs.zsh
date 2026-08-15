@@ -151,4 +151,5 @@ venv() {
       uv sync --inexact
     fi
   fi
+  cd .
 }
