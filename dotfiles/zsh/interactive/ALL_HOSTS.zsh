@@ -49,3 +49,6 @@ __set_starship_python_venv_parent
 if whence -p starship > /dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi
+if [[ "$(uname -o)" == *"Darwin"* ]]; then
+  cd $HOME/engine-room/
+fi
