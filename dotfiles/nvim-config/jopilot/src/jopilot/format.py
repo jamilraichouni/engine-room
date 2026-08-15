@@ -5,8 +5,6 @@ import pathlib
 import subprocess
 
 import vim  # ty: ignore[unresolved-import]
-from toml_sort import TomlSort
-from toml_sort.tomlsort import FormattingConfiguration, SortConfiguration
 
 
 def end_buffer_with_newline() -> None:
@@ -139,7 +137,16 @@ match filetype:
             },
         )
     case "toml":
-        vim.current.buffer[:] = format_toml()
+        try:
+            from toml_sort import TomlSort  # noqa: I001
+            from toml_sort.tomlsort import (
+                FormattingConfiguration,
+                SortConfiguration,
+            )
+
+            vim.current.buffer[:] = format_toml()
+        except ImportError as exp:
+            print(str(exp))
     case "xml":
         plugins = tuple(
             pathlib.Path(os.environ["NVM_BIN"]).glob(
