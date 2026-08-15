@@ -816,7 +816,8 @@ def _validate_output_header(output_path: pathlib.Path) -> None:
 )
 @click.option(
     "--polarion-base-url",
-    required=True,
+    default="https://awspoldsdpu.polarion.comp.db.de/polarion",
+    show_default=True,
     help=(
         "Polarion base URL, for example "
         "https://awspoldsdpu.polarion.comp.db.de/polarion."
