@@ -69,12 +69,10 @@ metadata:
   understand the required and optional flags and their expected values
 - I use the default value `https://awspoldsdpu.polarion.comp.db.de/polarion` as
   Polarion base URL (`--polarion-base-url`) and give the option to override it
-  `POLARION_PAT`
-- I use the default value stored in the env var `POLARION_PAT` as Polarion
-  personal access token (`--personal-access-token`) and give the option to
-  override it
 - I use the default value `AR_DKS` as project id (`--project-id`) and give the
   option to override it
+- I use the default value stored in the env var `POLARION_PAT_PU` as Polarion
+  personal access token (`--personal-access-token`)
 - I use the default value `type:heading or status:approved` as filter for work
   items (`--filter`) and give the option to override it
 - I MUST ALWAYS use the tool `question` to ask for inputs after I have read the
