@@ -5,6 +5,34 @@
 ALWAYS, really ALWAYS use the tool `question` to ask questions, when you have
 more than one single question to ask.
 
+## Writing tools
+
+When writing tools, always write them in Python 3 or Shellscript (Bash, POSIX
+sh).
+
+## Engineering Collaboration Tools and access tokens
+
+### GitLab
+
+URL: https://git.tech.rz.db.de/
+
+Name of environment variable for personal access token: `GITLAB_READ_PAT`
+
+### Polarion
+
+URL: https://awspoldsdpu.polarion.comp.db.de/polarion
+
+Name of environment variable for personal access token: `POLARION_PAT_PU`
+
+### Artifactory
+
+#### Docker registries
+
+- `docker://ato-c-docker-stage-local.bahnhub.tech.rz.db.de`
+- `docker://ato-c-docker-release-local.bahnhub.tech.rz.db.de`
+
+Name of environment variable for personal access token: `ARTIFACTORY_PAT`
+
 ## Code style
 
 ### General guidelines
