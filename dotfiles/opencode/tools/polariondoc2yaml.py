@@ -889,9 +889,6 @@ def main(
         page_size,
     )
     project_client = client.generate_project_client(project_id)
-    if not project_client.exists():
-        logger.error("Project %s does not exist.", project_id)
-        sys.exit(1)
     logger.debug(
         "Fetch document %s/%s from project %s ...",
         space_id,
