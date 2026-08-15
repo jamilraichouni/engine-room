@@ -87,6 +87,20 @@ vim.api.nvim_create_autocmd('FileType', {
         vim.opt_local.tabstop = 2
     end,
 })
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+    desc = "Use heading-based folding for Markdown files",
+    group = vim.g.augroup_jar,
+    pattern = { "*.md", "*.markdown" },
+    callback = function(args)
+        if vim.bo[args.buf].filetype ~= "markdown" then
+            return
+        end
+        vim.opt_local.foldmethod = "expr"
+        vim.opt_local.foldexpr =
+            "v:lua.require'init.markdown_folds'.foldexpr()"
+        vim.opt_local.foldlevel = 1
+    end,
+})
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
     desc = "Disable ruff LSP for specific .py files",
     group = vim.g.augroup_jar,
