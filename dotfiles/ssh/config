@@ -110,11 +110,6 @@ Host strato
     User root
     IdentityFile ~/.ssh/id_rsa
 
-Host raspi5
-    HostName 192.168.1.4
-    Port 22
-    User jamil
-
 Host engine-room-raspi5
     HostName 192.168.1.4
     Port 1978
@@ -140,6 +135,16 @@ Host pld
     User jamilraichouni
     User pld
     IdentityFile ~/.ssh/id_rsa
+
+Host raspi3
+    HostName 192.168.178.78
+    User jamil
+    IdentityFile ~/.ssh/id_ed25519
+
+Host raspi5
+    HostName 192.168.178.79
+    User jamil
+    IdentityFile ~/.ssh/id_ed25519
 
 Host *
     AddKeysToAgent yes
