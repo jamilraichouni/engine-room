@@ -832,8 +832,8 @@ def _validate_output_header(output_path: pathlib.Path) -> None:
 @click.option(
     "--personal-access-token",
     required=False,
-    envvar="POLARION_PAT",
-    help=("Polarion personal access token. Uses POLARION_PAT when set."),
+    envvar="POLARION_PAT_PU",
+    help=("Polarion personal access token. Uses POLARION_PAT_PU when set."),
 )
 @click.option(
     "--page-size",
