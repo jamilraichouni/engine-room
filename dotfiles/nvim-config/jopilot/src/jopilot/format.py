@@ -22,31 +22,34 @@ def prettier(
     if options is None:
         options = {}
     content_lst = vim.current.buffer[:]
-    content_str = "\n".join(content_lst)
-    cmd = [f"{os.getenv('NVM_BIN')}/prettier", "--parser", parser]
-    cfg = pathlib.Path(vim.eval("getcwd()")) / ".prettierrc.toml"
-    if cfg.exists():
-        cmd.extend(["--config", str(cfg)])
-    else:
-        cmd.append("--print-width=79")
-        cmd.append("--tab-width=2")
-    if options:
-        for k, v in options.items():
-            cmd.append(k) if v is None else cmd.append(f"{k}={v}")
-    for plugin in plugins:
-        cmd.extend(["--plugin", str(plugin)])
-    proc_result = subprocess.run(
-        cmd,
-        input=content_str,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
-    if proc_result.returncode == 0:
-        content_lst = proc_result.stdout.splitlines()
-    else:
-        msg = f"{' '.join(cmd)}\n{proc_result.stderr}"
-        raise RuntimeError(msg)
+    try:
+        content_str = "\n".join(content_lst)
+        cmd = [f"{os.getenv('NVM_BIN')}/prettier", "--parser", parser]
+        cfg = pathlib.Path(vim.eval("getcwd()")) / ".prettierrc.toml"
+        if cfg.exists():
+            cmd.extend(["--config", str(cfg)])
+        else:
+            cmd.append("--print-width=79")
+            cmd.append("--tab-width=2")
+        if options:
+            for k, v in options.items():
+                cmd.append(k) if v is None else cmd.append(f"{k}={v}")
+        for plugin in plugins:
+            cmd.extend(["--plugin", str(plugin)])
+        proc_result = subprocess.run(
+            cmd,
+            input=content_str,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if proc_result.returncode == 0:
+            content_lst = proc_result.stdout.splitlines()
+        else:
+            msg = f"{' '.join(cmd)}\n{proc_result.stderr}"
+            raise RuntimeError(msg)
+    except Exception as exp:
+        print(str(exp))
     return content_lst
 
 
