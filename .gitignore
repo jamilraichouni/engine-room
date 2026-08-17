@@ -32,3 +32,5 @@ dotfiles/gnupg/*
 !dotfiles/gnupg/pubring.kbx
 
 uv.lock
+dotfiles/opencode/skills/review-test-artifacts-for-given-requirement-id/references/*
+!dotfiles/opencode/skills/review-test-artifacts-for-given-requirement-id/references/checks.md
