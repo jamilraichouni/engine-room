@@ -49,6 +49,11 @@ For understand downloaded Polarion document, first load this skill:
 
 `skill({ name: "understand-polarion-data" })`
 
+For review of test artifacts of a work item (e.g. requirement), first load this
+skill:
+
+`skill({ name: "review-test-artifacts-for-given-requirement-id" })`
+
 Then follow the skill instructions exactly.
 
 Execution rules:

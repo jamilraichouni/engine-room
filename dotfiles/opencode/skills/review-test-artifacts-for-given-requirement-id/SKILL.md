@@ -1,8 +1,8 @@
 ---
 name: review-test-artifacts-for-given-requirement-id
 description: >-
-  Review C1-C6 test-artifact evidence for exactly one explicitly supplied
-  AR_DKS Polarion requirement ID in the ATO-C RC-1 coverage YAML. Update only
+  Review the runtime-policy test-artifact checks for exactly one explicitly
+  supplied AR_DKS Polarion requirement ID in the ATO-C RC-1 coverage YAML. Update only
   that requirement and its linked test cases. Use only for a request to review
   one explicitly selected AR-<digits> requirement ID.
 compatibility: opencode
@@ -17,7 +17,7 @@ metadata:
 
 ## Runtime Policy
 
-The mutable C1-C6 policy is `references/checks.md`, relative to the absolute
+The mutable check policy is `references/checks.md`, relative to the absolute
 base directory reported when this skill is loaded.
 
 For every invocation, including a rerun in the same conversation / session:
@@ -27,10 +27,11 @@ For every invocation, including a rerun in the same conversation / session:
    earlier tool result, conversation history, or a previous run.
 2. Require exactly one non-empty `Policy revision` and record it. Compute and
    record a SHA-256 digest of the file's exact bytes.
-3. Validate that it defines exactly one section for each ID C1, C2, C3 etc., in
-   that order, with no unknown check sections.
+3. Validate that it defines exactly one section for each contiguous ID starting
+   at C1, in numeric order, with no unknown check sections. Derive the complete
+   check ID list from the policy; do not assume a terminal check ID.
 4. Require exactly one `Stored check name`, `Target`, `Applicability`,
-   `Evidence`, `Evaluation`, `Pass criteria`, and `Comment requirements` field
+   `Evidence`, `Evaluation`, `Pass criteria`, and `Rationale requirements` field
    per check. Allow only the targets and applicability values declared by the
    policy's shared rules.
 5. Require stored names to be globally unique.
@@ -157,15 +158,15 @@ pass and gate rules exactly.
 
 ## Policy-Driven Review
 
-Process C1 through C6 in policy order. For each check:
+Process every check declared by the policy in policy order. For each check:
 
 1. Resolve its exact stored name, target, applicability, evidence, evaluation,
-   pass criteria, and comment requirements from the current
+   pass criteria, and rationale requirements from the current
    `references/checks.md` read.
 2. Gather only the evidence required for that check and shared system context.
 3. Evaluate every selected target object independently unless the policy
    explicitly requires collective evidence.
-4. Produce one Boolean conclusion and a concrete evidence-based comment for
+4. Produce one Boolean conclusion and a concrete evidence-based rationale for
    every applicable target.
 5. Apply each gate only after its prerequisite result is established.
 6. Keep not-applicable gated checks out of YAML and report them separately.
@@ -212,9 +213,9 @@ positional line numbers, or a patch anchor made only from repeated keys such as
 
 Each result entry must contain the policy's exact stored check name, an
 unquoted YAML Boolean literal `pass: true` or `pass: false`, and a non-empty
-evidence-based `comment`. Never write `pass` as a quoted string such as
+evidence-based `rationale`. Never write `pass` as a quoted string such as
 `"true"`, `"false"`, or any other textual representation. Preserve real line
-breaks in Cucumber tests and multiline comments. Never encode them as visible
+breaks in Cucumber tests and multiline rationales. Never encode them as visible
 `\n` or `\r\n` sequences.
 
 Preserve unrelated checks and fields. Replace only one current stored entry.
@@ -249,7 +250,7 @@ After replacement:
    records the failure and its specific limitation.
 6. Confirm every new `pass` value is a native YAML Boolean and is serialized
    literally as the unquoted scalar `true` or `false`, never as a quoted string
-   or another YAML spelling. Confirm every new `comment` is non-empty.
+   or another YAML spelling. Confirm every new `rationale` is non-empty.
 7. Confirm all requirement texts remain HTML-free and all evidence strings,
    literal multiline scalar styles, and line breaks are unchanged. Inspect
    serialized output as well as parsed string values so visible `\n` escapes
@@ -272,15 +273,42 @@ pre-existing work.
 
 ## Output
 
+The report is user-facing output, not internal progress information. When this
+skill is executed by a subagent, its final response is intermediate data for
+the delegating agent. The delegating agent MUST relay the complete report to
+the user in its own final response. It must not replace the report with a
+summary such as "review completed" or only a list of pass/fail outcomes.
+
 Report:
 
 - the runtime policy path, revision, and whether its digest remained stable;
 - the requirement ID and target YAML path;
-- the C1-C6 pass, fail, or not-applicable result per target object;
+- a complete result table with one row for every check and every target object
+  that was evaluated. Do not summarize, combine, or omit checks or target
+  objects. Include the check ID and the policy's complete `Stored check name`
+  verbatim; do not abbreviate or replace it with a category name;
+- the result in every table row: use the green check mark `✅` for
+  `pass: true`, the red error symbol `❌` for `pass: false`, and the literal
+  status `not applicable` for a gated check that was not applicable. Include
+  the complete evidence-based rationale for each row without summarizing it;
 - the local feature and test-plan paths used as evidence;
 - contextual reference sections or PDF pages consulted;
 - YAML and diff validation results; and
 - blocked or ambiguous evidence that prevented a conclusion.
+
+The result table must use one row per target/check pair and contain at least
+these columns, in this order:
+
+| Target object | Check ID | Full stored check name | Result | Evidence-based rationale |
+|---|---|---|---|---|
+| requirement or linked test-case identity | policy check ID | exact `Stored check name` | `✅`, `❌`, or `not applicable` | complete rationale |
+
+List all checks in policy order and list target objects in the order in which
+they were checked. A check with multiple target objects therefore has multiple
+rows. Checks that were not applicable must also be listed in a separate row
+for each target object to which the gate was considered, with the reason
+recorded in the rationale. The table is a reporting view only; stored YAML
+results must continue to use native Boolean `pass` values as specified above.
 
 Do not return complete documents, complete PDFs, full Cucumber suites, raw
 unrelated YAML data, or secrets.
