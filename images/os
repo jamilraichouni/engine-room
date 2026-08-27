@@ -62,6 +62,7 @@ RUN dnf --refresh -y install \
   passwd \
   # `patch` to apply patches to source code (e. g. from git diff)
   patch \
+  pdfinfo \
   # `pinentry` for `gnupg` to work with `pass`
   pinentry \
   pip \
