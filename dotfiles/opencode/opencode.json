@@ -26,6 +26,7 @@
   "default_agent": "plan",
   "instructions": [
     "AGENTS.md",
+     "~/.config/opencode/AGENTS.md"
   ],
   "lsp": {
     "ty": {
