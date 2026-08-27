@@ -20,6 +20,7 @@ dotfiles/kube/cache/
 dotfiles/nvim-config/lazy-lock.json
 dotfiles/nvim-config/node_modules/
 dotfiles/pip/pip.conf
+dotfiles/ssh/known_hosts
 dotfiles/vifm-config/vifminfo*
 dotfiles/zsh_history
 
