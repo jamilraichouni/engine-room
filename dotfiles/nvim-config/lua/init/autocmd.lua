@@ -97,8 +97,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
         end
         vim.opt_local.foldmethod = "expr"
         vim.opt_local.foldexpr =
-            "v:lua.require'init.markdown_folds'.foldexpr()"
-        vim.opt_local.foldlevel = 1
+        "v:lua.require'init.markdown_folds'.foldexpr()"
     end,
 })
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
