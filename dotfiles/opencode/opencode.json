@@ -26,9 +26,6 @@
   "default_agent": "plan",
   "instructions": [
     "AGENTS.md",
-    "CONTRIBUTING.md",
-    "CONTRIBUTING.adoc",
-    "~/.config/opencode/AGENTS.md"
   ],
   "lsp": {
     "ty": {
