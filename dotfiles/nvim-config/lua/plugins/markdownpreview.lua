@@ -11,6 +11,7 @@ return {
         build = "cd app && yarn install",
         config = function()
             vim.g.mkdp_auto_start = 1
+            vim.g.mkdp_auto_close = 0
             -- Next to avoid that the browser in the devcontainer will be started
             vim.g.mkdp_browserfunc = "MarkdownPreviewDummyFunction"
             vim.g.mkdp_echo_preview_url = 1
