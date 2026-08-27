@@ -3,19 +3,15 @@
   "autoupdate": true,
   "agent": {
     "build": {
-      "permission": {
-        "skill": {
-          "*": "allow"
-        }
-      }
+      "permission": "allow"
     },
     "plan": {
       "permission": {
-        "skill": {
-          "*": "allow"
-        }
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
       }
-    }
+    },
   },
   "command": {
     "download-polarion-document": {
@@ -50,19 +46,6 @@
   "disabled_providers": ["genaihub", "openai"],
   "enabled_providers": ["github-copilot", "opencode"],
   "small_model": "github-copilot/claude-haiku-4.5",
-  "permission": {
-    "external_directory": {
-      "/home/nerd/.config/opencode/**": "allow",
-      "/opt/bind/**": "allow",
-      "/opt/nvim/share/nvim/runtime/doc/**": "allow",
-      "/tmp/**": "allow",
-      "~/.config/opencode/**": "allow",
-      "~/.local/share/nvim/lazy/**": "allow",
-    },
-    "skill": {
-      "*": "allow"
-    }
-  },
   "provider": {
     "genaihub": {
       "npm": "file:///home/nerd/engine-room/dotfiles/opencode/ai-sdk-genaihub/dist/index.js",
