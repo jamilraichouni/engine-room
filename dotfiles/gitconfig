@@ -1,10 +1,3 @@
-[includeIf "gitdir:/mnt/volume/dev/dbgitlab/"]
-    path = /mnt/volume/dev/dbgitlab/.gitconfig
-[includeIf "gitdir:/mnt/volume/dev/gitlab/"]
-    path = /mnt/volume/dev/gitlab/.gitconfig
-[includeIf "gitdir:/mnt/volume/dev/github/"]
-    path = /mnt/volume/dev/github/.gitconfig
-# to test with `git config user.email`, one must be in a Git repo directory!
 [alias]
     graph=log --graph --abbrev-commit --no-decorate --author-date-order --no-show-signature --format=tformat:'%C(yellow)%h%C(reset) %C(cyan)%G?%C(reset) %C(white)%s%C(reset)%C(auto)%d%C(reset) %C(dim white)— %aN (%ar)'
     log-dense=log --abbrev-commit --pretty=format:'%C(yellow)%h %C(cyan)%cd %Creset%s (%cn <%ce>)' --date=format:'%Y-%m-%d %H:%M:%S'
@@ -36,9 +29,6 @@
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [difftool]
     prompt = false
-[user]
-	name = Jamil RAICHOUNI
-	email = jamil.raichouni@deutschebahn.com
 [safe]
     directory = /tmp/tmp1oum15qc
     directory = /tmp/
@@ -50,3 +40,19 @@
     required = true
 [log]
     date = local
+[user]
+    name = Jamil RAICHOUNI
+    email = jamil.raichouni@deutschebahn.com
+[includeIf "gitdir:/mnt/volume/dev/dbgitlab/"]
+    path = /mnt/volume/dev/dbgitlab/.gitconfig
+[includeIf "gitdir:/mnt/volume/dev/gitlab/"]
+    path = /mnt/volume/dev/gitlab/.gitconfig
+[includeIf "gitdir:/mnt/volume/dev/github/"]
+    path = /mnt/volume/dev/github/.gitconfig
+[includeIf "gitdir:/home/nerd/dev/dbgitlab/"]
+    path = /home/nerd/dev/dbgitlab/.gitconfig
+[includeIf "gitdir:/home/nerd/dev/gitlab/"]
+    path = /home/nerd/dev/gitlab/.gitconfig
+[includeIf "gitdir:/home/nerd/dev/github/"]
+    path = /home/nerd/dev/github/.gitconfig
+# to test with `git config user.email`, one must be in a Git repo directory!
