@@ -23,6 +23,7 @@ export OPENCODE_CONFIG_DIR="$HOME/.config/opencode"
 export OPENCODE_ENABLE_EXA=1
 export POLARION_PAT_PU="$(cat $HOME/engine-room/secrets/polarion-pu.pat)"
 export POLARION_PAT_TU="$(cat $HOME/engine-room/secrets/polarion-tu.pat)"
+export POLARION_PAT=${POLARION_PAT_PU}
 export PYTHON_COLORS=1
 export SHELL=/bin/zsh
 if [[ "$HOST" == "engine-room-"* ]]; then
