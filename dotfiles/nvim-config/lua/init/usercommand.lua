@@ -75,3 +75,4 @@ vim.api.nvim_create_user_command("JoCheatSheetEdit", "edit ~/engine-room/dotfile
 )
 vim.api.nvim_create_user_command("TSInspect", "Inspect!", { force = true })
 vim.api.nvim_create_user_command("WorkingTimesCompute", "lua vim.g.WorkingTimesCompute()", { force = true })
+vim.api.nvim_create_user_command("DiagnosticsReset", "lua vim.diagnostic.reset(nil, 0)", { force = true })
